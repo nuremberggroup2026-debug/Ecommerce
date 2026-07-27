@@ -9,12 +9,6 @@ export default async function proxy(request: NextRequest) {
   const url = new URL(request.url);
   const pathname = url.pathname;
 
-  if (pathname === "/") {
-    const acceptLanguage = request.headers.get("accept-language");
-    const prefersArabic = acceptLanguage?.toLowerCase().includes("ar");
-    const locale = prefersArabic ? "ar" : "en";
-    return Response.redirect(new URL(`/${locale}`, url));
-  }
 
   const response = handleI18nRouting(request);
 
@@ -24,22 +18,21 @@ export default async function proxy(request: NextRequest) {
   const adminRoutes: string[] = ["/admin"]; // routes that allows admin role or higher
   const superAdminRoutes: string[] = ["/admin/superAdmin"]; // routes that allows super admin role
 
-  const pathnameWithoutLocale = removeLocale(pathname);
 
   const isUserRoute = userRoutes.some((route) =>
-    pathnameWithoutLocale.startsWith(route),
+    pathname.startsWith(route),
   );
 
   const isAuthRoute = authRoute.some((route) =>
-    pathnameWithoutLocale.startsWith(route),
+    pathname.startsWith(route),
   );
 
   const isSuperAdminRoute = superAdminRoutes.some((route) =>
-    pathnameWithoutLocale.startsWith(route),
+    pathname.startsWith(route),
   );
 
   const isAdminRoute = adminRoutes.some((route) =>
-    pathnameWithoutLocale.startsWith(route),
+    pathname.startsWith(route),
   );
 
   if (isAuthRoute && session) {
@@ -64,10 +57,8 @@ export default async function proxy(request: NextRequest) {
   return response;
 }
 
+
 export const config = {
-  matcher: ["/", "/(en|ar)/:path*", "/admin/:path*"],
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };
 
-function removeLocale(pathname: string) {
-  return pathname.replace(/^\/(en|ar)/, "");
-}

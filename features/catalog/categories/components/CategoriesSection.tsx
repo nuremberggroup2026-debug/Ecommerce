@@ -1,31 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
 
-
-
 type Category = {
   slug: string;
   name: string;
   url: string;
 };
 
-export default function CategoriesSection({ categories }: { categories: Category[] }) {
- 
+export default function CategoriesSection({
+  categories,
+}: {
+  categories: Category[];
+}) {
+  console.log("test");
+
   const count = categories.length;
 
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-        
         <header className="mb-10">
-          <h2 className="text-4xl font-semibold tracking-tight">
-            Categories
-          </h2>
+          <h2 className="text-4xl font-semibold tracking-tight">Categories</h2>
         </header>
 
         {/* تم تقليص الارتفاع هنا إلى md:h-[550px] أو md:h-[600px] والاعتماد على صفين ليكون مريحاً بصرياً */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-2 md:gap-6 md:h-[550px]">
-          
           {count === 1 && (
             <div className="md:col-span-4 md:row-span-2">
               <CategoryCard cat={categories[0]} />
@@ -98,7 +97,6 @@ export default function CategoriesSection({ categories }: { categories: Category
               ))}
             </>
           )}
-
         </div>
       </div>
     </section>
