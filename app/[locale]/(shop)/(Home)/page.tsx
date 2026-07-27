@@ -10,7 +10,7 @@ import { StoreFeaturesSection } from "@/components/test/StoreFeaturesSection";
 
 export default async function Home() {
   const categories = await fetchCategories();
-  const products = await (await getFeaturedProducts()).products;
+  const products =  (await getFeaturedProducts()).products;
   console.log(products);
 
   return (
