@@ -1,3 +1,4 @@
+
 "use client"
 
 import {
@@ -15,9 +16,15 @@ import {
 
 import {
   Home,
+  Package,
+  Folder,
+  ShoppingCart,
   Users,
-  Settings,
+  Boxes,
   BarChart,
+  Megaphone,
+  Star,
+  Settings,
 } from "lucide-react"
 
 const items = [
@@ -27,14 +34,49 @@ const items = [
     icon: Home,
   },
   {
-    title: "Users",
-    url: "/dashboard/users",
+    title: "Products",
+    url: "/dashboard/products",
+    icon: Package,
+  },
+  {
+    title: "Categories",
+    url: "/dashboard/categories",
+    icon: Folder,
+  },
+  {
+    title: "Orders",
+    url: "/dashboard/orders",
+    icon: ShoppingCart,
+  },
+  {
+    title: "Customers",
+    url: "/dashboard/customers",
     icon: Users,
+  },
+  {
+    title: "Inventory",
+    url: "/dashboard/inventory",
+    icon: Boxes,
   },
   {
     title: "Analytics",
     url: "/dashboard/analytics",
     icon: BarChart,
+  },
+  {
+    title: "Marketing",
+    url: "/dashboard/marketing",
+    icon: Megaphone,
+  },
+  {
+    title: "Reviews",
+    url: "/dashboard/reviews",
+    icon: Star,
+  },
+  {
+    title: "Users",
+    url: "/dashboard/users",
+    icon: Users,
   },
   {
     title: "Settings",
@@ -83,3 +125,5 @@ export function AppSidebar() {
     </Sidebar>
   )
 }
+
+
