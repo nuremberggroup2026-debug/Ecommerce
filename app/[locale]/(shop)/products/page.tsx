@@ -6,8 +6,10 @@ import CategoryFilterWrapper from "@/features/catalog/filters/CategoryFilter";
 import SecondPaginationComponent from "@/features/catalog/pagination/SecondPaginationComponent";
 import SortFilter from "@/features/catalog/filters/SortFilter";
 import PriceFilter from "@/features/catalog/filters/PriceFilter";
+import { Locale } from "@/types";
 
 export default async function ProductsPage({
+  params,
   searchParams,
 }: {
   searchParams: Promise<{
@@ -18,10 +20,19 @@ export default async function ProductsPage({
     minPrice?: string;
     maxPrice?: string;
   }>;
+  params: Promise<{ locale: Locale }>;
 }) {
-  const params = await searchParams;
+  const { locale } = await params;
+  const searchParamsData = await searchParams;
 
-  const { page = "1", category, search, sort, minPrice, maxPrice } = params;
+  const {
+    page = "1",
+    category,
+    search,
+    sort,
+    minPrice,
+    maxPrice,
+  } = searchParamsData;
 
   const currentPage = Number(page);
   const limit = 12;
@@ -57,16 +68,20 @@ export default async function ProductsPage({
       break;
   }
 
-  const products = await getProducts({
-    category,
-    search,
-    limit,
-    skip,
-    sortBy,
-    order,
-  });
-
-  let premium = applyPremiumPricing(products.products);
+  const [products, categories] = await Promise.all([
+    getProducts({
+      category,
+      search,
+      limit,
+      skip,
+      sortBy,
+      locale,
+      order,
+    }),
+    fetchALLCategories(locale),
+  ]);
+  console.log("products: ", products);
+  let premium = applyPremiumPricing(products);
 
   if (minPrice) {
     premium = premium.filter((product) => product.price >= Number(minPrice));
@@ -75,9 +90,6 @@ export default async function ProductsPage({
   if (maxPrice) {
     premium = premium.filter((product) => product.price <= Number(maxPrice));
   }
-  const totalPages = Math.ceil(products.total / limit);
-
-  const categories = await fetchALLCategories();
 
   return (
     <main className="min-h-screen bg-neutral-50/50 text-black">
@@ -136,8 +148,8 @@ export default async function ProductsPage({
           </div>{" "}
           <SecondPaginationComponent
             currentPage={currentPage}
-            totalPages={totalPages}
-            searchParams={params}
+            totalPages={products.pagination.totalPages}
+            searchParams={searchParamsData}
           />
         </div>
       </section>

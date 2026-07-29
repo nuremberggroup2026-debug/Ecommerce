@@ -6,10 +6,12 @@ export const API = {
       FEATURED_PRODUCTS_BY_LOCALE: "products/featured-products-by-locale",
       ON_DISCOUNT_PRODUCTS_BY_LOCALE: "products/on-discount-products-by-locale",
       ALL_PRODUCTS: "/products",
+      FILTERED_PRODUCTS_BY_LOCALE: "products/filtered-products",
     },
 
     CATEGORIES: {
       FEATURED_CATEGORIES_BY_LOCALE: "categories/featured-categories-by-locale",
+      ALL_CATEGORIES_BY_LOCALE: "categories/categories-by-locale",
     },
 
     USERS: "/users",

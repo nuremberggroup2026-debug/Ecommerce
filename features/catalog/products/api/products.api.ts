@@ -1,7 +1,12 @@
 import { api } from "@/services/api";
 import type { Product } from "../types";
 import { API } from "@/constants";
-import type { GetProductType, Locale, ResponseType } from "@/types";
+import type {
+  GetProductType,
+  Locale,
+  ResponseType,
+  FilteredProductsData,
+} from "@/types";
 
 export type ProductsResponse = {
   products: Product[];
@@ -15,19 +20,20 @@ type ProductsQuery = {
   search?: string;
   limit: number;
   skip: number;
-
+  locale: Locale;
   sortBy?: string;
   order?: "asc" | "desc";
 };
 
 export async function getProducts({
+  locale,
   category,
   search,
   limit,
   skip,
   sortBy,
   order,
-}: ProductsQuery): Promise<ProductsResponse> {
+}: ProductsQuery): Promise<FilteredProductsData> {
   const params = new URLSearchParams({
     limit: limit.toString(),
     skip: skip.toString(),
@@ -36,7 +42,7 @@ export async function getProducts({
   if (sortBy) params.set("sortBy", sortBy);
   if (order) params.set("order", order);
 
-  let url = API.ENDPOINTS.PRODUCTS.ALL_PRODUCTS;
+  let url = API.ENDPOINTS.PRODUCTS.FEATURED_PRODUCTS_BY_LOCALE;
 
   if (search) {
     url += "/search";
@@ -45,7 +51,12 @@ export async function getProducts({
     url += `/category/${encodeURIComponent(category)}`;
   }
 
-  return api.get<ProductsResponse>(`${url}?${params.toString()}`);
+  console.log("params: ", params);
+
+  const result = await api.get<ResponseType<FilteredProductsData>>(
+    `${url}/${locale}?${params.toString()}`,
+  );
+  return result.data;
 }
 
 export async function getProductById(id: string): Promise<Product> {

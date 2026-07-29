@@ -1,24 +1,28 @@
 import React from "react";
-import type { Category } from "@/features/catalog/categoriesList/types/index";
 import Link from "next/link";
+import type { Locale, TransalatedCategories } from "@/types";
 
 export default function CategoriesListComponent({
   categories,
+  locale,
 }: {
-  categories: Category[];
+  categories: TransalatedCategories[];
+  locale: Locale;
 }) {
+  const isAr = locale === "ar";
   return (
     <main className="bg-white text-black">
       {/* Hero */}
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="max-w-3xl">
           <h1 className="text-5xl font-semibold tracking-tight md:text-6xl">
-            Categories
+            {isAr ? "الفئات" : "Categories"}
           </h1>
 
           <p className="mt-6 text-lg leading-relaxed text-neutral-500">
-            Explore our curated collections and discover products designed
-            around your lifestyle.
+            {isAr
+              ? "استكشف مجموعاتنا المختارة واكتشف المنتجات المصممة لتناسب أسلوب حياتك."
+              : "Explore our curated collections and discover products designed around your lifestyle."}
           </p>
         </div>
       </section>

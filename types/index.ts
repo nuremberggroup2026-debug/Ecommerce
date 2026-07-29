@@ -201,6 +201,16 @@ export type GetProductType = {
   }[];
 };
 
+export type FilteredProductsData = {
+  data: GetProductType[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+    itemsPerPage: number;
+  };
+};
+
 export type SortType =
   | "newest"
   | "oldest"

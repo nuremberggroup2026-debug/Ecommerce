@@ -21,10 +21,12 @@ export async function fetchFeaturedCategories(
   return data.data;
 }
 
-export async function fetchALLCategories(): Promise<Category[]> {
-  const data = await api.get<Category[]>(
-    API.ENDPOINTS.PRODUCTS + API.ENDPOINTS.CATEGORIES,
+export async function fetchALLCategories(
+  locale: Locale,
+): Promise<TransalatedCategories[]> {
+  const data = await api.get<ResponseType<TransalatedCategories[]>>(
+    `${API.ENDPOINTS.CATEGORIES.ALL_CATEGORIES_BY_LOCALE}/${locale}`,
   );
 
-  return data;
+  return data.data;
 }
