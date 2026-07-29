@@ -2,10 +2,21 @@ import { Prisma, user_role, order_status } from "@/generated/prisma/client";
 
 export type UserRoles = user_role;
 export type Locale = "ar" | "en";
+export interface ResponseType<T> {
+  messgae: string;
+  success: boolean;
+  data: T;
+}
 
 // Banners Types
 export type NewBanner = Prisma.bannersCreateInput;
 export type UpdateBanner = Prisma.bannersUpdateInput;
+export type BannerData = Prisma.bannersGetPayload<{}>;
+export type TranslatedBanner = {
+  id: string;
+  name: string;
+  image: string;
+};
 
 // Careers types
 export type CareersCreateInput = {
@@ -61,7 +72,15 @@ export type ApplicationGetPayloadWithCareer = Prisma.applicationsGetPayload<{
 // Categories types
 export type CategoriesCreateInput = Prisma.categoriesCreateInput;
 export type CategoriesUpdateInput = Prisma.categoriesUpdateInput;
-
+export type TransalatedCategories = {
+  id: string;
+  image: string;
+  createdAt: Date;
+  slug: string;
+  name: string;
+  description: string;
+  isFeatured: boolean;
+};
 // Attribute types
 export type AttributeCreateInput = Prisma.attributesCreateInput;
 export type AttributeUpdateInput = Prisma.attributesUpdateInput;
@@ -167,7 +186,27 @@ export type ProductFilters = {
   sort?: "newest" | "oldest" | "price_asc" | "price_desc";
 };
 
-export type SortType= "newest" | "oldest" | "price_asc" | "price_desc" | undefined
+export type GetProductType = {
+  id: string;
+  productName: string;
+  productDescription: string;
+  productCardImage: string;
+  slug: string;
+  categoryName: string;
+  variants: {
+    price: number;
+    discountPercentage: number | null;
+    finalPrice: number;
+    stock: number;
+  }[];
+};
+
+export type SortType =
+  | "newest"
+  | "oldest"
+  | "price_asc"
+  | "price_desc"
+  | undefined;
 
 // WishList
 
@@ -205,7 +244,7 @@ export type PlaceOrderCreateInputs = {
   streetAddress: string;
   buildingNumber: number;
   additionalNote?: string;
-  promoCode?:string
+  promoCode?: string;
 };
 
 export type OrderStatus = order_status;

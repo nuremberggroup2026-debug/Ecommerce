@@ -1,11 +1,10 @@
-import React from "react";
-import { Product } from "../types";
-import Link from "next/link";
+
 import ProductCard from "@/features/catalog/products/components/ProductCard";
+import { GetProductType } from "@/types";
 export default function FeaturedProductsComponent({
   products,
 }: {
-  products: Product[];
+  products: GetProductType[];
 }) {
   return (
     <section className="bg-white py-24">

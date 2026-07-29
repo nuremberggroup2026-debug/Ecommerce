@@ -1,29 +1,30 @@
 import { api } from "@/services/api";
 import { API } from "@/constants";
-
-
+import type {
+  TransalatedCategories,
+  ResponseType,
+  Locale,
+} from "@/types/index";
 export type Category = {
   slug: string;
   name: string;
   url: string;
 };
 
-
-
-
-export async function fetchCategories(): Promise<Category[]> {
-  const data = await api.get<Category[]>(
-    API.ENDPOINTS.PRODUCTS + API.ENDPOINTS.CATEGORIES
+export async function fetchFeaturedCategories(
+  locale: Locale,
+): Promise<TransalatedCategories[]> {
+  const data = await api.get<ResponseType<TransalatedCategories[]>>(
+    `${API.ENDPOINTS.CATEGORIES.FEATURED_CATEGORIES_BY_LOCALE}/${locale}`,
   );
 
-  return  data.slice(0,4 );;
+  return data.data;
 }
 
 export async function fetchALLCategories(): Promise<Category[]> {
   const data = await api.get<Category[]>(
-       API.ENDPOINTS.PRODUCTS + API.ENDPOINTS.CATEGORIES
+    API.ENDPOINTS.PRODUCTS + API.ENDPOINTS.CATEGORIES,
   );
 
-  return  data;;
+  return data;
 }
-

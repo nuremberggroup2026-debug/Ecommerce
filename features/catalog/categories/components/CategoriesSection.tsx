@@ -1,18 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
+import { TransalatedCategories } from "@/types";
 
-type Category = {
-  slug: string;
-  name: string;
-  url: string;
-};
+
 
 export default function CategoriesSection({
   categories,
 }: {
-  categories: Category[];
+  categories: TransalatedCategories[];
 }) {
-  console.log("test");
 
   const count = categories.length;
 
@@ -91,7 +87,7 @@ export default function CategoriesSection({
                 <CategoryCard cat={categories[4]} />
               </div>
               {categories.slice(5).map((cat) => (
-                <div key={cat.url} className="md:col-span-1 md:row-span-1">
+                <div key={cat.id} className="md:col-span-1 md:row-span-1">
                   <CategoryCard cat={cat} />
                 </div>
               ))}
@@ -105,10 +101,10 @@ export default function CategoriesSection({
 
 /* ---------------- CARD COMPONENT ---------------- */
 
-function CategoryCard({ cat }: { cat: Category }) {
+function CategoryCard({ cat }: { cat: TransalatedCategories }) {
   return (
     <Link
-      href={cat.url}
+      href={cat.id}
       className="group relative block h-full w-full overflow-hidden rounded-3xl border border-gray-100 shadow-sm transition-all duration-500 hover:shadow-md"
     >
       <Image

@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-
-
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -34,23 +32,26 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "fakestoreapi.com",
       },
-         {
+      {
         protocol: "https",
         hostname: "cdn.dummyjson.com",
       },
+      {
+        protocol: "https",
+        hostname: "nnl7cvlico.ufs.sh",
+      },
+      {
+        protocol: "https",
+        hostname: "example.com",
+      },
 
-    {
-      protocol:"https",
-      hostname:"picsum.photos"
-    }
-
-
-
-      
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
     ],
   },
 };
-
 
 const withNextIntl = createNextIntlPlugin();
 
