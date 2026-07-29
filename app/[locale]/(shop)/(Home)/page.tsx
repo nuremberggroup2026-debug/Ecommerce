@@ -3,19 +3,41 @@ import CategoriesSection from "@/features/catalog/categories/components/Categori
 import PromoBanner from "@/components/test/PromoBanner";
 import ForSaleSection from "@/components/test/ForSaleSection";
 import ProductShowcaseTabs from "@/components/test/ProductShowcaseTabs";
-import { fetchCategories } from "@/features/catalog/categories/api/categories.api";
+import { fetchFeaturedCategories } from "@/features/catalog/categories/api/categories.api";
 import { getFeaturedProducts } from "@/features/catalog/featuredProducts/api/featueredProducts";
 import FeaturedProductsComponent from "@/features/catalog/featuredProducts/components/FeaturedProductsComponent";
 import { StoreFeaturesSection } from "@/components/test/StoreFeaturesSection";
+import { fetchBanners } from "@/features/catalog/banners/api/banners.api";
+import { Locale } from "@/types";
+import {
+  fetchFeaturedProducts,
+  fetchOnDiscountProducts,
+} from "@/features/catalog/products/api/products.api";
 
-export default async function Home() {
-  const categories = await fetchCategories();
-  const products =  (await getFeaturedProducts()).products;
-  console.log(products);
+interface Prop {
+  params: Promise<{ locale: Locale }>;
+}
+export default async function Home({ params }: Prop) {
+  const locale = (await params).locale;
+  const [banners, categories, featuredProducts, onDiscountProducts] =
+    await Promise.all([
+      fetchBanners(locale),
+      fetchFeaturedCategories(locale),
+      fetchFeaturedProducts(locale),
+      fetchOnDiscountProducts(locale),
+    ]);
+  // const products = (await getFeaturedProducts()).products;
+  console.log("categories: ", categories);
+
+  console.log("banners: ", banners);
+
+  console.log("featuredProducts: ", featuredProducts);
+
+  console.log("onDiscountProducts: ", onDiscountProducts);
 
   return (
     <main className="bg-white text-black antialiased">
-      <HeroSection />
+      <HeroSection banners={banners} />
 
       <div className="bg-white">
         <CategoriesSection categories={categories} />
@@ -26,11 +48,11 @@ export default async function Home() {
       </div>
 
       <div className="bg-white">
-        <FeaturedProductsComponent products={products} />
+        <FeaturedProductsComponent products={featuredProducts} />
       </div>
 
       <div className="bg-neutral-50 py-4">
-        <ForSaleSection />
+        <ForSaleSection products={onDiscountProducts} locale={locale} />
       </div>
 
       <PromoBanner />

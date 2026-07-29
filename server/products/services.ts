@@ -17,6 +17,7 @@ import { prisma } from "@/lib/prisma";
 import { generateSlug, hasDuplicateAttributes } from "@/lib/helpers/index";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { Prisma } from "@/generated/prisma/client";
+import { da } from "zod/v4/locales";
 /*
 export const createNewProduct = async (newProduct: ProductCreateInput) => {
   const validation = createProductSchema.safeParse(newProduct);
@@ -769,7 +770,7 @@ const getCachedProductByIdAndLocale = (id: string, locale: Locale) =>
     },
   )();
 
-const getCahcedfilteredProduct = async (
+const getCahcedfilteredProduct = (
   productsFilters: ProductFilters,
   locale: Locale,
 ) => {
@@ -781,7 +782,6 @@ const getCahcedfilteredProduct = async (
 
   return unstable_cache(
     async () => {
-      
       // where Object (prisma)
       const where: Prisma.productsWhereInput = {};
 
@@ -918,6 +918,145 @@ const getCahcedfilteredProduct = async (
   )();
 };
 
+const getCachedFeaturedProductsByLocale = (locale: Locale) =>
+  unstable_cache(
+    async () => {
+      const products = await prisma.products.findMany({
+        where: {
+          isFeatured: true,
+          productVariants: { some: { stock: { gte: 1 } } },
+        },
+        select: {
+          id: true,
+          productNameEn: true,
+          productNameAr: true,
+          productDescriptionEn: true,
+          productDescriptionAr: true,
+          productCardImage: true,
+          slug: true,
+          productVariants: {
+            orderBy: {
+              finalPrice: "asc",
+            },
+            take: 1,
+            select: {
+              finalPrice: true,
+              price: true,
+              discountPercentage: true,
+              stock: true,
+            },
+          },
+          categories: {
+            select: { categoryNameEn: true, categoryNameAr: true },
+          },
+        },
+      });
+
+      const data = products.map((product) => ({
+        id: product.id,
+        productName:
+          locale === "en" ? product.productNameEn : product.productNameAr,
+        productDescription:
+          locale === "en"
+            ? product.productDescriptionEn
+            : product.productDescriptionAr,
+        productCardImage: product.productCardImage,
+        slug: product.slug,
+        categoryName:
+          locale === "en"
+            ? product.categories.categoryNameEn
+            : product.categories.categoryNameAr,
+
+        variants: product.productVariants,
+      }));
+
+      return data;
+    },
+    [`featured-products-by-locale-${locale}`],
+    {
+      tags: ["products"],
+      revalidate: 3600,
+    },
+  )();
+
+const getCachedDisCountProductsByLocale = (locale: Locale) =>
+  unstable_cache(
+    async () => {
+      const productsIDs = await prisma.product_variants.groupBy({
+        by: ["productId"],
+        _max: {
+          discountPercentage: true,
+        },
+        where: {
+          discountPercentage: {
+            gte: 1,
+          },
+        },
+        orderBy: {
+          _max: {
+            discountPercentage: "desc",
+          },
+        },
+        take: 4,
+      });
+
+      const products = await prisma.products.findMany({
+        where: {
+          id: { in: productsIDs.map((pro) => pro.productId) },
+        },
+        select: {
+          id: true,
+          productNameEn: true,
+          productNameAr: true,
+          productDescriptionEn: true,
+          productDescriptionAr: true,
+          productCardImage: true,
+          slug: true,
+          productVariants: {
+            orderBy: {
+              finalPrice: "asc",
+            },
+            take: 1,
+            select: {
+              finalPrice: true,
+              price: true,
+              discountPercentage: true,
+              stock: true,
+            },
+          },
+          categories: {
+            select: { categoryNameEn: true, categoryNameAr: true },
+          },
+        },
+      });
+
+      const data = products.map((product) => ({
+        id: product.id,
+        productName:
+          locale === "en" ? product.productNameEn : product.productNameAr,
+        productDescription:
+          locale === "en"
+            ? product.productDescriptionEn
+            : product.productDescriptionAr,
+        productCardImage: product.productCardImage,
+        slug: product.slug,
+        categoryName:
+          locale === "en"
+            ? product.categories.categoryNameEn
+            : product.categories.categoryNameAr,
+
+        variants: product.productVariants,
+      }));
+
+      return data;
+    },
+    [`discount-products-by-locale-${locale}`],
+    {
+      tags: ["products"],
+      revalidate: 3600,
+    },
+  )();
+
 /* -------------------- Caching Helps --------------------  */
 
 export const getAllProducts = async () => {
@@ -992,3 +1131,24 @@ export const getFilterProducts = async (
   };
 };
 
+export const getFeaturedProductsByLocale = async (locale: Locale) => {
+  const data = await getCachedFeaturedProductsByLocale(locale);
+
+  return {
+    success: true,
+    message: "Featured products retrieved successfully",
+    code: RESPONSE_CODES.OK,
+    data,
+  };
+};
+
+export const getDiscountProductsByLocale = async (locale: Locale) => {
+  const data = await getCachedDisCountProductsByLocale(locale);
+
+  return {
+    success: true,
+    message: "On discount products retrieved successfully",
+    code: RESPONSE_CODES.OK,
+    data,
+  };
+};

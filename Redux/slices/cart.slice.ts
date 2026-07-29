@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Product } from "@/features/catalog/products/types";
+import { GetProductType } from "@/types";
 
 type CartItem = {
-  product: Product;
+  product: GetProductType;
   quantity: number;
 };
 
@@ -14,122 +15,70 @@ const initialState: CartState = {
   items: [],
 };
 
-
 const cartSlice = createSlice({
   name: "cart",
   initialState,
 
   reducers: {
-
     addToCart: (state, action: PayloadAction<CartItem>) => {
-
       const existing = state.items.find(
-        (item) =>
-          item.product.id === action.payload.product.id
+        (item) => item.product.id === action.payload.product.id,
       );
 
-
       if (existing) {
-
         existing.quantity = action.payload.quantity;
-
       } else {
-
         state.items.push(action.payload);
-
       }
-
     },
-
 
     updateQty: (
       state,
       action: PayloadAction<{
         id: string;
         quantity: number;
-      }>
+      }>,
     ) => {
-
       const item = state.items.find(
-        (item) =>
-          String(item.product.id) === action.payload.id
+        (item) => String(item.product.id) === action.payload.id,
       );
-
 
       if (item) {
-
         item.quantity = action.payload.quantity;
-
       }
-
     },
 
-
-    removeFromCart: (
-      state,
-      action: PayloadAction<string>
-    ) => {
-
+    removeFromCart: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(
-        (item) =>
-          String(item.product.id) !== action.payload
+        (item) => String(item.product.id) !== action.payload,
       );
-
     },
 
-
-    increaseQty: (
-      state,
-      action: PayloadAction<string>
-    ) => {
-
+    increaseQty: (state, action: PayloadAction<string>) => {
       const item = state.items.find(
-        (i) =>
-          String(i.product.id) === action.payload
+        (i) => String(i.product.id) === action.payload,
       );
 
-
-      if (
-        item &&
-        item.quantity < item.product.stock
-      ) {
-
+      if (item && item.quantity < item.product.variants.stock) {
         item.quantity += 1;
-
       }
-
     },
 
-
-    decreaseQty: (
-      state,
-      action: PayloadAction<string>
-    ) => {
-
+    decreaseQty: (state, action: PayloadAction<string>) => {
       const item = state.items.find(
-        (i) =>
-          String(i.product.id) === action.payload
+        (i) => String(i.product.id) === action.payload,
       );
-
 
       if (item && item.quantity > 1) {
-
         item.quantity -= 1;
-
       }
-
     },
-
 
     clearCart: (state) => {
-
       state.items = [];
-
     },
-
   },
 });
-
 
 export const {
   addToCart,
@@ -139,6 +88,5 @@ export const {
   decreaseQty,
   clearCart,
 } = cartSlice.actions;
-
 
 export default cartSlice.reducer;
