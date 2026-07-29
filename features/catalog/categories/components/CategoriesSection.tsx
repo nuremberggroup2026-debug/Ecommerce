@@ -23,7 +23,6 @@ export default function CategoriesSection({
           <h2 className="text-4xl font-semibold tracking-tight">Categories</h2>
         </header>
 
-        {/* تم تقليص الارتفاع هنا إلى md:h-[550px] أو md:h-[600px] والاعتماد على صفين ليكون مريحاً بصرياً */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-2 md:gap-6 md:h-[550px]">
           {count === 1 && (
             <div className="md:col-span-4 md:row-span-2">

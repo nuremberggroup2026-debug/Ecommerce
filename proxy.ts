@@ -9,21 +9,18 @@ export default async function proxy(request: NextRequest) {
   const url = new URL(request.url);
   const pathname = url.pathname;
 
-
-  const response = handleI18nRouting(request);
-
   const session = await auth();
-  const authRoute: string[] = ["/login"]; // routes that allows not logged in users
-  const userRoutes: string[] = ["/account"]; // routes that allows user role or higher
-  const adminRoutes: string[] = ["/admin"]; // routes that allows admin role or higher
-  const superAdminRoutes: string[] = ["/admin/superAdmin"]; // routes that allows super admin role
 
+  const authRoute: string[] = ["/login"];
+  const userRoutes: string[] = ["/account"];
+  const adminRoutes: string[] = ["/admin"];
+  const superAdminRoutes: string[] = ["/admin/superAdmin"];
 
-  const isUserRoute = userRoutes.some((route) =>
+  const isAuthRoute = authRoute.some((route) =>
     pathname.startsWith(route),
   );
 
-  const isAuthRoute = authRoute.some((route) =>
+  const isUserRoute = userRoutes.some((route) =>
     pathname.startsWith(route),
   );
 
@@ -35,25 +32,41 @@ export default async function proxy(request: NextRequest) {
     pathname.startsWith(route),
   );
 
+
+  // لا تمرر لوحة التحكم إلى next-intl
+  if (pathname.startsWith("/dashboard")) {
+    if (
+      isSuperAdminRoute &&
+      (!session || session.user?.role !== "super_admin")
+    ) {
+      return NextResponse.redirect(new URL("/not-found", request.url));
+    }
+
+    if (
+      isAdminRoute &&
+      (!session ||
+        (session.user?.role !== "super_admin" &&
+          session.user?.role !== "admin"))
+    ) {
+      return NextResponse.redirect(new URL("/not-found", request.url));
+    }
+
+    return NextResponse.next();
+  }
+
+
   if (isAuthRoute && session) {
     return NextResponse.redirect(new URL("/", request.url));
   }
+
 
   if (isUserRoute && !session) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (isSuperAdminRoute && (!session || session.user?.role !== "super_admin")) {
-    return NextResponse.redirect(new URL("/not-found", request.url));
-  }
 
-  if (
-    isAdminRoute &&
-    (!session ||
-      (session.user?.role !== "super_admin" && session.user?.role !== "admin"))
-  ) {
-    return NextResponse.redirect(new URL("/not-found", request.url));
-  }
+  const response = handleI18nRouting(request);
+
   return response;
 }
 
@@ -61,4 +74,3 @@ export default async function proxy(request: NextRequest) {
 export const config = {
   matcher: ["/((?!api|_next|.*\\..*).*)"],
 };
-
