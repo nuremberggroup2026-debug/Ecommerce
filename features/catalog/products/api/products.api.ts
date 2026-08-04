@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-import { api } from "@/services/api";
-=======
+
+
 import { api } from "@/services/server/api";
 import type { Product } from "../types";
->>>>>>> 826616bcc7588e5ddfc5d1eede48702e1ed30285
 import { API } from "@/constants";
 import type {
   GetProductType,
@@ -37,13 +35,11 @@ export async function getProducts({
   });
 
   if (sort) params.set("sort", sort);
-  let url = `${API.ENDPOINTS.PRODUCTS.FILTERED_PRODUCTS_BY_LOCALE}/${locale}?`;
+  const url = `${API.ENDPOINTS.PRODUCTS.FILTERED_PRODUCTS_BY_LOCALE}/${locale}?`;
 
-<<<<<<< HEAD
-  if (minPrice) params.set("minPrice", minPrice);
-=======
-  let url = API.ENDPOINTS.PRODUCTS.FILTERED_PRODUCTS_BY_LOCALE;
->>>>>>> 826616bcc7588e5ddfc5d1eede48702e1ed30285
+
+
+
 
   if (maxPrice) params.set("maxPrice", maxPrice);
 

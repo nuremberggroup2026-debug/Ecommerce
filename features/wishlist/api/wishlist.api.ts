@@ -1,11 +1,11 @@
 import { API } from "@/constants";
 import { PostResponseType } from "@/features/cart/types";
-import { api } from "@/services/api";
+import { Clientapi } from "@/services/client/api";
 
 export async function addItemToWishlist(
   productId: string,
 ): Promise<PostResponseType> {
-  const data = await api.post<PostResponseType, { productId: string }>(
+  const data = await Clientapi.post<PostResponseType, { productId: string }>(
     `${API.ENDPOINTS.WISHLIST.ADD_NEW_ITEM}`,
     {
       productId,
@@ -20,7 +20,7 @@ export async function addItemToWishlist(
 export async function removeItemFromWishlist(
   itemId: string,
 ): Promise<PostResponseType> {
-  const data = await api.delete<PostResponseType>(
+  const data = await Clientapi.delete<PostResponseType>(
     `${API.ENDPOINTS.WISHLIST.REMOVE_ITEM}/${itemId}`,
   );
 

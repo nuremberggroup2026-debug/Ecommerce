@@ -77,7 +77,7 @@ export default function ProductInfo({
       {product.productData.productVariants.length > 1 && (
         <div className="space-y-3">
           <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-800 block">
-            {t("Produc.options")}
+            {t("Product.options")}
           </label>{" "}
           <div className="flex flex-wrap gap-2">
             {product.productData.productVariants.map((variant) => {
