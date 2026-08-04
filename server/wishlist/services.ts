@@ -5,9 +5,24 @@ import { revalidateTag, unstable_cache } from "next/cache";
 import { addWishlistItemSchema } from "./validations";
 
 export const addWishlistItem = async (newWishlistItem: WishlistCreateInput) => {
+  console.log("newWishlistItem: ", newWishlistItem);
+
   const validation = addWishlistItemSchema.safeParse(newWishlistItem);
 
   if (validation.success) {
+    console.log("validation data: ", validation.data);
+
+    const isProductExisted = await prisma.products.findUnique({
+      where: { id: validation.data.productId },
+    });
+
+    if (!isProductExisted)
+      return {
+        success: false,
+        message: "PRODUCT_NOT_FOUND",
+        code: RESPONSE_CODES.CONFLICT,
+      };
+
     const isExisted = await prisma.wishlist.findFirst({
       where: {
         productId: validation.data.productId,
@@ -15,10 +30,12 @@ export const addWishlistItem = async (newWishlistItem: WishlistCreateInput) => {
       },
     });
 
+    console.log("isExisted: ", isExisted);
+
     if (isExisted)
       return {
         success: false,
-        message: "Product already exists in wishlist",
+        message: "PRODUCT_ALREADY_EXISTS_IN_WISHLIST",
         code: RESPONSE_CODES.CONFLICT,
       };
 
@@ -26,40 +43,47 @@ export const addWishlistItem = async (newWishlistItem: WishlistCreateInput) => {
       data: validation.data,
     });
 
-    revalidateTag("wishlist", "max");
+    revalidateTag("wishlist", { expire: 0 });
+    
+
     return {
       success: true,
-      message: "Item added successfully",
+      message: "ITEM_ADDED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
 
-export const deleteWishlistItem = async (itemId: string) => {
-  const isExisted = await prisma.wishlist.findUnique({
-    where: { id: itemId },
+export const deleteWishlistItem = async (productId: string, userId: string) => {
+  console.log("productId: ", productId, " userid: ", userId);
+
+  const isExisted = await prisma.wishlist.findFirst({
+    where: { productId, userId },
   });
 
   if (!isExisted)
     return {
       success: false,
-      message: "Item not found",
+      message: "ITEM_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   await prisma.wishlist.delete({
-    where: { id: itemId },
+    where: { id: isExisted.id },
   });
+
+  revalidateTag("wishlist", { expire: 0 });
+  
 
   return {
     success: true,
-    message: "Item deleted successfully",
+    message: "ITEM_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -145,7 +169,7 @@ export const getAllWishlistItemsByUserIdAndLocale = async (
   if (!user)
     return {
       success: false,
-      message: "User not found",
+      message: "USER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
       data: null,
     };
@@ -154,7 +178,7 @@ export const getAllWishlistItemsByUserIdAndLocale = async (
 
   return {
     success: true,
-    message: "All wishlist items ",
+    message: "WISHLIST_ITEMS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: result,
   };

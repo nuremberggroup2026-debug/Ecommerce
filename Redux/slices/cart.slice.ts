@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "@/features/catalog/products/types";
-import { GetProductType } from "@/types";
+import { ProductByLocale } from "@/features/catalog/products/types";
 
 type CartItem = {
-  product: GetProductType;
+  variantId: string;
   quantity: number;
 };
 
@@ -22,7 +21,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
       const existing = state.items.find(
-        (item) => item.product.id === action.payload.product.id,
+        (item) => item.variantId === action.payload.variantId,
       );
 
       if (existing) {
@@ -35,12 +34,12 @@ const cartSlice = createSlice({
     updateQty: (
       state,
       action: PayloadAction<{
-        id: string;
+        variantId: string;
         quantity: number;
       }>,
     ) => {
       const item = state.items.find(
-        (item) => String(item.product.id) === action.payload.id,
+        (item) => String(item.variantId) === action.payload.variantId,
       );
 
       if (item) {
@@ -50,23 +49,23 @@ const cartSlice = createSlice({
 
     removeFromCart: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(
-        (item) => String(item.product.id) !== action.payload,
+        (item) => String(item.variantId) !== action.payload,
       );
     },
 
     increaseQty: (state, action: PayloadAction<string>) => {
       const item = state.items.find(
-        (i) => String(i.product.id) === action.payload,
+        (i) => String(i.variantId) === action.payload,
       );
 
-      if (item && item.quantity < item.product.variants.stock) {
+      if (item && item.quantity < item.product.productVariants[0].stock) {
         item.quantity += 1;
       }
     },
 
     decreaseQty: (state, action: PayloadAction<string>) => {
       const item = state.items.find(
-        (i) => String(i.product.id) === action.payload,
+        (i) => String(i.variantId) === action.payload,
       );
 
       if (item && item.quantity > 1) {

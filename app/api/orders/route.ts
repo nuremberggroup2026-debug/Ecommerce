@@ -17,7 +17,7 @@ export const POST = withAuth([], async (request: Request, { user }) => {
   } catch (error) {
     console.log("error: ", error);
     return NextResponse.json(
-      { success: false, message: "Internal server error" },
+      { success: false, message: "INTERNAL_SERVER_ERROR" },
       { status: 500 },
     );
   }

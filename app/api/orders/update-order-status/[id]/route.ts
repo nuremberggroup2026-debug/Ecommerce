@@ -1,18 +1,16 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { updateOrderStatus } from "@/server/orders/services";
-import { OrderStatus,UpdateOrderStatusRequest } from "@/types";
+import { OrderStatus, UpdateOrderStatusRequest } from "@/types";
 import { NextResponse } from "next/server";
-
-
 
 export const PUT = withAuth(
   ["super_admin", "admin"],
   async (request: Request, { params }) => {
     try {
-      const {id} = await params;
+      const { id } = await params;
       console.log("id: ", id);
-      
+
       const body = (await request.json()) as UpdateOrderStatusRequest;
 
       if (!id || !body.status)
@@ -37,7 +35,7 @@ export const PUT = withAuth(
     } catch (error) {
       console.error("Update order status error:", error);
       return NextResponse.json(
-        { success: false, message: "Internal server error" },
+        { success: false, message: "INTERNAL_SERVER_ERROR" },
         { status: HTTP_STATUS_MAP.INTERNAL_ERROR },
       );
     }

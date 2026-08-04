@@ -31,27 +31,13 @@ export default function SortFilter() {
       onChange={handleChange}
       className="bg-transparent font-medium text-black focus:outline-none"
     >
-      <option value="">Featured</option>
+      <option value="price_asc">Price: Low to High</option>
 
-      <option value="price-asc">
-        Price: Low to High
-      </option>
+      <option value="price_desc">Price: High to Low</option>
 
-      <option value="price-desc">
-        Price: High to Low
-      </option>
+      <option value="newest">Newest</option>
 
-      <option value="rating-desc">
-        Rating
-      </option>
-
-      <option value="title-asc">
-        Name A-Z
-      </option>
-
-      <option value="title-desc">
-        Name Z-A
-      </option>
+      <option value="oldest">Oldest</option>
     </select>
   );
 }

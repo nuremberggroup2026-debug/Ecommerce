@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth/auth";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { getProductByIdAndLocale } from "@/server/products/services";
 import { Locale } from "@/types";
@@ -19,9 +20,9 @@ export const GET = async (
         },
         { status: 400 },
       );
-
+    const userId = (await auth())?.user?.id;
     const { locale } = await params;
-    const result = await getProductByIdAndLocale(locale, id);
+    const result = await getProductByIdAndLocale(locale, id, userId);
     const status = HTTP_STATUS_MAP[result.code] || 500;
 
     return NextResponse.json(
@@ -32,12 +33,14 @@ export const GET = async (
       },
       { status },
     );
-  } catch {
+  } catch (error) {
+    console.log("error :", error);
+
     return NextResponse.json(
       {
         success: false,
         data: null,
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
       },
       { status: 500 },
     );

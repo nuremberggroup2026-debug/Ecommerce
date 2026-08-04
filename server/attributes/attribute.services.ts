@@ -17,7 +17,7 @@ export const createAttribute = async (newAttribute: AttributeCreateInput) => {
     if (existingAttribute)
       return {
         success: false,
-        message: "Attribute already exists",
+        message: "ATTRIBUTE_ALREADY_EXISTS",
         code: RESPONSE_CODES.CONFLICT,
       };
 
@@ -28,14 +28,14 @@ export const createAttribute = async (newAttribute: AttributeCreateInput) => {
     revalidateTag("attributes", "max");
     return {
       success: true,
-      message: "Attribute added successfully",
+      message: "ATTRIBUTE_ADDED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -47,7 +47,7 @@ export const updateAttribute = async (
   if (!id)
     return {
       success: false,
-      message: "Attribute id is required",
+      message: "ATTRIBUTE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -61,7 +61,7 @@ export const updateAttribute = async (
     if (!existingAttribute)
       return {
         success: false,
-        message: "Attribute not found",
+        message: "ATTRIBUTE_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
       };
 
@@ -73,14 +73,14 @@ export const updateAttribute = async (
     revalidateTag("attribute", "max");
     return {
       success: true,
-      message: "Attribute updated successfully",
+      message: "ATTRIBUTE_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -89,7 +89,7 @@ export const deleteAttribute = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Attribute id is required",
+      message: "ATTRIBUTE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -100,7 +100,7 @@ export const deleteAttribute = async (id: string) => {
   if (!existingAttribute)
     return {
       success: false,
-      message: "Attribute not found",
+      message: "ATTRIBUTE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -111,7 +111,7 @@ export const deleteAttribute = async (id: string) => {
   revalidateTag("attribute", "max");
   return {
     success: true,
-    message: "Attribute deleted successfully",
+    message: "ATTRIBUTE_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -224,7 +224,7 @@ export const getAllAttributes = async () => {
 
   return {
     success: true,
-    message: "Attributes retrieved successfully",
+    message: "ATTRIBUTES_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attributes,
   };
@@ -234,7 +234,7 @@ export const getAttributeById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Attribute id is required",
+      message: "ATTRIBUTE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -243,13 +243,13 @@ export const getAttributeById = async (id: string) => {
   if (!attribute)
     return {
       success: false,
-      message: "Attribute not found",
+      message: "ATTRIBUTE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Attribute retrieved successfully",
+    message: "ATTRIBUTE_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attribute,
   };
@@ -260,7 +260,7 @@ export const getAttributesByLocale = async (locale: Locale) => {
 
   return {
     success: true,
-    message: "Attributes retrieved successfully",
+    message: "ATTRIBUTES_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attributes,
   };
@@ -270,7 +270,7 @@ export const getAttributeByIdAndLocale = async (id: string, locale: Locale) => {
   if (!id)
     return {
       success: false,
-      message: "Attribute id is required",
+      message: "ATTRIBUTE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -279,13 +279,13 @@ export const getAttributeByIdAndLocale = async (id: string, locale: Locale) => {
   if (!attribute)
     return {
       success: false,
-      message: "Attribute not found",
+      message: "ATTRIBUTE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Attribute retrieved successfully",
+    message: "ATTRIBUTE_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attribute,
   };

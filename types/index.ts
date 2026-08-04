@@ -177,13 +177,10 @@ export type ProductUpdateInput = Partial<ProductCreateInput>;
 export type ProductFilters = {
   page?: number;
   search?: string;
-
   categories?: string[];
-
   minPrice?: number;
   maxPrice?: number;
-
-  sort?: "newest" | "oldest" | "price_asc" | "price_desc";
+  sort?: SortType;
 };
 
 export type GetProductType = {
@@ -223,6 +220,10 @@ export type SortType =
 export type WishlistCreateInput = {
   productId: string;
   userId: string;
+};
+
+export type WishlistBodyType = {
+  productId: string;
 };
 
 // Cart items

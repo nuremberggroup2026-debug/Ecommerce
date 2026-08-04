@@ -7,6 +7,7 @@ export const API = {
       ON_DISCOUNT_PRODUCTS_BY_LOCALE: "products/on-discount-products-by-locale",
       ALL_PRODUCTS: "/products",
       FILTERED_PRODUCTS_BY_LOCALE: "products/filtered-products",
+      PRODUCT_BY_ID_AND_LOCALE: "products/product-by-id-and-locale",
     },
 
     CATEGORIES: {
@@ -20,6 +21,14 @@ export const API = {
     BANNERS: {
       ALL_BANNERS: "/banners",
       ALL_BANNERS_BY_LOCALE: "banners/all-banners-by-locale",
+    },
+
+    CART_ITEMS: {
+      ADD_NEW_ITEM: "cart-items",
+    },
+    WISHLIST: {
+      ADD_NEW_ITEM: "wishlist",
+      REMOVE_ITEM: "wishlist",
     },
   },
 };

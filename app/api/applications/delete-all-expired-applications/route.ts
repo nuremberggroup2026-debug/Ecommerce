@@ -20,7 +20,7 @@ export const DELETE = withAuth(["super_admin"], async () => {
     return NextResponse.json(
       {
         success: false,
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
       },
       { status: 500 },
     );

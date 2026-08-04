@@ -16,7 +16,7 @@ export async function fetchFeaturedCategories(
 ): Promise<TransalatedCategories[]> {
   const data = await api.get<ResponseType<TransalatedCategories[]>>(
     `${API.ENDPOINTS.CATEGORIES.FEATURED_CATEGORIES_BY_LOCALE}/${locale}`,
-  );
+  );  
 
   return data.data;
 }

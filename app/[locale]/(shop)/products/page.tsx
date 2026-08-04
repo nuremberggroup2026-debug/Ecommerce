@@ -6,7 +6,7 @@ import CategoryFilterWrapper from "@/features/catalog/filters/CategoryFilter";
 import SecondPaginationComponent from "@/features/catalog/pagination/SecondPaginationComponent";
 import SortFilter from "@/features/catalog/filters/SortFilter";
 import PriceFilter from "@/features/catalog/filters/PriceFilter";
-import { Locale } from "@/types";
+import { Locale, SortType } from "@/types";
 
 export default async function ProductsPage({
   params,
@@ -14,9 +14,9 @@ export default async function ProductsPage({
 }: {
   searchParams: Promise<{
     page?: string;
-    category?: string;
+    categories?: string;
     search?: string;
-    sort?: string;
+    sort?: SortType;
     minPrice?: string;
     maxPrice?: string;
   }>;
@@ -27,60 +27,25 @@ export default async function ProductsPage({
 
   const {
     page = "1",
-    category,
+    categories,
     search,
     sort,
     minPrice,
     maxPrice,
   } = searchParamsData;
 
-  const currentPage = Number(page);
-  const limit = 12;
-  const skip = (currentPage - 1) * limit;
-
-  let sortBy: string | undefined;
-  let order: "asc" | "desc" | undefined;
-
-  switch (sort) {
-    case "price-asc":
-      sortBy = "price";
-      order = "asc";
-      break;
-
-    case "price-desc":
-      sortBy = "price";
-      order = "desc";
-      break;
-
-    case "rating-desc":
-      sortBy = "rating";
-      order = "desc";
-      break;
-
-    case "title-asc":
-      sortBy = "title";
-      order = "asc";
-      break;
-
-    case "title-desc":
-      sortBy = "title";
-      order = "desc";
-      break;
-  }
-
-  const [products, categories] = await Promise.all([
+  const [products, categoriesData] = await Promise.all([
     getProducts({
-      category,
+      categories,
       search,
-      limit,
-      skip,
-      sortBy,
+      page,
+      sort,
       locale,
-      order,
+      minPrice,
+      maxPrice,
     }),
     fetchALLCategories(locale),
   ]);
-  console.log("products: ", products);
   let premium = applyPremiumPricing(products);
 
   if (minPrice) {
@@ -135,7 +100,7 @@ export default async function ProductsPage({
             </form>
           </div>
 
-          <CategoryFilterWrapper categories={categories} />
+          <CategoryFilterWrapper categoriesData={categoriesData} />
 
           <PriceFilter />
         </aside>
@@ -147,7 +112,7 @@ export default async function ProductsPage({
             ))}
           </div>{" "}
           <SecondPaginationComponent
-            currentPage={currentPage}
+            currentPage={Number(page)}
             totalPages={products.pagination.totalPages}
             searchParams={searchParamsData}
           />

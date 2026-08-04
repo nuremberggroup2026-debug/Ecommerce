@@ -28,7 +28,7 @@ export const GET = withAuth(["admin", "super_admin"], async (request) => {
 
     return NextResponse.json(
       {
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
         success: false,
         data: null,
       },

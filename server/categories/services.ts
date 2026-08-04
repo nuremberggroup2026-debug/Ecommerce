@@ -18,7 +18,7 @@ export const addNewCategory = async (newCategory: CategoriesCreateInput) => {
     if (existingCategory)
       return {
         success: false,
-        message: "Category already exists",
+        message: "CATEGORY_ALREADY_EXISTS",
         code: RESPONSE_CODES.CONFLICT,
       };
 
@@ -32,7 +32,7 @@ export const addNewCategory = async (newCategory: CategoriesCreateInput) => {
       if (featuredCategoriesCount >= 5)
         return {
           success: false,
-          message: "Maximum featured category is 5",
+          message: "MAXIMUM_FEATURED_CATEGORY_REACHED",
           code: RESPONSE_CODES.CONFLICT,
         };
     }
@@ -50,14 +50,14 @@ export const addNewCategory = async (newCategory: CategoriesCreateInput) => {
 
     return {
       success: true,
-      message: "Category added successfully",
+      message: "CATEGORY_ADDED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -69,7 +69,7 @@ export const updateCategory = async (
   if (!id)
     return {
       success: false,
-      message: "Category id is required",
+      message: "CATEGORY_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -83,7 +83,7 @@ export const updateCategory = async (
     if (!existingCategory)
       return {
         success: false,
-        message: "Category not found",
+        message: "CATEGORY_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
       };
 
@@ -98,11 +98,13 @@ export const updateCategory = async (
           },
         },
       });
+
       slug = generateSlug(validation.data.categoryNameEn);
+
       if (categoryWithSameName)
         return {
           success: false,
-          message: "Category already exists",
+          message: "CATEGORY_ALREADY_EXISTS",
           code: RESPONSE_CODES.CONFLICT,
         };
 
@@ -122,7 +124,7 @@ export const updateCategory = async (
       if (featuredCategoriesCount >= 5)
         return {
           success: false,
-          message: "Maximum featured category is 5",
+          message: "MAXIMUM_FEATURED_CATEGORY_REACHED",
           code: RESPONSE_CODES.CONFLICT,
         };
     }
@@ -139,14 +141,14 @@ export const updateCategory = async (
 
     return {
       success: true,
-      message: "Category updated successfully",
+      message: "CATEGORY_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -155,7 +157,7 @@ export const deleteCategory = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Category id is required",
+      message: "CATEGORY_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -166,7 +168,7 @@ export const deleteCategory = async (id: string) => {
   if (!existingCategory)
     return {
       success: false,
-      message: "Category not found",
+      message: "CATEGORY_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -178,7 +180,7 @@ export const deleteCategory = async (id: string) => {
 
   return {
     success: true,
-    message: "Category deleted successfully",
+    message: "CATEGORY_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -227,6 +229,7 @@ const getCachedCategoriesByLocale = (locale: Locale) =>
         image: category.image,
         isFeatured: category.isFeatured,
         createdAt: category.createdAt,
+        slug: category.slug,
       }));
     },
     [`categories-locale-${locale}`],
@@ -301,7 +304,7 @@ export const getAllCategories = async () => {
 
   return {
     success: true,
-    message: "Categories retrieved successfully",
+    message: "CATEGORIES_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     categories,
   };
@@ -311,7 +314,7 @@ export const getCategoryById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Category id is required",
+      message: "CATEGORY_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -320,13 +323,13 @@ export const getCategoryById = async (id: string) => {
   if (!category)
     return {
       success: false,
-      message: "Category not found",
+      message: "CATEGORY_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Category retrieved successfully",
+    message: "CATEGORY_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     category,
   };
@@ -337,7 +340,7 @@ export const getAllCategoriesByLocale = async (locale: Locale) => {
 
   return {
     success: true,
-    message: "Categories retrieved successfully",
+    message: "CATEGORIES_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     categories,
   };
@@ -347,7 +350,7 @@ export const getCategoryByIdAndLocale = async (id: string, locale: Locale) => {
   if (!id)
     return {
       success: false,
-      message: "Category id is required",
+      message: "CATEGORY_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -356,13 +359,13 @@ export const getCategoryByIdAndLocale = async (id: string, locale: Locale) => {
   if (!category)
     return {
       success: false,
-      message: "Category not found",
+      message: "CATEGORY_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Category retrieved successfully",
+    message: "CATEGORY_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     category,
   };
@@ -373,7 +376,7 @@ export const getFeaturedCategoryByLocale = async (locale: Locale) => {
 
   return {
     success: true,
-    message: "Featured categories retrieved successfully",
+    message: "FEATURED_CATEGORIES_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     categories,
   };

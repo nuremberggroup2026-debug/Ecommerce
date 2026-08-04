@@ -13,7 +13,7 @@ export const GET = withAuth(["super_admin"], async () => {
     );
   } catch (error) {}
   return NextResponse.json(
-    { success: false, message: "Internal server error", data: null },
+    { success: false, message: "INTERNAL_SERVER_ERROR", data: null },
     { status: 500 },
   );
 });

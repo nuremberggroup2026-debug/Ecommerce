@@ -21,14 +21,14 @@ export const addNewApplication = async (
 
     return {
       success: true,
-      message: "Your application was submitted successfully",
+      message: "APPLICATION_SUBMITTED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -37,7 +37,7 @@ export const deleteApplication = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Application id is required",
+      message: "APPLICATION_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -52,7 +52,7 @@ export const deleteApplication = async (id: string) => {
   if (!existingApplication)
     return {
       success: false,
-      message: "Application not found",
+      message: "APPLICATION_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -70,7 +70,7 @@ export const deleteApplication = async (id: string) => {
 
   return {
     success: true,
-    message: "Application deleted successfully",
+    message: "APPLICATION_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -252,7 +252,7 @@ export const getAllApplications = async () => {
 
   return {
     success: true,
-    message: "Applications retrieved successfully",
+    message: "APPLICATIONS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     applications,
   };
@@ -262,7 +262,7 @@ export const getApplicationsByCareerId = async (careerId: string) => {
   if (!careerId)
     return {
       success: false,
-      message: "Career id is required",
+      message: "CAREER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -270,7 +270,7 @@ export const getApplicationsByCareerId = async (careerId: string) => {
 
   return {
     success: true,
-    message: "Applications retrieved successfully",
+    message: "APPLICATIONS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     applications,
   };
@@ -280,7 +280,7 @@ export const getApplicationsByApplicationId = async (applicationId: string) => {
   if (!applicationId)
     return {
       success: false,
-      message: "Application id is required",
+      message: "APPLICATION_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -289,13 +289,13 @@ export const getApplicationsByApplicationId = async (applicationId: string) => {
   if (!application)
     return {
       success: false,
-      message: "Application not found",
+      message: "APPLICATION_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Application retrieved successfully",
+    message: "APPLICATION_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     application,
   };
@@ -309,7 +309,7 @@ export const getFilteredApplications = async (
     if (!careerId)
       return {
         success: false,
-        message: "Career id is required",
+        message: "CAREER_ID_REQUIRED",
         code: RESPONSE_CODES.BAD_REQUEST,
         applications: [],
         pagination: null,
@@ -321,7 +321,7 @@ export const getFilteredApplications = async (
 
     return {
       success: true,
-      message: "Filtered applications retrieved successfully",
+      message: "FILTERED_APPLICATIONS_RETRIEVED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
 
       applications: result.applications,
@@ -338,7 +338,7 @@ export const getFilteredApplications = async (
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
       applications: [],
       pagination: null,
@@ -350,7 +350,7 @@ export const getApplicationsWithCareerById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Application id is required",
+      message: "APPLICATION_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -359,13 +359,13 @@ export const getApplicationsWithCareerById = async (id: string) => {
   if (!application)
     return {
       success: false,
-      message: "Application not found",
+      message: "APPLICATION_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Application retrieved successfully",
+    message: "APPLICATION_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     application,
   };
@@ -375,7 +375,7 @@ export const markApplicationAsShown = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Application id is required",
+      message: "APPLICATION_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -386,7 +386,7 @@ export const markApplicationAsShown = async (id: string) => {
   if (!existingApplication)
     return {
       success: false,
-      message: "Application not found",
+      message: "APPLICATION_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -398,9 +398,10 @@ export const markApplicationAsShown = async (id: string) => {
   });
 
   revalidateTag("applications", "max");
+
   return {
     success: true,
-    message: "Application marked as shown successfully",
+    message: "APPLICATION_MARKED_AS_SHOWN_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };

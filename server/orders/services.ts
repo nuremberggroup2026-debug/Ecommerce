@@ -14,14 +14,14 @@ export const placeAnOrder = async (
     if (!validation.success)
       return {
         success: false,
-        message: "Validation error",
+        message: "VALIDATION_ERROR",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
 
     if (!userId)
       return {
         success: false,
-        message: "User ID required",
+        message: "USER_ID_REQUIRED",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
 
@@ -43,10 +43,12 @@ export const placeAnOrder = async (
         },
       });
 
-      if (!cart) throw new Error("Cart not found");
-      if (cart.cartItems.length === 0) throw new Error("Cart is empty");
+      if (!cart) throw new Error("CART_NOT_FOUND");
+      if (cart.cartItems.length === 0) throw new Error("CART_EMPTY");
+
       let cartTotalAmount = cart.totalAmount;
       let appliedPromoCodeId: string | null = null;
+
       if (validation.data.promoCode) {
         const existedPromoCode = await tx.promo_codes.findUnique({
           where: { code: validation.data.promoCode.trim().toUpperCase() },
@@ -59,12 +61,13 @@ export const placeAnOrder = async (
           (existedPromoCode.expiresAt &&
             existedPromoCode.expiresAt < new Date())
         )
-          throw new Error("Invalid Promo Code");
+          throw new Error("INVALID_PROMO_CODE");
 
         const usedByUser = await tx.user_promo_codes.findFirst({
           where: { promoCodeId: existedPromoCode.id, userId },
         });
-        if (usedByUser) throw new Error("Promo Code already used by this user");
+
+        if (usedByUser) throw new Error("PROMO_CODE_ALREADY_USED");
 
         const discount = cartTotalAmount
           .mul(existedPromoCode.discountPercentage)
@@ -85,9 +88,10 @@ export const placeAnOrder = async (
       for (const cartItem of cart.cartItems) {
         const productVariant = variantsMap.get(cartItem.variantId);
 
-        if (!productVariant) throw new Error("Product variant not found");
+        if (!productVariant) throw new Error("PRODUCT_VARIANT_NOT_FOUND");
+
         if (cartItem.quantity > productVariant.stock)
-          throw new Error("Quantity exceeds available stock");
+          throw new Error("QUANTITY_EXCEEDS_AVAILABLE_STOCK");
 
         await tx.product_variants.update({
           where: { id: cartItem.variantId },
@@ -98,6 +102,7 @@ export const placeAnOrder = async (
       }
 
       const { promoCode, ...orderValidatedData } = validation.data;
+
       const order = await tx.orders.create({
         data: {
           ...orderValidatedData,
@@ -108,16 +113,14 @@ export const placeAnOrder = async (
         },
       });
 
-      const arrayOfOrderItems = cart.cartItems.map((item) => {
-        return {
-          variantId: item.variantId,
-          itemPrice: item.itemPrice,
-          quantity: item.quantity,
-          productNameEn: item.productVariants.products.productNameEn,
-          productNameAr: item.productVariants.products.productNameAr,
-          orderId: order.id,
-        };
-      });
+      const arrayOfOrderItems = cart.cartItems.map((item) => ({
+        variantId: item.variantId,
+        itemPrice: item.itemPrice,
+        quantity: item.quantity,
+        productNameEn: item.productVariants.products.productNameEn,
+        productNameAr: item.productVariants.products.productNameAr,
+        orderId: order.id,
+      }));
 
       await tx.order_items.createMany({
         data: arrayOfOrderItems,
@@ -150,32 +153,34 @@ export const placeAnOrder = async (
       });
 
       revalidateTag("orders", "max");
+
       return {
         success: true,
-        message: "Order placed successfully",
+        message: "ORDER_PLACED_SUCCESSFULLY",
         code: RESPONSE_CODES.CREATED,
       };
     });
   } catch (error) {
     if (error instanceof Error) {
       switch (error.message) {
-        case "Cart not found":
-        case "Product variant not found":
+        case "CART_NOT_FOUND":
+        case "PRODUCT_VARIANT_NOT_FOUND":
           return {
             success: false,
             message: error.message,
             code: RESPONSE_CODES.NOT_FOUND,
           };
 
-        case "Invalid Promo Code":
-        case "Quantity exceeds available stock":
+        case "INVALID_PROMO_CODE":
+        case "PROMO_CODE_ALREADY_USED":
+        case "QUANTITY_EXCEEDS_AVAILABLE_STOCK":
           return {
             success: false,
             message: error.message,
             code: RESPONSE_CODES.BAD_REQUEST,
           };
 
-        case "Cart is empty":
+        case "CART_EMPTY":
           return {
             success: false,
             message: error.message,
@@ -186,7 +191,7 @@ export const placeAnOrder = async (
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
     };
   }
@@ -209,7 +214,7 @@ export const updateOrderStatus = async (
   if (!order)
     return {
       success: false,
-      message: "Order not found",
+      message: "ORDER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -228,7 +233,7 @@ export const updateOrderStatus = async (
 
   return {
     success: true,
-    message: "Order status updated successfully",
+    message: "ORDER_STATUS_UPDATED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -482,7 +487,7 @@ export const getAllOrdersByUserId = async (userId: string) => {
   if (!userId)
     return {
       success: false,
-      message: "User ID is required",
+      message: "USER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
       data: null,
     };
@@ -491,7 +496,7 @@ export const getAllOrdersByUserId = async (userId: string) => {
 
   return {
     success: true,
-    message: "Orders retrieved successfully",
+    message: "ORDERS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: orders,
   };
@@ -506,7 +511,7 @@ export const getOrderDetailsByUserIdAndLocale = async (
     if (!orderId || !userId)
       return {
         success: false,
-        message: "Order ID and User ID are required",
+        message: "ORDER_ID_AND_USER_ID_REQUIRED",
         code: RESPONSE_CODES.BAD_REQUEST,
         data: null,
       };
@@ -520,14 +525,14 @@ export const getOrderDetailsByUserIdAndLocale = async (
     if (!order)
       return {
         success: false,
-        message: "Order not found",
+        message: "ORDER_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
         data: null,
       };
 
     return {
       success: true,
-      message: "Order details retrieved successfully",
+      message: "ORDER_DETAILS_RETRIEVED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
       data: order,
     };
@@ -536,7 +541,7 @@ export const getOrderDetailsByUserIdAndLocale = async (
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
       data: null,
     };
@@ -548,7 +553,7 @@ export const adminGetOrders = async () => {
 
   return {
     success: true,
-    message: "Orders retrieved successfully",
+    message: "ORDERS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: orders,
   };
@@ -558,7 +563,7 @@ export const adminGetOrderById = async (orderId: string) => {
   if (!orderId)
     return {
       success: false,
-      message: "Order ID required",
+      message: "ORDER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
       data: null,
     };
@@ -568,14 +573,14 @@ export const adminGetOrderById = async (orderId: string) => {
   if (!order)
     return {
       success: false,
-      message: "Order not found",
+      message: "ORDER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
       data: null,
     };
 
   return {
     success: true,
-    message: "Order retrieved successfully",
+    message: "ORDER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: order,
   };
@@ -586,9 +591,10 @@ export const adminGetOrdersByStatus = async (
   page: number = 1,
 ) => {
   const result = await getCachedAdminOrdersByStatus(status, page);
+
   return {
     success: true,
-    message: "Orders retrieved successfully",
+    message: "ORDERS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: result,
   };

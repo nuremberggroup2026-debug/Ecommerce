@@ -34,7 +34,7 @@ export function withAuth(allowedRoles: UserRoles[], handler: ApiHandler) {
         return NextResponse.json(
           {
             success: false,
-            message: "You must be logged in to access this resource.",
+            message: "UNAUTHORIZED_ACCESS",
           },
           { status: HTTP_STATUS_MAP.UNAUTHORIZED },
         );
@@ -45,7 +45,7 @@ export function withAuth(allowedRoles: UserRoles[], handler: ApiHandler) {
         return NextResponse.json(
           {
             success: false,
-            message: "Forbidden: You do not have permission.",
+            message: "FORBIDDEN_ACCESS",
           },
           {
             status: HTTP_STATUS_MAP.FORBIDDEN,

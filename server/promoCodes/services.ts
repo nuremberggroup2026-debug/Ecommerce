@@ -10,11 +10,12 @@ export const createPromoCode = async (promoCodeData: PromoCodeCreateInput) => {
   if (!validation.success)
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
   const code = validation.data.code.trim().toUpperCase();
+
   const isExisted = await prisma.promo_codes.findUnique({
     where: { code },
   });
@@ -22,15 +23,17 @@ export const createPromoCode = async (promoCodeData: PromoCodeCreateInput) => {
   if (isExisted)
     return {
       success: false,
-      message: "Promo Code already existed",
+      message: "PROMO_CODE_ALREADY_EXISTS",
       code: RESPONSE_CODES.CONFLICT,
     };
 
   await prisma.promo_codes.create({ data: { ...validation.data, code } });
+
   revalidateTag("promoCodes", "max");
+
   return {
     success: true,
-    message: "Promo Code added successfully",
+    message: "PROMO_CODE_ADDED_SUCCESSFULLY",
     code: RESPONSE_CODES.CREATED,
   };
 };
@@ -44,7 +47,7 @@ export const updatePromoCode = async (
   if (!validation.success)
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -55,7 +58,7 @@ export const updatePromoCode = async (
   if (!existedPromoCode)
     return {
       success: false,
-      message: "Promo Code not found",
+      message: "PROMO_CODE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -63,7 +66,6 @@ export const updatePromoCode = async (
     const isCodeExisted = await prisma.promo_codes.findUnique({
       where: {
         code: validation.data.code.trim().toUpperCase(),
-
         NOT: { id: promoCodeId },
       },
     });
@@ -71,7 +73,7 @@ export const updatePromoCode = async (
     if (isCodeExisted)
       return {
         success: false,
-        message: "Code already used in another promo code",
+        message: "PROMO_CODE_ALREADY_USED",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
   }
@@ -85,10 +87,12 @@ export const updatePromoCode = async (
       }),
     },
   });
+
   revalidateTag("promoCodes", "max");
+
   return {
     success: true,
-    message: "Promo Code updated successfully",
+    message: "PROMO_CODE_UPDATED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -97,7 +101,7 @@ export const deactivatePromoCode = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Promo code ID is required",
+      message: "PROMO_CODE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -113,21 +117,21 @@ export const deactivatePromoCode = async (id: string) => {
   if (!promoCode)
     return {
       success: false,
-      message: "Promo code not found",
+      message: "PROMO_CODE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   if (promoCode.isDeleted)
     return {
       success: false,
-      message: "Cannot deactivate a deleted promo code",
+      message: "CANNOT_DEACTIVATE_DELETED_PROMO_CODE",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
   if (!promoCode.isActive)
     return {
       success: false,
-      message: "Promo code is already inactive",
+      message: "PROMO_CODE_ALREADY_INACTIVE",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -144,7 +148,7 @@ export const deactivatePromoCode = async (id: string) => {
 
   return {
     success: true,
-    message: "Promo code deactivated successfully",
+    message: "PROMO_CODE_DEACTIVATED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -153,7 +157,7 @@ export const deletePromoCode = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Promo code ID is required",
+      message: "PROMO_CODE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -170,14 +174,14 @@ export const deletePromoCode = async (id: string) => {
   if (!promoCode)
     return {
       success: false,
-      message: "Promo code not found",
+      message: "PROMO_CODE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   if (promoCode.isDeleted)
     return {
       success: false,
-      message: "Promo code already deleted",
+      message: "PROMO_CODE_ALREADY_DELETED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -185,7 +189,6 @@ export const deletePromoCode = async (id: string) => {
     where: {
       id,
     },
-
     data: {
       isDeleted: true,
       isActive: false,
@@ -196,14 +199,14 @@ export const deletePromoCode = async (id: string) => {
 
   return {
     success: true,
-    message: "Promo code deleted successfully",
+    message: "PROMO_CODE_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
 
 /* -------------------- Caching Helps --------------------  */
 
-export const getCachedPromoCodes = (page: number = 1, limit: number = 10) => {
+ const getCachedPromoCodes = (page: number = 1, limit: number = 10) => {
   const skip = (page - 1) * limit;
 
   return unstable_cache(
@@ -249,7 +252,7 @@ export const getCachedPromoCodes = (page: number = 1, limit: number = 10) => {
   )();
 };
 
-export const getCachedPromoCodeById = (id: string) => {
+ const getCachedPromoCodeById = (id: string) => {
   return unstable_cache(
     async () => {
       return prisma.promo_codes.findFirst({
@@ -276,7 +279,7 @@ export const getPromoCodes = async (page: number = 1) => {
 
   return {
     success: true,
-    message: "Promo codes retrieved successfully",
+    message: "PROMO_CODES_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: result,
   };
@@ -286,7 +289,7 @@ export const getPromoCodeById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Promo code ID is required",
+      message: "PROMO_CODE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
       data: null,
     };
@@ -296,14 +299,14 @@ export const getPromoCodeById = async (id: string) => {
   if (!promoCode)
     return {
       success: false,
-      message: "Promo code not found",
+      message: "PROMO_CODE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
       data: null,
     };
 
   return {
     success: true,
-    message: "Promo code retrieved successfully",
+    message: "PROMO_CODE_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: promoCode,
   };

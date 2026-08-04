@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { Toaster } from "@/components/ui/sonner";
 
 export default async function LocaleLayout({
   children,
@@ -22,6 +23,14 @@ export default async function LocaleLayout({
     <div dir={locale === "ar" ? "rtl" : "ltr"}>
       <NextIntlClientProvider messages={messages}>
         {children}
+        <Toaster
+          toastOptions={{
+            classNames: {
+              success: "border-green-500",
+              error: "border-red-500",
+            },
+          }}
+        />
       </NextIntlClientProvider>
     </div>
   );

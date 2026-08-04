@@ -1,14 +1,16 @@
 import { getProductById } from "@/features/catalog/products/api/products.api";
 import ProductSection from "@/features/catalog/products/components/ProductSectioncomponents/ProductSection";
+import { Locale } from "@/types";
 
 export default async function ProductDetailsPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: Locale }>;
 }) {
-  const { id } = await params;
+  const { id, locale } = await params;
 
-  const product = await getProductById(id);
+  const product = await getProductById(locale, id);
+  console.log("product: ", product);
 
-  return <ProductSection   key={product.id} product={product} />;
+  return <ProductSection key={product.productData.id} product={product} />;
 }

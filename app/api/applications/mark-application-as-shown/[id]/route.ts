@@ -22,7 +22,7 @@ export const PUT = withAuth(
       return NextResponse.json(
         {
           success: false,
-          message: "Internal server error",
+          message: "INTERNAL_SERVER_ERROR",
         },
         { status: 500 },
       );

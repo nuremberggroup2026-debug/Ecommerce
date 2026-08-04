@@ -21,7 +21,7 @@ export const GET = withAuth([], async (request: Request, { params }) => {
       {
         success: false,
         data: null,
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
       },
       { status: 500 },
     );

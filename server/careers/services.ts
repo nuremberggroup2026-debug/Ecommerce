@@ -26,7 +26,7 @@ export const addNewCareer = async (newCareer: CareersCreateInput) => {
     if (existingCareer)
       return {
         success: false,
-        message: "Position already exists",
+        message: "POSITION_ALREADY_EXISTS",
         code: RESPONSE_CODES.CONFLICT,
       };
 
@@ -40,14 +40,14 @@ export const addNewCareer = async (newCareer: CareersCreateInput) => {
 
     return {
       success: true,
-      message: "Career added successfully",
+      message: "CAREER_ADDED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -59,7 +59,7 @@ export const updateCareer = async (
   if (!id)
     return {
       success: false,
-      message: "Career id is required",
+      message: "CAREER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -73,7 +73,7 @@ export const updateCareer = async (
     if (!existingCareer)
       return {
         success: false,
-        message: "Career not found",
+        message: "CAREER_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
       };
 
@@ -92,7 +92,7 @@ export const updateCareer = async (
       if (careerWithSameName)
         return {
           success: false,
-          message: "Career already exists",
+          message: "CAREER_ALREADY_EXISTS",
           code: RESPONSE_CODES.CONFLICT,
         };
 
@@ -111,14 +111,14 @@ export const updateCareer = async (
 
     return {
       success: true,
-      message: "Career updated successfully",
+      message: "CAREER_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -127,7 +127,7 @@ export const deleteCareer = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Career id is required",
+      message: "CAREER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -142,7 +142,7 @@ export const deleteCareer = async (id: string) => {
   if (!existingCareer)
     return {
       success: false,
-      message: "Career not found",
+      message: "CAREER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -160,7 +160,7 @@ export const deleteCareer = async (id: string) => {
 
   return {
     success: true,
-    message: "Career deleted successfully",
+    message: "CAREER_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -346,7 +346,7 @@ export const getAllCareers = async () => {
 
   return {
     success: true,
-    message: "Careers retrieved successfully",
+    message: "CAREERS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     careers,
   };
@@ -357,7 +357,7 @@ export const getAllCareersWithApplications = async () => {
 
   return {
     success: true,
-    message: "Careers with applications retrieved successfully",
+    message: "CAREERS_WITH_APPLICATIONS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     careers,
   };
@@ -367,7 +367,7 @@ export const getCareerById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Career id is required",
+      message: "CAREER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -376,13 +376,13 @@ export const getCareerById = async (id: string) => {
   if (!career)
     return {
       success: false,
-      message: "Career not found",
+      message: "CAREER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Career retrieved successfully",
+    message: "CAREER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     career,
   };
@@ -392,7 +392,7 @@ export const getCareerBySlug = async (slug: string) => {
   if (!slug)
     return {
       success: false,
-      message: "Career slug is required",
+      message: "CAREER_SLUG_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -401,13 +401,13 @@ export const getCareerBySlug = async (slug: string) => {
   if (!career)
     return {
       success: false,
-      message: "Career not found",
+      message: "CAREER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Career retrieved successfully",
+    message: "CAREER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     career,
   };
@@ -417,7 +417,7 @@ export const getCareerWithApplicationsById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Career id is required",
+      message: "CAREER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -426,13 +426,13 @@ export const getCareerWithApplicationsById = async (id: string) => {
   if (!career)
     return {
       success: false,
-      message: "Career not found",
+      message: "CAREER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Career retrieved successfully",
+    message: "CAREER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     career,
   };
@@ -442,7 +442,7 @@ export const getCareerNameAndIdById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Career id is required",
+      message: "CAREER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -457,13 +457,13 @@ export const getCareerNameAndIdById = async (id: string) => {
   if (!career)
     return {
       success: false,
-      message: "Career not found",
+      message: "CAREER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Career retrieved successfully",
+    message: "CAREER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     career,
   };
@@ -474,7 +474,7 @@ export const getCareersByLocale = async (locale: Locale) => {
 
   return {
     success: true,
-    message: "Careers retrieved successfully",
+    message: "CAREERS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     careers,
   };
@@ -484,7 +484,7 @@ export const getCareerByIdAndLocale = async (id: string, locale: Locale) => {
   if (!id)
     return {
       success: false,
-      message: "Career id is required",
+      message: "CAREER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -493,13 +493,13 @@ export const getCareerByIdAndLocale = async (id: string, locale: Locale) => {
   if (!career)
     return {
       success: false,
-      message: "Career not found",
+      message: "CAREER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Career retrieved successfully",
+    message: "CAREER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     career,
   };
@@ -512,7 +512,7 @@ export const getCareerBySlugAndLocale = async (
   if (!slug)
     return {
       success: false,
-      message: "Career slug is required",
+      message: "CAREER_SLUG_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -521,13 +521,13 @@ export const getCareerBySlugAndLocale = async (
   if (!career)
     return {
       success: false,
-      message: "Career not found",
+      message: "CAREER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Career retrieved successfully",
+    message: "CAREER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     career,
   };

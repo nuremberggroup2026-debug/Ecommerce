@@ -29,9 +29,10 @@ export const register = async (
     if (existingUser)
       return {
         success: false,
-        message: "Email already exists",
+        message: "EMAIL_ALREADY_EXISTS",
         code: RESPONSE_CODES.CONFLICT,
       };
+
     const numberOfUsers = await prisma.user.count();
     const hashedPassword = await bcrypt.hash(validation.data.password, 10);
     const verificationToken = crypto.randomBytes(32).toString("hex");
@@ -57,7 +58,7 @@ export const register = async (
 
     return {
       success: true,
-      message: "An email has been sent to verify you account",
+      message: "VERIFICATION_EMAIL_SENT_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
       user,
     };
@@ -65,11 +66,10 @@ export const register = async (
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.CONFLICT,
   };
 };
-
 export const login = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({
     where: { email: email.trim().toLowerCase() },
@@ -88,22 +88,23 @@ export const verifyEmail = async (userId: string, token: string) => {
   if (!userId || !token)
     return {
       success: false,
-      message: "Missing required fields: token or userId.",
+      message: "MISSING_REQUIRED_FIELDS",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
+
   const existing = await prisma.user.findUnique({ where: { id: userId } });
 
   if (!existing)
     return {
       success: false,
-      message: "User Not Found",
+      message: "USER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   if (existing.emailVerified)
     return {
       success: false,
-      message: "Account already verified",
+      message: "ACCOUNT_ALREADY_VERIFIED",
       code: RESPONSE_CODES.OK,
     };
 
@@ -114,21 +115,21 @@ export const verifyEmail = async (userId: string, token: string) => {
 
   return {
     success: true,
-    message: "Account verified successfully",
+    message: "ACCOUNT_VERIFIED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
 
 export const generateToken = async (email: string) => {
-  
   const findUser = await prisma.user.findUnique({
     where: { email: email },
     select: { id: true, email: true },
   });
+
   if (findUser?.email === undefined)
     return {
       success: false,
-      message: "User Not Found",
+      message: "USER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -149,7 +150,7 @@ export const generateToken = async (email: string) => {
 
   return {
     success: true,
-    message: "A forgot password email has been sent",
+    message: "FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     token,
   };
@@ -163,9 +164,10 @@ export const resetPassword = async (
   if (!token || !password)
     return {
       success: false,
-      message: "Invaild Request",
+      message: "INVALID_REQUEST",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
+
   const validation = resetPasswordSchema.safeParse({
     password,
     confirmPassword,
@@ -175,10 +177,11 @@ export const resetPassword = async (
     const resetToken = await prisma.reset_password_token.findFirst({
       where: { token: token, expiresAt: { gt: new Date() } },
     });
+
     if (resetToken?.token === undefined || resetToken.userId === null)
       return {
         success: false,
-        message: "Reset Password Link Expired",
+        message: "RESET_PASSWORD_LINK_EXPIRED",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
 
@@ -198,14 +201,14 @@ export const resetPassword = async (
     return {
       success: true,
       code: RESPONSE_CODES.OK,
-      message: "Password has been reset successfully",
+      message: "PASSWORD_RESET_SUCCESSFULLY",
     };
   }
 
   return {
     success: false,
     code: RESPONSE_CODES.BAD_REQUEST,
-    message: "Please check the password",
+    message: "INVALID_PASSWORD",
   };
 };
 
@@ -218,7 +221,7 @@ export const changePassword = async (
   if (!oldPassword || !newPassword || !confirmPassword)
     return {
       success: false,
-      message: "Invaild Request",
+      message: "INVALID_REQUEST",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -233,10 +236,11 @@ export const changePassword = async (
       where: { id: userId },
       select: { password: true },
     });
+
     if (findUser === null)
       return {
         success: false,
-        message: "User is not exist",
+        message: "USER_NOT_FOUND",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
 
@@ -244,14 +248,16 @@ export const changePassword = async (
       validation.data.oldPassword,
       findUser.password!,
     );
+
     if (!isValid)
       return {
         success: false,
-        message: "Password is not correct",
+        message: "INCORRECT_PASSWORD",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
 
     const hashedpassword = await bcrypt.hash(validation.data.newPassword, 10);
+
     await prisma.user.update({
       where: { id: userId },
       data: {
@@ -261,7 +267,7 @@ export const changePassword = async (
 
     return {
       success: true,
-      message: "Password updated successfully",
+      message: "PASSWORD_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
     };
   }
@@ -269,16 +275,17 @@ export const changePassword = async (
   return {
     success: false,
     code: RESPONSE_CODES.BAD_REQUEST,
-    message: "Please check the entered passwords",
+    message: "INVALID_PASSWORDS",
   };
 };
 
 export const updateRole = async (userId: string, newRole: UserRoles) => {
   const existing = await prisma.user.findUnique({ where: { id: userId } });
+
   if (!existing)
     return {
       success: false,
-      message: "User Not Found",
+      message: "USER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -286,52 +293,60 @@ export const updateRole = async (userId: string, newRole: UserRoles) => {
     where: { id: userId },
     data: { role: newRole },
   });
+
   return {
     success: true,
-    message: "Role Updated Successfully",
+    message: "ROLE_UPDATED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
 
 export const deleteUser = async (userId: string) => {
   const existing = await prisma.user.findUnique({ where: { id: userId } });
+
   if (!existing)
     return {
       success: false,
-      message: "User Not Found",
+      message: "USER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
+
   await prisma.user.delete({ where: { id: userId } });
+
   return {
     success: true,
-    message: "User Deleted Successfully",
+    message: "USER_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
 
 export const getAllUsers = async () => {
   const result = await prisma.user.findMany({});
+
   return {
     data: result,
     success: true,
-    message: "All Users",
+    message: "USERS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
 
 export const getUserById = async (userId: string) => {
   const existing = await prisma.user.findUnique({ where: { id: userId } });
+
   if (!existing)
     return {
       success: false,
-      message: "User Not Found",
+      message: "USER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
+
   const result = await prisma.user.findUnique({ where: { id: userId } });
+
   return {
     data: result,
     success: true,
-    message: `The User With This ID: ${userId}`,
+    message: "USER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };

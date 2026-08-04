@@ -18,7 +18,7 @@ export const addCartItem = async (
   if (!validation.success) {
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
   }
@@ -35,7 +35,7 @@ export const addCartItem = async (
       });
 
       if (!productVariant) {
-        throw new Error("Product variant not found");
+        throw new Error("PRODUCT_VARIANT_NOT_FOUND");
       }
 
       const cart = await getOrCreateUserCart(tx, userId);
@@ -48,10 +48,10 @@ export const addCartItem = async (
       });
 
       if (existingItem) {
-        const newQuantity = validation.data.quantity + existingItem.quantity;
+        const newQuantity = validation.data.quantity;
 
         if (newQuantity > productVariant.stock) {
-          throw new Error("Quantity exceeds available stock");
+          throw new Error("QUANTITY_EXCEEDS_AVAILABLE_STOCK");
         }
 
         await tx.cart_items.update({
@@ -64,7 +64,7 @@ export const addCartItem = async (
         });
       } else {
         if (validation.data.quantity > productVariant.stock) {
-          throw new Error("Quantity exceeds available stock");
+          throw new Error("QUANTITY_EXCEEDS_AVAILABLE_STOCK");
         }
 
         await tx.cart_items.create({
@@ -79,12 +79,13 @@ export const addCartItem = async (
 
       await recalculateTotalAmount(tx, cart.id);
 
-      revalidateTag("cartItems", "max");
-      revalidateTag("carts", "max");
+      revalidateTag("cartItems", { expire: 0 });
+      revalidateTag("carts", { expire: 0 });
+      revalidateTag("products", { expire: 0 });
 
       return {
         success: true,
-        message: "Item added to cart",
+        message: "ITEM_ADDED_TO_CART",
         code: RESPONSE_CODES.CREATED,
       };
     });
@@ -92,7 +93,7 @@ export const addCartItem = async (
     console.log("Add cart item error:", error);
 
     if (error instanceof Error) {
-      if (error.message === "Product variant not found") {
+      if (error.message === "PRODUCT_VARIANT_NOT_FOUND") {
         return {
           success: false,
           message: error.message,
@@ -100,7 +101,7 @@ export const addCartItem = async (
         };
       }
 
-      if (error.message === "Quantity exceeds available stock") {
+      if (error.message === "QUANTITY_EXCEEDS_AVAILABLE_STOCK") {
         return {
           success: false,
           message: error.message,
@@ -111,7 +112,7 @@ export const addCartItem = async (
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
     };
   }
@@ -126,7 +127,7 @@ export const editQuantity = async (
   if (!validation.success) {
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
   }
@@ -141,7 +142,7 @@ export const editQuantity = async (
       });
 
       if (!cartItem) {
-        throw new Error("Cart item not found");
+        throw new Error("CART_ITEM_NOT_FOUND");
       }
 
       const variant = await tx.product_variants.findUnique({
@@ -154,11 +155,11 @@ export const editQuantity = async (
       });
 
       if (!variant) {
-        throw new Error("Variant not found");
+        throw new Error("VARIANT_NOT_FOUND");
       }
 
       if (validation.data.newQuantity > variant.stock) {
-        throw new Error("New quantity exceeds available stock");
+        throw new Error("NEW_QUANTITY_EXCEEDS_AVAILABLE_STOCK");
       }
 
       await tx.cart_items.update({
@@ -172,12 +173,13 @@ export const editQuantity = async (
 
       await recalculateTotalAmount(tx, cartItem.cartId);
 
-      revalidateTag("cartItems", "max");
-      revalidateTag("carts", "max");
+      revalidateTag("cartItems", { expire: 0 });
+      revalidateTag("carts", { expire: 0 });
+      revalidateTag("products", { expire: 0 });
 
       return {
         success: true,
-        message: "Quantity updated successfully",
+        message: "QUANTITY_UPDATED_SUCCESSFULLY",
         code: RESPONSE_CODES.OK,
       };
     });
@@ -185,7 +187,7 @@ export const editQuantity = async (
     console.log("Edit quantity error:", error);
 
     if (error instanceof Error) {
-      if (error.message === "Cart item not found") {
+      if (error.message === "CART_ITEM_NOT_FOUND") {
         return {
           success: false,
           message: error.message,
@@ -193,7 +195,7 @@ export const editQuantity = async (
         };
       }
 
-      if (error.message === "Variant not found") {
+      if (error.message === "VARIANT_NOT_FOUND") {
         return {
           success: false,
           message: error.message,
@@ -201,7 +203,7 @@ export const editQuantity = async (
         };
       }
 
-      if (error.message === "New quantity exceeds available stock") {
+      if (error.message === "NEW_QUANTITY_EXCEEDS_AVAILABLE_STOCK") {
         return {
           success: false,
           message: error.message,
@@ -212,7 +214,7 @@ export const editQuantity = async (
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
     };
   }
@@ -224,7 +226,7 @@ export const deleteCartItem = async (cartItemId: string, userId: string) => {
   if (!validation.success) {
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
   }
@@ -241,7 +243,7 @@ export const deleteCartItem = async (cartItemId: string, userId: string) => {
       });
 
       if (!cartItem) {
-        throw new Error("Cart item not found");
+        throw new Error("CART_ITEM_NOT_FOUND");
       }
 
       await tx.cart_items.delete({
@@ -252,19 +254,20 @@ export const deleteCartItem = async (cartItemId: string, userId: string) => {
 
       await recalculateTotalAmount(tx, cartItem.cartId);
 
-      revalidateTag("cartItems", "max");
-      revalidateTag("carts", "max");
+      revalidateTag("cartItems", { expire: 0 });
+      revalidateTag("carts", { expire: 0 });
+      revalidateTag("products", { expire: 0 });
 
       return {
         success: true,
-        message: "Cart item deleted successfully",
+        message: "CART_ITEM_DELETED_SUCCESSFULLY",
         code: RESPONSE_CODES.OK,
       };
     });
   } catch (error) {
     console.log("Delete cart item error:", error);
 
-    if (error instanceof Error && error.message === "Cart item not found") {
+    if (error instanceof Error && error.message === "CART_ITEM_NOT_FOUND") {
       return {
         success: false,
         message: error.message,
@@ -274,7 +277,7 @@ export const deleteCartItem = async (cartItemId: string, userId: string) => {
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
     };
   }

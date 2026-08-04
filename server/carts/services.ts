@@ -61,7 +61,7 @@ export const clearCart = async (cartData: ClearCartData) => {
   if (!validation.success) {
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
   }
@@ -75,7 +75,7 @@ export const clearCart = async (cartData: ClearCartData) => {
       });
 
       if (!cart) {
-        throw new Error("Cart not found");
+        throw new Error("CART_NOT_FOUND");
       }
 
       await tx.cart_items.deleteMany({
@@ -93,19 +93,19 @@ export const clearCart = async (cartData: ClearCartData) => {
         },
       });
 
-      revalidateTag("cartItems", "max");
-      revalidateTag("carts", "max");
+      revalidateTag("cartItems", { expire: 0 });
+      revalidateTag("carts", { expire: 0 });
 
       return {
         success: true,
-        message: "Cart cleared successfully",
+        message: "CART_CLEARED_SUCCESSFULLY",
         code: RESPONSE_CODES.OK,
       };
     });
   } catch (error) {
     console.log("Clear cart error:", error);
 
-    if (error instanceof Error && error.message === "Cart not found") {
+    if (error instanceof Error && error.message === "CART_NOT_FOUND") {
       return {
         success: false,
         message: error.message,
@@ -115,7 +115,7 @@ export const clearCart = async (cartData: ClearCartData) => {
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
     };
   }
@@ -252,14 +252,14 @@ export const getCartByUserIdAndLocale = async (
   if (!cart)
     return {
       success: false,
-      message: "Cart not found",
+      message: "CART_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
       data: null,
     };
 
   return {
     success: true,
-    message: "Cart fetched successfully",
+    message: "CART_FETCHED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: cart,
   };

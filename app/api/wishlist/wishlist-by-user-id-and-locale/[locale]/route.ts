@@ -3,20 +3,12 @@ import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { getAllWishlistItemsByUserIdAndLocale } from "@/server/wishlist/services";
 import { NextResponse } from "next/server";
 
-export const GET = withAuth([], async (request: Request, { params }) => {
+export const GET = withAuth([], async (request: Request, { params, user }) => {
   try {
     const { locale } = await params;
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get("userId");
-    if (!userId)
-      return NextResponse.json(
-        {
-          success: false,
-          data: null,
-          message: "Query string (userId) is required",
-        },
-        { status: 400 },
-      );
+    const userId = user.id;
+    console.log("userId: ", userId);
+
     const result = await getAllWishlistItemsByUserIdAndLocale(userId, locale);
     const status = HTTP_STATUS_MAP[result.code];
     return NextResponse.json(
@@ -33,7 +25,7 @@ export const GET = withAuth([], async (request: Request, { params }) => {
       {
         success: false,
         data: null,
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
       },
       { status: 500 },
     );

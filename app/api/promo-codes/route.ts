@@ -21,7 +21,7 @@ export const POST = withAuth(["super_admin"], async (request: Request) => {
     return NextResponse.json(
       {
         success: false,
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
       },
       { status: HTTP_STATUS_MAP.INTERNAL_ERROR },
     );
@@ -60,7 +60,7 @@ export const GET = withAuth(["super_admin"], async (request: Request) => {
       {
         success: false,
         data: null,
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
       },
       { status: HTTP_STATUS_MAP.INTERNAL_ERROR },
     );

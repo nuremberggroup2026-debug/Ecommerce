@@ -17,7 +17,7 @@ import { prisma } from "@/lib/prisma";
 import { generateSlug, hasDuplicateAttributes } from "@/lib/helpers/index";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { Prisma } from "@/generated/prisma/client";
-import { da } from "zod/v4/locales";
+import { printTreeView } from "next/dist/build/utils";
 /*
 export const createNewProduct = async (newProduct: ProductCreateInput) => {
   const validation = createProductSchema.safeParse(newProduct);
@@ -136,7 +136,7 @@ export const createProductWithVariant = async (
   if (!validation.success) {
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
   }
@@ -147,11 +147,12 @@ export const createProductWithVariant = async (
         productNameEn: validation.data.productNameEn,
       },
     });
+
     // Check if name already used (for slug generating)
     if (isExisted) {
       return {
         success: false,
-        message: "Product name already existed",
+        message: "PRODUCT_NAME_ALREADY_EXISTS",
         code: RESPONSE_CODES.CONFLICT,
       };
     }
@@ -169,7 +170,7 @@ export const createProductWithVariant = async (
     if (!isCategoryAvailable) {
       return {
         success: false,
-        message: `No category with this ID: ${validation.data.categoryId}`,
+        message: "CATEGORY_NOT_FOUND",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
     }
@@ -189,11 +190,9 @@ export const createProductWithVariant = async (
 
     // Check if sku already used
     if (existingSkus.length > 0) {
-      const usedSkus = existingSkus.map((s) => s.sku).join(", ");
-
       return {
         success: false,
-        message: `The following SKUs are already in use: ${usedSkus}`,
+        message: "PRODUCT_VARIANT_SKU_ALREADY_EXISTS",
         code: RESPONSE_CODES.CONFLICT,
       };
     }
@@ -204,7 +203,7 @@ export const createProductWithVariant = async (
     if (setOfSku.size !== arrayOfSkus.length) {
       return {
         success: false,
-        message: "Duplicated SKUs",
+        message: "DUPLICATED_SKUS",
         code: RESPONSE_CODES.CONFLICT,
       };
     }
@@ -220,7 +219,7 @@ export const createProductWithVariant = async (
       ) {
         return {
           success: false,
-          message: "Default variant cannot have attributes",
+          message: "DEFAULT_VARIANT_CANNOT_HAVE_ATTRIBUTES",
           code: RESPONSE_CODES.BAD_REQUEST,
         };
       }
@@ -234,8 +233,7 @@ export const createProductWithVariant = async (
         if (hasDuplicates) {
           return {
             success: false,
-            message:
-              "A variant cannot contain multiple values from the same attribute",
+            message: "VARIANT_CANNOT_HAVE_MULTIPLE_VALUES_FROM_SAME_ATTRIBUTE",
             code: RESPONSE_CODES.BAD_REQUEST,
           };
         }
@@ -307,7 +305,7 @@ export const createProductWithVariant = async (
 
     return {
       success: true,
-      message: "Product created successfully",
+      message: "PRODUCT_CREATED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   } catch (error) {
@@ -315,7 +313,7 @@ export const createProductWithVariant = async (
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
     };
   }
@@ -329,7 +327,7 @@ export const updateProductWithVariant = async (
     if (!id) {
       return {
         success: false,
-        message: "Product id is required",
+        message: "PRODUCT_ID_REQUIRED",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
     }
@@ -341,7 +339,7 @@ export const updateProductWithVariant = async (
     if (!currentProduct) {
       return {
         success: false,
-        message: "Product not found",
+        message: "PRODUCT_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
       };
     }
@@ -352,7 +350,7 @@ export const updateProductWithVariant = async (
     if (!validation.success) {
       return {
         success: false,
-        message: "Validation error",
+        message: "VALIDATION_ERROR",
         code: RESPONSE_CODES.BAD_REQUEST,
       };
     }
@@ -368,7 +366,7 @@ export const updateProductWithVariant = async (
       if (isNameUsed) {
         return {
           success: false,
-          message: "Product name already used",
+          message: "PRODUCT_NAME_ALREADY_USED",
           code: RESPONSE_CODES.CONFLICT,
         };
       }
@@ -403,7 +401,7 @@ export const updateProductWithVariant = async (
         if (existingSkus.length > 0) {
           return {
             success: false,
-            message: "Sku already used",
+            message: "PRODUCT_VARIANT_SKU_ALREADY_USED",
             code: RESPONSE_CODES.CONFLICT,
           };
         }
@@ -413,7 +411,7 @@ export const updateProductWithVariant = async (
         if (setOfSku.size !== arrayOfSkus.length) {
           return {
             success: false,
-            message: "Duplicated Skus",
+            message: "DUPLICATED_SKUS",
             code: RESPONSE_CODES.CONFLICT,
           };
         }
@@ -427,7 +425,7 @@ export const updateProductWithVariant = async (
         ) {
           return {
             success: false,
-            message: "Default variant cannot have attributes",
+            message: "DEFAULT_VARIANT_CANNOT_HAVE_ATTRIBUTES",
             code: RESPONSE_CODES.BAD_REQUEST,
           };
         }
@@ -441,7 +439,7 @@ export const updateProductWithVariant = async (
             return {
               success: false,
               message:
-                "A variant cannot contain multiple values from the same attribute",
+                "VARIANT_CANNOT_HAVE_MULTIPLE_VALUES_FROM_SAME_ATTRIBUTE",
               code: RESPONSE_CODES.BAD_REQUEST,
             };
           }
@@ -469,7 +467,7 @@ export const updateProductWithVariant = async (
           });
 
           if (!existedVariant) {
-            throw new Error(`Variant with ID ${variant.id} was not found`);
+            throw new Error(`VARIANT_NOT_FOUND_${variant.id}`);
           }
 
           let finalPrice = Number(existedVariant.finalPrice.toFixed(2));
@@ -491,6 +489,7 @@ export const updateProductWithVariant = async (
             finalPrice = price - (price * discountPercentage) / 100;
             finalPrice = Number(finalPrice.toFixed(2));
           }
+
           arrayOfFinalPrice.push(finalPrice);
 
           await tx.product_variants.update({
@@ -530,25 +529,29 @@ export const updateProductWithVariant = async (
 
     revalidateTag("products", "max");
     revalidateTag("productVariants", "max");
+
     return {
       success: true,
-      message: "Product updated successfully",
+      message: "PRODUCT_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
     };
   } catch (error) {
     console.log("Update product error:", error);
 
-    if (error instanceof Error && error.message.startsWith("Variant with ID")) {
+    if (
+      error instanceof Error &&
+      error.message.startsWith("VARIANT_NOT_FOUND")
+    ) {
       return {
         success: false,
-        message: error.message,
+        message: "VARIANT_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
       };
     }
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
     };
   }
@@ -558,7 +561,7 @@ export const deleteProduct = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Product id is required",
+      message: "PRODUCT_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -569,7 +572,7 @@ export const deleteProduct = async (id: string) => {
   if (!existingProduct)
     return {
       success: false,
-      message: "Product not found",
+      message: "PRODUCT_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -578,9 +581,10 @@ export const deleteProduct = async (id: string) => {
   });
 
   revalidateTag("products", "max");
+
   return {
     success: true,
-    message: "Product deleted successfully",
+    message: "PRODUCT_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -681,7 +685,7 @@ const getCachedProductById = (id: string) =>
     },
   )();
 
-const getCachedProductByIdAndLocale = (id: string, locale: Locale) =>
+const getCachedProductByIdAndLocale = async (id: string, locale: Locale) =>
   unstable_cache(
     async () => {
       const product = await prisma.products.findUnique({
@@ -695,6 +699,7 @@ const getCachedProductByIdAndLocale = (id: string, locale: Locale) =>
           productCardImage: true,
           slug: true,
           productImages: true,
+
           productVariants: {
             include: {
               variantAttributeValues: {
@@ -765,7 +770,7 @@ const getCachedProductByIdAndLocale = (id: string, locale: Locale) =>
     },
     [`product-by-id-${id}-and-locale-${locale}`],
     {
-      tags: ["products"],
+      tags: ["products", "wishlist"],
       revalidate: 3600,
     },
   )();
@@ -791,6 +796,8 @@ const getCahcedfilteredProduct = (
           in: productsFilters.categories,
         };
       }
+
+      console.log(" productsFilters:");
 
       const priceFilter: Prisma.DecimalFilter = {};
       if (productsFilters.minPrice !== undefined) {
@@ -1064,7 +1071,7 @@ export const getAllProducts = async () => {
 
   return {
     success: true,
-    message: "Products retrieved successfully",
+    message: "PRODUCTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: products,
   };
@@ -1076,13 +1083,13 @@ export const getProductById = async (id: string) => {
   if (!product)
     return {
       success: false,
-      message: "Product not found",
+      message: "PRODUCT_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Product retrieved successfully",
+    message: "PRODUCT_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: product,
   };
@@ -1093,27 +1100,47 @@ export const getAllProductsByLocale = async (locale: Locale) => {
 
   return {
     success: true,
-    message: "Products retrieved successfully",
+    message: "PRODUCTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: products,
   };
 };
 
-export const getProductByIdAndLocale = async (locale: Locale, id: string) => {
-  const product = await getCachedProductByIdAndLocale(id, locale);
+export const getProductByIdAndLocale = async (
+  locale: Locale,
+  id: string,
+  userId?: string,
+) => {
+  const [product, wishlist, cartItems] = await Promise.all([
+    getCachedProductByIdAndLocale(id, locale),
+    prisma.wishlist.count({
+      where: { userId, productId: id },
+    }),
+    prisma.cart_items.findMany({
+      where: { cart: { userId }, productVariants: { productId: id } },
+      select: {
+        variantId: true,
+        quantity: true,
+      },
+    }),
+  ]);
 
   if (!product)
     return {
       success: false,
-      message: "Product not found",
+      message: "PRODUCT_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Product retrieved successfully",
+    message: "PRODUCT_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
-    data: product,
+    data: {
+      productData: product,
+      cartItems,
+      isInWishlist: wishlist > 0,
+    },
   };
 };
 
@@ -1125,7 +1152,7 @@ export const getFilterProducts = async (
 
   return {
     success: true,
-    message: "Products retrieved successfully",
+    message: "PRODUCTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data,
   };
@@ -1136,7 +1163,7 @@ export const getFeaturedProductsByLocale = async (locale: Locale) => {
 
   return {
     success: true,
-    message: "Featured products retrieved successfully",
+    message: "FEATURED_PRODUCTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data,
   };
@@ -1147,7 +1174,7 @@ export const getDiscountProductsByLocale = async (locale: Locale) => {
 
   return {
     success: true,
-    message: "On discount products retrieved successfully",
+    message: "DISCOUNT_PRODUCTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data,
   };

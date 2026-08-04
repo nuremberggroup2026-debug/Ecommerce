@@ -28,7 +28,7 @@ export const GET = withAuth(
         {
           success: false,
           data: null,
-          message: "Internal server error",
+          message: "INTERNAL_SERVER_ERROR",
         },
         { status: 500 },
       );
@@ -59,7 +59,7 @@ export const DELETE = withAuth(
       return NextResponse.json(
         {
           success: false,
-          message: "Internal server error",
+          message: "INTERNAL_SERVER_ERROR",
         },
         { status: 500 },
       );

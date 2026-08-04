@@ -18,14 +18,14 @@ export const createBanner = async (newBanner: NewBanner) => {
     revalidateTag("banners", "max");
     return {
       success: true,
-      message: "Banner created successfully",
+      message: "BANNER_CREATED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -37,7 +37,7 @@ export const updateBanner = async (
   if (!id)
     return {
       success: false,
-      message: "Banner id is required",
+      message: "BANNER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -51,7 +51,7 @@ export const updateBanner = async (
     if (!existingBanner)
       return {
         success: false,
-        message: "Banner not found",
+        message: "BANNER_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
       };
 
@@ -63,14 +63,14 @@ export const updateBanner = async (
     revalidateTag("banners", "max");
     return {
       success: true,
-      message: "Banner updated successfully",
+      message: "BANNER_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -79,7 +79,7 @@ export const deleteBanner = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Banner id is required",
+      message: "BANNER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -90,7 +90,7 @@ export const deleteBanner = async (id: string) => {
   if (!existingBanner)
     return {
       success: false,
-      message: "Banner not found",
+      message: "BANNER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -106,7 +106,7 @@ export const deleteBanner = async (id: string) => {
   revalidateTag("banners", "max");
   return {
     success: true,
-    message: "Banner deleted successfully",
+    message: "BANNER_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
@@ -165,7 +165,7 @@ export const getAllBanners = async () => {
 
   return {
     success: true,
-    message: "Banners retrieved successfully",
+    message: "BANNERS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     banners,
   };
@@ -175,7 +175,7 @@ export const getBannerById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Banner id is required",
+      message: "BANNER_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -184,13 +184,13 @@ export const getBannerById = async (id: string) => {
   if (!banner)
     return {
       success: false,
-      message: "Banner not found",
+      message: "BANNER_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Banner retrieved successfully",
+    message: "BANNER_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     banner,
   };
@@ -201,7 +201,7 @@ export const getAllBannersByLocale = async (locale: "ar" | "en") => {
 
   return {
     success: true,
-    message: "Banners retrieved successfully",
+    message: "BANNERS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     banners,
   };

@@ -27,7 +27,7 @@ export const createAttributeValue = async (
     if (isExisted)
       return {
         success: false,
-        message: "Attribute Value already exists",
+        message: "ATTRIBUTE_VALUE_ALREADY_EXISTS",
         code: RESPONSE_CODES.CONFLICT,
       };
 
@@ -40,7 +40,7 @@ export const createAttributeValue = async (
     if (!attribute)
       return {
         success: false,
-        message: "Attribute not found",
+        message: "ATTRIBUTE_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
       };
 
@@ -49,16 +49,17 @@ export const createAttributeValue = async (
     });
 
     revalidateTag("attributeValues", "max");
+
     return {
       success: true,
-      message: "Attribute Value created successfully",
+      message: "ATTRIBUTE_VALUE_CREATED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -70,7 +71,7 @@ export const updateAttributeValue = async (
   if (!id)
     return {
       success: false,
-      message: "Attribute Value id is required",
+      message: "ATTRIBUTE_VALUE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -86,7 +87,7 @@ export const updateAttributeValue = async (
     if (!existingAttributeValue)
       return {
         success: false,
-        message: "Attribute Value not found",
+        message: "ATTRIBUTE_VALUE_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
       };
 
@@ -104,7 +105,7 @@ export const updateAttributeValue = async (
       if (duplicate)
         return {
           success: false,
-          message: "Attribute Value already exists",
+          message: "ATTRIBUTE_VALUE_ALREADY_EXISTS",
           code: RESPONSE_CODES.CONFLICT,
         };
     }
@@ -118,14 +119,14 @@ export const updateAttributeValue = async (
 
     return {
       success: true,
-      message: "Attribute Value updated successfully",
+      message: "ATTRIBUTE_VALUE_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
     };
   }
 
   return {
     success: false,
-    message: "Validation error",
+    message: "VALIDATION_ERROR",
     code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
@@ -134,7 +135,7 @@ export const deleteAttributeValue = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Attribute Value id is required",
+      message: "ATTRIBUTE_VALUE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -145,7 +146,7 @@ export const deleteAttributeValue = async (id: string) => {
   if (!existingAttributeValue)
     return {
       success: false,
-      message: "Attribute Value not found",
+      message: "ATTRIBUTE_VALUE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
@@ -157,11 +158,10 @@ export const deleteAttributeValue = async (id: string) => {
 
   return {
     success: true,
-    message: "Attribute Value deleted successfully",
+    message: "ATTRIBUTE_VALUE_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
-
 /* -------------------- Caching Helps --------------------  */
 
 const getCachedAttributeValues = () =>
@@ -275,7 +275,7 @@ export const getAllAttributeValues = async () => {
 
   return {
     success: true,
-    message: "Attribute Values retrieved successfully",
+    message: "ATTRIBUTE_VALUES_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attributeValues,
   };
@@ -285,7 +285,7 @@ export const getAttributeValueById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "Attribute Value id is required",
+      message: "ATTRIBUTE_VALUE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -294,13 +294,13 @@ export const getAttributeValueById = async (id: string) => {
   if (!attributeValue)
     return {
       success: false,
-      message: "Attribute Value not found",
+      message: "ATTRIBUTE_VALUE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Attribute Value retrieved successfully",
+    message: "ATTRIBUTE_VALUE_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attributeValue,
   };
@@ -311,7 +311,7 @@ export const getAttributeValuesByLocale = async (locale: Locale) => {
 
   return {
     success: true,
-    message: "Attribute Values retrieved successfully",
+    message: "ATTRIBUTE_VALUES_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attributeValues,
   };
@@ -324,7 +324,7 @@ export const getAttributeValueByIdAndLocale = async (
   if (!id)
     return {
       success: false,
-      message: "Attribute Value id is required",
+      message: "ATTRIBUTE_VALUE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
@@ -333,13 +333,13 @@ export const getAttributeValueByIdAndLocale = async (
   if (!attributeValue)
     return {
       success: false,
-      message: "Attribute Value not found",
+      message: "ATTRIBUTE_VALUE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
   return {
     success: true,
-    message: "Attribute Value retrieved successfully",
+    message: "ATTRIBUTE_VALUE_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attributeValue,
   };

@@ -11,6 +11,7 @@ async function request<TResponse, TBody = unknown>(
   options: FetchOptions<TBody> = {},
 ): Promise<TResponse> {
   const isGet = !options.method || options.method === "GET";
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL || ""}/api/` + url,
     {
@@ -29,11 +30,6 @@ async function request<TResponse, TBody = unknown>(
     },
   );
 
-  if (!res.ok) {
-    const errorText = await res.text().catch(() => null);
-
-    throw new Error(errorText || "API Error");
-  }
 
   return res.json();
 }

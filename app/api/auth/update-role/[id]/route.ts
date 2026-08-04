@@ -11,7 +11,6 @@ export const PUT = withAuth(
       const { id } = await params;
       const body = (await request.json()) as { newRole: UserRoles };
 
-      
       const result = await updateRole(id, body.newRole);
 
       const httpStatus = HTTP_STATUS_MAP[result.code] || 500;
@@ -24,11 +23,9 @@ export const PUT = withAuth(
       console.log("error: ", error);
 
       return NextResponse.json(
-        { message: "Internal server error", success: false },
+        { message: "INTERNAL_SERVER_ERROR", success: false },
         { status: 500 },
       );
     }
   },
 );
-
-

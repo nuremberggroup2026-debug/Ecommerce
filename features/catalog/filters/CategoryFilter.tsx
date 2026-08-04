@@ -1,28 +1,27 @@
 "use client";
 
+import { TransalatedCategories } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
-  categories: {
-    name: string;
-    slug: string;
-  }[];
+  categoriesData: TransalatedCategories[];
 }
 
-export default function CategoryFilter({ categories }: Props) {
+export default function CategoryFilter({ categoriesData }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const selectedCategories =
-    searchParams.get("category")?.split(",") ?? [];
 
-  function handleCategoryChange(slug: string) {
+
+  const selectedCategories = searchParams.get("categories")?.split(",") ?? [];
+
+  function handleCategoryChange(id: string) {
     let selected = [...selectedCategories];
 
-    if (selected.includes(slug)) {
-      selected = selected.filter((item) => item !== slug);
+    if (selected.includes(id)) {
+      selected = selected.filter((item) => item !== id);
     } else {
-      selected.push(slug);
+      selected.push(id);
     }
 
     const params = new URLSearchParams(searchParams);
@@ -30,9 +29,9 @@ export default function CategoryFilter({ categories }: Props) {
     params.set("page", "1");
 
     if (selected.length) {
-      params.set("category", selected.join(","));
+      params.set("categories", selected.join(","));
     } else {
-      params.delete("category");
+      params.delete("categories");
     }
 
     router.push(`/products?${params.toString()}`);
@@ -45,15 +44,15 @@ export default function CategoryFilter({ categories }: Props) {
       </h3>
 
       <div className="space-y-3">
-        {categories.map((category) => (
+        {categoriesData.map((category) => (
           <label
-            key={category.slug}
+            key={category.id}
             className="flex items-center gap-3 cursor-pointer text-sm text-gray-600"
           >
             <input
               type="checkbox"
-              checked={selectedCategories.includes(category.slug)}
-              onChange={() => handleCategoryChange(category.slug)}
+              checked={selectedCategories.includes(category.id)}
+              onChange={() => handleCategoryChange(category.id)}
               className="h-4 w-4 rounded border-gray-300 accent-black"
             />
 

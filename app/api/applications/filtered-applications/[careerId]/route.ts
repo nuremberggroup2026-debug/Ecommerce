@@ -32,7 +32,7 @@ export const GET = withAuth(
           data: null,
           totalApplications: 0,
           pagination: null,
-          message: "Internal server error",
+          message: "INTERNAL_SERVER_ERROR",
         },
         { status: 500 },
       );

@@ -13,8 +13,8 @@ export const POST = withAuth(["super_admin"], async (request: Request) => {
     const result = await createProductWithVariant(body);
     const status = HTTP_STATUS_MAP[result.code] || 500;
 
-    console.log("body: ",body);
-    
+    console.log("body: ", body);
+
     return NextResponse.json(
       {
         success: result.success,
@@ -23,11 +23,11 @@ export const POST = withAuth(["super_admin"], async (request: Request) => {
       { status },
     );
   } catch (error) {
-    console.log("error: ",error);
+    console.log("error: ", error);
     return NextResponse.json(
       {
         success: false,
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
       },
       { status: 500 },
     );
@@ -52,7 +52,7 @@ export const GET = async () => {
       {
         success: false,
         data: null,
-        message: "Internal server error",
+        message: "INTERNAL_SERVER_ERROR",
       },
       { status: 500 },
     );

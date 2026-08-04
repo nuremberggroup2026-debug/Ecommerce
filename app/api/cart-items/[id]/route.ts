@@ -20,7 +20,7 @@ export const PUT = withAuth([], async (request: Request, { user, params }) => {
   } catch (error) {
     console.log("error: ", error);
     return NextResponse.json(
-      { success: false, message: "Internal server error" },
+      { success: false, message: "INTERNAL_SERVER_ERROR" },
       { status: 500 },
     );
   }
@@ -41,7 +41,7 @@ export const DELETE = withAuth(
     } catch (error) {
       console.log("error: ", error);
       return NextResponse.json(
-        { success: false, message: "Internal server error" },
+        { success: false, message: "INTERNAL_SERVER_ERROR" },
         { status: 500 },
       );
     }

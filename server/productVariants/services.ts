@@ -16,7 +16,7 @@ export const createProductVariant = async (
   if (!validation.success) {
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
       variant: null,
     };
@@ -31,8 +31,7 @@ export const createProductVariant = async (
       if (hasDuplicates) {
         return {
           success: false,
-          message:
-            "A variant cannot contain multiple values from the same attribute",
+          message: "VARIANT_CANNOT_HAVE_MULTIPLE_VALUES_FROM_SAME_ATTRIBUTE",
           code: RESPONSE_CODES.BAD_REQUEST,
           variant: null,
         };
@@ -46,7 +45,7 @@ export const createProductVariant = async (
     ) {
       return {
         success: false,
-        message: "Default variant cannot have attributes",
+        message: "DEFAULT_VARIANT_CANNOT_HAVE_ATTRIBUTES",
         code: RESPONSE_CODES.BAD_REQUEST,
         variant: null,
       };
@@ -64,7 +63,7 @@ export const createProductVariant = async (
     if (isSkuUsed) {
       return {
         success: false,
-        message: "SKU is already used",
+        message: "SKU_ALREADY_USED",
         code: RESPONSE_CODES.CONFLICT,
         variant: null,
       };
@@ -107,7 +106,7 @@ export const createProductVariant = async (
 
     return {
       success: true,
-      message: "Product variant created successfully",
+      message: "PRODUCT_VARIANT_CREATED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
       variant: result,
     };
@@ -116,13 +115,12 @@ export const createProductVariant = async (
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
       variant: null,
     };
   }
 };
-
 export const updateProductVariant = async (
   id: string,
   updateProductVariant: ProductVariantUpdateInput,
@@ -132,7 +130,7 @@ export const updateProductVariant = async (
   if (!validation.success) {
     return {
       success: false,
-      message: "Validation error",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
       variant: null,
     };
@@ -148,7 +146,7 @@ export const updateProductVariant = async (
     if (!isExisted) {
       return {
         success: false,
-        message: "Variant not found",
+        message: "VARIANT_NOT_FOUND",
         code: RESPONSE_CODES.NOT_FOUND,
         variant: null,
       };
@@ -165,7 +163,7 @@ export const updateProductVariant = async (
       if (isSkuUsed) {
         return {
           success: false,
-          message: "SKU is already used",
+          message: "SKU_ALREADY_USED",
           code: RESPONSE_CODES.CONFLICT,
           variant: null,
         };
@@ -178,8 +176,7 @@ export const updateProductVariant = async (
       if (hasDuplicates) {
         return {
           success: false,
-          message:
-            "A variant cannot contain multiple values from the same attribute",
+          message: "VARIANT_CANNOT_HAVE_MULTIPLE_VALUES_FROM_SAME_ATTRIBUTE",
           code: RESPONSE_CODES.BAD_REQUEST,
           variant: null,
         };
@@ -193,7 +190,7 @@ export const updateProductVariant = async (
     ) {
       return {
         success: false,
-        message: "Default variant cannot have attributes",
+        message: "DEFAULT_VARIANT_CANNOT_HAVE_ATTRIBUTES",
         code: RESPONSE_CODES.BAD_REQUEST,
         variant: null,
       };
@@ -253,7 +250,7 @@ export const updateProductVariant = async (
 
     return {
       success: true,
-      message: "Product variant updated successfully",
+      message: "PRODUCT_VARIANT_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
       variant: result,
     };
@@ -262,7 +259,7 @@ export const updateProductVariant = async (
 
     return {
       success: false,
-      message: "Internal server error",
+      message: "INTERNAL_SERVER_ERROR",
       code: RESPONSE_CODES.INTERNAL_ERROR,
       variant: null,
     };
@@ -277,7 +274,7 @@ export const deleteProductVariant = async (id: string) => {
   if (!existingVariant) {
     return {
       success: false,
-      message: "Variant not found",
+      message: "VARIANT_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
   }
@@ -290,11 +287,10 @@ export const deleteProductVariant = async (id: string) => {
 
   return {
     success: true,
-    message: "Product variant deleted successfully",
+    message: "PRODUCT_VARIANT_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
-
 /* -------------------- Caching Helps --------------------  */
 
 const getCachedProductVariants = () =>
@@ -337,9 +333,10 @@ const getCachedProductVariantById = (id: string) =>
 
 export const getAllProductVariants = async () => {
   const result = await getCachedProductVariants();
+
   return {
     success: true,
-    message: "Product variants retrieved successfully",
+    message: "PRODUCT_VARIANTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: result,
   };
@@ -349,23 +346,24 @@ export const getAllProductVariantById = async (id: string) => {
   if (!id)
     return {
       success: false,
-      message: "ID is required",
+      message: "ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
       data: null,
     };
+
   const result = await getCachedProductVariantById(id);
 
   if (!result)
     return {
       success: false,
-      message: "Variant not found",
+      message: "VARIANT_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
       data: null,
     };
 
   return {
     success: true,
-    message: "Product variants retrieved successfully",
+    message: "PRODUCT_VARIANTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     data: result,
   };

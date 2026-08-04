@@ -1,66 +1,68 @@
 import { api } from "@/services/api";
-import type { Product } from "../types";
 import { API } from "@/constants";
 import type {
   GetProductType,
   Locale,
   ResponseType,
   FilteredProductsData,
-} from "@/types";
-
-export type ProductsResponse = {
-  products: Product[];
-  total: number;
-  skip: number;
-  limit: number;
-};
+  ProductByLocale,
+} from "../types";
 
 type ProductsQuery = {
-  category?: string;
+  categories?: string;
   search?: string;
-  limit: number;
-  skip: number;
+  page: string;
   locale: Locale;
-  sortBy?: string;
-  order?: "asc" | "desc";
+  sort?: string;
+  minPrice?: string;
+  maxPrice?: string;
 };
 
 export async function getProducts({
   locale,
-  category,
+  categories,
   search,
-  limit,
-  skip,
-  sortBy,
-  order,
+  page,
+  sort,
+  minPrice,
+  maxPrice,
 }: ProductsQuery): Promise<FilteredProductsData> {
   const params = new URLSearchParams({
-    limit: limit.toString(),
-    skip: skip.toString(),
+    page: page.toString(),
   });
 
-  if (sortBy) params.set("sortBy", sortBy);
-  if (order) params.set("order", order);
+  if (sort) params.set("sort", sort);
+  let url = `${API.ENDPOINTS.PRODUCTS.FILTERED_PRODUCTS_BY_LOCALE}/${locale}?`;
 
-  let url = API.ENDPOINTS.PRODUCTS.FEATURED_PRODUCTS_BY_LOCALE;
+  if (minPrice) params.set("minPrice", minPrice);
 
-  if (search) {
-    url += "/search";
-    params.set("q", search);
-  } else if (category && category !== "all") {
-    url += `/category/${encodeURIComponent(category)}`;
-  }
+  if (maxPrice) params.set("maxPrice", maxPrice);
 
-  console.log("params: ", params);
+  if (search) params.set("search", search);
+
+  if (categories && categories !== "all")
+    categories
+      .split(",")
+      .forEach((category) => params.append("categories", category));
 
   const result = await api.get<ResponseType<FilteredProductsData>>(
-    `${url}/${locale}?${params.toString()}`,
+    `${url}${params.toString()}`,
   );
+  console.log("result: ", `${url}${params.toString()}`);
+
   return result.data;
 }
+// ------------------------------------------------------------------------------ //
+export async function getProductById(
+  locale: Locale,
+  id: string,
+): Promise<ProductByLocale> {
+  const result = await api.get<ResponseType<ProductByLocale>>(
+    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID_AND_LOCALE}/${locale}?id=${id}`,
+  );
 
-export async function getProductById(id: string): Promise<Product> {
-  return api.get<Product>(`${API.ENDPOINTS.PRODUCTS}/${id}`);
+  console.log("ressss:", result);
+  return result.data;
 }
 
 export async function fetchFeaturedProducts(

@@ -23,7 +23,7 @@ export const GET = withAuth(
 
       return NextResponse.json(
         {
-          message: "Internal server error",
+          message: "INTERNAL_SERVER_ERROR",
           success: false,
           data: null,
         },
