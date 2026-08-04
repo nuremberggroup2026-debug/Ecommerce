@@ -1,4 +1,4 @@
-import { api } from "@/services/api";
+import { api } from "@/services/server/api";
 
 import type { Product, ProductsResponse } from "../types";
 import { Import } from "lucide-react";

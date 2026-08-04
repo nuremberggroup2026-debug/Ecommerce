@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import defaultImage from "@/app/defaultImage.jpg"
 
 import { useAppDispatch, useAppSelector } from "@/Redux/store/hooks";
 import { addToCart } from "@/Redux/slices/cart.slice";
@@ -46,7 +47,7 @@ export default function ProductCard({ product }: { product: GetProductType }) {
       <div className={theme.productCard.imageWrapper}>
         <Link href={`/products/${product.id}`}>
           <Image
-            src={product.productCardImage}
+            src={defaultImage}
             alt={product.productName}
             fill
             sizes="(max-w-7xl) 33vw, 50vw"

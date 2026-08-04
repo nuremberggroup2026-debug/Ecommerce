@@ -1,3 +1,4 @@
+
 type FetchOptions<TBody = unknown> = {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: TBody;
@@ -10,16 +11,14 @@ async function request<TResponse, TBody = unknown>(
   url: string,
   options: FetchOptions<TBody> = {},
 ): Promise<TResponse> {
+
   const isGet = !options.method || options.method === "GET";
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL || ""}/api/` + url,
     {
       method: options.method || "GET",
 
-      headers: {
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
+  
 
       body: isGet ? undefined : JSON.stringify(options.body),
 
@@ -38,7 +37,7 @@ async function request<TResponse, TBody = unknown>(
   return res.json();
 }
 
-export const api = {
+export const Clientapi = {
   get: <TResponse>(
     url: string,
     options?: Omit<FetchOptions, "method" | "body">,

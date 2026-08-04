@@ -1,4 +1,4 @@
-import { api } from "@/services/api";
+import { api } from "@/services/server/api";
 import { API } from "@/constants";
 import type {
   TransalatedCategories,

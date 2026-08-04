@@ -20,6 +20,7 @@ export const API = {
     BANNERS: {
       ALL_BANNERS: "/banners",
       ALL_BANNERS_BY_LOCALE: "banners/all-banners-by-locale",
+      BANNER_BY_ID: "banners",
     },
   },
 };

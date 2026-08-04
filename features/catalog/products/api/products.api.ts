@@ -1,4 +1,4 @@
-import { api } from "@/services/api";
+import { api } from "@/services/server/api";
 import type { Product } from "../types";
 import { API } from "@/constants";
 import type {
@@ -42,7 +42,7 @@ export async function getProducts({
   if (sortBy) params.set("sortBy", sortBy);
   if (order) params.set("order", order);
 
-  let url = API.ENDPOINTS.PRODUCTS.FEATURED_PRODUCTS_BY_LOCALE;
+  let url = API.ENDPOINTS.PRODUCTS.FILTERED_PRODUCTS_BY_LOCALE;
 
   if (search) {
     url += "/search";

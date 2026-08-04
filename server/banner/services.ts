@@ -60,7 +60,7 @@ export const updateBanner = async (
       data: validation.data,
     });
 
-    revalidateTag("banners", "max");
+    revalidateTag("banners", {expire:0});
     return {
       success: true,
       message: "Banner updated successfully",
@@ -119,7 +119,7 @@ const getCachedBanners = () =>
     async () => {
       return prisma.banners.findMany({});
     },
-    ["banners"],
+    ["all-banners"],
     { tags: ["banners"], revalidate: 3600 },
   )();
 
