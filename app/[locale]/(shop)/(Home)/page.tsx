@@ -7,12 +7,14 @@ import { fetchFeaturedCategories } from "@/features/catalog/categories/api/categ
 import { getFeaturedProducts } from "@/features/catalog/featuredProducts/api/featueredProducts";
 import FeaturedProductsComponent from "@/features/catalog/featuredProducts/components/FeaturedProductsComponent";
 import { StoreFeaturesSection } from "@/components/test/StoreFeaturesSection";
-import { fetchBanners } from "@/features/catalog/banners/api/banners.api";
+import { fetchBanners } from "@/features/banner/api/banners.server.api";
 import { Locale } from "@/types";
 import {
   fetchFeaturedProducts,
   fetchOnDiscountProducts,
 } from "@/features/catalog/products/api/products.api";
+import { Session } from "inspector/promises";
+import { auth } from "@/lib/auth/auth";
 
 interface Prop {
   params: Promise<{ locale: Locale }>;
@@ -31,13 +33,16 @@ export default async function Home({ params }: Prop) {
 
   console.log("banners: ", banners);
 
+  const session = await auth();
+  console.log("session home: ", session);
+
   console.log("featuredProducts: ", featuredProducts);
 
   console.log("onDiscountProducts: ", onDiscountProducts);
 
   return (
     <main className="bg-white text-black antialiased">
-      <HeroSection banners={banners} />
+      <HeroSection banners={banners.data} />
 
       <div className="bg-white">
         <CategoriesSection categories={categories} />

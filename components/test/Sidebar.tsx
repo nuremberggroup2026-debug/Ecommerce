@@ -25,6 +25,7 @@ import {
   Megaphone,
   Star,
   Settings,
+  Images 
 } from "lucide-react"
 
 const items = [
@@ -32,6 +33,11 @@ const items = [
     title: "Dashboard",
     url: "/dashboard",
     icon: Home,
+  },
+    {
+    title: "Banners",
+    url: "/dashboard/banners",
+    icon: Images,
   },
   {
     title: "Products",

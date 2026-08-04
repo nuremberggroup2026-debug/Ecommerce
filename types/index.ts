@@ -7,6 +7,11 @@ export interface ResponseType<T> {
   success: boolean;
   data: T;
 }
+export interface PutResponseType {
+  messgae: string;
+  success: boolean;
+
+}
 
 // Banners Types
 export type NewBanner = Prisma.bannersCreateInput;

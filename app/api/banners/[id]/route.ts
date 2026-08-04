@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth/auth";
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import {
@@ -13,6 +14,9 @@ export const GET = withAuth(
   async (request: Request, { params }) => {
     try {
       const { id } = await params;
+      const session = await auth();
+      console.log("session 545: ", session);
+
       const result = await getBannerById(id);
       const status = HTTP_STATUS_MAP[result.code] || 500;
       return NextResponse.json(

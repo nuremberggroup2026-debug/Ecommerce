@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 type FetchOptions<TBody = unknown> = {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   body?: TBody;
@@ -10,6 +12,8 @@ async function request<TResponse, TBody = unknown>(
   url: string,
   options: FetchOptions<TBody> = {},
 ): Promise<TResponse> {
+  const cookieStore = await cookies();
+
   const isGet = !options.method || options.method === "GET";
 
   const res = await fetch(
@@ -18,6 +22,7 @@ async function request<TResponse, TBody = unknown>(
       method: options.method || "GET",
 
       headers: {
+        Cookie: cookieStore.toString(),
         "Content-Type": "application/json",
         ...options.headers,
       },

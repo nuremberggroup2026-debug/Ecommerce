@@ -19,6 +19,7 @@ import { DataTablePagination } from "./pagination"
 
 import { Input } from "@/components/ui/input"
 import {DataTableViewOptions}from "@/app/(admin)/dashboard/products/DataTableViewOptions"
+import type { AdminBanner } from "@/features/banner/types"
 
 
 
@@ -47,9 +48,7 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    []
-  )
+
     const [columnVisibility, setColumnVisibility] =
    useState<VisibilityState>({})
      const [rowSelection, setRowSelection] = useState({})
@@ -62,7 +61,6 @@ export function DataTable<TData, TValue>({
      getPaginationRowModel: getPaginationRowModel(),
          onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-        onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
             onRowSelectionChange: setRowSelection,
@@ -70,7 +68,6 @@ export function DataTable<TData, TValue>({
 
     state: {
       sorting,
-            columnFilters,
                   columnVisibility,
                         rowSelection,
 
@@ -90,14 +87,7 @@ export function DataTable<TData, TValue>({
     <>
           <div className="flex items-center py-4">
             
-        <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+ 
        <DataTableViewOptions table={table}/>
       </div>
     <div className="overflow-hidden  w-[800px] rounded-md border">

@@ -29,6 +29,7 @@ export function withAuth(allowedRoles: UserRoles[], handler: ApiHandler) {
   return async (request: Request, nextContext?: { params?: Promise<any> }) => {
     try {
       const session = await auth();
+      console.log("session: ", session);
 
       if (!session || !session.user)
         return NextResponse.json(
