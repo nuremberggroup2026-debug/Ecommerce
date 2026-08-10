@@ -1,4 +1,4 @@
-import { fetchALLCategories } from "@/features/catalog/categories/api/categories.api";
+import { fetchALLCategories } from "@/features/catalog/categories/api/categories.client.api";
 import { getProducts } from "@/features/catalog/products/api/products.api";
 import ProductCard from "@/features/catalog/products/components/ProductCard";
 import { applyPremiumPricing } from "@/features/catalog/products/services/products.services";

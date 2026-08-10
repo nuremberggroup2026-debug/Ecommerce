@@ -1,4 +1,3 @@
-
 "use client"
 
 import {
@@ -25,6 +24,7 @@ import {
   Megaphone,
   Star,
   Settings,
+  Timeline,
   Images 
 } from "lucide-react"
 
@@ -34,7 +34,7 @@ const items = [
     url: "/dashboard",
     icon: Home,
   },
-    {
+  {
     title: "Banners",
     url: "/dashboard/banners",
     icon: Images,
@@ -44,11 +44,18 @@ const items = [
     url: "/dashboard/products",
     icon: Package,
   },
+   {
+      title: "Attributes",
+    url: "/dashboard/attributes",
+    icon: Timeline,
+  },
+  
   {
     title: "Categories",
     url: "/dashboard/categories",
     icon: Folder,
   },
+
   {
     title: "Orders",
     url: "/dashboard/orders",
@@ -93,43 +100,101 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
+
       <SidebarHeader>
-        <h2 className="px-4 py-2 text-lg font-bold">
+        <h2
+          className="
+            px-4 py-2 
+            text-lg font-bold
+            overflow-hidden
+            whitespace-nowrap
+            transition-all
+            duration-300
+            group-data-[collapsible=icon]:opacity-0
+            group-data-[collapsible=icon]:-translate-x-4
+          "
+        >
           Admin Panel
         </h2>
       </SidebarHeader>
 
+
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>
+
+          <SidebarGroupLabel
+            className="
+              transition-all
+              duration-300
+              group-data-[collapsible=icon]:opacity-0
+            "
+          >
             Menu
           </SidebarGroupLabel>
 
+
           <SidebarGroupContent>
             <SidebarMenu>
+
               {items.map((item) => (
+
                 <SidebarMenuItem key={item.title}>
+
                   <SidebarMenuButton asChild>
+
                     <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+
+                      <item.icon className="shrink-0" />
+
+                      <span
+                        className="
+                          overflow-hidden
+                          whitespace-nowrap
+                          transition-all
+                          duration-300
+                          group-data-[collapsible=icon]:opacity-0
+                          group-data-[collapsible=icon]:-translate-x-3
+                        "
+                      >
+                        {item.title}
+                      </span>
+
                     </a>
+
                   </SidebarMenuButton>
+
                 </SidebarMenuItem>
+
               ))}
+
             </SidebarMenu>
           </SidebarGroupContent>
+
+
         </SidebarGroup>
       </SidebarContent>
 
+
       <SidebarFooter>
-        <p className="px-4 py-2 text-sm text-muted-foreground">
+
+        <p
+          className="
+            px-4 py-2 
+            text-sm 
+            text-muted-foreground
+            transition-all
+            duration-300
+            group-data-[collapsible=icon]:opacity-0
+            group-data-[collapsible=icon]:-translate-x-3
+          "
+        >
           © 2026 Admin
         </p>
+
       </SidebarFooter>
+
+
     </Sidebar>
   )
 }
-
-

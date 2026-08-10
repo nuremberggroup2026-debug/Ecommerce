@@ -65,8 +65,14 @@ export const Clientapi = {
       body,
     }),
 
-  delete: <TResponse>(
-    url: string,
-    options?: Omit<FetchOptions, "method" | "body">,
-  ) => request<TResponse>(url, { ...options, method: "DELETE" }),
+delete: <TResponse, TBody = unknown>(
+  url: string,
+  body?: TBody,
+  options?: Omit<FetchOptions, "method" | "body">
+) =>
+  request<TResponse, TBody>(url, {
+    ...options,
+    method: "DELETE",
+    body,
+  }),
 };

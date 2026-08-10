@@ -3,6 +3,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "@/widgets/Footer";
 
 export default async function LocaleLayout({
   children,
@@ -31,7 +32,12 @@ export default async function LocaleLayout({
             },
           }}
         />
+                    <Footer />
+
       </NextIntlClientProvider>
     </div>
   );
 }
+
+
+

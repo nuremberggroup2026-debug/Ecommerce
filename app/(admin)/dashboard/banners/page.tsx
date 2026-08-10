@@ -1,13 +1,12 @@
-import { columns } from "./columns";
-import { DataTable } from "./data-table";
-import { adminBanners } from "@/features/banner/api/banners.server.api";
+import { adminBanners } from "@/features/banner/api/banners.server.api"
+import { BannerDataTable } from "./banner-data-table"
 
-export default async function DemoPage() {
-  const banners = await adminBanners();
+export default async function BannersPage() {
+  const banners = await adminBanners()
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={banners.data} />
+      <BannerDataTable data={banners.data} />
     </div>
-  );
+  )
 }

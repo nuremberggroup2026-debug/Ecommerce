@@ -13,16 +13,40 @@ export const API = {
     CATEGORIES: {
       FEATURED_CATEGORIES_BY_LOCALE: "categories/featured-categories-by-locale",
       ALL_CATEGORIES_BY_LOCALE: "categories/categories-by-locale",
+      ALL_CATEGORIES: "categories",
+      CATEGORY_BY_ID: "categories",
+      ADD_CATEGORY: "categories",
+      DELETE_MANY_CATEGORIES: "categories/delete-many-categories",
     },
-
-    USERS: "/users",
-
-    ORDERS: "/orders",
     BANNERS: {
       ALL_BANNERS: "/banners",
       ALL_BANNERS_BY_LOCALE: "banners/all-banners-by-locale",
       BANNER_BY_ID: "banners",
+      ADD_BANNERS: "banners",
+      DELETE_MANY_BANNERS: "banners/delete-many-banners",
     },
+ATTRIBUTES: {
+  ALL_ATTRIBUTES: "/attributes",
+  ALL_ATTRIBUTES_BY_LOCALE: "attributes/all-attributes-by-locale",
+  ATTRIBUTE_BY_ID: "attributes",
+  ADD_ATTRIBUTES: "attributes",
+  DELETE_MANY_ATTRIBUTES: "attributes/delete-many-attributes",
+  ATTRIBUTE_VALUES:"attributes-values"
+
+
+},
+ATTRIBUTE_VALUES: {
+    // Attribute Values
+  ALL_ATTRIBUTE_VALUES: "attribute-values",
+  ATTRIBUTE_VALUE_BY_ID: "attribute-values",
+  ADD_ATTRIBUTE_VALUE: "attribute-values",
+  DELETE_ATTRIBUTE_VALUE: "attribute-values",
+
+},
+
+    USERS: "/users",
+
+    ORDERS: "/orders",
 
     CART_ITEMS: {
       ADD_NEW_ITEM: "cart-items",

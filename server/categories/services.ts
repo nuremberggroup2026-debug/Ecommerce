@@ -185,6 +185,50 @@ export const deleteCategory = async (id: string) => {
   };
 };
 
+////////////////////////////////////////////////////////////////////////
+export const deleteManyCategories = async (ids: string[]) => {
+  if (!ids.length) {
+    return {
+      success: false,
+      message: "CATEGORY_IDS_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
+
+  const existingCategories = await prisma.categories.findMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  if (existingCategories.length === 0) {
+    return {
+      success: false,
+      message: "CATEGORIES_NOT_FOUND",
+      code: RESPONSE_CODES.NOT_FOUND,
+    };
+  }
+
+  await prisma.categories.deleteMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  revalidateTag("categories", { expire: 0 });
+  revalidateTag("products", { expire: 0 });
+
+  return {
+    success: true,
+    message: "CATEGORIES_DELETED_SUCCESSFULLY",
+    code: RESPONSE_CODES.OK,
+  };
+};
+
 /* -------------------- Caching Helps --------------------  */
 
 const getCachedCategories = () =>
