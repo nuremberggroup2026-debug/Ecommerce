@@ -79,8 +79,11 @@ export const DELETE = withAuth(
   async (request: Request, { params }) => {
     try {
       const { id } = await params;
+                  console.log(id);
+
 
       const result = await deleteBanner(id);
+
 
       const status = HTTP_STATUS_MAP[result.code] || 500;
 
@@ -92,6 +95,8 @@ export const DELETE = withAuth(
         { status },
       );
     } catch (error) {
+      console.log(error);
+      
       return NextResponse.json(
         {
           success: false,

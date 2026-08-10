@@ -42,9 +42,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "v6ieqhltpp.ufs.sh",
+      },
+      {
+        protocol: "https",
         hostname: "example.com",
       },
-
       {
         protocol: "https",
         hostname: "picsum.photos",

@@ -34,3 +34,8 @@ export interface PUTAdminBanner {
   nameAr: string;
   image: string;
 }
+export interface CreateAdminBanner {
+  nameEn: string;
+  nameAr: string;
+  image: string;
+}

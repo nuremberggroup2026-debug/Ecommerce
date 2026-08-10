@@ -1,42 +1,46 @@
 import { AttributeCreateInput, AttributeUpdateInput, Locale } from "@/types";
-import { createAttributeSchema, updateAttributeSchema } from "./validators";
+import { attributeSchema, updateAttributeSchema } from "./validators";
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { prisma } from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 
-export const createAttribute = async (newAttribute: AttributeCreateInput) => {
-  const validation = createAttributeSchema.safeParse(newAttribute);
+export const createAttribute = async (
+  newAttribute: AttributeCreateInput,
+) => {
+  const validation = attributeSchema.safeParse(newAttribute);
 
-  if (validation.success) {
-    const existingAttribute = await prisma.attributes.findUnique({
-      where: {
-        attributeNameEn: validation.data.attributeNameEn,
-      },
-    });
-
-    if (existingAttribute)
-      return {
-        success: false,
-        message: "ATTRIBUTE_ALREADY_EXISTS",
-        code: RESPONSE_CODES.CONFLICT,
-      };
-
-    await prisma.attributes.create({
-      data: validation.data,
-    });
-
-    revalidateTag("attributes", "max");
+  if (!validation.success) {
     return {
-      success: true,
-      message: "ATTRIBUTE_ADDED_SUCCESSFULLY",
-      code: RESPONSE_CODES.CREATED,
+      success: false,
+      message: "VALIDATION_ERROR",
+      code: RESPONSE_CODES.BAD_REQUEST,
     };
   }
 
+  const existingAttribute = await prisma.attributes.findUnique({
+    where: {
+      attributeNameEn: validation.data.attributeNameEn,
+    },
+  });
+
+  if (existingAttribute) {
+    return {
+      success: false,
+      message: "ATTRIBUTE_ALREADY_EXISTS",
+      code: RESPONSE_CODES.CONFLICT,
+    };
+  }
+
+  await prisma.attributes.create({
+    data: validation.data,
+  });
+
+  revalidateTag("attributes", { expire: 0 });
+
   return {
-    success: false,
-    message: "VALIDATION_ERROR",
-    code: RESPONSE_CODES.BAD_REQUEST,
+    success: true,
+    message: "ATTRIBUTE_ADDED_SUCCESSFULLY",
+    code: RESPONSE_CODES.CREATED,
   };
 };
 
@@ -44,71 +48,106 @@ export const updateAttribute = async (
   id: string,
   updatedAttributeData: AttributeUpdateInput,
 ) => {
-  if (!id)
+  if (!id) {
     return {
       success: false,
       message: "ATTRIBUTE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
-    };
-
-  const validation = updateAttributeSchema.safeParse(updatedAttributeData);
-
-  if (validation.success) {
-    const existingAttribute = await prisma.attributes.findUnique({
-      where: { id },
-    });
-
-    if (!existingAttribute)
-      return {
-        success: false,
-        message: "ATTRIBUTE_NOT_FOUND",
-        code: RESPONSE_CODES.NOT_FOUND,
-      };
-
-    await prisma.attributes.update({
-      where: { id },
-      data: validation.data,
-    });
-
-    revalidateTag("attribute", "max");
-    return {
-      success: true,
-      message: "ATTRIBUTE_UPDATED_SUCCESSFULLY",
-      code: RESPONSE_CODES.OK,
     };
   }
 
-  return {
-    success: false,
-    message: "VALIDATION_ERROR",
-    code: RESPONSE_CODES.BAD_REQUEST,
-  };
-};
+  const validation = updateAttributeSchema.safeParse(
+    updatedAttributeData,
+  );
 
-export const deleteAttribute = async (id: string) => {
-  if (!id)
+  if (!validation.success) {
+    console.error(
+      "Update attribute validation error:",
+      validation.error.flatten(),
+    );
+
     return {
       success: false,
-      message: "ATTRIBUTE_ID_REQUIRED",
+      message: "VALIDATION_ERROR",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
+  }
 
-  const existingAttribute = await prisma.attributes.findUnique({
-    where: { id },
-  });
+  const existingAttribute =
+    await prisma.attributes.findUnique({
+      where: { id },
+    });
 
-  if (!existingAttribute)
+  if (!existingAttribute) {
     return {
       success: false,
       message: "ATTRIBUTE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
+  }
+
+  try {
+    await prisma.attributes.update({
+      where: { id },
+
+      data: {
+        attributeNameEn:
+          validation.data.attributeNameEn,
+
+        attributeNameAr:
+          validation.data.attributeNameAr,
+      },
+    });
+
+    revalidateTag("attributes", { expire: 0 });
+
+    return {
+      success: true,
+      message: "ATTRIBUTE_UPDATED_SUCCESSFULLY",
+      code: RESPONSE_CODES.OK,
+    };
+  } catch (error) {
+    console.error(
+      "Update attribute error:",
+      error,
+    );
+
+    return {
+      success: false,
+      message: "ATTRIBUTE_UPDATE_FAILED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
+};
+
+export const deleteAttribute = async (id: string) => {
+  if (!id) {
+    return {
+      success: false,
+      message: "ATTRIBUTE_ID_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
+
+  const existingAttribute = await prisma.attributes.findUnique({
+    where: { id },
+  });
+
+  if (!existingAttribute) {
+    return {
+      success: false,
+      message: "ATTRIBUTE_NOT_FOUND",
+      code: RESPONSE_CODES.NOT_FOUND,
+    };
+  }
 
   await prisma.attributes.delete({
     where: { id },
   });
 
-  revalidateTag("attribute", "max");
+  revalidateTag("attributes", { expire: 0 });
+  revalidateTag("attributeValues", { expire: 0 });
+
   return {
     success: true,
     message: "ATTRIBUTE_DELETED_SUCCESSFULLY",
@@ -116,7 +155,54 @@ export const deleteAttribute = async (id: string) => {
   };
 };
 
-/* -------------------- Caching Helps --------------------  */
+/////////////////////////////////////////////////////////////////
+
+export const deleteManyAttributes = async (ids: string[]) => {
+  if (!ids.length) {
+    return {
+      success: false,
+      message: "ATTRIBUTE_IDS_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
+
+  const existingAttributes = await prisma.attributes.findMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  if (existingAttributes.length === 0) {
+    return {
+      success: false,
+      message: "ATTRIBUTES_NOT_FOUND",
+      code: RESPONSE_CODES.NOT_FOUND,
+    };
+  }
+
+  await prisma.attributes.deleteMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  revalidateTag("attributes", { expire: 0 });
+  revalidateTag("attributeValues", { expire: 0 });
+
+  return {
+    success: true,
+    message: "ATTRIBUTES_DELETED_SUCCESSFULLY",
+    code: RESPONSE_CODES.OK,
+  };
+};
+
+/////////////////////////////////////////////////////////////////
+// Caching
+/////////////////////////////////////////////////////////////////
 
 const getCachedAttribute = () =>
   unstable_cache(
@@ -128,7 +214,10 @@ const getCachedAttribute = () =>
       });
     },
     ["all-attributes"],
-    { tags: ["attributes"], revalidate: 3600 },
+    {
+      tags: ["attributes"],
+      revalidate: 3600,
+    },
   )();
 
 const getCachedAttributeById = (id: string) =>
@@ -142,7 +231,10 @@ const getCachedAttributeById = (id: string) =>
       });
     },
     [`attribute-by-id-${id}`],
-    { tags: ["attribute"], revalidate: 3600 },
+    {
+      tags: ["attributes"],
+      revalidate: 3600,
+    },
   )();
 
 const getCachedAttributesByLocale = (locale: Locale) =>
@@ -153,6 +245,7 @@ const getCachedAttributesByLocale = (locale: Locale) =>
           attributeValues: true,
         },
       });
+
       const translatedAttribute = attributes.map((attribute) => {
         return {
           id: attribute.id,
@@ -161,14 +254,16 @@ const getCachedAttributesByLocale = (locale: Locale) =>
               ? attribute.attributeNameEn
               : attribute.attributeNameAr,
           createdAt: attribute.createdAt,
-          attributeValues: attribute.attributeValues.map((attributeValue) => ({
-            attributeValue:
-              locale === "en"
-                ? attributeValue.attributeValueEn
-                : attributeValue.attributeValueAr,
-            attributeValueId: attribute.id,
-            createdAt: attribute.createdAt,
-          })),
+          attributeValues: attribute.attributeValues.map(
+            (attributeValue) => ({
+              attributeValue:
+                locale === "en"
+                  ? attributeValue.attributeValueEn
+                  : attributeValue.attributeValueAr,
+              attributeValueId: attributeValue.id,
+              createdAt: attributeValue.createdAt,
+            }),
+          ),
         };
       });
 
@@ -181,7 +276,10 @@ const getCachedAttributesByLocale = (locale: Locale) =>
     },
   )();
 
-const getCachedAttributeByIdAndLocale = (id: string, locale: Locale) =>
+const getCachedAttributeByIdAndLocale = (
+  id: string,
+  locale: Locale,
+) =>
   unstable_cache(
     async () => {
       const attribute = await prisma.attributes.findUnique({
@@ -200,14 +298,16 @@ const getCachedAttributeByIdAndLocale = (id: string, locale: Locale) =>
             ? attribute.attributeNameEn
             : attribute.attributeNameAr,
         createdAt: attribute.createdAt,
-        attributeValues: attribute.attributeValues.map((attributeValue) => ({
-          attributeValue:
-            locale === "en"
-              ? attributeValue.attributeValueEn
-              : attributeValue.attributeValueAr,
-          attributeValueId: attribute.id,
-          createdAt: attribute.createdAt,
-        })),
+        attributeValues: attribute.attributeValues.map(
+          (attributeValue) => ({
+            attributeValue:
+              locale === "en"
+                ? attributeValue.attributeValueEn
+                : attributeValue.attributeValueAr,
+            attributeValueId: attributeValue.id,
+            createdAt: attributeValue.createdAt,
+          }),
+        ),
       };
     },
     [`all-attributes-by-id-${id}-and-locale-${locale}`],
@@ -217,7 +317,9 @@ const getCachedAttributeByIdAndLocale = (id: string, locale: Locale) =>
     },
   )();
 
-/* -------------------- Caching Helps --------------------  */
+/////////////////////////////////////////////////////////////////
+// Getters
+/////////////////////////////////////////////////////////////////
 
 export const getAllAttributes = async () => {
   const attributes = await getCachedAttribute();
@@ -231,21 +333,23 @@ export const getAllAttributes = async () => {
 };
 
 export const getAttributeById = async (id: string) => {
-  if (!id)
+  if (!id) {
     return {
       success: false,
       message: "ATTRIBUTE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
+  }
 
   const attribute = await getCachedAttributeById(id);
 
-  if (!attribute)
+  if (!attribute) {
     return {
       success: false,
       message: "ATTRIBUTE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
+  }
 
   return {
     success: true,
@@ -266,22 +370,30 @@ export const getAttributesByLocale = async (locale: Locale) => {
   };
 };
 
-export const getAttributeByIdAndLocale = async (id: string, locale: Locale) => {
-  if (!id)
+export const getAttributeByIdAndLocale = async (
+  id: string,
+  locale: Locale,
+) => {
+  if (!id) {
     return {
       success: false,
       message: "ATTRIBUTE_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
+  }
 
-  const attribute = await getCachedAttributeByIdAndLocale(id, locale);
+  const attribute = await getCachedAttributeByIdAndLocale(
+    id,
+    locale,
+  );
 
-  if (!attribute)
+  if (!attribute) {
     return {
       success: false,
       message: "ATTRIBUTE_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
+  }
 
   return {
     success: true,

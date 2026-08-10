@@ -3,14 +3,21 @@ import { Prisma, user_role, order_status } from "@/generated/prisma/client";
 export type UserRoles = user_role;
 export type Locale = "ar" | "en";
 export interface ResponseType<T> {
-  messgae: string;
+  message: string;
   success: boolean;
   data: T;
 }
 export interface PutResponseType {
-  messgae: string;
+  message: string;
   success: boolean;
-
+}
+export interface deleteResponseType {
+  message: string;
+  success: boolean;
+}
+export interface AddResponseType {
+  message: string;
+  success: boolean;
 }
 
 // Banners Types
@@ -86,6 +93,8 @@ export type TransalatedCategories = {
   description: string;
   isFeatured: boolean;
 };
+
+
 // Attribute types
 export type AttributeCreateInput = Prisma.attributesCreateInput;
 export type AttributeUpdateInput = Prisma.attributesUpdateInput;

@@ -1,13 +1,37 @@
-import z from "zod";
+import { z } from "zod";
 
 export const bannerSchema = z.object({
-  nameEn: z.string().min(5).max(30),
-  nameAr: z.string().min(5).max(30),
-  image: z.string(),
+  nameEn: z
+    .string()
+    .min(5, { message: "English name must be at least 5 characters" })
+    .max(30, { message: "English name must not exceed 30 characters" }),
+
+  nameAr: z
+    .string()
+    .min(5, { message: "Arabic name must be at least 5 characters" })
+    .max(30, { message: "Arabic name must not exceed 30 characters" }),
+
+  image: z
+    .string()
+    .min(1, { message: "Image is required" }),
 });
 
+
 export const updateBannerSchema = z.object({
-  nameEn: z.string().min(5).max(30).optional(),
-  nameAr: z.string().min(5).max(30).optional(),
-  image: z.string().optional(),
+  nameEn: z
+    .string()
+    .min(5, { message: "English name must be at least 5 characters" })
+    .max(30, { message: "English name must not exceed 30 characters" }),
+  nameAr: z
+    .string()
+    .min(5, { message: "Arabic name must be at least 5 characters" })
+    .max(30, { message: "Arabic name must not exceed 30 characters" }),
+  image: z
+    .string()
+    .min(1, { message: "Image is required" }),
 });
+
+
+export type BannerSchema = z.infer<typeof bannerSchema>;
+
+export type UpdateBannerSchema = z.infer<typeof updateBannerSchema>;

@@ -6,17 +6,19 @@ import type {
   TranslatedBanner,
   ResponseType,
   PutResponseType,
+
 } from "@/types/index";
 import type {
   AdminBanner,
   PUTAdminBanner,
+
+  
 } from "@/features/banner/types/index";
 import { auth } from "@/lib/auth/auth";
 
 export async function fetchBanners(
   locale: Locale,
 ): Promise<ResponseType<TranslatedBanner[]>> {
-  console.log("locale223: ", locale);
 
   const data = await api.get<ResponseType<TranslatedBanner[]>>(
     `${API.ENDPOINTS.BANNERS.ALL_BANNERS_BY_LOCALE}/${locale}`,

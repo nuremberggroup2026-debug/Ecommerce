@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { fetchALLCategories } from "@/features/catalog/categories/api/categories.api";
+import { fetchALLCategories } from "@/features/catalog/categories/api/categories.client.api";
 import CategoriesListComponent from "@/features/catalog/categoriesList/components/CategoriesListComponent";
 import { Locale } from "@/types";
 

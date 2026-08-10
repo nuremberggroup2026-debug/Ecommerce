@@ -21,6 +21,7 @@ export const POST = withAuth(["super_admin"], async (request: Request) => {
       { status },
     );
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       {
         success: false,
