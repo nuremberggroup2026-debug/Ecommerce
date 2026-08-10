@@ -26,10 +26,17 @@ export const API = {
 
     CART_ITEMS: {
       ADD_NEW_ITEM: "cart-items",
+      UPDATE_QUANTITY: "cart-items",
+      DELETE_ITEM: "cart-items",
     },
     WISHLIST: {
       ADD_NEW_ITEM: "wishlist",
       REMOVE_ITEM: "wishlist",
+      GET_ITEMS_BY_USER: "wishlist/wishlist-by-user-id-and-locale",
+    },
+
+    CART: {
+      GET_CART_WITH_ITEMS: "cart",
     },
   },
 };

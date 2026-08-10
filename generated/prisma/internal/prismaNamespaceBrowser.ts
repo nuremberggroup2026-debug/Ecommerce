@@ -221,6 +221,7 @@ export const OrdersScalarFieldEnum = {
   additionalNote: 'additionalNote',
   createdAt: 'createdAt',
   status: 'status',
+  paymentMethod: 'paymentMethod',
   updatedAt: 'updatedAt',
   discountAmount: 'discountAmount',
   subtotal: 'subtotal'

@@ -61,17 +61,20 @@ export type GetProductType = {
     discountPercentage: number | null;
     finalPrice: number;
     stock: number;
+    id: string;
   }[];
 };
 
 export type FilteredProductsData = {
-  data: GetProductType[];
+  products: GetProductType[];
   pagination: {
     currentPage: number;
     totalPages: number;
     totalItems: number;
     itemsPerPage: number;
   };
+  productsIdsInWishlist: string[];
+  productsIdsInCart: string[];
 };
 
 export interface ResponseType<T> {

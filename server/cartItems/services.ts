@@ -80,8 +80,8 @@ export const addCartItem = async (
       await recalculateTotalAmount(tx, cart.id);
 
       revalidateTag("cartItems", { expire: 0 });
-      revalidateTag("carts", { expire: 0 });
-      revalidateTag("products", { expire: 0 });
+      revalidateTag("cart", { expire: 0 });
+      
 
       return {
         success: true,
@@ -123,6 +123,8 @@ export const editQuantity = async (
   userId: string,
 ) => {
   const validation = updateQuantitySchema.safeParse(updateQuantityData);
+
+  console.log("validation: ", validation);
 
   if (!validation.success) {
     return {
@@ -174,8 +176,7 @@ export const editQuantity = async (
       await recalculateTotalAmount(tx, cartItem.cartId);
 
       revalidateTag("cartItems", { expire: 0 });
-      revalidateTag("carts", { expire: 0 });
-      revalidateTag("products", { expire: 0 });
+      revalidateTag("cart", { expire: 0 });
 
       return {
         success: true,
@@ -255,8 +256,7 @@ export const deleteCartItem = async (cartItemId: string, userId: string) => {
       await recalculateTotalAmount(tx, cartItem.cartId);
 
       revalidateTag("cartItems", { expire: 0 });
-      revalidateTag("carts", { expire: 0 });
-      revalidateTag("products", { expire: 0 });
+      revalidateTag("cart", { expire: 0 });
 
       return {
         success: true,

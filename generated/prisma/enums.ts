@@ -28,3 +28,11 @@ export const order_status = {
 } as const
 
 export type order_status = (typeof order_status)[keyof typeof order_status]
+
+
+export const payment_method = {
+  COD: 'COD',
+  CLIQ: 'CLIQ'
+} as const
+
+export type payment_method = (typeof payment_method)[keyof typeof payment_method]

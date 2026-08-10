@@ -7,7 +7,7 @@ import { toastResponse } from "@/lib/toast";
 import {
   addItemToWishlist,
   removeItemFromWishlist,
-} from "@/features/wishlist/api/wishlist.api";
+} from "@/features/wishlist/api/wishlist.client.api";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 

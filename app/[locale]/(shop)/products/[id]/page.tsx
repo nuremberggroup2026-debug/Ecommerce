@@ -10,7 +10,6 @@ export default async function ProductDetailsPage({
   const { id, locale } = await params;
 
   const product = await getProductById(locale, id);
-  console.log("product: ", product);
 
   return <ProductSection key={product.productData.id} product={product} />;
 }

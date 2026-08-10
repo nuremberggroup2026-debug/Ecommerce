@@ -16,7 +16,7 @@ export const getOrCreateUserCart = async (
   });
 
   if (!cart) {
-    revalidateTag("carts", "max");
+    revalidateTag("cart", { expire: 0 });
     cart = await db.cart.create({
       data: {
         userId,
@@ -51,7 +51,7 @@ export const recalculateTotalAmount = async (
     where: { id: cartId },
     data: { totalAmount },
   });
-  revalidateTag("carts", "max");
+  revalidateTag("cart", { expire: 0 });
   return updatedTotalAmount;
 };
 
@@ -94,7 +94,7 @@ export const clearCart = async (cartData: ClearCartData) => {
       });
 
       revalidateTag("cartItems", { expire: 0 });
-      revalidateTag("carts", { expire: 0 });
+      revalidateTag("cart", { expire: 0 });
 
       return {
         success: true,
@@ -144,6 +144,7 @@ const getCachedCartByUserIdAndLocale = (userId: string, locale: Locale) =>
                   id: true,
                   sku: true,
                   variantImage: true,
+                  stock:true,
 
                   products: {
                     select: {
@@ -212,6 +213,7 @@ const getCachedCartByUserIdAndLocale = (userId: string, locale: Locale) =>
           variant: {
             id: item.productVariants.id,
             sku: item.productVariants.sku,
+            stock:item.productVariants.stock,
 
             attributes: item.productVariants.variantAttributeValues.map(
               (value) => ({

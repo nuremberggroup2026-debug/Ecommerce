@@ -3,6 +3,7 @@ import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { deleteCartItem, editQuantity } from "@/server/cartItems/services";
 import { DeleteCartItemData } from "@/types";
 import { NextResponse } from "next/server";
+
 export const PUT = withAuth([], async (request: Request, { user, params }) => {
   try {
     const { id } = await params;

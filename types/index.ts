@@ -10,7 +10,6 @@ export interface ResponseType<T> {
 export interface PutResponseType {
   messgae: string;
   success: boolean;
-
 }
 
 // Banners Types
@@ -200,11 +199,16 @@ export type GetProductType = {
     discountPercentage: number | null;
     finalPrice: number;
     stock: number;
+    id: string;
   }[];
 };
 
 export type FilteredProductsData = {
-  data: GetProductType[];
+  data: {
+    products: GetProductType[];
+    productsIdsInWishlist: string[];
+    productsIdsInCart: string[];
+  };
   pagination: {
     currentPage: number;
     totalPages: number;

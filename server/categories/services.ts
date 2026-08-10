@@ -46,8 +46,7 @@ export const addNewCategory = async (newCategory: CategoriesCreateInput) => {
       },
     });
 
-    revalidateTag("categories", "max");
-
+    revalidateTag("categories", { expire: 0 });
     return {
       success: true,
       message: "CATEGORY_ADDED_SUCCESSFULLY",
@@ -137,7 +136,7 @@ export const updateCategory = async (
       },
     });
 
-    revalidateTag("categories", "max");
+    revalidateTag("categories", { expire: 0 });
 
     return {
       success: true,
@@ -176,7 +175,8 @@ export const deleteCategory = async (id: string) => {
     where: { id },
   });
 
-  revalidateTag("categories", "max");
+  revalidateTag("categories", { expire: 0 });
+  revalidateTag("products", { expire: 0 });
 
   return {
     success: true,

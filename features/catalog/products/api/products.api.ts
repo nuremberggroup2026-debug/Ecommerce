@@ -1,5 +1,3 @@
-
-
 import { api } from "@/services/server/api";
 import type { Product } from "../types";
 import { API } from "@/constants";
@@ -29,17 +27,13 @@ export async function getProducts({
   sort,
   minPrice,
   maxPrice,
-}: ProductsQuery): Promise<FilteredProductsData> {
+}: ProductsQuery): Promise<ResponseType<FilteredProductsData>> {
   const params = new URLSearchParams({
     page: page.toString(),
   });
 
   if (sort) params.set("sort", sort);
   const url = `${API.ENDPOINTS.PRODUCTS.FILTERED_PRODUCTS_BY_LOCALE}/${locale}?`;
-
-
-
-
 
   if (maxPrice) params.set("maxPrice", maxPrice);
 
@@ -55,7 +49,7 @@ export async function getProducts({
   );
   console.log("result: ", `${url}${params.toString()}`);
 
-  return result.data;
+  return result;
 }
 // ------------------------------------------------------------------------------ //
 export async function getProductById(

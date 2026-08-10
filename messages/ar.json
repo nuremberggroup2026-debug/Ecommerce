@@ -76,6 +76,7 @@
     "CART_CLEARED_SUCCESSFULLY": "تم إفراغ السلة بنجاح",
     "ITEM_ADDED_TO_CART": "تمت إضافة العنصر إلى السلة",
     "CART_ITEM_ADDING": "جاري إضافة المنتج إلى السلة...",
+    "DELETE_CART_ITEM": "جاري حذف العنصر",
     "CART_ITEM_NOT_FOUND": "عنصر السلة غير موجود",
     "CART_ITEM_DELETED_SUCCESSFULLY": "تم حذف عنصر السلة بنجاح",
     "QUANTITY_UPDATED_SUCCESSFULLY": "تم تحديث الكمية بنجاح",
@@ -123,5 +124,20 @@
     "sku": "الرمز التعريفي",
     "quantity": "الكمية",
     "addToBag": "أضف إلى السلة"
+  },
+
+  "Wishlist": {
+    "title": "قائمة المفضلة",
+    "emptyTitle": "قائمة المفضلة فارغة",
+    "emptyDescription": "لا توجد منتجات محفوظة بعد. تصفح مجموعاتنا واحفظ منتجاتك المفضلة للعودة إليها لاحقاً.",
+    "explore": "استكشف المنتجات",
+    "savedItems": "لديك {count} منتجات محفوظة",
+    "remove": "إزالة من المفضلة",
+    "category": "التصنيف",
+    "viewProduct": "عرض المنتج",
+    "loginRequiredTitle": "سجّل الدخول لعرض قائمة المفضلة",
+    "loginRequiredDescription": "قائمة المنتجات المفضلة بانتظارك. سجّل الدخول لحفظ منتجاتك المفضلة والوصول إليها في أي وقت.",
+    "login": "تسجيل الدخول",
+    "continueShopping": "متابعة التسوق"
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ProductByLocale } from "../../types";
-import { addItemToCart } from "@/features/cart/api/cart.api";
+import { addItemToCart } from "@/features/cart/api/cart.client.api";
 import { useTranslations } from "next-intl";
 import { toastResponse } from "@/lib/toast";
 type Props = {

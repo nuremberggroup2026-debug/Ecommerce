@@ -3,43 +3,70 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import defaultImage from "@/app/defaultImage.jpg"
-
-import { useAppDispatch, useAppSelector } from "@/Redux/store/hooks";
-import { addToCart } from "@/Redux/slices/cart.slice";
-
+import defaultImage from "@/app/defaultImage.jpg";
 import { theme } from "@/themes";
-
 import type { GetProductType } from "@/types/index";
+import { toastResponse } from "@/lib/toast";
+import {
+  addItemToWishlist,
+  removeItemFromWishlist,
+} from "@/features/wishlist/api/wishlist.client.api";
+import { useTranslations } from "next-intl";
+import { addItemToCart } from "@/features/cart/api/cart.client.api";
 
-export default function ProductCard({ product }: { product: GetProductType }) {
-  const dispatch = useAppDispatch();
+interface Props {
+  product: GetProductType;
+  isInWishlist: boolean;
+  isInCart: boolean;
+}
 
-  const [heart, setHeart] = useState(false);
-
-  const cartItem = useAppSelector((state) =>
-    state.cart.items.find(
-      (item) => String(item.product.id) === String(product.id),
-    ),
-  );
-
-
-
-  const isAdded = !!cartItem;
-
+export default function ProductCard({
+  product,
+  isInWishlist,
+  isInCart,
+}: Props) {
   const isOutOfStock = product.variants[0].stock <= 0;
+  const [inWishist, setInWishist] = useState(isInWishlist);
+  const [inCart, setInCart] = useState(isInCart);
+  const [loading, setLoading] = useState(false);
+  const t = useTranslations();
 
-  const handleAddToCart = () => {
-    if (isOutOfStock) return;
+  const handleWishlist = async () => {
+    if (loading) return;
 
-    if (isAdded) return;
+    const previous = inWishist;
 
-    dispatch(
-      addToCart({
-        product,
-        quantity: 1,
-      }),
+    setLoading(true);
+    setInWishist(!previous);
+
+    try {
+      if (previous) {
+        await toastResponse(
+          removeItemFromWishlist(product.id),
+          t,
+          "DELETING_ITEM",
+        );
+      } else {
+        await toastResponse(
+          addItemToWishlist(product.id),
+          t,
+          "CART_ITEM_ADDING",
+        );
+      }
+    } catch {
+      setInWishist(previous);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddItem = async () => {
+    await toastResponse(
+      addItemToCart(product.variants[0].id, 1),
+      t,
+      "CART_ITEM_ADDING",
     );
+    setInCart(true);
   };
 
   return (
@@ -55,17 +82,17 @@ export default function ProductCard({ product }: { product: GetProductType }) {
           />
         </Link>
 
-       
-
         <button
           className={theme.productCard.wishlistButton}
           aria-label="Add to wishlist"
-          onClick={() => setHeart(!heart)}
+          onClick={() => {
+            handleWishlist();
+          }}
         >
           <svg
             className={theme.productCard.wishlistIcon}
-            fill={heart ? "red" : "none"}
-            stroke={heart ? "red" : "currentColor"}
+            fill={inWishist ? "red" : "none"}
+            stroke={inWishist ? "red" : "currentColor"}
             strokeWidth="2"
             viewBox="0 0 24 24"
             width="24"
@@ -81,21 +108,19 @@ export default function ProductCard({ product }: { product: GetProductType }) {
 
         <div className={theme.productCard.addCartWrapper}>
           <button
-            onClick={handleAddToCart}
+            onClick={() => {
+              handleAddItem();
+            }}
             disabled={isOutOfStock}
             className={`${theme.productCard.addCartButton} ${
-              isAdded
+              inCart
                 ? "bg-green-600"
                 : isOutOfStock
                   ? "bg-gray-400 cursor-not-allowed"
                   : ""
             }`}
           >
-            {isOutOfStock
-              ? "Out Of Stock"
-              : isAdded
-                ? "Added ✓"
-                : "Add To Cart"}
+            {isOutOfStock ? "Out Of Stock" : inCart ? "Added ✓" : "Add To Cart"}
           </button>
         </div>
       </div>

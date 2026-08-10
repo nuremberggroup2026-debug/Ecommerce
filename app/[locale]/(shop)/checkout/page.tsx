@@ -1,70 +1,39 @@
-"use client";
-
-import { useState } from "react";
-import { useAppSelector } from "@/Redux/store/hooks";
-import { ShippingData } from "@/features/checkout/types";
-
 import EmptyCart from "@/features/checkout/components/EmptyCart";
 import DeliveryDetails from "@/features/checkout/components/DeliveryDetails";
 import PaymentMethods from "@/features/checkout/components/PaymentMethods";
 import OrderSummary from "@/features/checkout/components/OrderSummary";
+import CustomerDetails from "@/features/checkout/components/CustomerDetails";
 
-export default function CheckoutComponent() {
-  const cartItems = useAppSelector((state) => state.cart.items);
+import { Locale } from "@/types";
+import { getCart } from "@/features/cart/api/cart.server.api";
 
-  const [paymentMethod, setPaymentMethod] = useState<string>("cash");
-  const [shippingData, setShippingData] = useState<ShippingData>({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-  });
+interface Props {
+  params: Promise<{ locale: Locale }>;
+}
+export default async function CheckoutComponent({ params }: Props) {
+  const { locale } = await params;
 
-  const subtotal = cartItems.reduce(
-    (total, item) => total + item.product.price * item.quantity,
-    0
-  );
-  
-  const shipping = subtotal > 300 ? 0 : 15;
-  const total = subtotal + shipping;
-
-  const handleShippingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShippingData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handlePlaceOrder = () => {
-    console.log("Order Placed:", { shippingData, paymentMethod, cartItems, total });
-  };
-
-  if (cartItems.length === 0) {
-    return <EmptyCart />;
-  }
+  const data = (await getCart(locale)).data;
+  console.log("cart data: ", data);
 
   return (
     <main className="min-h-screen bg-white text-black">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <h1 className="mb-10 text-3xl font-semibold tracking-tight">Checkout</h1>
+        <h1 className="mb-10 text-3xl font-semibold tracking-tight">
+          Checkout
+        </h1>
 
-        <form 
-          className="grid grid-cols-1 gap-10 lg:grid-cols-12"
-          onSubmit={(e) => e.preventDefault()} 
-        >
-          <section className="space-y-6 lg:col-span-7">
-            <DeliveryDetails 
-              shippingData={shippingData} 
-              onChange={handleShippingChange} 
+        <form className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+          <CustomerDetails locale={locale} />
+          {/*<section className="space-y-6 lg:col-span-7">
+            <DeliveryDetails
+              shippingData={shippingData}
+              onChange={handleShippingChange}
             />
-            <PaymentMethods 
-              paymentMethod={paymentMethod} 
-              setPaymentMethod={setPaymentMethod} 
-            />
-          </section>
+           
+          </section>*/}
 
-          <aside className="lg:col-span-5">
+          {/* <aside className="lg:col-span-5">
             <OrderSummary
               cartItems={cartItems}
               subtotal={subtotal}
@@ -72,7 +41,7 @@ export default function CheckoutComponent() {
               total={total}
               onSubmit={handlePlaceOrder}
             />
-          </aside>
+          </aside>*/}
         </form>
       </div>
     </main>

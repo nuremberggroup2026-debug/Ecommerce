@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth/auth";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { getFilterProducts } from "@/server/products/services";
 import { Locale, ProductFilters, SortType } from "@/types";
@@ -8,6 +9,8 @@ export const GET = async (
   { params }: { params: Promise<{ locale: Locale }> },
 ) => {
   try {
+    const session = await auth();
+    const userId = session?.user?.id;
     const { locale } = await params;
     const { searchParams } = new URL(request.url);
     const categories = searchParams.getAll("categories");
@@ -25,7 +28,7 @@ export const GET = async (
       page: page ? Number(page) : undefined,
     };
 
-    const result = await getFilterProducts(filters, locale);
+    const result = await getFilterProducts(filters, locale, userId);
     const status = HTTP_STATUS_MAP[result.code];
     return NextResponse.json(
       { message: result.message, success: result.success, data: result.data },

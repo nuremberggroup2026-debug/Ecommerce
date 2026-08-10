@@ -76,6 +76,7 @@
     "CART_CLEARED_SUCCESSFULLY": "Cart cleared successfully",
     "ITEM_ADDED_TO_CART": "Item added to cart",
     "CART_ITEM_ADDING": "Adding product to cart...",
+    "DELETE_CART_ITEM": "Deleting item...",
     "CART_ITEM_NOT_FOUND": "Cart item not found",
     "CART_ITEM_DELETED_SUCCESSFULLY": "Cart item deleted successfully",
     "QUANTITY_UPDATED_SUCCESSFULLY": "Quantity updated successfully",
@@ -123,5 +124,19 @@
     "sku": "SKU",
     "quantity": "Quantity",
     "addToBag": "Add to Bag"
+  },
+  "Wishlist": {
+    "title": "Your Wishlist",
+    "emptyTitle": "Your wishlist is empty",
+    "emptyDescription": "No products saved yet. Explore our collections and save your favorites for later.",
+    "explore": "Explore Products",
+    "savedItems": "You have {count} saved items",
+    "remove": "Remove from wishlist",
+    "category": "Category",
+    "viewProduct": "View Product",
+    "loginRequiredTitle": "Sign in to view your wishlist",
+    "loginRequiredDescription": "Your wishlist is waiting for you. Sign in to save your favorite products and access them anytime.",
+    "login": "Sign In",
+    "continueShopping": "Continue Shopping"
   }
 }
