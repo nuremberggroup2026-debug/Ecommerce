@@ -8,13 +8,13 @@ import {
 import { revalidateTag, unstable_cache } from "next/cache";
 import { UTApi } from "uploadthing/server";
 import { RESPONSE_CODES } from "@/lib/constants/response";
-import { careersSchema, updateCareersSchema } from "./validators";
+import { careerSchema, updateCareerSchema } from "./validators";
 import { generateSlug } from "@/lib/helpers";
 
 const utapi = new UTApi();
 
 export const addNewCareer = async (newCareer: CareersCreateInput) => {
-  const validation = careersSchema.safeParse(newCareer);
+  const validation = careerSchema.safeParse(newCareer);
 
   if (validation.success) {
     const existingCareer = await prisma.careers.findFirst({
@@ -36,7 +36,7 @@ export const addNewCareer = async (newCareer: CareersCreateInput) => {
       data: { ...validation.data, slug },
     });
 
-    revalidateTag("careers", "max");
+    revalidateTag("careers",  {expire:0});
 
     return {
       success: true,
@@ -63,7 +63,7 @@ export const updateCareer = async (
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
-  const validation = updateCareersSchema.safeParse(updatedCareerData);
+  const validation = updateCareerSchema.safeParse(updatedCareerData);
 
   if (validation.success) {
     const existingCareer = await prisma.careers.findUnique({
@@ -107,7 +107,7 @@ export const updateCareer = async (
       },
     });
 
-    revalidateTag("careers", "max");
+    revalidateTag("careers", {expire:0});
 
     return {
       success: true,
@@ -156,7 +156,7 @@ export const deleteCareer = async (id: string) => {
     await utapi.deleteFiles(imageKey);
   }
 
-  revalidateTag("careers", "max");
+  revalidateTag("careers",  {expire:0});
 
   return {
     success: true,
@@ -164,7 +164,68 @@ export const deleteCareer = async (id: string) => {
     code: RESPONSE_CODES.OK,
   };
 };
+///////////////////////////////////////////////////////////////
 
+export const deleteManyCareers = async (ids: string[]) => {
+  if (!ids.length) {
+    return {
+      success: false,
+      message: "CAREERS_IDS_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
+
+  const existingCareers = await prisma.careers.findMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  if (existingCareers.length === 0) {
+    return {
+      success: false,
+      message: "CAREERS_NOT_FOUND",
+      code: RESPONSE_CODES.NOT_FOUND,
+    };
+  }
+
+  const result = await prisma.careers.deleteMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  if (result.count === 0) {
+    return {
+      success: false,
+      message: "CAREERS_DELETE_FAILED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
+
+  const fileKeys = existingCareers
+    .map((career) => career.image.split("/f/")[1])
+    .filter(Boolean);
+
+  if (fileKeys.length) {
+    await utapi.deleteFiles(fileKeys);
+  }
+
+  revalidateTag("careers", { expire: 0 });
+
+  return {
+    success: true,
+    message: "CAREERS_DELETED_SUCCESSFULLY",
+    code: RESPONSE_CODES.OK,
+  };
+};
+
+
+///////////////////////////////////////////////////////////////
 /* -------------------- Caching Helps --------------------  */
 
 // cached Careers used with getAllCareers and getAllCareersByLocale

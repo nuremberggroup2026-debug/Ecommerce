@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -30,9 +29,7 @@ export const columns = ({
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value) =>
-          table.toggleAllPageRowsSelected(!!value)
-        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
@@ -40,9 +37,7 @@ export const columns = ({
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) =>
-          row.toggleSelected(!!value)
-        }
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -53,40 +48,32 @@ export const columns = ({
 
   {
     accessorKey: "attributeNameEn",
+    meta: "Name (EN)",
 
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Name (EN)"
-      />
+      <DataTableColumnHeader column={column} title="Name (EN)" />
     ),
   },
 
   {
     accessorKey: "attributeNameAr",
+    meta: "Name (AR)",
 
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Name (AR)"
-      />
+      <DataTableColumnHeader column={column} title="Name (AR)" />
     ),
   },
 
   {
     accessorKey: "createdAt",
+    meta: "Created At",
 
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Created At"
-      />
+      <DataTableColumnHeader column={column} title="Created At" />
     ),
 
     cell: ({ row }) =>
-      new Date(
-        row.original.createdAt
-      ).toLocaleDateString("en-GB"),
+      new Date(row.original.createdAt).toLocaleDateString("en-GB"),
   },
 
   {
@@ -105,21 +92,14 @@ export const columns = ({
             size="icon"
             className="h-9 w-9 rounded-md"
           >
-            <Link
-              href={`/dashboard/attributes/edit/${attribute.id}`}
-            >
+            <Link href={`/dashboard/attributes/edit/${attribute.id}`}>
               <SquarePen className="h-4 w-4" />
 
-              <span className="sr-only">
-                Edit attribute
-              </span>
+              <span className="sr-only">Edit attribute</span>
             </Link>
           </Button>
 
-          <DeleteConfirmation
-            id={attribute.id}
-            onConfirm={onDelete}
-          />
+          <DeleteConfirmation id={attribute.id} onConfirm={onDelete} />
         </div>
       );
     },

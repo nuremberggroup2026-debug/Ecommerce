@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { title } from "process"
 
 export function DataTableViewOptions<TData>({
   table,
@@ -30,24 +31,30 @@ export function DataTableViewOptions<TData>({
           View
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[150px]">
+
+      <DropdownMenuContent align="end" className="w-[180px]">
         <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
         <DropdownMenuSeparator />
+
         {table
           .getAllColumns()
           .filter(
             (column) =>
-              typeof column.accessorFn !== "undefined" && column.getCanHide()
+              typeof column.accessorFn !== "undefined" &&
+              column.getCanHide()
           )
           .map((column) => {
+            const header = column.columnDef.meta
+
             return (
               <DropdownMenuCheckboxItem
                 key={column.id}
-                className="capitalize"
                 checked={column.getIsVisible()}
-                onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                onCheckedChange={(value) =>
+                  column.toggleVisibility(!!value)
+                }
               >
-                {column.id}
+                {typeof header === "string" ? header : column.id}
               </DropdownMenuCheckboxItem>
             )
           })}
@@ -55,3 +62,4 @@ export function DataTableViewOptions<TData>({
     </DropdownMenu>
   )
 }
+

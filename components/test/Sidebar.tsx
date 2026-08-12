@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Sidebar,
@@ -11,7 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 import {
   Home,
@@ -19,14 +19,12 @@ import {
   Folder,
   ShoppingCart,
   Users,
-  Boxes,
   BarChart,
-  Megaphone,
-  Star,
-  Settings,
   Timeline,
-  Images 
-} from "lucide-react"
+  BriefcaseBusiness,
+  Images,
+  ClipboardList 
+} from "lucide-react";
 
 const items = [
   {
@@ -44,12 +42,12 @@ const items = [
     url: "/dashboard/products",
     icon: Package,
   },
-   {
-      title: "Attributes",
+  {
+    title: "Attributes",
     url: "/dashboard/attributes",
     icon: Timeline,
   },
-  
+
   {
     title: "Categories",
     url: "/dashboard/categories",
@@ -67,41 +65,31 @@ const items = [
     icon: Users,
   },
   {
-    title: "Inventory",
-    url: "/dashboard/inventory",
-    icon: Boxes,
+    title: "Careers",
+    url: "/dashboard/careers",
+    icon: BriefcaseBusiness,
   },
   {
     title: "Analytics",
     url: "/dashboard/analytics",
     icon: BarChart,
   },
-  {
-    title: "Marketing",
-    url: "/dashboard/marketing",
-    icon: Megaphone,
-  },
-  {
-    title: "Reviews",
-    url: "/dashboard/reviews",
-    icon: Star,
-  },
+
   {
     title: "Users",
     url: "/dashboard/users",
     icon: Users,
   },
-  {
-    title: "Settings",
-    url: "/dashboard/settings",
-    icon: Settings,
+   {
+    title: "Applications",
+    url: "/dashboard/applications",
+    icon: ClipboardList ,
   },
-]
+];
 
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
-
       <SidebarHeader>
         <h2
           className="
@@ -119,10 +107,8 @@ export function AppSidebar() {
         </h2>
       </SidebarHeader>
 
-
       <SidebarContent>
         <SidebarGroup>
-
           <SidebarGroupLabel
             className="
               transition-all
@@ -133,18 +119,12 @@ export function AppSidebar() {
             Menu
           </SidebarGroupLabel>
 
-
           <SidebarGroupContent>
             <SidebarMenu>
-
               {items.map((item) => (
-
                 <SidebarMenuItem key={item.title}>
-
                   <SidebarMenuButton asChild>
-
                     <a href={item.url}>
-
                       <item.icon className="shrink-0" />
 
                       <span
@@ -159,25 +139,16 @@ export function AppSidebar() {
                       >
                         {item.title}
                       </span>
-
                     </a>
-
                   </SidebarMenuButton>
-
                 </SidebarMenuItem>
-
               ))}
-
             </SidebarMenu>
           </SidebarGroupContent>
-
-
         </SidebarGroup>
       </SidebarContent>
 
-
       <SidebarFooter>
-
         <p
           className="
             px-4 py-2 
@@ -191,10 +162,7 @@ export function AppSidebar() {
         >
           © 2026 Admin
         </p>
-
       </SidebarFooter>
-
-
     </Sidebar>
-  )
+  );
 }

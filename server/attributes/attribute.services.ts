@@ -182,13 +182,21 @@ export const deleteManyAttributes = async (ids: string[]) => {
     };
   }
 
-  await prisma.attributes.deleteMany({
+  const result = await prisma.attributes.deleteMany({
     where: {
       id: {
         in: ids,
       },
     },
   });
+
+  if (result.count === 0) {
+    return {
+      success: false,
+      message: "ATTRIBUTES_DELETE_FAILED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
 
   revalidateTag("attributes", { expire: 0 });
   revalidateTag("attributeValues", { expire: 0 });
@@ -199,6 +207,8 @@ export const deleteManyAttributes = async (ids: string[]) => {
     code: RESPONSE_CODES.OK,
   };
 };
+
+
 
 /////////////////////////////////////////////////////////////////
 // Caching

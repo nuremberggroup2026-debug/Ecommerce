@@ -76,6 +76,8 @@ export default function Footer() {
                 <li><Link href="/faq" className="transition hover:text-black">FAQ</Link></li>
                 <li><Link href="/shipping" className="transition hover:text-black">Shipping</Link></li>
                 <li><Link href="/returns" className="transition hover:text-black">Returns</Link></li>
+                <li><Link href="/careers" className="transition hover:text-black">Careers</Link></li>
+
               </ul>
             </div>
 

@@ -53,8 +53,10 @@ export const columns = ({
 
   {
     accessorKey: "image",
+    meta: "Image",
 
     header: "Image",
+    
 
     cell: ({ row }) => {
       const image = row.original.image;
@@ -76,6 +78,7 @@ export const columns = ({
 
   {
     accessorKey: "categoryNameEn",
+      meta: "Name (EN)",
 
     header: ({ column }) => (
       <DataTableColumnHeader
@@ -87,6 +90,8 @@ export const columns = ({
 
   {
     accessorKey: "categoryNameAr",
+          meta: "Name (AR)",
+
 
     header: ({ column }) => (
       <DataTableColumnHeader
@@ -158,6 +163,7 @@ export const columns = ({
 
   {
     accessorKey: "createdAt",
+        meta: "Created At",
 
     header: ({ column }) => (
       <DataTableColumnHeader

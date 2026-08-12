@@ -25,7 +25,6 @@ type Order = {
 };
 
 export default function OrdersComponent() {
-  // بيانات تجريبية للطلبات السابقة
   const [orders] = useState<Order[]>([
     {
       orderId: "ORD-902-841",

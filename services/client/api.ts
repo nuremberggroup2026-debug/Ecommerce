@@ -56,7 +56,7 @@ export const Clientapi = {
 
   put: <TResponse, TBody>(
     url: string,
-    body: TBody,
+    body?: TBody,
     options?: Omit<FetchOptions<TBody>, "method" | "body">,
   ) =>
     request<TResponse, TBody>(url, {

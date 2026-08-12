@@ -149,7 +149,6 @@ export const deleteBanner = async (id: string) => {
 
 
 
-
 export const deleteManyBanner = async (ids: string[]) => {
   if (!ids.length) {
     return {
@@ -175,13 +174,21 @@ export const deleteManyBanner = async (ids: string[]) => {
     };
   }
 
-  await prisma.banners.deleteMany({
+  const result = await prisma.banners.deleteMany({
     where: {
       id: {
         in: ids,
       },
     },
   });
+
+  if (result.count === 0) {
+    return {
+      success: false,
+      message: "BANNERS_DELETE_FAILED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
 
   const fileKeys = existingBanners
     .map((banner) => banner.image.split("/f/")[1])

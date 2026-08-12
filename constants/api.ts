@@ -25,24 +25,48 @@ export const API = {
       ADD_BANNERS: "banners",
       DELETE_MANY_BANNERS: "banners/delete-many-banners",
     },
-ATTRIBUTES: {
-  ALL_ATTRIBUTES: "/attributes",
-  ALL_ATTRIBUTES_BY_LOCALE: "attributes/all-attributes-by-locale",
-  ATTRIBUTE_BY_ID: "attributes",
-  ADD_ATTRIBUTES: "attributes",
-  DELETE_MANY_ATTRIBUTES: "attributes/delete-many-attributes",
-  ATTRIBUTE_VALUES:"attributes-values"
+    CAREERS: {
+      ALL_CAREERS: "/careers",
+      ALL_CAREERS_BY_LOCALE: "careers/careers-by-locale",
+      CAREER_BY_SLUG: "careers/career-by-slug",
+            CAREER_BY_ID: "careers",
 
+      ADD_CAREER: "careers",
+      DELETE_MANY_CAREERS: "careers/delete-many-careers",
+     CAREER_BY_SLUG_AND_LOCALE:"careers/career-by-slug-and-locale",
+     CAREERS_WITH_APPLICATIONS:"careers/careers-with-applications"
+    },
 
+APPLICATIONS: {
+  ALL_APPLICATIONS: "applications",
+
+  APPLICATION_WITH_CAREER_BY_ID: "applications/applictions-with-career-by-id",
+
+  DELETE_MANY_APPLICATIONS: "applications/delete-many-applications",
+
+  CAREERS_WITH_APPLICATIONS: "careers/applications-by-career-id",
+   APPLICATION_BY_ID: "applications",
+   APPLICATIONS_BY_CAREER_ID:"applications/applications-by-career-id",
+   MARK_APPLICATION_AS_SHOWN:"applications/mark-application-as-shown"
+  
 },
-ATTRIBUTE_VALUES: {
-    // Attribute Values
-  ALL_ATTRIBUTE_VALUES: "attribute-values",
-  ATTRIBUTE_VALUE_BY_ID: "attribute-values",
-  ADD_ATTRIBUTE_VALUE: "attribute-values",
-  DELETE_ATTRIBUTE_VALUE: "attribute-values",
 
-},
+
+    ATTRIBUTES: {
+      ALL_ATTRIBUTES: "/attributes",
+      ALL_ATTRIBUTES_BY_LOCALE: "attributes/all-attributes-by-locale",
+      ATTRIBUTE_BY_ID: "attributes",
+      ADD_ATTRIBUTES: "attributes",
+      DELETE_MANY_ATTRIBUTES: "attributes/delete-many-attributes",
+      ATTRIBUTE_VALUES: "attributes-values",
+    },
+    ATTRIBUTE_VALUES: {
+      // Attribute Values
+      ALL_ATTRIBUTE_VALUES: "attribute-values",
+      ATTRIBUTE_VALUE_BY_ID: "attribute-values",
+      ADD_ATTRIBUTE_VALUE: "attribute-values",
+      DELETE_ATTRIBUTE_VALUE: "attribute-values",
+    },
 
     USERS: "/users",
 

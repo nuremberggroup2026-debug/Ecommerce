@@ -20,7 +20,7 @@ import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { DataTablePagination } from "./pagination"
-import { DataTableViewOptions } from "@/app/(admin)/dashboard/products/DataTableViewOptions"
+import { DataTableViewOptions } from "@/app/(admin)/dashboard/components/DataTableViewOptions"
 
 import {
   Table,

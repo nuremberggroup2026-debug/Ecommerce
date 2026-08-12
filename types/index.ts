@@ -19,6 +19,10 @@ export interface AddResponseType {
   message: string;
   success: boolean;
 }
+export interface ShownResponseType {
+  message: string;
+  success: boolean;
+}
 
 // Banners Types
 export type NewBanner = Prisma.bannersCreateInput;

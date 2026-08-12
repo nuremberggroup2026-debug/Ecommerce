@@ -245,6 +245,66 @@ export const getCachedApplicationsWithCareerById = (applicationId: string) =>
     },
   )();
 
+  ////////////////////////////////////////////////////////
+  export const deleteManyApplications = async (ids: string[]) => {
+    if (!ids.length) {
+      return {
+        success: false,
+        message: "APPLICATIONS_IDS_REQUIRED",
+        code: RESPONSE_CODES.BAD_REQUEST,
+      };
+    }
+  
+    const existingApplications = await prisma.applications.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  
+    if (existingApplications.length === 0) {
+      return {
+        success: false,
+        message: "APPLICATIONS_NOT_FOUND",
+        code: RESPONSE_CODES.NOT_FOUND,
+      };
+    }
+  
+    const result = await prisma.applications.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  
+    if (result.count === 0) {
+      return {
+        success: false,
+        message: "APPLICATIONS_DELETE_FAILED",
+        code: RESPONSE_CODES.BAD_REQUEST,
+      };
+    }
+  
+    const fileKeys = existingApplications
+      .map((application) => application.cv.split("/f/")[1])
+      .filter(Boolean);
+  
+    if (fileKeys.length) {
+      await utapi.deleteFiles(fileKeys);
+    }
+  
+    revalidateTag("applications", { expire: 0 });
+  
+    return {
+      success: true,
+      message: "APPLICATIONS_DELETED_SUCCESSFULLY",
+      code: RESPONSE_CODES.OK,
+    };
+  };
+  ///////////////////////////////////////////////////////
+
 /* -------------------- Caching Helps --------------------  */
 
 export const getAllApplications = async () => {
@@ -372,36 +432,40 @@ export const getApplicationsWithCareerById = async (id: string) => {
 };
 
 export const markApplicationAsShown = async (id: string) => {
-  if (!id)
+  if (!id) {
     return {
       success: false,
       message: "APPLICATION_ID_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
     };
+  }
 
   const existingApplication = await prisma.applications.findUnique({
     where: { id },
   });
 
-  if (!existingApplication)
+  if (!existingApplication) {
     return {
       success: false,
       message: "APPLICATION_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
     };
+  }
 
   await prisma.applications.update({
     where: { id },
     data: {
-      isShown: true,
+      isShown: !existingApplication.isShown,
     },
   });
 
-  revalidateTag("applications", "max");
+  revalidateTag("applications", {expire:0});
 
   return {
     success: true,
-    message: "APPLICATION_MARKED_AS_SHOWN_SUCCESSFULLY",
+    message: existingApplication.isShown
+      ? "APPLICATION_MARKED_AS_UNSHOWN_SUCCESSFULLY"
+      : "APPLICATION_MARKED_AS_SHOWN_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
   };
 };
