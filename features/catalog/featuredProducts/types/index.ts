@@ -54,3 +54,24 @@ export type ProductsResponse = {
   skip: number;
   limit: number;
 };
+export type GetProductType = {
+  id: string;
+  productName: string;
+  productDescription: string;
+  productCardImage: string;
+  slug: string;
+  categoryName: string;
+  variants: {
+    price: number;
+    discountPercentage: number | null;
+    finalPrice: number;
+    stock: number;
+    id: string;
+  }[];
+};
+
+export type ProductsDataWithOutPag = {
+  products: GetProductType[];
+  productsIdsInWishlist: string[];
+  productsIdsInCart: string[];
+};

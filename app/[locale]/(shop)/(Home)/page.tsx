@@ -4,7 +4,6 @@ import PromoBanner from "@/components/test/PromoBanner";
 import ForSaleSection from "@/components/test/ForSaleSection";
 import ProductShowcaseTabs from "@/components/test/ProductShowcaseTabs";
 import { fetchFeaturedCategories } from "@/features/catalog/categories/api/categories.client.api";
-import { getFeaturedProducts } from "@/features/catalog/featuredProducts/api/featueredProducts";
 import FeaturedProductsComponent from "@/features/catalog/featuredProducts/components/FeaturedProductsComponent";
 import { StoreFeaturesSection } from "@/components/test/StoreFeaturesSection";
 import { fetchBanners } from "@/features/banner/api/banners.server.api";
@@ -13,8 +12,6 @@ import {
   fetchFeaturedProducts,
   fetchOnDiscountProducts,
 } from "@/features/catalog/products/api/products.api";
-import { Session } from "inspector/promises";
-import { auth } from "@/lib/auth/auth";
 
 interface Prop {
   params: Promise<{ locale: Locale }>;
@@ -28,24 +25,13 @@ export default async function Home({ params }: Prop) {
       fetchFeaturedProducts(locale),
       fetchOnDiscountProducts(locale),
     ]);
-  // const products = (await getFeaturedProducts()).products;
-  console.log("categories: ", categories);
-
-  console.log("banners: ", banners);
-
-  const session = await auth();
-  console.log("session home: ", session);
-
-  console.log("featuredProducts: ", featuredProducts);
-
-  console.log("onDiscountProducts: ", onDiscountProducts);
 
   return (
     <main className="bg-white text-black antialiased">
       <HeroSection banners={banners.data} />
 
       <div className="bg-white">
-        <CategoriesSection categories={categories} />
+        <CategoriesSection categories={categories} locale={locale} />
       </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -53,11 +39,14 @@ export default async function Home({ params }: Prop) {
       </div>
 
       <div className="bg-white">
-        <FeaturedProductsComponent products={featuredProducts} />
+        <FeaturedProductsComponent featuredProductsData={featuredProducts} />
       </div>
 
       <div className="bg-neutral-50 py-4">
-        <ForSaleSection products={onDiscountProducts} locale={locale} />
+        <ForSaleSection
+          discountProductsData={onDiscountProducts}
+          locale={locale}
+        />
       </div>
 
       <PromoBanner />

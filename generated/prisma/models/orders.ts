@@ -42,6 +42,7 @@ export type OrdersSumAggregateOutputType = {
 
 export type OrdersMinAggregateOutputType = {
   id: string | null
+  orderNumber: string | null
   userId: string | null
   totalAmount: runtime.Decimal | null
   email: string | null
@@ -60,6 +61,7 @@ export type OrdersMinAggregateOutputType = {
 
 export type OrdersMaxAggregateOutputType = {
   id: string | null
+  orderNumber: string | null
   userId: string | null
   totalAmount: runtime.Decimal | null
   email: string | null
@@ -78,6 +80,7 @@ export type OrdersMaxAggregateOutputType = {
 
 export type OrdersCountAggregateOutputType = {
   id: number
+  orderNumber: number
   userId: number
   totalAmount: number
   email: number
@@ -112,6 +115,7 @@ export type OrdersSumAggregateInputType = {
 
 export type OrdersMinAggregateInputType = {
   id?: true
+  orderNumber?: true
   userId?: true
   totalAmount?: true
   email?: true
@@ -130,6 +134,7 @@ export type OrdersMinAggregateInputType = {
 
 export type OrdersMaxAggregateInputType = {
   id?: true
+  orderNumber?: true
   userId?: true
   totalAmount?: true
   email?: true
@@ -148,6 +153,7 @@ export type OrdersMaxAggregateInputType = {
 
 export type OrdersCountAggregateInputType = {
   id?: true
+  orderNumber?: true
   userId?: true
   totalAmount?: true
   email?: true
@@ -253,6 +259,7 @@ export type ordersGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type OrdersGroupByOutputType = {
   id: string
+  orderNumber: string
   userId: string | null
   totalAmount: runtime.Decimal
   email: string
@@ -294,6 +301,7 @@ export type ordersWhereInput = {
   OR?: Prisma.ordersWhereInput[]
   NOT?: Prisma.ordersWhereInput | Prisma.ordersWhereInput[]
   id?: Prisma.UuidFilter<"orders"> | string
+  orderNumber?: Prisma.StringFilter<"orders"> | string
   userId?: Prisma.UuidNullableFilter<"orders"> | string | null
   totalAmount?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFilter<"orders"> | string
@@ -315,6 +323,7 @@ export type ordersWhereInput = {
 
 export type ordersOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -336,6 +345,7 @@ export type ordersOrderByWithRelationInput = {
 
 export type ordersWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  orderNumber?: string
   AND?: Prisma.ordersWhereInput | Prisma.ordersWhereInput[]
   OR?: Prisma.ordersWhereInput[]
   NOT?: Prisma.ordersWhereInput | Prisma.ordersWhereInput[]
@@ -356,10 +366,11 @@ export type ordersWhereUniqueInput = Prisma.AtLeast<{
   orderItems?: Prisma.Order_itemsListRelationFilter
   users?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   userPromoCodes?: Prisma.User_promo_codesListRelationFilter
-}, "id">
+}, "id" | "orderNumber">
 
 export type ordersOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -386,6 +397,7 @@ export type ordersScalarWhereWithAggregatesInput = {
   OR?: Prisma.ordersScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ordersScalarWhereWithAggregatesInput | Prisma.ordersScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"orders"> | string
+  orderNumber?: Prisma.StringWithAggregatesFilter<"orders"> | string
   userId?: Prisma.UuidNullableWithAggregatesFilter<"orders"> | string | null
   totalAmount?: Prisma.DecimalWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringWithAggregatesFilter<"orders"> | string
@@ -404,6 +416,7 @@ export type ordersScalarWhereWithAggregatesInput = {
 
 export type ordersCreateInput = {
   id?: string
+  orderNumber: string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
   phoneNumber: string
@@ -424,6 +437,7 @@ export type ordersCreateInput = {
 
 export type ordersUncheckedCreateInput = {
   id?: string
+  orderNumber: string
   userId?: string | null
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
@@ -444,6 +458,7 @@ export type ordersUncheckedCreateInput = {
 
 export type ordersUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -464,6 +479,7 @@ export type ordersUpdateInput = {
 
 export type ordersUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -484,6 +500,7 @@ export type ordersUncheckedUpdateInput = {
 
 export type ordersCreateManyInput = {
   id?: string
+  orderNumber: string
   userId?: string | null
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
@@ -502,6 +519,7 @@ export type ordersCreateManyInput = {
 
 export type ordersUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -519,6 +537,7 @@ export type ordersUpdateManyMutationInput = {
 
 export type ordersUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -542,6 +561,7 @@ export type OrdersScalarRelationFilter = {
 
 export type ordersCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -567,6 +587,7 @@ export type ordersAvgOrderByAggregateInput = {
 
 export type ordersMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -585,6 +606,7 @@ export type ordersMaxOrderByAggregateInput = {
 
 export type ordersMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   email?: Prisma.SortOrder
@@ -698,6 +720,7 @@ export type ordersUncheckedUpdateManyWithoutUsersNestedInput = {
 
 export type ordersCreateWithoutOrderItemsInput = {
   id?: string
+  orderNumber: string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
   phoneNumber: string
@@ -717,6 +740,7 @@ export type ordersCreateWithoutOrderItemsInput = {
 
 export type ordersUncheckedCreateWithoutOrderItemsInput = {
   id?: string
+  orderNumber: string
   userId?: string | null
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
@@ -752,6 +776,7 @@ export type ordersUpdateToOneWithWhereWithoutOrderItemsInput = {
 
 export type ordersUpdateWithoutOrderItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -771,6 +796,7 @@ export type ordersUpdateWithoutOrderItemsInput = {
 
 export type ordersUncheckedUpdateWithoutOrderItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -790,6 +816,7 @@ export type ordersUncheckedUpdateWithoutOrderItemsInput = {
 
 export type ordersCreateWithoutUserPromoCodesInput = {
   id?: string
+  orderNumber: string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
   phoneNumber: string
@@ -809,6 +836,7 @@ export type ordersCreateWithoutUserPromoCodesInput = {
 
 export type ordersUncheckedCreateWithoutUserPromoCodesInput = {
   id?: string
+  orderNumber: string
   userId?: string | null
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
@@ -844,6 +872,7 @@ export type ordersUpdateToOneWithWhereWithoutUserPromoCodesInput = {
 
 export type ordersUpdateWithoutUserPromoCodesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -863,6 +892,7 @@ export type ordersUpdateWithoutUserPromoCodesInput = {
 
 export type ordersUncheckedUpdateWithoutUserPromoCodesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -882,6 +912,7 @@ export type ordersUncheckedUpdateWithoutUserPromoCodesInput = {
 
 export type ordersCreateWithoutUsersInput = {
   id?: string
+  orderNumber: string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
   phoneNumber: string
@@ -901,6 +932,7 @@ export type ordersCreateWithoutUsersInput = {
 
 export type ordersUncheckedCreateWithoutUsersInput = {
   id?: string
+  orderNumber: string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
   phoneNumber: string
@@ -949,6 +981,7 @@ export type ordersScalarWhereInput = {
   OR?: Prisma.ordersScalarWhereInput[]
   NOT?: Prisma.ordersScalarWhereInput | Prisma.ordersScalarWhereInput[]
   id?: Prisma.UuidFilter<"orders"> | string
+  orderNumber?: Prisma.StringFilter<"orders"> | string
   userId?: Prisma.UuidNullableFilter<"orders"> | string | null
   totalAmount?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFilter<"orders"> | string
@@ -967,6 +1000,7 @@ export type ordersScalarWhereInput = {
 
 export type ordersCreateManyUsersInput = {
   id?: string
+  orderNumber: string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   email: string
   phoneNumber: string
@@ -984,6 +1018,7 @@ export type ordersCreateManyUsersInput = {
 
 export type ordersUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1003,6 +1038,7 @@ export type ordersUpdateWithoutUsersInput = {
 
 export type ordersUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1022,6 +1058,7 @@ export type ordersUncheckedUpdateWithoutUsersInput = {
 
 export type ordersUncheckedUpdateManyWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1079,6 +1116,7 @@ export type OrdersCountOutputTypeCountUserPromoCodesArgs<ExtArgs extends runtime
 
 export type ordersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  orderNumber?: boolean
   userId?: boolean
   totalAmount?: boolean
   email?: boolean
@@ -1101,6 +1139,7 @@ export type ordersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 
 export type ordersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  orderNumber?: boolean
   userId?: boolean
   totalAmount?: boolean
   email?: boolean
@@ -1120,6 +1159,7 @@ export type ordersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 
 export type ordersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  orderNumber?: boolean
   userId?: boolean
   totalAmount?: boolean
   email?: boolean
@@ -1139,6 +1179,7 @@ export type ordersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 
 export type ordersSelectScalar = {
   id?: boolean
+  orderNumber?: boolean
   userId?: boolean
   totalAmount?: boolean
   email?: boolean
@@ -1155,7 +1196,7 @@ export type ordersSelectScalar = {
   subtotal?: boolean
 }
 
-export type ordersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "totalAmount" | "email" | "phoneNumber" | "city" | "streetAddress" | "buildingNumber" | "additionalNote" | "createdAt" | "status" | "paymentMethod" | "updatedAt" | "discountAmount" | "subtotal", ExtArgs["result"]["orders"]>
+export type ordersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "userId" | "totalAmount" | "email" | "phoneNumber" | "city" | "streetAddress" | "buildingNumber" | "additionalNote" | "createdAt" | "status" | "paymentMethod" | "updatedAt" | "discountAmount" | "subtotal", ExtArgs["result"]["orders"]>
 export type ordersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderItems?: boolean | Prisma.orders$orderItemsArgs<ExtArgs>
   users?: boolean | Prisma.orders$usersArgs<ExtArgs>
@@ -1178,6 +1219,7 @@ export type $ordersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    orderNumber: string
     userId: string | null
     totalAmount: runtime.Decimal
     email: string
@@ -1619,6 +1661,7 @@ export interface Prisma__ordersClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface ordersFieldRefs {
   readonly id: Prisma.FieldRef<"orders", 'String'>
+  readonly orderNumber: Prisma.FieldRef<"orders", 'String'>
   readonly userId: Prisma.FieldRef<"orders", 'String'>
   readonly totalAmount: Prisma.FieldRef<"orders", 'Decimal'>
   readonly email: Prisma.FieldRef<"orders", 'String'>

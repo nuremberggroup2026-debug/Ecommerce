@@ -1,48 +1,47 @@
 import EmptyCart from "@/features/checkout/components/EmptyCart";
-import DeliveryDetails from "@/features/checkout/components/DeliveryDetails";
-import PaymentMethods from "@/features/checkout/components/PaymentMethods";
-import OrderSummary from "@/features/checkout/components/OrderSummary";
-import CustomerDetails from "@/features/checkout/components/CustomerDetails";
-
 import { Locale } from "@/types";
 import { getCart } from "@/features/cart/api/cart.server.api";
+import CheckoutComponent from "@/features/checkout/components/CheckoutComponent";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{ locale: Locale }>;
 }
-export default async function CheckoutComponent({ params }: Props) {
+
+export default async function Page({ params }: Props) {
   const { locale } = await params;
 
+  const t = await getTranslations("CHECKOUT");
+
   const data = (await getCart(locale)).data;
-  console.log("cart data: ", data);
+
+  if (!data || data.items.length === 0) {
+    return <EmptyCart locale={locale} />;
+  }
 
   return (
-    <main className="min-h-screen bg-white text-black">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <h1 className="mb-10 text-3xl font-semibold tracking-tight">
-          Checkout
-        </h1>
+    <main
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      className="min-h-screen bg-white text-black"
+    >
+      <div className="mx-auto max-w-7xl px-6 pb-16 pt-6 lg:px-10 lg:pb-20 lg:pt-10">
+        {/* Page Header */}
+        <header className="mb-12 border-b border-neutral-100 pb-8">
+          <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-400">
+            {t("PAGE_LABEL")}
+          </p>
 
-        <form className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-          <CustomerDetails locale={locale} />
-          {/*<section className="space-y-6 lg:col-span-7">
-            <DeliveryDetails
-              shippingData={shippingData}
-              onChange={handleShippingChange}
-            />
-           
-          </section>*/}
+          <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+            {t("PAGE_TITLE")}
+          </h1>
 
-          {/* <aside className="lg:col-span-5">
-            <OrderSummary
-              cartItems={cartItems}
-              subtotal={subtotal}
-              shipping={shipping}
-              total={total}
-              onSubmit={handlePlaceOrder}
-            />
-          </aside>*/}
-        </form>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-neutral-400">
+            {t("PAGE_DESCRIPTION")}
+          </p>
+        </header>
+
+        {/* Checkout Layout */}
+        <CheckoutComponent locale={locale} cartData={data} />
       </div>
     </main>
   );

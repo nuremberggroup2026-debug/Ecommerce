@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth/auth";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { getFeaturedProductsByLocale } from "@/server/products/services";
 import { Locale } from "@/types";
@@ -9,7 +10,9 @@ export const GET = async (
 ) => {
   try {
     const { locale } = await params;
-    const result = await getFeaturedProductsByLocale(locale);
+    const session = await auth();
+    const userId = session?.user?.id;
+    const result = await getFeaturedProductsByLocale(locale, userId);
     console.log("reasss: ", result);
 
     const status = HTTP_STATUS_MAP[result.code] || 500;

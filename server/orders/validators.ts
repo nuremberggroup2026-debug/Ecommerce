@@ -67,6 +67,16 @@ export const createOrderFrontendSchema = (locale: Locale) =>
           : "Additional note is too long",
       )
       .optional(),
+
+    promoCode: z
+      .string()
+      .max(
+        50,
+        locale === "ar"
+          ? "يتجاوز الرمز الترويجي الحد الأقصى للطول"
+          : "Promo Code exceeds maximum length",
+      )
+      .optional(),
   });
 
 export const createOrderBackendSchema = z.object({

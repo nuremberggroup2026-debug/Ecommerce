@@ -3,6 +3,7 @@ import { createOrderBackendSchema } from "./validators";
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { prisma } from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
+import { generateOrderNumber } from "@/lib/helpers";
 
 export const placeAnOrder = async (
   orderData: PlaceOrderCreateInputs,
@@ -102,11 +103,13 @@ export const placeAnOrder = async (
       }
 
       const { promoCode, ...orderValidatedData } = validation.data;
+      const orderNumber = generateOrderNumber();
 
       const order = await tx.orders.create({
         data: {
           ...orderValidatedData,
           userId,
+          orderNumber,
           totalAmount: cartTotalAmount,
           subtotal: cart.totalAmount,
           discountAmount: cart.totalAmount.sub(cartTotalAmount),
@@ -152,7 +155,9 @@ export const placeAnOrder = async (
         data: { totalAmount: 0 },
       });
 
-      revalidateTag("orders", "max");
+      revalidateTag("orders", { expire: 0 });
+      revalidateTag("cart", { expire: 0 });
+      revalidateTag("cartItems", { expire: 0 });
 
       return {
         success: true,
@@ -252,6 +257,7 @@ const getCachedOrdersByUserIdAndLocale = (userId: string) =>
           totalAmount: true,
           subtotal: true,
           discountAmount: true,
+          orderNumber: true,
           status: true,
           createdAt: true,
           _count: {
@@ -294,6 +300,7 @@ const getCachedOrderByIdUserAndLocale = (
           additionalNote: true,
           subtotal: true,
           discountAmount: true,
+          orderNumber: true,
           totalAmount: true,
           status: true,
           createdAt: true,
@@ -306,7 +313,12 @@ const getCachedOrderByIdUserAndLocale = (
               quantity: true,
               itemPrice: true,
               variantId: true,
+              productVariants: { select: { variantImage: true } },
             },
+          },
+
+          userPromoCodes: {
+            select: { promoCodes: { select: { code: true,discountPercentage:true } } },
           },
         },
       });
@@ -321,13 +333,17 @@ const getCachedOrderByIdUserAndLocale = (
         streetAddress: order.streetAddress,
         buildingNumber: order.buildingNumber,
         additionalNote: order.additionalNote,
+        orderNumber: order.orderNumber,
         totalAmount: order.totalAmount,
+        discountAmount: order.discountAmount,
         status: order.status,
+        promoCodeDetails: order.userPromoCodes,
         createdAt: order.createdAt,
         orderItems: order.orderItems.map((item) => ({
           orderItemId: item.id,
           itemPrice: item.itemPrice,
           quantity: item.quantity,
+          variantImage: item.productVariants?.variantImage ?? null,
           productName:
             locale === "en" ? item.productNameEn : item.productNameAr,
         })),

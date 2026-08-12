@@ -120,3 +120,9 @@ export type ProductByLocale = {
   }[];
   isInWishlist: boolean;
 };
+
+export type ProductsDataWithOutPag = {
+  products: GetProductType[];
+  productsIdsInWishlist: string[];
+  productsIdsInCart: string[];
+};

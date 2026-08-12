@@ -1,6 +1,16 @@
 {
   "Home": {
-    "title": "مرحبا بكم في متجرنا"
+    "title": "مرحبا بكم في متجرنا",
+    "ShopNow": "تسوق الأن",
+    "FeaturedProducts": {
+      "TITLE": "منتجات مميزة",
+      "DESCRIPTION": "منتجات مختارة بعناية تتميز بالجودة الفائقة والتصميم الخالد."
+    },
+    "ForSaleSection": {
+      "LIMITED_OFFERS": "عروض محدودة",
+      "FLASH_SALE": "تخفيضات كبرى",
+      "VIEW_ALL_DEALS": "عرض كل الصفقات"
+    }
   },
   "ResponseMessages": {
     "VALIDATION_ERROR": "خطأ في التحقق من البيانات",
@@ -87,10 +97,8 @@
     "ORDER_DETAILS_RETRIEVED_SUCCESSFULLY": "تم جلب تفاصيل الطلب بنجاح",
     "ORDER_PLACED_SUCCESSFULLY": "تم إنشاء الطلب بنجاح",
     "ORDER_STATUS_UPDATED_SUCCESSFULLY": "تم تحديث حالة الطلب بنجاح",
-    "USER_ID_REQUIRED": "معرف المستخدم مطلوب",
     "ORDER_ID_REQUIRED": "معرف الطلب مطلوب",
     "ORDER_ID_AND_USER_ID_REQUIRED": "معرف الطلب ومعرف المستخدم مطلوبان",
-    "INVALID_PROMO_CODE": "رمز الخصم غير صالح",
     "PROMO_CODE_ALREADY_USED_BY_USER": "تم استخدام رمز الخصم مسبقاً من قبل هذا المستخدم",
     "PROMO_CODE_ALREADY_EXISTS": "رمز الخصم موجود مسبقاً",
     "PROMO_CODE_ADDED_SUCCESSFULLY": "تم إضافة رمز الخصم بنجاح",
@@ -113,7 +121,12 @@
     "PRODUCT_ID_REQUIRED": "معرف المنتج مطلوب",
     "CATEGORY_ID_REQUIRED": "معرف التصنيف مطلوب",
     "ATTRIBUTE_ID_REQUIRED": "معرف الخاصية مطلوب",
-    "PROMO_CODE_ID_REQUIRED": "معرف رمز الخصم مطلوب"
+    "PROMO_CODE_ID_REQUIRED": "معرف رمز الخصم مطلوب",
+    "PROMO_CODE_REQUIRED": "رمز الخصم مطلوب.",
+    "USER_ID_REQUIRED": "معرّف المستخدم مطلوب.",
+    "INVALID_PROMO_CODE": "رمز الخصم غير صالح.",
+    "PROMO_CODE_ALREADY_USED": "لقد استخدمت رمز الخصم هذا مسبقًا.",
+    "PROMO_CODE_APPLIED": "تم تطبيق رمز الخصم بنجاح."
   },
   "Product": {
     "products": "المنتجات",
@@ -139,5 +152,124 @@
     "loginRequiredDescription": "قائمة المنتجات المفضلة بانتظارك. سجّل الدخول لحفظ منتجاتك المفضلة والوصول إليها في أي وقت.",
     "login": "تسجيل الدخول",
     "continueShopping": "متابعة التسوق"
+  },
+  "CHECKOUT": {
+    "ORDER_SUMMARY": "ملخص الطلب",
+    "ITEMS_COUNT": "{count, plural, =0 {لا توجد منتجات} =1 {منتج واحد} =2 {منتجان} few {# منتجات} other {# منتجًا}}",
+    "SKU": "رمز المنتج",
+    "UNIT_PRICE": "سعر الوحدة",
+    "TOTAL": "الإجمالي",
+    "PROMO_CODE": "رمز الخصم",
+    "APPLYING": "جارٍ التطبيق...",
+    "APPLY": "تطبيق",
+    "APPLIED": "مطبق",
+    "DISCOUNT": "الخصم",
+    "PAGE_LABEL": "إتمام الطلب",
+    "PAGE_TITLE": "أكمل طلبك",
+    "PAGE_DESCRIPTION": "أدخل معلومات التوصيل وراجع طلبك قبل إتمامه.",
+    "EMPTY_CART": {
+      "MESSAGE": "سلة التسوق فارغة",
+      "CONTINUE_SHOPPING": "متابعة التسوق"
+    },
+    "CUSTOMER_DETAILS": {
+      "ORDER_SUMMARY": "ملخص الطلب",
+      "ITEMS_COUNT": "{count, plural, =0 {لا توجد منتجات} =1 {منتج واحد} =2 {منتجان} few {# منتجات} other {# منتجًا}}",
+      "SKU": "رمز المنتج",
+      "UNIT_PRICE": "سعر الوحدة",
+      "SUBTOTAL": "المجموع الفرعي",
+      "SHIPPING": "الشحن",
+      "FREE": "مجاني",
+      "TOTAL": "الإجمالي",
+      "TITLE": "بيانات العميل",
+      "DESCRIPTION": "يرجى إدخال معلوماتك وعنوان التوصيل.",
+      "EMAIL": "البريد الإلكتروني",
+      "EMAIL_PLACEHOLDER": "أدخل بريدك الإلكتروني",
+      "PHONE": "رقم الهاتف",
+      "PHONE_PLACEHOLDER": "أدخل رقم هاتفك",
+      "CITY": "المدينة",
+      "CITY_PLACEHOLDER": "أدخل مدينتك",
+      "STREET_ADDRESS": "عنوان الشارع",
+      "STREET_ADDRESS_PLACEHOLDER": "أدخل عنوان الشارع",
+      "BUILDING_NUMBER": "رقم المبنى",
+      "BUILDING_NUMBER_PLACEHOLDER": "أدخل رقم المبنى",
+      "ADDITIONAL_NOTE": "ملاحظات التوصيل",
+      "ADDITIONAL_NOTE_PLACEHOLDER": "أضف أي تعليمات خاصة بالتوصيل...",
+      "PLACE_ORDER": "تأكيد الطلب",
+      "PLACING_ORDER": "جاري تأكيد الطلب..."
+    }
+  },
+  "COMMON": {
+    "OPTIONAL": "اختياري"
+  },
+  "ORDERS": {
+    "STATUS": {
+      "PENDING": "قيد الانتظار",
+      "PROCESSING": "قيد المعالجة",
+      "SHIPPED": "تم الشحن",
+      "DELIVERED": "تم التوصيل",
+      "CANCELLED": "ملغى"
+    },
+    "TITLE": "سجل الطلبات",
+    "DESCRIPTION": "راجع مشترياتك السابقة وتابع طلباتك الحالية.",
+    "ORDER_ID": "رقم الطلب",
+    "DATE": "التاريخ",
+    "ITEMS": "المنتجات",
+    "TOTAL": "الإجمالي",
+    "SUBTOTAL": "المجموع الفرعي",
+    "DISCOUNT": "الخصم",
+    "ITEMS_IN_ORDER": "المنتجات في هذا الطلب",
+    "VIEW_ORDER_DETAILS": "عرض تفاصيل الطلب",
+    "EMPTY_MESSAGE": "لم تقم بإجراء أي طلبات بعد.",
+    "START_SHOPPING": "ابدأ التسوق",
+    "ORDER_DETAILS": {
+      "TITLE": "تفاصيل الطلب",
+      "BACK_TO_ORDERS": "العودة إلى الطلبات",
+      "STATUS": {
+        "PENDING": "قيد الانتظار",
+        "PROCESSING": "قيد المعالجة",
+        "SHIPPED": "تم الشحن",
+        "DELIVERED": "تم التوصيل",
+        "CANCELLED": "ملغى"
+      },
+      "ITEMS": {
+        "TITLE": "منتجات الطلب",
+        "COUNT": "{count} منتجات",
+        "QUANTITY": "الكمية",
+        "UNIT_PRICE": "سعر الوحدة"
+      },
+      "SUMMARY": {
+        "TITLE": "ملخص الطلب",
+        "SUBTOTAL": "المجموع الفرعي",
+        "TOTAL": "الإجمالي"
+      },
+      "DELIVERY": {
+        "TITLE": "معلومات التوصيل",
+        "EMAIL": "البريد الإلكتروني",
+        "PHONE": "رقم الهاتف",
+        "CITY": "المدينة",
+        "BUILDING_NUMBER": "رقم المبنى",
+        "STREET_ADDRESS": "عنوان الشارع",
+        "ADDITIONAL_NOTE": "ملاحظات إضافية"
+      }
+    }
+  },
+  "Footer": {
+    "BRAND_NAME": "أورا",
+    "BRAND_SUFFIX": ".ستوديو",
+    "DESCRIPTION": "تجربة تسوق منتقاة بعناية مبنية على البساطة، التفاعل السلس، والمنتجات ذات الجودة الخالدة.",
+    "LINKS_TITLE": "روابط سريعة",
+    "LINKS_HOME": "الرئيسية",
+    "LINKS_CATEGORIES": "الفئات",
+    "LINKS_PRODUCTS": "المنتجات",
+    "LINKS_ABOUT": "من نحن",
+    "LINKS_CONTACT": "اتصل بنا",
+    "CONTACT_TITLE": "معلومات التواصل",
+    "EMAIL": "البريد الإلكتروني",
+    "PHONE": "الهاتف",
+    "LOCATION": "الموقع",
+    "EMAIL_VALUE": "hello@aura.studio",
+    "PHONE_VALUE": "+962 79 000 0000",
+    "LOCATION_VALUE": "عمان، الأردن",
+    "COPYRIGHT": "© {year} أورا ستوديو. جميع الحقوق محفوظة."
   }
 }

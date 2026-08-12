@@ -206,7 +206,7 @@ export const deletePromoCode = async (id: string) => {
 
 /* -------------------- Caching Helps --------------------  */
 
- const getCachedPromoCodes = (page: number = 1, limit: number = 10) => {
+const getCachedPromoCodes = (page: number = 1, limit: number = 10) => {
   const skip = (page - 1) * limit;
 
   return unstable_cache(
@@ -252,7 +252,7 @@ export const deletePromoCode = async (id: string) => {
   )();
 };
 
- const getCachedPromoCodeById = (id: string) => {
+const getCachedPromoCodeById = (id: string) => {
   return unstable_cache(
     async () => {
       return prisma.promo_codes.findFirst({
@@ -312,4 +312,54 @@ export const getPromoCodeById = async (id: string) => {
   };
 };
 
+export const validatePromoCode = async (code: string, userId: string) => {
+  const promoCode = await prisma.promo_codes.findUnique({
+    where: { code: code.trim().toUpperCase() },
+  });
 
+  if (!code)
+    return {
+      success: false,
+      message: "PROMO_CODE_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+      data: null,
+    };
+
+  if (
+    !promoCode ||
+    !promoCode.isActive ||
+    promoCode.usedCount >= promoCode.maxUsage ||
+    promoCode.expiresAt! < new Date()
+  )
+    return {
+      success: false,
+      message: "INVALID_PROMO_CODE",
+      code: RESPONSE_CODES.BAD_REQUEST,
+      data: null,
+    };
+
+  const usedByUser = await prisma.user_promo_codes.findFirst({
+    where: {
+      userId,
+      promoCodeId: promoCode.id,
+    },
+  });
+
+  if (usedByUser)
+    return {
+      success: false,
+      message: "PROMO_CODE_ALREADY_USED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+      data: null,
+    };
+
+  return {
+    success: true,
+    message: "PROMO_CODE_APPLIED",
+    code: RESPONSE_CODES.OK,
+    data: {
+      code: promoCode.code,
+      discountPercentage: Number(promoCode.discountPercentage),
+    },
+  };
+};

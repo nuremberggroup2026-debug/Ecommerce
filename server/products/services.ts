@@ -1197,24 +1197,93 @@ export const getFilterProducts = async (
     },
   };
 };
-export const getFeaturedProductsByLocale = async (locale: Locale) => {
+export const getFeaturedProductsByLocale = async (
+  locale: Locale,
+  userId?: string,
+) => {
   const data = await getCachedFeaturedProductsByLocale(locale);
 
+  const [wishlist, cart] = await Promise.all([
+    userId
+      ? prisma.wishlist.findMany({
+          where: { userId },
+          select: { productId: true },
+        })
+      : [],
+
+    userId
+      ? prisma.cart.findUnique({
+          where: { userId },
+          select: {
+            cartItems: {
+              select: {
+                productVariants: {
+                  select: {
+                    productId: true,
+                  },
+                },
+              },
+            },
+          },
+        })
+      : null,
+  ]);
   return {
     success: true,
     message: "FEATURED_PRODUCTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
-    data,
+    data: {
+      products: data,
+      productsIdsInWishlist: wishlist.map((item) => item.productId),
+      productsIdsInCart: cart?.cartItems.map(
+        (item) => item.productVariants.productId,
+      ),
+    },
   };
 };
 
-export const getDiscountProductsByLocale = async (locale: Locale) => {
+export const getDiscountProductsByLocale = async (
+  locale: Locale,
+  userId?: string,
+) => {
   const data = await getCachedDisCountProductsByLocale(locale);
+
+  const [wishlist, cart] = await Promise.all([
+    userId
+      ? prisma.wishlist.findMany({
+          where: { userId },
+          select: { productId: true },
+        })
+      : [],
+
+    userId
+      ? prisma.cart.findUnique({
+          where: { userId },
+          select: {
+            cartItems: {
+              select: {
+                productVariants: {
+                  select: {
+                    productId: true,
+                  },
+                },
+              },
+            },
+          },
+        })
+      : null,
+  ]);
 
   return {
     success: true,
     message: "DISCOUNT_PRODUCTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
-    data,
+    data: {
+      products: data,
+      productsIdsInWishlist: wishlist.map((item) => item.productId),
+      productsIdsInCart: cart?.cartItems.map(
+        (item) => item.productVariants.productId,
+      ),
+    },
   };
 };

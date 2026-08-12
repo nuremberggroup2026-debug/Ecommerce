@@ -22,3 +22,15 @@ export const generateSlug = (text: string) => {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
 };
+
+export function generateOrderNumber(): string {
+  const now = new Date();
+
+  const datePart = now.toISOString().slice(2, 10).replace(/-/g, "");
+
+  const timePart = now.toISOString().slice(11, 19).replace(/:/g, "");
+
+  const randomPart = Math.floor(100 + Math.random() * 900).toString();
+
+  return `ORD-${datePart}-${timePart}-${randomPart}`;
+}

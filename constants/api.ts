@@ -25,28 +25,29 @@ export const API = {
       ADD_BANNERS: "banners",
       DELETE_MANY_BANNERS: "banners/delete-many-banners",
     },
-ATTRIBUTES: {
-  ALL_ATTRIBUTES: "/attributes",
-  ALL_ATTRIBUTES_BY_LOCALE: "attributes/all-attributes-by-locale",
-  ATTRIBUTE_BY_ID: "attributes",
-  ADD_ATTRIBUTES: "attributes",
-  DELETE_MANY_ATTRIBUTES: "attributes/delete-many-attributes",
-  ATTRIBUTE_VALUES:"attributes-values"
-
-
-},
-ATTRIBUTE_VALUES: {
-    // Attribute Values
-  ALL_ATTRIBUTE_VALUES: "attribute-values",
-  ATTRIBUTE_VALUE_BY_ID: "attribute-values",
-  ADD_ATTRIBUTE_VALUE: "attribute-values",
-  DELETE_ATTRIBUTE_VALUE: "attribute-values",
-
-},
+    ATTRIBUTES: {
+      ALL_ATTRIBUTES: "/attributes",
+      ALL_ATTRIBUTES_BY_LOCALE: "attributes/all-attributes-by-locale",
+      ATTRIBUTE_BY_ID: "attributes",
+      ADD_ATTRIBUTES: "attributes",
+      DELETE_MANY_ATTRIBUTES: "attributes/delete-many-attributes",
+      ATTRIBUTE_VALUES: "attributes-values",
+    },
+    ATTRIBUTE_VALUES: {
+      // Attribute Values
+      ALL_ATTRIBUTE_VALUES: "attribute-values",
+      ATTRIBUTE_VALUE_BY_ID: "attribute-values",
+      ADD_ATTRIBUTE_VALUE: "attribute-values",
+      DELETE_ATTRIBUTE_VALUE: "attribute-values",
+    },
 
     USERS: "/users",
 
-    ORDERS: "/orders",
+    ORDERS: {
+      ALL_ORDERS_BY_USER: "orders/all-orders-by-user",
+      ORDER_BY_USER_ORDER_ID_AND_LOCALE:
+        "orders/order-details-by-user-id-and-locale",
+    },
 
     CART_ITEMS: {
       ADD_NEW_ITEM: "cart-items",
@@ -61,6 +62,10 @@ ATTRIBUTE_VALUES: {
 
     CART: {
       GET_CART_WITH_ITEMS: "cart",
+    },
+    CHECKOUT: {
+      PLACE_AN_ORDER: "orders",
+      VALIDATE_PROMO_CODE: "promo-codes/validate-promo-code",
     },
   },
 };
