@@ -117,6 +117,7 @@ model order_items {
 
 model orders {
   id             String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orderNumber    String             @unique @map("order_number") @db.VarChar(50)
   userId         String?            @map("user_id") @db.Uuid
   totalAmount    Decimal            @default(0) @map("total_amount") @db.Decimal(10, 2)
   email          String             @db.VarChar(255)
@@ -127,6 +128,7 @@ model orders {
   additionalNote String?            @map("additional_note")
   createdAt      DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
   status         order_status       @default(PENDING)
+  paymentMethod  payment_method     @default(COD) @map("payment_method")
   updatedAt      DateTime           @updatedAt
   discountAmount Decimal            @default(0) @map("discount_amount") @db.Decimal(10, 2)
   subtotal       Decimal            @default(0) @db.Decimal(10, 2)
@@ -288,4 +290,9 @@ enum order_status {
   SHIPPED
   DELIVERED
   CANCELLED
+}
+
+enum payment_method {
+  COD
+  CLIQ
 }

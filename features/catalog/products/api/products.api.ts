@@ -1,10 +1,8 @@
-
-
 import { api } from "@/services/server/api";
-import type { Product } from "../types";
 import { API } from "@/constants";
 import type {
   GetProductType,
+  ProductsDataWithOutPag,
   Locale,
   ResponseType,
   FilteredProductsData,
@@ -29,7 +27,7 @@ export async function getProducts({
   sort,
   minPrice,
   maxPrice,
-}: ProductsQuery): Promise<FilteredProductsData> {
+}: ProductsQuery): Promise<ResponseType<FilteredProductsData>> {
   const params = new URLSearchParams({
     page: page.toString(),
   });
@@ -37,11 +35,9 @@ export async function getProducts({
   if (sort) params.set("sort", sort);
   const url = `${API.ENDPOINTS.PRODUCTS.FILTERED_PRODUCTS_BY_LOCALE}/${locale}?`;
 
-
-
-
-
   if (maxPrice) params.set("maxPrice", maxPrice);
+
+  if (minPrice) params.set("minPrice", minPrice);
 
   if (search) params.set("search", search);
 
@@ -55,7 +51,7 @@ export async function getProducts({
   );
   console.log("result: ", `${url}${params.toString()}`);
 
-  return result.data;
+  return result;
 }
 // ------------------------------------------------------------------------------ //
 export async function getProductById(
@@ -72,8 +68,8 @@ export async function getProductById(
 
 export async function fetchFeaturedProducts(
   locale: Locale,
-): Promise<GetProductType[]> {
-  const result = await api.get<ResponseType<GetProductType[]>>(
+): Promise<ProductsDataWithOutPag> {
+  const result = await api.get<ResponseType<ProductsDataWithOutPag>>(
     `${API.ENDPOINTS.PRODUCTS.FEATURED_PRODUCTS_BY_LOCALE}/${locale}`,
   );
 
@@ -82,8 +78,8 @@ export async function fetchFeaturedProducts(
 
 export async function fetchOnDiscountProducts(
   locale: Locale,
-): Promise<GetProductType[]> {
-  const result = await api.get<ResponseType<GetProductType[]>>(
+): Promise<ProductsDataWithOutPag> {
+  const result = await api.get<ResponseType<ProductsDataWithOutPag>>(
     `${API.ENDPOINTS.PRODUCTS.ON_DISCOUNT_PRODUCTS_BY_LOCALE}/${locale}`,
   );
 

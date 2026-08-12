@@ -1,15 +1,16 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TranslatedBanner } from "@/types";
+import { useTranslations } from "next-intl";
 
 interface Prop {
   banners: TranslatedBanner[];
 }
 
 export default function HeroSection({ banners }: Prop) {
+  const t = useTranslations("Home");
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -37,26 +38,13 @@ export default function HeroSection({ banners }: Prop) {
               className="object-cover object-center"
             />
             <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
-
-            {/* محتوى النص فوق الصورة */}
             <div className="absolute inset-0 flex items-center">
               <div className="mx-auto w-full max-w-7xl px-8 lg:px-16">
                 <article className="max-w-2xl space-y-6 text-white">
-                  {/* <span className="inline-block rounded-full border border-white/40 bg-white/10 px-5 py-1 text-sm backdrop-blur-sm">
-                    {banner.name}
-                  </span>*/}
-
                   <header className="space-y-4">
                     <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl">
                       {banner.name}
-                      {/* <span className="block mt-1 text-white/95">
-                        {banner.name}
-                      </span>*/}
                     </h1>
-
-                    {/* <p className="max-w-md text-gray-200 leading-relaxed text-sm md:text-base opacity-90">
-                      {banner.name}
-                    </p>*/}
                   </header>
 
                   <nav className="flex gap-4 pt-4">
@@ -64,15 +52,10 @@ export default function HeroSection({ banners }: Prop) {
                       href={"/produts"}
                       className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition hover:bg-neutral-200 shadow-sm"
                     >
-                      Shop Now
+                      {t("ShopNow")}
                     </Link>
 
-                    <Link
-                      href={"/products"}
-                      className="rounded-full border border-white/60 bg-transparent px-8 py-3.5 text-sm font-medium text-white transition hover:bg-white hover:text-black backdrop-blur-sm"
-                    >
-                      Browse Collection
-                    </Link>
+                    
                   </nav>
                 </article>
               </div>
@@ -80,7 +63,6 @@ export default function HeroSection({ banners }: Prop) {
           </div>
         ))}
 
-        {/* مؤشرات التنقل (النقاط الصغيرة بالأسفل) */}
         <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
           {banners.map((_, index) => (
             <button

@@ -2,30 +2,15 @@ import { Clientapi } from "@/services/client/api";
 
 import { API } from "@/constants/api";
 import type {
-
-  deleteResponseType  ,
+  deleteResponseType,
   PutResponseType,
-    AddResponseType
-
+  AddResponseType,
 } from "@/types/index";
-
-
-
-
-
-
-
-
-
-
 
 import type {
   PUTAdminBanner,
-
   CreateAdminBanner,
 } from "@/features/banner/types/index";
-
-
 
 export async function adminUpdateBanner(
   id: string,
@@ -43,7 +28,7 @@ export async function adminDeleteBanner(
   id: string,
 ): Promise<deleteResponseType> {
   const result = await Clientapi.delete<deleteResponseType>(
-    `${API.ENDPOINTS.BANNERS.BANNER_BY_ID}/${id}`
+    `${API.ENDPOINTS.BANNERS.BANNER_BY_ID}/${id}`,
   );
 
   return result;
@@ -58,7 +43,6 @@ export async function adminAddBanner(
 
   return result;
 }
-
 
 export async function deleteManyBanners(
   ids: string[],

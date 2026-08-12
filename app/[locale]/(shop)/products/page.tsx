@@ -34,7 +34,7 @@ export default async function ProductsPage({
     maxPrice,
   } = searchParamsData;
 
-  const [products, categoriesData] = await Promise.all([
+  const [productsData, categoriesData] = await Promise.all([
     getProducts({
       categories,
       search,
@@ -46,6 +46,10 @@ export default async function ProductsPage({
     }),
     fetchALLCategories(locale),
   ]);
+
+  const { products, pagination, productsIdsInCart, productsIdsInWishlist } =
+    productsData.data;
+
   let premium = applyPremiumPricing(products);
 
   if (minPrice) {
@@ -107,13 +111,26 @@ export default async function ProductsPage({
 
         <div className="lg:col-span-3 space-y-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
-            {premium.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {premium.map((product) => {
+              const isInWishlist =
+                productsIdsInWishlist &&
+                productsIdsInWishlist.includes(product.id);
+
+              const isInCart =
+                productsIdsInCart && productsIdsInCart.includes(product.id);
+              return (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  isInCart={isInCart}
+                  isInWishlist={isInWishlist}
+                />
+              );
+            })}
           </div>{" "}
           <SecondPaginationComponent
             currentPage={Number(page)}
-            totalPages={products.pagination.totalPages}
+            totalPages={pagination.totalPages}
             searchParams={searchParamsData}
           />
         </div>

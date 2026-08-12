@@ -22,11 +22,7 @@ export default function ProductSection({
 
   const dispatch = useAppDispatch();
 
-  const cartItem = useAppSelector((state) =>
-    state.cart.items.find(
-      (item) => String(item.product.id) === String(product.id)
-    )
-  );
+
 
   const [activeImage, setActiveImage] = useState(product.images[0]);
 const [quantity, setQuantity] = useState(

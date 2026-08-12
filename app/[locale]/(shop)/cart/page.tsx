@@ -1,10 +1,19 @@
-import React from 'react'
-import CartComponent from '@/features/cart/components/CartComponent'
+import React from "react";
+import CartComponent from "@/features/cart/components/CartComponent";
+import { Locale } from "@/types";
+import { getCart } from "@/features/cart/api/cart.server.api";
 
-export default function page() {
+interface Props {
+  params: Promise<{ locale: Locale }>;
+}
+export default async function page({ params }: Props) {
+  const { locale } = await params;
+  const data = (await getCart(locale)).data;
+  console.log("cart data: ", data);
+
   return (
     <div>
-      <CartComponent/>
+      <CartComponent cartData={data} />
     </div>
-  )
+  );
 }

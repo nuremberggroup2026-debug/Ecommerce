@@ -47,7 +47,6 @@ export const addNewCategory = async (newCategory: CategoriesCreateInput) => {
     });
 
     revalidateTag("categories", { expire: 0 });
-
     return {
       success: true,
       message: "CATEGORY_ADDED_SUCCESSFULLY",
@@ -177,6 +176,7 @@ export const deleteCategory = async (id: string) => {
   });
 
   revalidateTag("categories", { expire: 0 });
+  revalidateTag("products", { expire: 0 });
 
   return {
     success: true,
@@ -192,7 +192,7 @@ export const deleteManyCategories = async (ids: string[]) => {
       success: false,
       message: "CATEGORY_IDS_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
-    }
+    };
   }
 
   const existingCategories = await prisma.categories.findMany({
@@ -201,14 +201,14 @@ export const deleteManyCategories = async (ids: string[]) => {
         in: ids,
       },
     },
-  })
+  });
 
   if (existingCategories.length === 0) {
     return {
       success: false,
       message: "CATEGORIES_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
-    }
+    };
   }
 
   await prisma.categories.deleteMany({
@@ -217,16 +217,17 @@ export const deleteManyCategories = async (ids: string[]) => {
         in: ids,
       },
     },
-  })
+  });
 
-  revalidateTag("categories", { expire: 0 })
+  revalidateTag("categories", { expire: 0 });
+  revalidateTag("products", { expire: 0 });
 
   return {
     success: true,
     message: "CATEGORIES_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
-  }
-}
+  };
+};
 
 /* -------------------- Caching Helps --------------------  */
 

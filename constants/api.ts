@@ -25,6 +25,7 @@ export const API = {
       ADD_BANNERS: "banners",
       DELETE_MANY_BANNERS: "banners/delete-many-banners",
     },
+<<<<<<< HEAD
     CAREERS: {
       ALL_CAREERS: "/careers",
       ALL_CAREERS_BY_LOCALE: "careers/careers-by-locale",
@@ -52,6 +53,8 @@ APPLICATIONS: {
 },
 
 
+=======
+>>>>>>> 638b35cfdb5402ed6bb6ce0141d60d3bded5ae98
     ATTRIBUTES: {
       ALL_ATTRIBUTES: "/attributes",
       ALL_ATTRIBUTES_BY_LOCALE: "attributes/all-attributes-by-locale",
@@ -70,14 +73,29 @@ APPLICATIONS: {
 
     USERS: "/users",
 
-    ORDERS: "/orders",
+    ORDERS: {
+      ALL_ORDERS_BY_USER: "orders/all-orders-by-user",
+      ORDER_BY_USER_ORDER_ID_AND_LOCALE:
+        "orders/order-details-by-user-id-and-locale",
+    },
 
     CART_ITEMS: {
       ADD_NEW_ITEM: "cart-items",
+      UPDATE_QUANTITY: "cart-items",
+      DELETE_ITEM: "cart-items",
     },
     WISHLIST: {
       ADD_NEW_ITEM: "wishlist",
       REMOVE_ITEM: "wishlist",
+      GET_ITEMS_BY_USER: "wishlist/wishlist-by-user-id-and-locale",
+    },
+
+    CART: {
+      GET_CART_WITH_ITEMS: "cart",
+    },
+    CHECKOUT: {
+      PLACE_AN_ORDER: "orders",
+      VALIDATE_PROMO_CODE: "promo-codes/validate-promo-code",
     },
   },
 };

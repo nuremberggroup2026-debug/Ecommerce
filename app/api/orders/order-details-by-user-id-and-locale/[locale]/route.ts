@@ -23,6 +23,7 @@ export const GET = withAuth([], async (request, { params, user }) => {
       userId,
       locale,
     );
+     console.log("result: ", result);
     const status = HTTP_STATUS_MAP[result.code];
     return NextResponse.json(
       {

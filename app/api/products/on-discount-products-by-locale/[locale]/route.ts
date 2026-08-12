@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth/auth";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { getDiscountProductsByLocale } from "@/server/products/services";
 import { Locale } from "@/types";
@@ -8,8 +9,10 @@ export const GET = async (
   { params }: { params: Promise<{ locale: Locale }> },
 ) => {
   try {
+    const session = await auth();
+    const userId = session?.user?.id;
     const { locale } = await params;
-    const result = await getDiscountProductsByLocale(locale);
+    const result = await getDiscountProductsByLocale(locale, userId);
     console.log("reasss: ", result);
 
     const status = HTTP_STATUS_MAP[result.code] || 500;
