@@ -38,7 +38,7 @@ export default function OrderSummarySection({
         {appliedPromoCode && (
           <div className="flex items-start justify-between text-base">
             <div className="flex flex-col items-start gap-1">
-              <span className="text-neutral-500">Discount</span>
+              <span className="text-neutral-500"> {t("SUMMARY.DISCOUNT")}</span>
               <span className="rounded-md border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
                 {appliedPromoCode}
               </span>

@@ -2,23 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CartData } from "../types";
-import {  useRef,  useState } from "react";
+import { CartData, Locale } from "../types";
+import { useRef, useState } from "react";
 import { deleteItem, updateItemQuantity } from "../api/cart.client.api";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 interface Prop {
   cartData: CartData;
+  locale: Locale;
 }
 
-export default function CartComponent({ cartData }: Prop) {
+export default function CartComponent({ cartData, locale }: Prop) {
   const [items, setItems] = useState(cartData.items);
+
   const t = useTranslations();
- 
+
+  const isAr = locale === "ar";
+
   const pendingUpdates = useRef<Record<string, number>>({});
-
-
   const timers = useRef<Record<string, NodeJS.Timeout>>({});
 
   const subtotal = items
@@ -26,7 +28,7 @@ export default function CartComponent({ cartData }: Prop) {
     .toFixed(2);
   const shipping = Number(subtotal) > 300 ? 0 : 15;
 
-  const total = subtotal + shipping;
+  const total = Number(subtotal) + shipping;
 
   const updateQuantity = (itemId: string, quantity: number) => {
     const previousItems = items;
@@ -50,7 +52,6 @@ export default function CartComponent({ cartData }: Prop) {
     timers.current[itemId] = setTimeout(async () => {
       try {
         await updateItemQuantity(pendingUpdates.current[itemId], itemId);
-
         delete pendingUpdates.current[itemId];
       } catch {
         setItems(previousItems);
@@ -71,40 +72,41 @@ export default function CartComponent({ cartData }: Prop) {
       toast.success(t(`ResponseMessages.${result.message}`));
     } catch {
       setItems(previousItems);
-
       toast.error(t("ResponseMessages.DELETE_CART_ITEM_FAILED"));
     }
   };
+
   return (
     <main className="min-h-screen bg-white text-black">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
         <header className="mb-16 border-b border-neutral-100 pb-6">
           <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            Shopping Cart
+            {t("Cart.TITLE")}
           </h1>
 
           <p className="mt-2 text-xs text-gray-400">
             {items.length === 0
-              ? "Your cart is empty"
-              : `You have ${items.length} items in your cart`}
+              ? t("Cart.EMPTY_CART")
+              : t("Cart.ITEMS_COUNT", { count: items.length })}
           </p>
         </header>
 
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <p className="mb-6 text-sm text-gray-400">Your cart feels light.</p>
+            <p className="mb-6 text-sm text-gray-400">
+              {t("Cart.FEELS_LIGHT")}
+            </p>
 
             <Link
               href="/products"
-              className="rounded-full bg-black px-8 py-4 text-xs font-semibold uppercase tracking-widest text-white"
+              className="rounded-full bg-black px-8 py-4 text-xs font-semibold uppercase tracking-widest text-white transition hover:bg-neutral-800"
             >
-              Continue Shopping
+              {t("Cart.CONTINUE_SHOPPING")}
             </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
             {/* Cart Items */}
-
             <div className="divide-y divide-neutral-100 lg:col-span-7">
               {items.map((item) => {
                 const product = item.product;
@@ -126,16 +128,18 @@ export default function CartComponent({ cartData }: Prop) {
                           <h3 className="font-medium">{product.name}</h3>
 
                           <p className="font-semibold">
-                            ${item.subtotal.toFixed(2)}
+                            {t("Cart.CURRENCY_SYMBOL")}
+                            {item.subtotal.toFixed(2)}
                           </p>
                         </div>
 
                         <p className="mt-1 text-sm text-gray-400">
-                          ${Number(item.itemPrice).toFixed(2)} each
+                          {t("Cart.CURRENCY_SYMBOL")}
+                          {Number(item.itemPrice).toFixed(2)} {t("Cart.EACH")}
                         </p>
 
                         <p className="mt-1 text-sm text-gray-400">
-                          Sku: {item.variant.sku}
+                          {t("Cart.SKU")}: {item.variant.sku}
                         </p>
                       </div>
 
@@ -170,9 +174,9 @@ export default function CartComponent({ cartData }: Prop) {
                           onClick={() => {
                             handleDeleteItem(item.cartItemId);
                           }}
-                          className="text-sm text-gray-400 hover:text-black"
+                          className="text-sm text-gray-400 hover:text-black transition"
                         >
-                          Remove
+                          {t("Cart.REMOVE")}
                         </button>
                       </div>
                     </div>
@@ -182,47 +186,51 @@ export default function CartComponent({ cartData }: Prop) {
             </div>
 
             {/* Summary */}
-
             <div className="lg:col-span-5">
               <div className="rounded-[32px] bg-neutral-50 p-8">
                 <h2 className="mb-6 text-sm font-semibold uppercase tracking-wider">
-                  Order Summary
+                  {t("Cart.ORDER_SUMMARY")}
                 </h2>
 
                 <div className="space-y-4 border-b border-neutral-200 pb-6">
                   <div className="flex justify-between text-sm">
-                    <span>Subtotal</span>
-
-                    <span className="font-semibold">${subtotal}</span>
+                    <span>{t("Cart.SUBTOTAL")}</span>
+                    <span className="font-semibold">
+                      {t("Cart.CURRENCY_SYMBOL")}
+                      {subtotal}
+                    </span>
                   </div>
 
                   <div className="flex justify-between text-sm">
-                    <span>Shipping</span>
-
+                    <span>{t("Cart.SHIPPING")}</span>
                     <span className="font-semibold">
-                      {shipping === 0 ? "Free" : `$${shipping}`}
+                      {shipping === 0
+                        ? t("Cart.FREE")
+                        : `${t("Cart.CURRENCY_SYMBOL")}${shipping}`}
                     </span>
                   </div>
                 </div>
 
                 <div className="flex justify-between py-6">
-                  <span className="font-medium">Total</span>
-
-                  <span className="text-xl font-bold">${total}</span>
+                  <span className="font-medium">{t("Cart.TOTAL")}</span>
+                  <span className="text-xl font-bold">
+                    {t("Cart.CURRENCY_SYMBOL")}
+                    {total.toFixed(2)}
+                  </span>
                 </div>
 
                 <Link
                   href="/checkout"
                   className="block w-full rounded-2xl bg-black py-4 text-center text-xs font-semibold uppercase tracking-widest text-white transition hover:bg-neutral-800"
                 >
-                  Proceed To Checkout
+                  {t("Cart.PROCEED_TO_CHECKOUT")}
                 </Link>
 
                 <Link
                   href="/products"
-                  className="mt-5 block text-center text-xs text-gray-400 hover:text-black"
+                  className="mt-5 flex items-center justify-center gap-2 text-xs text-gray-400 transition hover:text-black"
                 >
-                  ← Continue Shopping
+                  {isAr ? "→" : "←"} {t("Cart.CONTINUE_SHOPPING")}
                 </Link>
               </div>
             </div>

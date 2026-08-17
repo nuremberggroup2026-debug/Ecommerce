@@ -25,36 +25,32 @@ export const API = {
       ADD_BANNERS: "banners",
       DELETE_MANY_BANNERS: "banners/delete-many-banners",
     },
-<<<<<<< HEAD
     CAREERS: {
       ALL_CAREERS: "/careers",
       ALL_CAREERS_BY_LOCALE: "careers/careers-by-locale",
       CAREER_BY_SLUG: "careers/career-by-slug",
-            CAREER_BY_ID: "careers",
+      CAREER_BY_ID: "careers",
 
       ADD_CAREER: "careers",
       DELETE_MANY_CAREERS: "careers/delete-many-careers",
-     CAREER_BY_SLUG_AND_LOCALE:"careers/career-by-slug-and-locale",
-     CAREERS_WITH_APPLICATIONS:"careers/careers-with-applications"
+      CAREER_BY_SLUG_AND_LOCALE: "careers/career-by-slug-and-locale",
+      CAREERS_WITH_APPLICATIONS: "careers/careers-with-applications",
     },
 
-APPLICATIONS: {
-  ALL_APPLICATIONS: "applications",
+    APPLICATIONS: {
+      ALL_APPLICATIONS: "applications",
 
-  APPLICATION_WITH_CAREER_BY_ID: "applications/applictions-with-career-by-id",
+      APPLICATION_WITH_CAREER_BY_ID:
+        "applications/applictions-with-career-by-id",
 
-  DELETE_MANY_APPLICATIONS: "applications/delete-many-applications",
+      DELETE_MANY_APPLICATIONS: "applications/delete-many-applications",
 
-  CAREERS_WITH_APPLICATIONS: "careers/applications-by-career-id",
-   APPLICATION_BY_ID: "applications",
-   APPLICATIONS_BY_CAREER_ID:"applications/applications-by-career-id",
-   MARK_APPLICATION_AS_SHOWN:"applications/mark-application-as-shown"
-  
-},
+      CAREERS_WITH_APPLICATIONS: "careers/applications-by-career-id",
+      APPLICATION_BY_ID: "applications",
+      APPLICATIONS_BY_CAREER_ID: "applications/applications-by-career-id",
+      MARK_APPLICATION_AS_SHOWN: "applications/mark-application-as-shown",
+    },
 
-
-=======
->>>>>>> 638b35cfdb5402ed6bb6ce0141d60d3bded5ae98
     ATTRIBUTES: {
       ALL_ATTRIBUTES: "/attributes",
       ALL_ATTRIBUTES_BY_LOCALE: "attributes/all-attributes-by-locale",
@@ -96,6 +92,13 @@ APPLICATIONS: {
     CHECKOUT: {
       PLACE_AN_ORDER: "orders",
       VALIDATE_PROMO_CODE: "promo-codes/validate-promo-code",
+    },
+    AUTH: {
+      REGISTER: "auth/register",
+      VERIFY_EMAIL: "auth/verify-email",
+      FORGOT_PASSWORD: "auth/generate-token",
+      RESET_PASSWORD: "auth/reset-password",
+      CHANGE_PASSWORD: "auth/change-password",
     },
   },
 };

@@ -22,7 +22,7 @@ export default function HeroSection({ banners }: Prop) {
 
   return (
     <main className="relative w-full overflow-hidden bg-black">
-      <section className="relative h-[600px] w-full md:h-[680px]">
+      <section className="relative h-150 w-full md:h-170">
         {banners.map((banner, index) => (
           <div
             key={index}
@@ -49,13 +49,11 @@ export default function HeroSection({ banners }: Prop) {
 
                   <nav className="flex gap-4 pt-4">
                     <Link
-                      href={"/produts"}
+                      href={"/products"}
                       className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition hover:bg-neutral-200 shadow-sm"
                     >
                       {t("ShopNow")}
                     </Link>
-
-                    
                   </nav>
                 </article>
               </div>

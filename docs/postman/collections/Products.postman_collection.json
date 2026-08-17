@@ -1,0 +1,232 @@
+{
+  "info": {
+    "_postman_id": "bc3303e7-e34c-40c7-bcb8-f7b33807a019",
+    "name": "Products",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43475463",
+    "_collection_link": "https://go.postman.co/collection/43475463-bc3303e7-e34c-40c7-bcb8-f7b33807a019?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "New Product",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"productNameEn\": \" Cotton T Shirt 9\",\r\n  \"productNameAr\": \"تيشيرت قطن فاخر\",\r\n  \"productDescriptionEn\": \"Updated premium cotton t shirt with improved fabric quality\",\r\n  \"productDescriptionAr\": \"تيشيرت قطن محدث بجودة قماش محسنة\",\r\n  \"productCardImage\": \"https://example.com/images/tshirt-card-new.jpg\",\r\n  \"productImages\": [\r\n    \"https://example.com/images/tshirt-1.jpg\",\r\n    \"https://example.com/images/tshirt-2.jpg\",\r\n    \"https://example.com/images/tshirt-3.jpg\"\r\n  ],\r\n  \"isFeatured\": true,\r\n  \"categoryId\": \"4eea6ac9-aee7-4ad4-9f50-6fbe2ce793ed\",\r\n  \"variants\": [\r\n    {\r\n      \"id\": \"2358c6df-0e93-4e08-a40b-85c8a277476b\",\r\n      \"sku\": \"TSHIRT-RED-18\",\r\n      \"variantImage\": \"https://example.com/images/red-shirt-updated.jpg\",\r\n      \"price\": 59.99,\r\n      \"discountPercentage\": 15,\r\n      \"stock\": 30,\r\n      \"isDefault\": false,\r\n      \"attributeValueIds\": [\r\n        \"31be0f7d-7d7d-485b-8747-645556f3ebdc\",\r\n        \"177505f8-8646-4a38-afeb-f87ece3accde\"\r\n      ]\r\n    },\r\n    {\r\n      \"id\": \"7af68ff1-3055-4313-be3c-a7404fa4f48e\",\r\n      \"sku\": \"TSHIRT-BLUE-12\",\r\n      \"variantImage\": \"https://example.com/images/blue-shirt-updated.jpg\",\r\n      \"price\": 54.99,\r\n      \"discountPercentage\": 5,\r\n      \"stock\": 18,\r\n      \"isDefault\": false,\r\n      \"attributeValueIds\": [\r\n        \"791da35d-ed70-4481-83f3-5d66cf6f0a76\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Products",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Product By ID And Locale",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products/product-by-id-and-locale/ar?id=3a4ce73e-cd00-42ae-8d8f-e7ac85f1c403",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "product-by-id-and-locale",
+            "ar"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "3a4ce73e-cd00-42ae-8d8f-e7ac85f1c403"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filtered Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products/filtered-products/en?categories=9a311a22-f6a3-4665-952c-3bfc2e425f08&categories=2425bdf5-a81a-4f75-98ee-13754be29d92&sort=price_asc&search=4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "filtered-products",
+            "en"
+          ],
+          "query": [
+            {
+              "key": "categories",
+              "value": "9a311a22-f6a3-4665-952c-3bfc2e425f08"
+            },
+            {
+              "key": "categories",
+              "value": "2425bdf5-a81a-4f75-98ee-13754be29d92"
+            },
+            {
+              "key": "sort",
+              "value": "price_asc"
+            },
+            {
+              "key": "search",
+              "value": "4"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Featured Products By Locale",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products/featured-products-by-locale/en",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "featured-products-by-locale",
+            "en"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "On Discount Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products/on-discount-products-by-locale/en",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "on-discount-products-by-locale",
+            "en"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Prodcut",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"productNameEn\": \"Premium Cotton T Shirt\",\r\n  \"productNameAr\": \"تيشيرت قطن فاخر\",\r\n  \"productDescriptionEn\": \"Updated premium cotton t shirt with improved fabric quality\",\r\n  \"productDescriptionAr\": \"تيشيرت قطن محدث بجودة قماش محسنة\",\r\n  \"productCardImage\": \"https://example.com/images/tshirt-card-new.jpg\",\r\n  \"productImages\": [\r\n    \"https://example.com/images/tshirt-1.jpg\",\r\n    \"https://example.com/images/tshirt-2.jpg\",\r\n    \"https://example.com/images/tshirt-3.jpg\"\r\n  ],\r\n  \"isFeatured\": true,\r\n  \"categoryId\": \"4eea6ac9-aee7-4ad4-9f50-6fbe2ce793ed\",\r\n  \"variants\": [\r\n    {\r\n      \"id\": \"2358c6df-0e93-4e08-a40b-85c8a277476b\",\r\n      \"sku\": \"TSHIRT-RED-L\",\r\n      \"variantImage\": \"https://example.com/images/red-shirt-updated.jpg\",\r\n      \"price\": 59.99,\r\n      \"discountPercentage\": 15,\r\n      \"stock\": 30,\r\n      \"isDefault\": false,\r\n      \"attributeValueIds\": [\r\n        \"31be0f7d-7d7d-485b-8747-645556f3ebdc\",\r\n        \"177505f8-8646-4a38-afeb-f87ece3accde\"\r\n      ]\r\n    },\r\n    {\r\n      \"id\": \"7af68ff1-3055-4313-be3c-a7404fa4f48e\",\r\n      \"sku\": \"TSHIRT-BLUE-M\",\r\n      \"variantImage\": \"https://example.com/images/blue-shirt-updated.jpg\",\r\n      \"price\": 54.99,\r\n      \"discountPercentage\": 5,\r\n      \"stock\": 18,\r\n      \"isDefault\": false,\r\n      \"attributeValueIds\": [\r\n        \"791da35d-ed70-4481-83f3-5d66cf6f0a76\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/products/6b78014d-6bdd-45c1-805b-87b4a87da619",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "6b78014d-6bdd-45c1-805b-87b4a87da619"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Product",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products/bb077b93-e3c9-48a7-b30c-5b2df06c3072",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "bb077b93-e3c9-48a7-b30c-5b2df06c3072"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

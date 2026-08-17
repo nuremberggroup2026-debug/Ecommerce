@@ -1,0 +1,188 @@
+{
+  "info": {
+    "_postman_id": "d8610ec0-822e-442c-8424-262216849df3",
+    "name": "Orders",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43475463",
+    "_collection_link": "https://go.postman.co/collection/43475463-d8610ec0-822e-442c-8424-262216849df3?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Place An Order",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"customer@example.com\",\r\n  \"phoneNumber\": \"0791234567\",\r\n  \"city\": \"Amman\",\r\n  \"streetAddress\": \"King Abdullah II Street\",\r\n  \"buildingNumber\": 25,\r\n  \"additionalNote\": \"Please deliver after 5 PM\",\r\n  \"promoCode\":\"SUMMER20\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/orders",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "orders"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Orders (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/orders/admin",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "orders",
+            "admin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Order Details By ID (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/orders/admin/817d8376-85e2-40ae-a4d5-0725b5995ddb",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "orders",
+            "admin",
+            "817d8376-85e2-40ae-a4d5-0725b5995ddb"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Orders By Status With Pagination (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/orders/admin/all-orders-by-user",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "orders",
+            "admin",
+            "all-orders-by-user"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Orders By User",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/orders/all-orders-by-user",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "orders",
+            "all-orders-by-user"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Order Details By User, Order ID, and locale",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/orders/order-details-by-user-id-and-locale/ar?orderId=bc2edc6e-8ebc-4cb2-a7a3-cca129efcb7f",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "orders",
+            "order-details-by-user-id-and-locale",
+            "ar"
+          ],
+          "query": [
+            {
+              "key": "orderId",
+              "value": "bc2edc6e-8ebc-4cb2-a7a3-cca129efcb7f"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Order Status",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"status\":\"CONFIRMED\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/orders/update-order-status/817d8376-85e2-40ae-a4d5-0725b5995ddb",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "orders",
+            "update-order-status",
+            "817d8376-85e2-40ae-a4d5-0725b5995ddb"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

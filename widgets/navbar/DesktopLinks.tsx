@@ -9,39 +9,26 @@ interface DesktopLinksProps {
   links: NavbarLink[];
 }
 
-export function DesktopLinks({
-  pathname,
-  links,
-}: DesktopLinksProps) {
+export function DesktopLinks({ pathname, links }: DesktopLinksProps) {
+  console.log("link.href: ", links);
   return (
     <ul className={theme.navbar.desktopLinks}>
       {links.map((link) => {
         const isActive = pathname === link.href;
 
         return (
-          <li
-            key={link.href}
-            className={theme.navbar.desktopItem}
-          >
+          <li key={link.href} className={theme.navbar.desktopItem}>
             <Link
               href={link.href}
-              aria-current={
-                isActive ? "page" : undefined
-              }
+              aria-current={isActive ? "page" : undefined}
               className={`${theme.navbar.link} ${
-                isActive
-                  ? theme.navbar.linkActive
-                  : theme.navbar.linkInactive
+                isActive ? theme.navbar.linkActive : theme.navbar.linkInactive
               }`}
             >
               {link.label}
             </Link>
 
-            {isActive && (
-              <span
-                className={theme.navbar.activeDot}
-              />
-            )}
+            {isActive && <span className={theme.navbar.activeDot} />}
           </li>
         );
       })}

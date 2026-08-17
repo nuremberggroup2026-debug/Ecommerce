@@ -883,6 +883,7 @@ const getCachedfilteredProducts = (
             select: {
               finalPrice: true,
               price: true,
+              stock:true,
               discountPercentage: true,
               id: true,
             },
@@ -954,6 +955,7 @@ const getCachedFeaturedProductsByLocale = (locale: Locale) =>
             select: {
               finalPrice: true,
               price: true,
+              
               discountPercentage: true,
               stock: true,
             },

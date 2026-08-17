@@ -1,11 +1,9 @@
 export const ROUTES = {
   HOME: "/",
+  CATEGORIES: "/categories",
   PRODUCTS: "/products",
-  CART: "/cart",
-  ORDERS: "/orders",
-  WISHLIST: "/wishlist",
-    CATEGORIES: "/categories",
-
+  CAREERS: "/careers",
+  ABOUTUS: "/about-us",
 } as const;
 
 export type RouteKeys = keyof typeof ROUTES;

@@ -70,7 +70,7 @@ export type ApplicationCreateInput = {
   phoneNumber: string;
   major: string;
   cv: string;
-  careerId: string;
+  careerSlug: string;
 };
 export type ApplicationUpdateInput = Prisma.applicationsUpdateInput;
 export type ApplicationGetPayload = Prisma.applicationsGetPayload<{}>;

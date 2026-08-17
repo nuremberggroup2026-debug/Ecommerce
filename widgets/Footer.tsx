@@ -101,47 +101,6 @@ export default function Footer() {
             </div>
           </div>
 
-<<<<<<< HEAD
-          {/* الجانب الأيمن: القوائم والروابط */}
-          <div className="grid grid-cols-3 gap-6 sm:gap-8 lg:col-span-7">
-            
-            {/* Shop */}
-            <div className="space-y-4">
-              <h3 className="text-xs font-semibold tracking-wider uppercase text-neutral-900">Shop</h3>
-              <ul className="space-y-2.5 text-xs text-gray-400 font-light">
-                <li><Link href="/products" className="transition hover:text-black">All Products</Link></li>
-                <li><Link href="/categories" className="transition hover:text-black">Categories</Link></li>
-                <li><Link href="/best-sellers" className="transition hover:text-black">Best Sellers</Link></li>
-                <li><Link href="/new" className="transition hover:text-black">New Arrivals</Link></li>
-              </ul>
-            </div>
-
-            {/* Account */}
-            <div className="space-y-4">
-              <h3 className="text-xs font-semibold tracking-wider uppercase text-neutral-900">Account</h3>
-              <ul className="space-y-2.5 text-xs text-gray-400 font-light">
-                <li><Link href="/profile" className="transition hover:text-black">Profile</Link></li>
-                <li><Link href="/orders" className="transition hover:text-black">Orders</Link></li>
-                <li><Link href="/cart" className="transition hover:text-black">Cart</Link></li>
-              </ul>
-            </div>
-
-            {/* Support */}
-            <div className="space-y-4">
-              <h3 className="text-xs font-semibold tracking-wider uppercase text-neutral-900">Support</h3>
-              <ul className="space-y-2.5 text-xs text-gray-400 font-light">
-                <li><Link href="/contact" className="transition hover:text-black">Contact</Link></li>
-                <li><Link href="/faq" className="transition hover:text-black">FAQ</Link></li>
-                <li><Link href="/shipping" className="transition hover:text-black">Shipping</Link></li>
-                <li><Link href="/returns" className="transition hover:text-black">Returns</Link></li>
-                <li><Link href="/careers" className="transition hover:text-black">Careers</Link></li>
-
-              </ul>
-            </div>
-
-          </div>
-=======
->>>>>>> 638b35cfdb5402ed6bb6ce0141d60d3bded5ae98
         </div>
 
         {/* Centered Copyright Section */}

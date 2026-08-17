@@ -8,7 +8,7 @@ interface Prop {
 }
 export default async function page({ params }: Prop) {
   const locale = (await params).locale;
-  const careers = await (await fetchCareers(locale)).data;
+  const careers =  (await fetchCareers(locale)).data;
 
   return (
     <div>

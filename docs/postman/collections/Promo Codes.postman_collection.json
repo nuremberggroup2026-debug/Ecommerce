@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "44dfba91-cabf-4426-8798-bfe1136d0d59",
+    "name": "Promo Codes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43475463",
+    "_collection_link": "https://go.postman.co/collection/43475463-44dfba91-cabf-4426-8798-bfe1136d0d59?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Promo Code",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"code\": \"SUMMER20\",\r\n  \"discountPercentage\": 20,\r\n  \"maxUsage\": 100,\r\n  \"expiresAt\": \"2026-09-01T23:59:59.000Z\",\r\n  \"isActive\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/promo-codes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "promo-codes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Promo Code With Pagination",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/promo-codes?page=1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "promo-codes"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Promo Code By ID",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/promo-codes/5314105d-7ec4-4532-b54c-1135b4d41197",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "promo-codes",
+            "5314105d-7ec4-4532-b54c-1135b4d41197"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Validate Promo Code",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/promo-codes/validate-promo-code?code=summer20",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "promo-codes",
+            "validate-promo-code"
+          ],
+          "query": [
+            {
+              "key": "code",
+              "value": "summer20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Promo Code",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \r\n  \"discountPercentage\": 20,\r\n  \"maxUsage\": 110,\r\n  \"expiresAt\": \"2026-09-01T23:59:59.000Z\",\r\n  \"isActive\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/promo-codes/5314105d-7ec4-4532-b54c-1135b4d41197",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "promo-codes",
+            "5314105d-7ec4-4532-b54c-1135b4d41197"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deactivate Promo Code",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/promo-codes/deactivate/5314105d-7ec4-4532-b54c-1135b4d41197",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "promo-codes",
+            "deactivate",
+            "5314105d-7ec4-4532-b54c-1135b4d41197"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Promo Code",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/promo-codes/5314105d-7ec4-4532-b54c-1135b4d41197",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "promo-codes",
+            "5314105d-7ec4-4532-b54c-1135b4d41197"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

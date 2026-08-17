@@ -1,25 +1,24 @@
-
 import { Clientapi } from "@/services/client/api";
 import { API } from "@/constants/api";
 
 import type {
   deleteResponseType,
   ResponseType,
-  ShownResponseType
-} from "@/types/index";
+  ShownResponseType,
+  PostResponseType,
+  ApplicationCreateInput,
+} from "../types/index";
 
-import type {
-  CareerApplication,
-} from "@/features/applications/types";
+import type { CareerApplication } from "@/features/applications/types";
 
 /**
  * Delete one application
  */
 export async function adminDeleteApplication(
-  id: string
+  id: string,
 ): Promise<deleteResponseType> {
   return Clientapi.delete<deleteResponseType, string>(
-    `${API.ENDPOINTS.APPLICATIONS.APPLICATION_BY_ID}/${id}`
+    `${API.ENDPOINTS.APPLICATIONS.APPLICATION_BY_ID}/${id}`,
   );
 }
 
@@ -27,11 +26,11 @@ export async function adminDeleteApplication(
  * Delete multiple applications
  */
 export async function deleteManyApplications(
-  ids: string[]
+  ids: string[],
 ): Promise<deleteResponseType> {
   return Clientapi.delete<deleteResponseType, string[]>(
     API.ENDPOINTS.APPLICATIONS.DELETE_MANY_APPLICATIONS,
-    ids
+    ids,
   );
 }
 
@@ -42,13 +41,26 @@ export async function adminApplications(): Promise<
   ResponseType<CareerApplication[]>
 > {
   return Clientapi.get<ResponseType<CareerApplication[]>>(
-    API.ENDPOINTS.APPLICATIONS.ALL_APPLICATIONS
+    API.ENDPOINTS.APPLICATIONS.ALL_APPLICATIONS,
   );
 }
+
 export async function markApplicationAsShown(
   id: string,
 ): Promise<ShownResponseType> {
-  return Clientapi.put<ShownResponseType,string>(
+  return Clientapi.put<ShownResponseType, string>(
     `${API.ENDPOINTS.APPLICATIONS.MARK_APPLICATION_AS_SHOWN}/${id}`,
+  );
+}
+
+/**
+ * Apply
+ */
+export async function applyApi(
+  formData: ApplicationCreateInput,
+): Promise<PostResponseType> {
+  return Clientapi.post<PostResponseType, ApplicationCreateInput>(
+    API.ENDPOINTS.APPLICATIONS.ALL_APPLICATIONS,
+    formData,
   );
 }

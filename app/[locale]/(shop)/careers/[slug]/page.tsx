@@ -18,7 +18,7 @@ export default async function CareerDetailsPage({ params }: Props) {
   let career;
 
   try {
-    career = (await careerBySlug( slug,locale)).data;
+    career = (await careerBySlug(slug, locale)).data;
   } catch {
     notFound();
   }
@@ -43,7 +43,7 @@ export default async function CareerDetailsPage({ params }: Props) {
             />
           )}
 
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-950 via-gray-950/90 to-gray-950/40" />
+          <div className="absolute inset-0 bg-linear-to-r from-gray-950 via-gray-950/90 to-gray-950/40" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
@@ -141,13 +141,15 @@ export default async function CareerDetailsPage({ params }: Props) {
                 If you think you are a good fit for this position, we would love
                 to hear from you.
               </p>
-
-              <button
-                type="button"
-                className="mt-6 w-full rounded-xl bg-gray-900 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary"
-              >
-                Apply for this position
-              </button>
+              <Link href={`/${locale}/careers/${career.slug}/apply`}>
+                {" "}
+                <button
+                  type="button"
+                  className="mt-6 w-full rounded-xl bg-gray-900 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary"
+                >
+                  Apply for this position
+                </button>
+              </Link>
 
               <Link
                 href={`/${locale}/careers`}

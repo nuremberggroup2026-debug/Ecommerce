@@ -4,13 +4,23 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { Locale, WishlistItemsType } from "../types/index";
 import defaultImage from "@/app/defaultImage.jpg";
+import { toastResponse } from "@/lib/toast";
+import { removeItemFromWishlist } from "../api/wishlist.client.api";
+import { useState } from "react";
 interface Prop {
   locale: Locale;
   wishlistItems: WishlistItemsType[];
 }
 export default function WishlistComponent({ locale, wishlistItems }: Prop) {
-  const t = useTranslations("Wishlist");
+  const [items, setItems] = useState(wishlistItems);
+  const t = useTranslations("");
   const isArabic = locale === "ar";
+
+  const handleRemoveItem = async (id: string) => {
+    const result = await toastResponse(removeItemFromWishlist(id), t, "");
+
+    if (result.success) setItems(items.filter((item) => item.productId !== id));
+  };
 
   return (
     <main
@@ -23,31 +33,31 @@ export default function WishlistComponent({ locale, wishlistItems }: Prop) {
           className={`mb-16 border-b border-neutral-100 pb-6 ${isArabic ? "text-right" : "text-left"}`}
         >
           <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-            {t("title")}
+            {t("Wishlist.title")}
           </h1>
           <p className="mt-2 text-xs font-light text-gray-400">
-            {wishlistItems.length === 0
-              ? t("emptyTitle")
-              : t("savedItems", { count: wishlistItems.length })}
+            {items.length === 0
+              ? t("Wishlist.emptyTitle")
+              : t("Wishlist.savedItems", { count: items.length })}
           </p>
         </header>
         {/* Empty Wishlist */}
-        {wishlistItems.length === 0 ? (
+        {items.length === 0 ? (
           <div className="flex min-h-100 flex-1 flex-col items-center justify-center space-y-6 text-center">
             <p className="max-w-md text-sm font-light leading-relaxed text-gray-400">
-              {t("emptyDescription")}
+              {t("Wishlist.emptyDescription")}
             </p>
             <Link
               href="/products"
               className="rounded-full bg-black px-8 py-4 text-xs font-semibold uppercase tracking-widest text-white shadow-sm transition hover:bg-neutral-800 active:scale-[0.98]"
             >
-              {t("explore")}
+              {t("Wishlist.explore")}
             </Link>
           </div>
         ) : (
           /* Wishlist Products */ <div className="flex w-full flex-1 justify-center">
             <div className="grid w-full max-w-5xl grid-cols-1 gap-x-10 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-              {wishlistItems.map((item) => (
+              {items.map((item) => (
                 <div
                   key={item.itemId}
                   className="group flex flex-col space-y-4"
@@ -63,8 +73,13 @@ export default function WishlistComponent({ locale, wishlistItems }: Prop) {
                     />
                     {/* Remove Button */}
                     <button
+                      onClick={() => {
+                        console.log("item.itemId: ", item.productId);
+
+                        handleRemoveItem(item.itemId);
+                      }}
                       type="button"
-                      aria-label={t("remove")}
+                      aria-label={t("Wishlist.remove")}
                       className=" absolute right-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200/40 bg-white/95 text-neutral-400 shadow-sm transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black active:scale-90 "
                     >
                       <svg
@@ -108,7 +123,7 @@ export default function WishlistComponent({ locale, wishlistItems }: Prop) {
                         href={`/products/${item.productId}`}
                         className=" block w-full rounded-xl bg-neutral-900 py-3 text-center text-[11px] font-medium uppercase tracking-widest text-white shadow-sm transition-all duration-300 hover:bg-black active:scale-[0.98] "
                       >
-                        {t("viewProduct")}
+                        {t("Wishlist.viewProduct")}
                       </Link>
                     </div>
                   </div>

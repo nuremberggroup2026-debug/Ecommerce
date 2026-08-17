@@ -1,6 +1,7 @@
 "use client";
 
 import { TransalatedCategories } from "@/types";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
@@ -10,8 +11,7 @@ interface Props {
 export default function CategoryFilter({ categoriesData }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-
+  const t = useTranslations("Product");
 
   const selectedCategories = searchParams.get("categories")?.split(",") ?? [];
 
@@ -40,7 +40,7 @@ export default function CategoryFilter({ categoriesData }: Props) {
   return (
     <div className="bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm">
       <h3 className="font-semibold text-xs uppercase tracking-wider text-gray-400 mb-4">
-        Categories
+        {t("Categories")}
       </h3>
 
       <div className="space-y-3">

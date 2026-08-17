@@ -9,7 +9,6 @@ export default async function page({ params }: Props) {
   const { locale } = await params;
 
   const ordersByUser = (await fetchAllOrdersByUser()).data;
-  console.log("ordersByUser: ", ordersByUser);
 
   return (
     <div>

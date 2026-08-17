@@ -25,11 +25,14 @@ export default function ProductCard({
   isInWishlist,
   isInCart,
 }: Props) {
+  console.log("product.variants[0].stock: ",product);
+  
   const isOutOfStock = product.variants[0].stock <= 0;
   const [inWishist, setInWishist] = useState(isInWishlist);
   const [inCart, setInCart] = useState(isInCart);
   const [loading, setLoading] = useState(false);
-  const t = useTranslations();
+
+  const t = useTranslations("");
 
   const handleWishlist = async () => {
     if (loading) return;
@@ -84,7 +87,7 @@ export default function ProductCard({
 
         <button
           className={theme.productCard.wishlistButton}
-          aria-label="Add to wishlist"
+          aria-label={t("Product.ProductCard.ADD_TO_WISHLIST")}
           onClick={() => {
             handleWishlist();
           }}
@@ -120,7 +123,11 @@ export default function ProductCard({
                   : ""
             }`}
           >
-            {isOutOfStock ? "Out Of Stock" : inCart ? "Added ✓" : "Add To Cart"}
+            {isOutOfStock
+              ? t("Product.ProductCard.OUT_OF_STOCK")
+              : inCart
+                ? t("Product.ProductCard.ADDED")
+                : t("Product.ProductCard.ADD_TO_CART")}
           </button>
         </div>
       </div>
@@ -137,7 +144,8 @@ export default function ProductCard({
         </div>
 
         <p className={theme.productCard.price}>
-          ${Number(product.variants[0].finalPrice)}
+          {t("Product.ProductCard.CURRENCY_SYMBOL")}
+          {Number(product.variants[0].finalPrice)}
         </p>
       </div>
     </div>

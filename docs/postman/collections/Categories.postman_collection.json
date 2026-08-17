@@ -1,0 +1,189 @@
+{
+  "info": {
+    "_postman_id": "4c0aa64c-0e9d-4a89-9ab2-0f1227176a87",
+    "name": "Categories",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43475463",
+    "_collection_link": "https://go.postman.co/collection/43475463-4c0aa64c-0e9d-4a89-9ab2-0f1227176a87?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Category",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"categoryNameEn\": \"Electrical Cables\",\r\n  \"categoryNameAr\": \"الكابلات الكهربائية\",\r\n  \"categoryDescriptionEn\": \"Reliable power and control cables for residential and industrial installations.\",\r\n  \"categoryDescriptionAr\": \"كابلات طاقة وتحكم موثوقة للتركيبات السكنية والصناعية.\",\r\n  \"image\": \"https://example.com/images/electrical-cables.jpg\",\r\n  \"isFeatured\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/categories",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Categories",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/categories",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Categories By Locale",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/categories/categories-by-locale/ar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "categories",
+            "categories-by-locale",
+            "ar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Category By ID And Locale",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/categories/category-by-id-and-locale/ar?id=0caa64da-7081-4bf7-a815-a323626f9f58",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "categories",
+            "category-by-id-and-locale",
+            "ar"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "0caa64da-7081-4bf7-a815-a323626f9f58"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Featured Categories By Locale",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/categories/featured-categories-by-locale/ar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "categories",
+            "featured-categories-by-locale",
+            "ar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Category",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"categoryNameEn\": \"Smart Home Devices 2\",\r\n  \"categoryNameAr\": \"أجهزة المنزل الذكي\",\r\n  \"categoryDescriptionEn\": \"Connected devices that improve comfort, security, and energy efficiency.\",\r\n  \"categoryDescriptionAr\": \"أجهزة متصلة تعزز الراحة والأمان وكفاءة استهلاك الطاقة.\",\r\n  \"image\": \"https://example.com/images/smart-home.jpg\",\r\n  \"isFeatured\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/categories/618d9717-4e8c-4260-82ef-0a5d458ebfba",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "categories",
+            "618d9717-4e8c-4260-82ef-0a5d458ebfba"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Category",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/categories/618d9717-4e8c-4260-82ef-0a5d458ebfba",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "categories",
+            "618d9717-4e8c-4260-82ef-0a5d458ebfba"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

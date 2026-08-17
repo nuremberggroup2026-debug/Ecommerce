@@ -6,13 +6,21 @@ interface RegisterBody {
   name: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as RegisterBody;
 
-    const result = await register(body.name, body.email, body.password);
+    console.log("body: ", body);
+
+    const result = await register(
+      body.name,
+      body.email,
+      body.password,
+      body.confirmPassword,
+    );
 
     const httpStatus = HTTP_STATUS_MAP[result.code] || 500;
     return NextResponse.json(
@@ -24,6 +32,8 @@ export async function POST(req: NextRequest) {
       { status: httpStatus },
     );
   } catch (error) {
+    console.log("error in register: ", error);
+
     return NextResponse.json(
       {
         success: false,

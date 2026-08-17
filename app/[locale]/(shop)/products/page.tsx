@@ -7,6 +7,7 @@ import SecondPaginationComponent from "@/features/catalog/pagination/SecondPagin
 import SortFilter from "@/features/catalog/filters/SortFilter";
 import PriceFilter from "@/features/catalog/filters/PriceFilter";
 import { Locale, SortType } from "@/types";
+import { getTranslations } from "next-intl/server";
 
 export default async function ProductsPage({
   params,
@@ -24,6 +25,8 @@ export default async function ProductsPage({
 }) {
   const { locale } = await params;
   const searchParamsData = await searchParams;
+
+  const t = await getTranslations("Product");
 
   const {
     page = "1",
@@ -65,23 +68,21 @@ export default async function ProductsPage({
       <section className="mx-auto max-w-7xl px-6 pt-16 pb-12 lg:px-10 text-center">
         <div className="space-y-3">
           <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
-            All Products
+            {t("TITLE")}
           </h1>
 
           <p className="text-sm text-gray-400 font-light max-w-md mx-auto">
-            A refined collection of premium essentials crafted for modern
-            everyday life.
+            {t("DESCRIPTION")}
           </p>
         </div>
 
         <div className="mt-10 flex items-center justify-between border-b border-gray-100 pb-5 text-sm">
           <span className="text-gray-400 font-medium">
-            {premium.length} items
+            {t("ITEMS_COUNT", { count: premium.length })}
           </span>
 
           <div className="flex items-center gap-2">
-            <span className="text-gray-400">Sort by:</span>
-
+            <span className="text-gray-400">{t("SORT_BY")}</span>
             <SortFilter />
           </div>
         </div>
@@ -91,15 +92,15 @@ export default async function ProductsPage({
         <aside className="hidden lg:block space-y-8 sticky top-28 h-fit">
           <div className="bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm">
             <h3 className="font-semibold text-xs uppercase tracking-wider text-gray-400 mb-4">
-              Search
+              {t("SEARCH")}
             </h3>
 
             <form>
               <input
                 name="search"
                 defaultValue={search}
-                placeholder="Find a product..."
-                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-2 text-xs"
+                placeholder={t("SEARCH_PLACEHOLDER")}
+                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-2 text-xs outline-none transition-colors focus:border-neutral-900"
               />
             </form>
           </div>
@@ -118,6 +119,7 @@ export default async function ProductsPage({
 
               const isInCart =
                 productsIdsInCart && productsIdsInCart.includes(product.id);
+
               return (
                 <ProductCard
                   key={product.id}

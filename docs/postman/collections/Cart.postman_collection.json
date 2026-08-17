@@ -1,0 +1,65 @@
+{
+  "info": {
+    "_postman_id": "5783260e-0906-4ba2-8bc0-750d2712be60",
+    "name": "Cart",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43475463",
+    "_collection_link": "https://go.postman.co/collection/43475463-5783260e-0906-4ba2-8bc0-750d2712be60?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Cart By Locale And User ID (From Token)",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"variantId\":\"f401bf61-3bef-4731-8d75-8e14fb07c04a\",\r\n    \"quantity\":25\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/cart/ar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "cart",
+            "ar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Clear Cart By User ID (From Token)",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/cart",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "cart"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -24,9 +24,5 @@ export async function removeItemFromWishlist(
     `${API.ENDPOINTS.WISHLIST.REMOVE_ITEM}/${itemId}`,
   );
 
-  
-
-  console.log("data: ", data);
-
   return data;
 }

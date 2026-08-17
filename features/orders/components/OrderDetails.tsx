@@ -1,11 +1,8 @@
-"use client";
 
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { formatDate, getStatusColor } from "@/lib/helpers/clientSideHelpers";
 import type { OrderStatus, OrderByID } from "../types";
-
-// Import your newly extracted components
 import OrderItemsSection from "./orderDetailsComponents/OrderItemsSection";
 import DeliveryInfoSection from "./orderDetailsComponents/DeliveryInfoSection";
 import OrderSummarySection from "./orderDetailsComponents/OrderSummarySection";
@@ -16,6 +13,8 @@ interface Props {
 
 export default function OrderDetailsComponent({ order }: Props) {
   const t = useTranslations("ORDERS.ORDER_DETAILS");
+  const locale = useLocale();
+  const isAr = locale === "ar";
 
   // Calculations for the Summary Section
   const subtotal = order.orderItems.reduce(
@@ -31,33 +30,36 @@ export default function OrderDetailsComponent({ order }: Props) {
   return (
     <main className="min-h-screen bg-neutral-50/50 pb-20 text-neutral-900">
       <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-        {/* Header Section */}
-        <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <Link
-              href="/orders"
-              className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-neutral-500 transition-colors hover:text-neutral-900"
-            >
-              <span aria-hidden="true">&larr;</span>
-              {t("BACK_TO_ORDERS")}
-            </Link>
+        {/* Improved Header Section */}
+        <header className="mb-10 flex flex-col gap-4 border-b border-neutral-100 pb-8">
+          <Link
+            href="/orders"
+            className="inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500 transition-colors hover:text-neutral-900"
+          >
+            <span aria-hidden="true">{isAr ? "→" : "←"}</span>
+            {t("BACK_TO_ORDERS")}
+          </Link>
 
-            <div className="flex items-center gap-4">
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                {order.orderNumber}
-              </h1>
-              <span
-                className={`mt-1 rounded-full border px-3 py-1 text-xs font-semibold capitalize ${getStatusColor(
-                  order.status as OrderStatus,
-                )}`}
-              >
-                {t(`STATUS.${order.status}`)}
-              </span>
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-2">
+              <div className="flex flex-wrap items-center gap-3">
+                <h1 className="text-xl font-bold tracking-tight text-neutral-900 wrap-break-word sm:text-2xl md:text-3xl">
+                  {order.orderNumber}
+                </h1>
+                <span
+                  className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-wider ${getStatusColor(
+                    order.status as OrderStatus,
+                  )}`}
+                >
+                  {t(`STATUS.${order.status}`)}
+                </span>
+              </div>
+
+              <p className="text-sm font-medium text-neutral-400">
+                {t("TITLE")} <span className="mx-2 text-neutral-300">•</span>{" "}
+                {formatDate(order.createdAt)}
+              </p>
             </div>
-
-            <p className="mt-2 text-sm text-neutral-500">
-              {t("TITLE")} • {formatDate(order.createdAt)}
-            </p>
           </div>
         </header>
 

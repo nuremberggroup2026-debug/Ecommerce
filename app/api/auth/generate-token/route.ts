@@ -4,9 +4,9 @@ import { NextResponse } from "next/server";
 
 export const POST = async (request: Request) => {
   try {
-    const body = (await request.json()) as { email: string };
+    const email = (await request.json()) as  string ;
 
-    const result = await generateToken(body.email);
+    const result = await generateToken(email);
     const status = HTTP_STATUS_MAP[result.code] || 500;
 
     return NextResponse.json(
@@ -14,6 +14,8 @@ export const POST = async (request: Request) => {
       { status },
     );
   } catch (error) {
+    console.log("error: ",error);
+    
     return NextResponse.json(
       { success: false, message: "INTERNAL_SERVER_ERROR" },
       { status: 500 },

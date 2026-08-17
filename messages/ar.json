@@ -2,6 +2,7 @@
   "Home": {
     "title": "مرحبا بكم في متجرنا",
     "ShopNow": "تسوق الأن",
+
     "FeaturedProducts": {
       "TITLE": "منتجات مميزة",
       "DESCRIPTION": "منتجات مختارة بعناية تتميز بالجودة الفائقة والتصميم الخالد."
@@ -128,15 +129,154 @@
     "PROMO_CODE_ALREADY_USED": "لقد استخدمت رمز الخصم هذا مسبقًا.",
     "PROMO_CODE_APPLIED": "تم تطبيق رمز الخصم بنجاح."
   },
+  "LoginPage": {
+    "WELCOME_BACK": "أهلاً بعودتك",
+    "SUBTITLE": "أدخل بيانات الدخول للوصول إلى حسابك.",
+    "EmailAddress": "البريد الإلكتروني",
+    "Password": "كلمة المرور",
+    "SUCCESS_LOGIN": "تم تسجيل الدخول بنجاح",
+    "EMAIL_NOT_VERIFIED": "البريد الإلكتروني غير مؤكد. تم إرسال رسالة التأكيد.",
+    "INVALID_CREDENTIALS": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    "UNEXPECTED_ERROR": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+    "EMAIL_LABEL": "البريد الإلكتروني",
+    "EMAIL_PLACEHOLDER": "hello@aura.studio",
+    "PASSWORD_LABEL": "كلمة المرور",
+    "FORGOT_PASSWORD": "نسيت كلمة المرور؟",
+    "SIGNING_IN": "جاري تسجيل الدخول...",
+    "SIGN_IN": "تسجيل الدخول",
+    "OR_CONTINUE_WITH": "أو المتابعة باستخدام",
+    "SIGN_IN_GOOGLE": "تسجيل الدخول باستخدام Google",
+    "NO_ACCOUNT": "ليس لديك حساب؟",
+    "CREATE_ONE": "إنشاء حساب"
+  },
+  "RegisterPage": {
+    "CREATE_ACCOUNT": "إنشاء حساب",
+    "SUBTITLE": "انضم إلينا لاكتشاف منتجات عالية الجودة.",
+    "NAME_LABEL": "الاسم الكامل",
+    "NAME_PLACEHOLDER": "أحمد محمد",
+    "EMAIL_LABEL": "البريد الإلكتروني",
+    "EMAIL_PLACEHOLDER": "hello@aura.studio",
+    "PASSWORD_LABEL": "كلمة المرور",
+    "CREATING_ACCOUNT": "جاري إنشاء الحساب...",
+    "REGISTER": "تسجيل",
+    "SUCCESS_REGISTER": "تم إنشاء الحساب بنجاح",
+    "UNEXPECTED_ERROR": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+    "OR_CONTINUE_WITH": "أو المتابعة باستخدام",
+    "SIGN_IN_GOOGLE": "التسجيل باستخدام Google",
+    "ALREADY_HAVE_ACCOUNT": "لديك حساب بالفعل؟",
+    "SIGN_IN": "تسجيل الدخول",
+    "REGISTERING": "...جاري إنشاء الحساب",
+    "CONFIRM_PASSWORD_LABEL": "تأكيد كلمة المرور"
+  },
+  "VerifyEmail": {
+    "VERIFYING": "جاري تأكيد بريدك الإلكتروني...",
+    "VERIFYING_DESC": "يرجى الانتظار لحظة بينما نقوم بتأكيد عنوان بريدك الإلكتروني.",
+    "SUCCESS": "تم تأكيد البريد الإلكتروني",
+    "SUCCESS_DESC": "تم تأكيد بريدك الإلكتروني بنجاح. يمكنك الآن الوصول إلى حسابك.",
+    "ALREADY_VERIFIED": "تم التأكيد مسبقاً",
+    "ALREADY_VERIFIED_DESC": "بريدك الإلكتروني مؤكد بالفعل. يمكنك المتابعة لتسجيل الدخول.",
+    "PROCEED_TO_LOGIN": "المتابعة لتسجيل الدخول",
+    "ERROR": "فشل التأكيد",
+    "ERROR_DESC": "رابط التأكيد غير صالح أو انتهت صلاحيته. يرجى طلب رابط جديد.",
+    "BACK_TO_HOME": "العودة للرئيسية"
+  },
+  "ForgotPasswordPage": {
+    "TITLE": "إعادة تعيين كلمة المرور",
+    "SUBTITLE": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.",
+    "EMAIL_LABEL": "البريد الإلكتروني",
+    "EMAIL_PLACEHOLDER": "hello@aura.studio",
+    "SENDING": "جاري الإرسال...",
+    "SEND_LINK": "إرسال الرابط",
+    "SUCCESS_TITLE": "تحقق من بريدك الإلكتروني",
+    "SUCCESS_DESC": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد الخاص بك.",
+    "BACK_TO_LOGIN": "العودة لتسجيل الدخول",
+    "UNEXPECTED_ERROR": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+  },
+  "ResetPasswordPage": {
+    "TITLE": "إعادة تعيين كلمة المرور",
+    "SUBTITLE": "أدخل كلمة المرور الجديدة أدناه.",
+    "PASSWORD_LABEL": "كلمة المرور الجديدة",
+    "CONFIRM_PASSWORD_LABEL": "تأكيد كلمة المرور الجديدة",
+    "RESETTING": "جاري التحديث...",
+    "RESET_PASSWORD": "تحديث كلمة المرور",
+    "SUCCESS_TITLE": "تم التحديث بنجاح",
+    "SUCCESS_DESC": "تم تحديث كلمة المرور الخاصة بك. يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة.",
+    "PROCEED_TO_LOGIN": "المتابعة لتسجيل الدخول",
+    "UNEXPECTED_ERROR": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى أو طلب رابط جديد."
+  },
+  "ChangePasswordPage": {
+    "TITLE": "تغيير كلمة المرور",
+    "SUBTITLE": "قم بتحديث كلمة المرور الخاصة بك للحفاظ على أمان حسابك.",
+    "CURRENT_PASSWORD_LABEL": "كلمة المرور الحالية",
+    "NEW_PASSWORD_LABEL": "كلمة المرور الجديدة",
+    "CONFIRM_NEW_PASSWORD_LABEL": "تأكيد كلمة المرور الجديدة",
+    "UPDATING": "جاري التحديث...",
+    "UPDATE_PASSWORD": "تحديث كلمة المرور",
+    "SUCCESS_MESSAGE": "تم تحديث كلمة المرور الخاصة بك بنجاح.",
+    "UNEXPECTED_ERROR": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+  },
   "Product": {
     "products": "المنتجات",
     "inStock": "متوفر",
+    "outOfStock": "نفذت الكمية",
+    "Categories": "الفئات",
     "onlyItemsLeft": "متبقي فقط {count} قطعة",
     "options": "الخيارات",
     "default": "افتراضي",
     "sku": "الرمز التعريفي",
     "quantity": "الكمية",
-    "addToBag": "أضف إلى السلة"
+    "addToBag": "أضف إلى السلة",
+    "TITLE": "جميع المنتجات",
+    "DESCRIPTION": "مجموعة راقية من الأساسيات المتميزة المصممة للحياة اليومية العصرية.",
+    "ITEMS_COUNT": "{count} عناصر",
+    "SORT_BY": "ترتيب حسب:",
+    "SEARCH": "بحث",
+    "SEARCH_PLACEHOLDER": "ابحث عن منتج...",
+    "ProductCard": {
+      "OUT_OF_STOCK": "نفذت الكمية",
+      "ADDED": "تمت الإضافة ✓",
+      "ADD_TO_CART": "أضف إلى السلة",
+      "ADD_TO_WISHLIST": "أضف إلى المفضلة",
+      "CURRENCY_SYMBOL": "$"
+    },
+    "PriceFilter": {
+      "TITLE": "نطاق السعر",
+      "FROM": "من",
+      "TO": "إلى",
+      "PLACEHOLDER_MIN": "$0",
+      "PLACEHOLDER_MAX": "$500",
+      "APPLY": "تطبيق الفلتر"
+    },
+    "SortFilter": {
+      "PRICE_ASC": "السعر: من الأقل للأعلى",
+      "PRICE_DESC": "السعر: من الأعلى للأقل",
+      "NEWEST": "الأحدث",
+      "OLDEST": "الأقدم"
+    }
+  },
+  "Categories": {
+    "CategoriesList": {
+      "TITLE": "الفئات",
+      "DESCRIPTION": "استكشف مجموعاتنا المختارة واكتشف المنتجات المصممة لتناسب أسلوب حياتك.",
+      "EXPLORE_COLLECTION": "استكشف المجموعة"
+    }
+  },
+  "Cart": {
+    "TITLE": "سلة التسوق",
+    "EMPTY_CART": "سلة التسوق فارغة",
+    "ITEMS_COUNT": "لديك {count} عناصر في السلة",
+    "FEELS_LIGHT": "سلة التسوق الخاصة بك تبدو خفيفة.",
+    "CONTINUE_SHOPPING": "متابعة التسوق",
+    "EACH": "للقطعة",
+    "SKU": "رمز المنتج",
+    "REMOVE": "إزالة",
+    "ORDER_SUMMARY": "ملخص الطلب",
+    "SUBTOTAL": "المجموع الفرعي",
+    "SHIPPING": "الشحن",
+    "FREE": "مجاني",
+    "TOTAL": "الإجمالي",
+    "PROCEED_TO_CHECKOUT": "الاستمرار للدفع",
+    "CURRENCY_SYMBOL": "$"
   },
 
   "Wishlist": {
@@ -154,9 +294,13 @@
     "continueShopping": "متابعة التسوق"
   },
   "CHECKOUT": {
+    "STEP_01": "01",
+    "DELIVERY_DETAILS": "تفاصيل التوصيل",
+    "DELIVERY_DESC": "يرجى تقديم المعلومات التي نحتاجها لتوصيل طلبك.",
     "ORDER_SUMMARY": "ملخص الطلب",
     "ITEMS_COUNT": "{count, plural, =0 {لا توجد منتجات} =1 {منتج واحد} =2 {منتجان} few {# منتجات} other {# منتجًا}}",
     "SKU": "رمز المنتج",
+    "SUBTOTAL": "المجموع الفرعي",
     "UNIT_PRICE": "سعر الوحدة",
     "TOTAL": "الإجمالي",
     "PROMO_CODE": "رمز الخصم",
@@ -240,6 +384,7 @@
       "SUMMARY": {
         "TITLE": "ملخص الطلب",
         "SUBTOTAL": "المجموع الفرعي",
+        "DISCOUNT": "الخصم",
         "TOTAL": "الإجمالي"
       },
       "DELIVERY": {
@@ -251,6 +396,36 @@
         "STREET_ADDRESS": "عنوان الشارع",
         "ADDITIONAL_NOTE": "ملاحظات إضافية"
       }
+    }
+  },
+  "ApplicationPage": {
+    "FORM_TITLE": "التقدم لهذه الوظيفة",
+    "FORM_SUBTITLE": "قم بتعبئة النموذج أدناه وسنقوم بالرد عليك.",
+    "FIRST_NAME": "الاسم الأول",
+    "LAST_NAME": "الاسم الأخير",
+    "EMAIL": "البريد الإلكتروني",
+    "PHONE": "رقم الهاتف",
+    "MAJOR": "التخصص الجامعي",
+    "CV_LABEL": "السيرة الذاتية",
+    "SUBMITTING": "جاري الإرسال...",
+    "SUBMIT_APPLICATION": "إرسال الطلب",
+    "SUCCESS_MESSAGE": "تم إرسال الطلب بنجاح!",
+    "ERROR_MESSAGE": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "ROLE": "الدور",
+    "EXPERIENCE": "الخبرة",
+    "REQUIREMENTS": "المتطلبات"
+  },
+  "Navbar": {
+    "BRAND_NAME": "أورا",
+    "BRAND_SUFFIX": ".ستوديو",
+    "LINKS": {
+      "HOME": "الرئيسية",
+      "PRODUCTS": "المنتجات",
+      "CATEGORIES": "الفئات",
+      "CAREERS": "الوظائف",
+      "AboutUs": "عنا",
+      "WISHLIST": "المفضلة",
+      "NEW_ARRIVALS": "وصل حديثاً"
     }
   },
   "Footer": {

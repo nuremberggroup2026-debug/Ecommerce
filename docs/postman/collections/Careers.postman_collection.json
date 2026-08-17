@@ -1,0 +1,309 @@
+{
+  "info": {
+    "_postman_id": "23f233a4-8174-4084-9bcd-544746006a13",
+    "name": "Careers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43475463",
+    "_collection_link": "https://go.postman.co/collection/43475463-23f233a4-8174-4084-9bcd-544746006a13?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Career",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"positionEn\": \"Renewable Energy Engineer\",\r\n  \"positionAr\": \"مهندس طاقة متجددة\",\r\n  \"descriptionEn\": \"We are seeking a Renewable Energy Engineer to design and evaluate solar PV systems and microgrid solutions.\",\r\n  \"descriptionAr\": \"نبحث عن مهندس طاقة متجددة لتصميم وتقييم أنظمة الطاقة الشمسية والحلول الميكروشبكية.\",\r\n  \"roleEn\": \"Engineering\",\r\n  \"roleAr\": \"الهندسة\",\r\n  \"experienceEn\": \"1+ Years\",\r\n  \"experienceAr\": \"سنة أو أكثر\",\r\n  \"requirementsEn\": [\r\n    \"Bachelor degree in Electrical Engineering\",\r\n    \"Knowledge of PV systems\",\r\n    \"Experience with PVsyst\",\r\n    \"Technical reporting skills\"\r\n  ],\r\n  \"requirementsAr\": [\r\n    \"بكالوريوس هندسة كهربائية\",\r\n    \"معرفة بأنظمة الطاقة الشمسية\",\r\n    \"خبرة في PVsyst\",\r\n    \"مهارات إعداد التقارير الفنية\"\r\n  ],\r\n  \"slug\": \"renewable-energy-engineer\",\r\n  \"image\": \"https://example.com/careers/renewable-energy-engineer.jpg\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/careers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Careers",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Career",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"positionEn\": \"Senior Frontend Developer updated\",\r\n  \"positionAr\": \"مطور واجهات أمامية أول\",\r\n  \"descriptionEn\": \"We are looking for a Senior Frontend Developer to build modern, scalable web applications using React and Next.js.\",\r\n  \"descriptionAr\": \"نبحث عن مطور واجهات أمامية أول لبناء تطبيقات ويب حديثة وقابلة للتوسع باستخدام React و Next.js.\",\r\n  \"roleEn\": \"Frontend Development\",\r\n  \"roleAr\": \"تطوير الواجهات الأمامية\",\r\n  \"experienceEn\": \"3+ Years\",\r\n  \"experienceAr\": \"3 سنوات أو أكثر\",\r\n  \"requirementsEn\": [\r\n    \"Strong knowledge of React\",\r\n    \"Experience with Next.js\",\r\n    \"TypeScript proficiency\",\r\n    \"Git version control\"\r\n  ],\r\n  \"requirementsAr\": [\r\n    \"معرفة قوية بـ React\",\r\n    \"خبرة في Next.js\",\r\n    \"إتقان TypeScript\",\r\n    \"استخدام Git\"\r\n  ],\r\n  \"slug\": \"senior-frontend-developer\",\r\n  \"image\": \"https://example.com/careers/frontend-developer.jpg\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/careers/89f5151d-6780-4c59-b2de-a3d5b5da9f31",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "89f5151d-6780-4c59-b2de-a3d5b5da9f31"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Career",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers/42b96a4b-5bcb-4a52-90c9-f869bdc3a4f8",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "42b96a4b-5bcb-4a52-90c9-f869bdc3a4f8"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Career By Slug",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers/career-by-slug/backend-developer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "career-by-slug",
+            "backend-developer"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Career By Slug And Locale",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers/career-by-slug-and-locale/ar?slug=backend-developer",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "career-by-slug-and-locale",
+            "ar"
+          ],
+          "query": [
+            {
+              "key": "slug",
+              "value": "backend-developer"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Career Name And ID By ID",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers/career-name-and-id-by-id/89f5151d-6780-4c59-b2de-a3d5b5da9f31",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "career-name-and-id-by-id",
+            "89f5151d-6780-4c59-b2de-a3d5b5da9f31"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Career By ID And Locale",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers/careers-by-id-and-locale/en?id=89f5151d-6780-4c59-b2de-a3d5b5da9f31",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "careers-by-id-and-locale",
+            "en"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "89f5151d-6780-4c59-b2de-a3d5b5da9f31"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Careers By Locale",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers/careers-by-locale/en",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "careers-by-locale",
+            "en"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Careers With Applications",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers/careers-with-applications",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "careers-with-applications"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Career With Applications By Career ID",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/careers/careers-with-applications-by-id/e6e88bd7-b734-47b5-b76a-e1a1153922e4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "careers",
+            "careers-with-applications-by-id",
+            "e6e88bd7-b734-47b5-b76a-e1a1153922e4"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

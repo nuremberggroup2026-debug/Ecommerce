@@ -2,6 +2,7 @@
   "Home": {
     "title": "Welcome to our store",
     "ShopNow": "Shop Now",
+
     "FeaturedProducts": {
       "TITLE": "Featured Products",
       "DESCRIPTION": "Handpicked products selected for supreme quality and timeless design."
@@ -11,6 +12,92 @@
       "FLASH_SALE": "Flash Sale",
       "VIEW_ALL_DEALS": "View All Deals"
     }
+  },
+  "LoginPage": {
+    "WELCOME_BACK": "Welcome Back",
+    "SUBTITLE": "Enter your credentials to access your account.",
+    "EmailAddress": "Email Address",
+    "Password": "Password",
+    "SUCCESS_LOGIN": "Successfully logged in",
+    "EMAIL_NOT_VERIFIED": "Email not verified. Verification email sent.",
+    "INVALID_CREDENTIALS": "Invalid email or password.",
+    "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again.",
+    "EMAIL_LABEL": "Email Address",
+    "EMAIL_PLACEHOLDER": "hello@aura.studio",
+    "PASSWORD_LABEL": "Password",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "SIGNING_IN": "Signing in...",
+    "SIGN_IN": "Sign In",
+    "OR_CONTINUE_WITH": "or continue with",
+    "SIGN_IN_GOOGLE": "Sign in with Google",
+    "NO_ACCOUNT": "Don't have an account?",
+    "CREATE_ONE": "Create one"
+  },
+  "RegisterPage": {
+    "CREATE_ACCOUNT": "Create an Account",
+    "SUBTITLE": "Join us to discover premium quality goods.",
+    "NAME_LABEL": "Full Name",
+    "NAME_PLACEHOLDER": "John Doe",
+    "EMAIL_LABEL": "Email Address",
+    "EMAIL_PLACEHOLDER": "hello@aura.studio",
+    "PASSWORD_LABEL": "Password",
+    "CREATING_ACCOUNT": "Creating account...",
+    "REGISTER": "Register",
+    "SUCCESS_REGISTER": "Account created successfully",
+    "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again.",
+    "OR_CONTINUE_WITH": "or continue with",
+    "SIGN_IN_GOOGLE": "Sign in with Google",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+    "SIGN_IN": "Sign in",
+    "REGISTERING": "Creating account...",
+    "CONFIRM_PASSWORD_LABEL": "Confirm Password"
+  },
+  "VerifyEmail": {
+    "VERIFYING": "Verifying your email...",
+    "VERIFYING_DESC": "Please wait a moment while we confirm your email address.",
+    "SUCCESS": "Email Verified",
+    "SUCCESS_DESC": "Your email has been successfully verified. You can now access your account.",
+    "ALREADY_VERIFIED": "Already Verified",
+    "ALREADY_VERIFIED_DESC": "Your email is already verified. You can proceed to login.",
+    "PROCEED_TO_LOGIN": "Proceed to Login",
+    "ERROR": "Verification Failed",
+    "ERROR_DESC": "The verification link is invalid or has expired. Please request a new link.",
+    "BACK_TO_HOME": "Back to Home"
+  },
+  "ForgotPasswordPage": {
+    "TITLE": "Reset Password",
+    "SUBTITLE": "Enter your email address and we will send you a link to reset your password.",
+    "EMAIL_LABEL": "Email Address",
+    "EMAIL_PLACEHOLDER": "hello@aura.studio",
+    "SENDING": "Sending link...",
+    "SEND_LINK": "Send Reset Link",
+    "SUCCESS_TITLE": "Check your email",
+    "SUCCESS_DESC": "We've sent a password reset link to your email address. Please check your inbox.",
+    "BACK_TO_LOGIN": "Back to login",
+    "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again."
+  },
+  "ResetPasswordPage": {
+    "TITLE": "Reset Password",
+    "SUBTITLE": "Enter your new password below.",
+    "PASSWORD_LABEL": "New Password",
+    "CONFIRM_PASSWORD_LABEL": "Confirm New Password",
+    "RESETTING": "Resetting password...",
+    "RESET_PASSWORD": "Reset Password",
+    "SUCCESS_TITLE": "Password Reset Successfully",
+    "SUCCESS_DESC": "Your password has been updated. You can now use your new password to log in.",
+    "PROCEED_TO_LOGIN": "Proceed to Login",
+    "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again or request a new link."
+  },
+  "ChangePasswordPage": {
+    "TITLE": "Change Password",
+    "SUBTITLE": "Update your password to keep your account secure.",
+    "CURRENT_PASSWORD_LABEL": "Current Password",
+    "NEW_PASSWORD_LABEL": "New Password",
+    "CONFIRM_NEW_PASSWORD_LABEL": "Confirm New Password",
+    "UPDATING": "Updating password...",
+    "UPDATE_PASSWORD": "Update Password",
+    "SUCCESS_MESSAGE": "Your password has been updated successfully.",
+    "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again."
   },
   "ResponseMessages": {
     "VALIDATION_ERROR": "Validation error",
@@ -131,12 +218,65 @@
   "Product": {
     "products": "Products",
     "inStock": "In Stock",
+    "Categories": "Categories",
     "onlyItemsLeft": "Only {count} items left",
     "options": "Options",
     "default": "Default",
     "sku": "SKU",
     "quantity": "Quantity",
-    "addToBag": "Add to Bag"
+    "addToBag": "Add to Bag",
+    "TITLE": "All Products",
+    "DESCRIPTION": "A refined collection of premium essentials crafted for modern everyday life.",
+    "ITEMS_COUNT": "{count} items",
+    "SORT_BY": "Sort by:",
+    "SEARCH": "Search",
+    "SEARCH_PLACEHOLDER": "Find a product...",
+    "outOfStock": "Out of stock",
+    "ProductCard": {
+      "OUT_OF_STOCK": "Out Of Stock",
+      "ADDED": "Added ✓",
+      "ADD_TO_CART": "Add To Cart",
+      "ADD_TO_WISHLIST": "Add to wishlist",
+      "CURRENCY_SYMBOL": "$"
+    },
+    "PriceFilter": {
+      "TITLE": "Price Range",
+      "FROM": "From",
+      "TO": "To",
+      "PLACEHOLDER_MIN": "$0",
+      "PLACEHOLDER_MAX": "$500",
+      "APPLY": "Apply Filter"
+    },
+    "SortFilter": {
+      "PRICE_ASC": "Price: Low to High",
+      "PRICE_DESC": "Price: High to Low",
+      "NEWEST": "Newest",
+      "OLDEST": "Oldest"
+    }
+  },
+  "Categories": {
+    "CategoriesList": {
+      "TITLE": "Categories",
+      "DESCRIPTION": "Explore our curated collections and discover products designed around your lifestyle.",
+      "EXPLORE_COLLECTION": "Explore Collection"
+    }
+  },
+  "Cart": {
+    "TITLE": "Shopping Cart",
+    "EMPTY_CART": "Your cart is empty",
+    "ITEMS_COUNT": "You have {count} items in your cart",
+    "FEELS_LIGHT": "Your cart feels light.",
+    "CONTINUE_SHOPPING": "Continue Shopping",
+    "EACH": "each",
+    "SKU": "Sku",
+    "REMOVE": "Remove",
+    "ORDER_SUMMARY": "Order Summary",
+    "SUBTOTAL": "Subtotal",
+    "SHIPPING": "Shipping",
+    "FREE": "Free",
+    "TOTAL": "Total",
+    "PROCEED_TO_CHECKOUT": "Proceed To Checkout",
+    "CURRENCY_SYMBOL": "$"
   },
   "Wishlist": {
     "title": "Your Wishlist",
@@ -153,6 +293,9 @@
     "continueShopping": "Continue Shopping"
   },
   "CHECKOUT": {
+    "STEP_01": "01",
+    "DELIVERY_DETAILS": "Delivery Details",
+    "DELIVERY_DESC": "Please provide the information we need to deliver your order.",
     "ORDER_SUMMARY": "Order Summary",
     "ITEMS_COUNT": "{count, plural, =1 {# item} other {# items}}",
     "SKU": "SKU",
@@ -234,6 +377,7 @@
       "SUMMARY": {
         "TITLE": "Order Summary",
         "SUBTOTAL": "Subtotal",
+        "DISCOUNT": "Discount",
         "TOTAL": "Total"
       },
       "DELIVERY": {
@@ -245,6 +389,36 @@
         "STREET_ADDRESS": "Street Address",
         "ADDITIONAL_NOTE": "Additional Note"
       }
+    }
+  },
+  "ApplicationPage": {
+    "FORM_TITLE": "Apply for this position",
+    "FORM_SUBTITLE": "Fill out the form below and we will get back to you.",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "EMAIL": "Email Address",
+    "PHONE": "Phone Number",
+    "MAJOR": "Major / Field of Study",
+    "CV_LABEL": "CV",
+    "SUBMITTING": "Submitting...",
+    "SUBMIT_APPLICATION": "Submit Application",
+    "SUCCESS_MESSAGE": "Application submitted successfully!",
+    "ERROR_MESSAGE": "Something went wrong. Please try again.",
+    "ROLE": "Role",
+    "EXPERIENCE": "Experience",
+    "REQUIREMENTS": "Requirements"
+  },
+  "Navbar": {
+    "BRAND_NAME": "AURA",
+    "BRAND_SUFFIX": ".STUDIO",
+    "LINKS": {
+      "Home": "Home",
+      "Products": "Products",
+      "Categories": "Categories",
+      "Careers": "Careers",
+      "AboutUs": "About Us",
+      "WISHLIST": "Wishlist",
+      "NEW_ARRIVALS": "New Arrivals"
     }
   },
   "Footer": {

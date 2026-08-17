@@ -9,17 +9,22 @@ import { sendVerificationEmail } from "@/lib/emails/send-verification";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { UserRoles } from "@/types";
+import { sendPasswordResetEmail } from "@/lib/emails/send-reset-password-email";
 
 export const register = async (
   name: string,
   email: string,
   password: string,
+  confirmPassword: string,
 ) => {
   const validation = registerSchema.safeParse({
     name,
     email,
     password,
+    confirmPassword,
   });
+
+  console.log("validation: ", validation);
 
   if (validation.success) {
     const existingUser = await prisma.user.findUnique({
@@ -30,7 +35,7 @@ export const register = async (
       return {
         success: false,
         message: "EMAIL_ALREADY_EXISTS",
-        code: RESPONSE_CODES.CONFLICT,
+        code: RESPONSE_CODES.BAD_REQUEST,
       };
 
     const numberOfUsers = await prisma.user.count();
@@ -67,7 +72,7 @@ export const register = async (
   return {
     success: false,
     message: "VALIDATION_ERROR",
-    code: RESPONSE_CODES.CONFLICT,
+    code: RESPONSE_CODES.BAD_REQUEST,
   };
 };
 export const login = async (email: string, password: string) => {
@@ -103,7 +108,7 @@ export const verifyEmail = async (userId: string, token: string) => {
 
   if (existing.emailVerified)
     return {
-      success: false,
+      success: true,
       message: "ACCOUNT_ALREADY_VERIFIED",
       code: RESPONSE_CODES.OK,
     };
@@ -123,7 +128,7 @@ export const verifyEmail = async (userId: string, token: string) => {
 export const generateToken = async (email: string) => {
   const findUser = await prisma.user.findUnique({
     where: { email: email },
-    select: { id: true, email: true },
+    select: { id: true, email: true, name: true },
   });
 
   if (findUser?.email === undefined)
@@ -140,12 +145,18 @@ export const generateToken = async (email: string) => {
     where: { userId: findUser.id },
   });
 
-  await prisma.reset_password_token.create({
+  const resetPasswordToken = await prisma.reset_password_token.create({
     data: {
       userId: findUser.id,
       token: token,
       expiresAt,
     },
+  });
+
+  await sendPasswordResetEmail({
+    email: findUser.email,
+    name: findUser.name,
+    resetToken: resetPasswordToken.token,
   });
 
   return {

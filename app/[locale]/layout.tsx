@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/widgets/Footer";
+import { Navbar } from "@/widgets/navbar";
 
 export default async function LocaleLayout({
   children,
@@ -23,6 +24,7 @@ export default async function LocaleLayout({
   return (
     <div dir={locale === "ar" ? "rtl" : "ltr"}>
       <NextIntlClientProvider messages={messages}>
+        <Navbar />
         {children}
         <Toaster
           toastOptions={{
@@ -32,12 +34,8 @@ export default async function LocaleLayout({
             },
           }}
         />
-                    <Footer />
-
+        <Footer />
       </NextIntlClientProvider>
     </div>
   );
 }
-
-
-

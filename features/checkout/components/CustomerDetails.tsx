@@ -163,7 +163,7 @@ function CustomerDetails({ locale, promoCode }: Props) {
           >
             {t("CHECKOUT.CUSTOMER_DETAILS.ADDITIONAL_NOTE")}
             <span className="ml-1 font-normal normal-case tracking-normal text-neutral-400">
-              ({t("COMMON.OPTIONAL")})
+              {" "} ({t("COMMON.OPTIONAL")})
             </span>
           </label>
           <textarea

@@ -14,82 +14,9 @@ interface Props {
 export default function OrdersComponent({ orders, locale }: Props) {
   const t = useTranslations("ORDERS");
 
-<<<<<<< HEAD
-type Order = {
-  orderId: string;
-  date: string;
-  total: number;
-  status: OrderStatus;
-  items: OrderItem[];
-};
-
-export default function OrdersComponent() {
-  const [orders] = useState<Order[]>([
-    {
-      orderId: "ORD-902-841",
-      date: "Oct 12, 2026",
-      total: 334,
-      status: "Delivered",
-      items: [
-        {
-          id: "1",
-          title: "Premium Wireless Headphones",
-          price: 299,
-          quantity: 1,
-          brand: "Sony",
-          img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80",
-        },
-        {
-          id: "3",
-          title: "Ergonomic Ceramic Mug",
-          price: 35,
-          quantity: 1,
-          brand: "Hasami",
-          img: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=400&q=80",
-        }
-      ]
-    },
-    {
-      orderId: "ORD-711-420",
-      date: "Sep 28, 2026",
-      total: 135,
-      status: "Processing",
-      items: [
-        {
-          id: "5",
-          title: "Organic Hydrating Serum",
-          price: 45,
-          quantity: 3,
-          brand: "Ordinary",
-          img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80",
-        }
-      ]
-    },
-    {
-      orderId: "ORD-305-199",
-      date: "Aug 15, 2026",
-      total: 89,
-      status: "Cancelled",
-      items: [
-        {
-          id: "7",
-          title: "Minimalist Desk Lamp",
-          price: 89,
-          quantity: 1,
-          brand: "Lumina",
-          img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=400&q=80",
-        }
-      ]
-    }
-  ]);
-
-  // التحكم في فتح وإغلاق تفاصيل الطلب
-  const [expandedOrder, setExpandedOrder] = useState<string | null>(orders[0]?.orderId || null);
-=======
   const [expandedOrder, setExpandedOrder] = useState<string | null>(
     orders[0]?.id || null,
   );
->>>>>>> 638b35cfdb5402ed6bb6ce0141d60d3bded5ae98
 
   const toggleOrder = (orderId: string) => {
     setExpandedOrder((prev) => (prev === orderId ? null : orderId));

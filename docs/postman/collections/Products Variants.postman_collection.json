@@ -1,0 +1,135 @@
+{
+  "info": {
+    "_postman_id": "ce501b0e-a19d-4911-b95d-f51cd91ac1e5",
+    "name": "Products Variants",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43475463",
+    "_collection_link": "https://go.postman.co/collection/43475463-ce501b0e-a19d-4911-b95d-f51cd91ac1e5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Product Variants",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"sku\": \"TSHIRT-RED-XL\",\r\n  \"variantImage\": \"https://example.com/images/red-shirt.jpg\",\r\n  \"price\": 49.99,\r\n  \"discountPercentage\": 10,\r\n  \"stock\": 25,\r\n  \"isDefault\": true,\r\n  \"productId\": \"8c6845b5-9004-44fa-8195-4d4e737a1e56\",\r\n  \"attributeValueIds\": [\r\n    \"31be0f7d-7d7d-485b-8747-645556f3ebdc\",\r\n    \"177505f8-8646-4a38-afeb-f87ece3accde\"\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/product-variants",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "product-variants"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Products Variants",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/product-variants",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "product-variants"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Product Variant By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/product-variants/093f13e7-12e4-49bf-bfb4-efec86d94825",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "product-variants",
+            "093f13e7-12e4-49bf-bfb4-efec86d94825"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Product Variant",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"sku\": \"TSHIRT-RED-M-UPDATED\",\r\n  \"variantImage\": \"https://example.com/images/new-red-shirt.jpg\",\r\n  \"price\": 59.99,\r\n  \"discountPercentage\": 15,\r\n  \"stock\": 40,\r\n  \"isDefault\": true,\r\n  \"attributeValueIds\": [\r\n    \"791da35d-ed70-4481-83f3-5d66cf6f0a76\"\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/product-variants/093f13e7-12e4-49bf-bfb4-efec86d94825",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "product-variants",
+            "093f13e7-12e4-49bf-bfb4-efec86d94825"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Product Variant",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/product-variants/093f13e7-12e4-49bf-bfb4-efec86d94825",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "product-variants",
+            "093f13e7-12e4-49bf-bfb4-efec86d94825"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

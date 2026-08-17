@@ -13,7 +13,7 @@ export default async function page({ params }: Props) {
 
   return (
     <div>
-      <CartComponent cartData={data} />
+      <CartComponent cartData={data} locale={locale} />
     </div>
   );
 }

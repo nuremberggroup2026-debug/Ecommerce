@@ -16,11 +16,11 @@ export type CareerApplication = {
     positionAr: string;
     roleEn: string | null;
     roleAr: string | null;
-    image:string,
+    image: string;
     experienceEn: string | null;
-  experienceAr: string | null;
-   descriptionEn: string;
-  descriptionAr: string;
+    experienceAr: string | null;
+    descriptionEn: string;
+    descriptionAr: string;
   };
 };
 export type CareerWithApplications = {
@@ -76,4 +76,54 @@ export type CareerCard = {
     firstName: string;
     lastName: string | null;
   }[];
+};
+
+export type PostResponseType = {
+  message: string;
+  success: boolean;
+  status: number;
+};
+
+export interface PutResponseType {
+  message: string;
+  success: boolean;
+}
+export interface deleteResponseType {
+  message: string;
+  success: boolean;
+}
+export interface AddResponseType {
+  message: string;
+  success: boolean;
+}
+export interface ShownResponseType {
+  message: string;
+  success: boolean;
+}
+
+export interface ResponseType<T> {
+  message: string;
+  success: boolean;
+  data: T;
+}
+
+export type ApplicationCreateInput = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: number;
+  major: string;
+  cv: string;
+  careerSlug: string;
+};
+
+export type TransalatedCareer = {
+  id: string;
+  position: string;
+  description: string;
+  image: string;
+  requirements: string[];
+  role: string | null;
+  experience: string | null;
+  slug: string;
 };

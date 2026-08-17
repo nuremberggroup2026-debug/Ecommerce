@@ -9,9 +9,9 @@ interface ChangePasswordBody {
   confirmPassword: string;
 }
 
-export const PUT = withAuth([], async (request: Request, { params }) => {
+export const PUT = withAuth([], async (request: Request, { user }) => {
   try {
-    const { id } = await params;
+    const { id } = user;
     const body = (await request.json()) as ChangePasswordBody;
     const result = await changePassword(
       body.oldPassword,

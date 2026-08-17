@@ -4,6 +4,7 @@ import type { ProductByLocale } from "../../types";
 import { addItemToCart } from "@/features/cart/api/cart.client.api";
 import { useTranslations } from "next-intl";
 import { toastResponse } from "@/lib/toast";
+
 type Props = {
   product: ProductByLocale;
   quantity: number;
@@ -13,6 +14,7 @@ type Props = {
     variant: ProductByLocale["productData"]["productVariants"][number],
   ) => void;
 };
+
 export default function ProductInfo({
   product,
   selectedVariant,
@@ -21,18 +23,30 @@ export default function ProductInfo({
   handleVariantChange,
 }: Props) {
   const t = useTranslations();
-  if (quantity > selectedVariant.stock) setQuantity(selectedVariant.stock);
+
+  const isOutOfStock = selectedVariant.stock <= 0;
+
+  // Safely handle quantity caps when switching variants
+  if (!isOutOfStock && quantity > selectedVariant.stock) {
+    setQuantity(selectedVariant.stock);
+  } else if (isOutOfStock && quantity > 0) {
+    setQuantity(0);
+  }
 
   const handleQuantityChange = (delta: number) => {
+    if (isOutOfStock) return;
     setQuantity(Math.min(Math.max(1, quantity + delta), selectedVariant.stock));
   };
 
-  const handleAddItem = async () =>
+  const handleAddItem = async () => {
+    if (isOutOfStock) return;
+
     await toastResponse(
       addItemToCart(selectedVariant.variantId, quantity),
       t,
       "CART_ITEM_ADDING",
     );
+  };
 
   return (
     <div className="space-y-8">
@@ -44,13 +58,21 @@ export default function ProductInfo({
           <div className="flex items-center gap-2">
             <span
               className={`h-1.5 w-1.5 rounded-full ${
-                selectedVariant.stock > 5 ? "bg-emerald-500" : "bg-amber-500"
+                isOutOfStock
+                  ? "bg-red-500"
+                  : selectedVariant.stock > 5
+                    ? "bg-emerald-500"
+                    : "bg-amber-500"
               }`}
             />
             <span className="text-[11px] font-medium text-neutral-500">
-              {selectedVariant.stock > 5
-                ? t("Product.inStock")
-                : t("Product.onlyItemsLeft", { count: selectedVariant.stock })}
+              {isOutOfStock
+                ? t("Product.outOfStock")
+                : selectedVariant.stock > 5
+                  ? t("Product.inStock")
+                  : t("Product.onlyItemsLeft", {
+                      count: selectedVariant.stock,
+                    })}
             </span>
           </div>
         </div>
@@ -68,17 +90,20 @@ export default function ProductInfo({
           )}
         </div>
       </div>
+
       <hr className="border-neutral-100" />
+
       <div className="space-y-3">
         <p className="text-sm text-gray-400 leading-relaxed font-light">
           {product.productData.productDescription}
         </p>
       </div>
+
       {product.productData.productVariants.length > 1 && (
         <div className="space-y-3">
           <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-800 block">
             {t("Product.options")}
-          </label>{" "}
+          </label>
           <div className="flex flex-wrap gap-2">
             {product.productData.productVariants.map((variant) => {
               return (
@@ -102,19 +127,23 @@ export default function ProductInfo({
           </div>
         </div>
       )}
+
       <span className="text-[10px] text-gray-300 font-mono block">
         {t("Product.sku")}: {selectedVariant.sku}
       </span>
+
       <div className="space-y-3">
         <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-800 block">
           {t("Product.quantity")}
         </label>
 
-        <div className="inline-flex items-center border border-neutral-200 rounded-full bg-white p-1 shadow-sm">
+        <div
+          className={`inline-flex items-center border border-neutral-200 rounded-full bg-white p-1 shadow-sm ${isOutOfStock ? "opacity-50" : ""}`}
+        >
           <button
             onClick={() => handleQuantityChange(-1)}
-            disabled={quantity <= 1}
-            className="p-2 text-gray-400 hover:text-black disabled:opacity-30"
+            disabled={quantity <= 1 || isOutOfStock}
+            className="p-2 text-gray-400 hover:text-black disabled:opacity-30 disabled:hover:text-gray-400"
           >
             -
           </button>
@@ -125,8 +154,8 @@ export default function ProductInfo({
 
           <button
             onClick={() => handleQuantityChange(1)}
-            disabled={quantity >= selectedVariant.stock}
-            className="p-2 text-gray-400 hover:text-black disabled:opacity-30"
+            disabled={quantity >= selectedVariant.stock || isOutOfStock}
+            className="p-2 text-gray-400 hover:text-black disabled:opacity-30 disabled:hover:text-gray-400"
           >
             +
           </button>
@@ -135,9 +164,14 @@ export default function ProductInfo({
 
       <button
         onClick={() => handleAddItem()}
-        className="w-full bg-black py-4 text-xs font-semibold uppercase tracking-widest text-white rounded-2xl transition hover:bg-neutral-800 shadow-sm active:scale-[0.98]"
+        disabled={isOutOfStock}
+        className={`w-full py-4 text-xs font-semibold uppercase tracking-widest text-white rounded-2xl transition shadow-sm active:scale-[0.98] ${
+          isOutOfStock
+            ? "bg-gray-300 cursor-not-allowed"
+            : "bg-black hover:bg-neutral-800"
+        }`}
       >
-        {t("Product.addToBag")}
+        {isOutOfStock ? t("Product.outOfStock") : t("Product.addToBag")}
       </button>
     </div>
   );

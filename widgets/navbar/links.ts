@@ -6,23 +6,19 @@ export const links = [
     label: "Home",
   },
   {
-    href: ROUTES.PRODUCTS,
-    label: "Products",
-  },
-  {
     href: ROUTES.CATEGORIES,
     label: "Categories",
   },
   {
-    href: ROUTES.CART,
-    label: "Cart",
+    href: ROUTES.PRODUCTS,
+    label: "Products",
   },
   {
-    href: ROUTES.ORDERS,
-    label: "Orders",
+    href: ROUTES.CAREERS,
+    label: "Careers",
   },
   {
-    href: ROUTES.WISHLIST,
-    label: "WishList",
+    href: ROUTES.ABOUTUS,
+    label: "AboutUs",
   },
 ];

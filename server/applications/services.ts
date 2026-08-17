@@ -11,10 +11,29 @@ export const addNewApplication = async (
   newApplication: ApplicationCreateInput,
 ) => {
   const validation = applicationSchemaEn.safeParse(newApplication);
-
+   console.log("valdation: ",validation.error);
+   
   if (validation.success) {
+    const career = await prisma.careers.findUnique({
+      where: { slug: newApplication.careerSlug },
+      select: { id: true },
+    });
+
+    if (!career)
+      return {
+        success: false,
+        message: "CAREER_NOT_FOUND",
+        code: RESPONSE_CODES.NOT_FOUND,
+      };
+
+    const { careerSlug, phoneNumber, ...applicationData } = validation.data;
+
     await prisma.applications.create({
-      data: validation.data,
+      data: {
+        careerId: career.id,
+        phoneNumber: String(phoneNumber),
+        ...applicationData,
+      },
     });
 
     revalidateTag("applications", "max");
@@ -245,65 +264,65 @@ export const getCachedApplicationsWithCareerById = (applicationId: string) =>
     },
   )();
 
-  ////////////////////////////////////////////////////////
-  export const deleteManyApplications = async (ids: string[]) => {
-    if (!ids.length) {
-      return {
-        success: false,
-        message: "APPLICATIONS_IDS_REQUIRED",
-        code: RESPONSE_CODES.BAD_REQUEST,
-      };
-    }
-  
-    const existingApplications = await prisma.applications.findMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
-  
-    if (existingApplications.length === 0) {
-      return {
-        success: false,
-        message: "APPLICATIONS_NOT_FOUND",
-        code: RESPONSE_CODES.NOT_FOUND,
-      };
-    }
-  
-    const result = await prisma.applications.deleteMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
-  
-    if (result.count === 0) {
-      return {
-        success: false,
-        message: "APPLICATIONS_DELETE_FAILED",
-        code: RESPONSE_CODES.BAD_REQUEST,
-      };
-    }
-  
-    const fileKeys = existingApplications
-      .map((application) => application.cv.split("/f/")[1])
-      .filter(Boolean);
-  
-    if (fileKeys.length) {
-      await utapi.deleteFiles(fileKeys);
-    }
-  
-    revalidateTag("applications", { expire: 0 });
-  
+////////////////////////////////////////////////////////
+export const deleteManyApplications = async (ids: string[]) => {
+  if (!ids.length) {
     return {
-      success: true,
-      message: "APPLICATIONS_DELETED_SUCCESSFULLY",
-      code: RESPONSE_CODES.OK,
+      success: false,
+      message: "APPLICATIONS_IDS_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
     };
+  }
+
+  const existingApplications = await prisma.applications.findMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  if (existingApplications.length === 0) {
+    return {
+      success: false,
+      message: "APPLICATIONS_NOT_FOUND",
+      code: RESPONSE_CODES.NOT_FOUND,
+    };
+  }
+
+  const result = await prisma.applications.deleteMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  if (result.count === 0) {
+    return {
+      success: false,
+      message: "APPLICATIONS_DELETE_FAILED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
+  }
+
+  const fileKeys = existingApplications
+    .map((application) => application.cv.split("/f/")[1])
+    .filter(Boolean);
+
+  if (fileKeys.length) {
+    await utapi.deleteFiles(fileKeys);
+  }
+
+  revalidateTag("applications", { expire: 0 });
+
+  return {
+    success: true,
+    message: "APPLICATIONS_DELETED_SUCCESSFULLY",
+    code: RESPONSE_CODES.OK,
   };
-  ///////////////////////////////////////////////////////
+};
+///////////////////////////////////////////////////////
 
 /* -------------------- Caching Helps --------------------  */
 
@@ -459,7 +478,7 @@ export const markApplicationAsShown = async (id: string) => {
     },
   });
 
-  revalidateTag("applications", {expire:0});
+  revalidateTag("applications", { expire: 0 });
 
   return {
     success: true,

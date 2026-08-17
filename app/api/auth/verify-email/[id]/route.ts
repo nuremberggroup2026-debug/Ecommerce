@@ -7,10 +7,13 @@ export const POST = async (
   params: { params: Promise<{ id: string }> },
 ) => {
   try {
-    const body = (await request.json()) as { token: string };
+    const token = (await request.json()) as string;
 
     const id = (await params.params).id;
-    const result = await verifyEmail(id, body.token);
+    console.log("body: ", token);
+    console.log("id: ", id);
+
+    const result = await verifyEmail(id, token);
     const status = HTTP_STATUS_MAP[result.code] || 500;
 
     return NextResponse.json(

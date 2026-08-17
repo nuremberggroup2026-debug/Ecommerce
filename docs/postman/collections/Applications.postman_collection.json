@@ -1,0 +1,251 @@
+{
+  "info": {
+    "_postman_id": "0a2fd950-bd51-4df2-b1a4-c217a3e5ddca",
+    "name": "Applications",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43475463",
+    "_collection_link": "https://go.postman.co/collection/43475463-0a2fd950-bd51-4df2-b1a4-c217a3e5ddca?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Add Application",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"firstName\": \"Mohammad\",\r\n  \"lastName\": \"Ali\",\r\n  \"email\": \"mohammad.ali@example.com\",\r\n  \"phoneNumber\": \"0775556677\",\r\n  \"major\": \"Electrical Engineering\",\r\n  \"cv\": \"https://utfs.io/f/example-cv-mohammad.pdf\",\r\n  \"careerId\": \"89f5151d-6780-4c59-b2de-a3d5b5da9f31\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/applications",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Applications",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/applications",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Application By ID",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstName\": \"Ahmad\",\r\n    \"lastName\": \"Khalil\",\r\n    \"email\": \"ahmad.khalil@example.com\",\r\n    \"phoneNumber\": \"0791234567\",\r\n    \"major\": \"Computer Science\",\r\n    \"cv\": \"https://utfs.io/f/example-cv-ahmad.pdf\",\r\n    \"careerId\": \"e6e88bd7-b734-47b5-b76a-e1a1153922e4\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/applications/5964d174-b25c-4e0b-8dfb-03769d061e45",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications",
+            "5964d174-b25c-4e0b-8dfb-03769d061e45"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Application With Career By Application ID",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/applications/applications-with-career-by-id/5964d174-b25c-4e0b-8dfb-03769d061e45",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications",
+            "applications-with-career-by-id",
+            "5964d174-b25c-4e0b-8dfb-03769d061e45"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Applications By Career ID",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/applications/applications-by-career-id/e6e88bd7-b734-47b5-b76a-e1a1153922e4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications",
+            "applications-by-career-id",
+            "e6e88bd7-b734-47b5-b76a-e1a1153922e4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "filtered applications",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/applications/filtered-applications/89f5151d-6780-4c59-b2de-a3d5b5da9f31?page=1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications",
+            "filtered-applications",
+            "89f5151d-6780-4c59-b2de-a3d5b5da9f31"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Mark Application As Shown",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/applications/mark-application-as-shown/5964d174-b25c-4e0b-8dfb-03769d061e45",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications",
+            "mark-application-as-shown",
+            "5964d174-b25c-4e0b-8dfb-03769d061e45"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete all expired applications",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/applications/delete-all-expired-applications",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications",
+            "delete-all-expired-applications"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Application By ID",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/applications/fc24d146-9642-463d-905f-d081ef80c227",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "applications",
+            "fc24d146-9642-463d-905f-d081ef80c227"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

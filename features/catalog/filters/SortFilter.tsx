@@ -1,11 +1,15 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function SortFilter() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  // Scoped to the "SortFilter" namespace from your JSON files
+  const t = useTranslations("Product.SortFilter");
 
   const value = searchParams.get("sort") || "";
 
@@ -31,13 +35,10 @@ export default function SortFilter() {
       onChange={handleChange}
       className="bg-transparent font-medium text-black focus:outline-none"
     >
-      <option value="price_asc">Price: Low to High</option>
-
-      <option value="price_desc">Price: High to Low</option>
-
-      <option value="newest">Newest</option>
-
-      <option value="oldest">Oldest</option>
+      <option value="price_asc">{t("PRICE_ASC")}</option>
+      <option value="price_desc">{t("PRICE_DESC")}</option>
+      <option value="newest">{t("NEWEST")}</option>
+      <option value="oldest">{t("OLDEST")}</option>
     </select>
   );
 }
