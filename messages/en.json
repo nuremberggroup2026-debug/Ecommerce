@@ -412,11 +412,11 @@
     "BRAND_NAME": "AURA",
     "BRAND_SUFFIX": ".STUDIO",
     "LINKS": {
-      "Home": "Home",
-      "Products": "Products",
-      "Categories": "Categories",
-      "Careers": "Careers",
-      "AboutUs": "About Us",
+      "HOME": "Home",
+      "PRODUCTS": "Products",
+      "CATEGORIES": "Categories",
+      "CAREERS": "Careers",
+      "ABOUT_US": "About Us",
       "WISHLIST": "Wishlist",
       "NEW_ARRIVALS": "New Arrivals"
     }

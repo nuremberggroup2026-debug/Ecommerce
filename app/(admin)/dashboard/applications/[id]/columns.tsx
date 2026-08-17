@@ -97,37 +97,7 @@ export const columns = ({
       );
     },
   },
-  {
-    accessorKey: "phoneNumber",
-    meta: "Phone",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phone" />
-    ),
-    cell: ({ row }) => {
-      const phone = row.original.phoneNumber;
 
-      return (
-        <a
-          href={`tel:${phone}`}
-          className="whitespace-nowrap text-sm text-gray-700 transition hover:text-black hover:underline"
-        >
-          {phone}
-        </a>
-      );
-    },
-  },
-  {
-    accessorKey: "major",
-    meta: "Major",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Major" />
-    ),
-    cell: ({ row }) => (
-      <span className="text-sm text-gray-700">
-        {row.original.major || "—"}
-      </span>
-    ),
-  },
   {
     accessorKey: "appliedAt",
     meta: "Applied At",
@@ -179,8 +149,8 @@ export const columns = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FileText className="mr-2 h-4 w-4" />
-            View CV
+            <FileText className=" h-4 w-4" />
+     
           </a>
         </Button>
       );

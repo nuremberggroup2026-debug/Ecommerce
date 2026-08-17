@@ -36,7 +36,7 @@ export async function adminDeleteCareer(
     id: string,
 ): Promise<deleteResponseType> {
   const result =await Clientapi.delete<deleteResponseType>(
-    `${API.ENDPOINTS.CAREERS.DELETE_MANY_CAREERS}/${id}`
+    `${API.ENDPOINTS.CAREERS.CAREER_BY_ID}/${id}`
   );
   return result
 }

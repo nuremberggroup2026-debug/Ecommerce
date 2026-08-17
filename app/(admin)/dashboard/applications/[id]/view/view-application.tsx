@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Briefcase,
@@ -25,6 +26,7 @@ type Props = {
 };
 
 export default function ViewApplication({ application, applicationid }: Props) {
+  const router=useRouter()
   const [isShown, setIsShown] = useState(application.isShown);
   const [loading, setLoading] = useState(false);
 
@@ -55,7 +57,9 @@ export default function ViewApplication({ application, applicationid }: Props) {
 
       toast.success(
         newValue ? "Application marked as viewed" : "Application marked as new"
+      
       );
+      router.refresh()
     } catch (error) {
       console.error(error);
       toast.error("Failed to update application status");

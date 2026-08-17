@@ -157,6 +157,8 @@ export const deleteCareer = async (id: string) => {
   }
 
   revalidateTag("careers",  {expire:0});
+    revalidateTag("applications",  {expire:0});
+
 
   return {
     success: true,

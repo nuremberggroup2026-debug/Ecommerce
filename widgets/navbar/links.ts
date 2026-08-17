@@ -18,7 +18,18 @@ export const links = [
     label: "Careers",
   },
   {
-    href: ROUTES.ABOUTUS,
-    label: "AboutUs",
+    href: ROUTES.ABOUT_US,
+    label: "About Us",
   },
+    {
+    href: ROUTES.WISHLIST,
+    label: "Wishlist",
+  },
+  {
+    href: ROUTES.NEW_ARRIVALS,
+    label: "New Arrivals",
+  },
+
+
 ];
+

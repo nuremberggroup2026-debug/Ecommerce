@@ -26,7 +26,7 @@ export const addNewApplication = async (
         code: RESPONSE_CODES.NOT_FOUND,
       };
 
-    const { careerSlug, phoneNumber, ...applicationData } = validation.data;
+    const {  phoneNumber, ...applicationData } = validation.data;
 
     await prisma.applications.create({
       data: {
@@ -36,7 +36,9 @@ export const addNewApplication = async (
       },
     });
 
-    revalidateTag("applications", "max");
+    revalidateTag("applications",  {expire:0});
+        revalidateTag("careers",  {expire:0});
+
 
     return {
       success: true,
@@ -85,7 +87,9 @@ export const deleteApplication = async (id: string) => {
     await utapi.deleteFiles(fileKey);
   }
 
-  revalidateTag("applications", "max");
+  revalidateTag("applications",  {expire:0});
+          revalidateTag("careers",  {expire:0});
+
 
   return {
     success: true,
@@ -138,7 +142,9 @@ export const deleteAllExpiredApplications = async () => {
     await utapi.deleteFiles(cvKeys as string[]);
   }
 
-  revalidateTag("applications", "max");
+  revalidateTag("applications",  {expire:0});
+          revalidateTag("careers",  {expire:0});
+
 
   return {
     success: true,
@@ -479,6 +485,8 @@ export const markApplicationAsShown = async (id: string) => {
   });
 
   revalidateTag("applications", { expire: 0 });
+          revalidateTag("careers",  {expire:0});
+
 
   return {
     success: true,

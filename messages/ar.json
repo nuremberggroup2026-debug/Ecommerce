@@ -423,9 +423,11 @@
       "PRODUCTS": "المنتجات",
       "CATEGORIES": "الفئات",
       "CAREERS": "الوظائف",
-      "AboutUs": "عنا",
+      "ABOUT_US": "عنا",
       "WISHLIST": "المفضلة",
       "NEW_ARRIVALS": "وصل حديثاً"
+      
+      
     }
   },
   "Footer": {

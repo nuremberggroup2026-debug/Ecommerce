@@ -10,7 +10,7 @@ interface DesktopLinksProps {
 }
 
 export function DesktopLinks({ pathname, links }: DesktopLinksProps) {
-  console.log("link.href: ", links);
+  console.log("bilaaaaaaal: ", links);
   return (
     <ul className={theme.navbar.desktopLinks}>
       {links.map((link) => {
