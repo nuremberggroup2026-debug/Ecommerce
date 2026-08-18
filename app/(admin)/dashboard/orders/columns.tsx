@@ -15,7 +15,10 @@ export const columns: ColumnDef<AdminOrder>[] = [
     accessorKey: "phoneNumber",
     meta: "Phone",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phone" />
+      <DataTableColumnHeader
+        column={column}
+        title="Phone"
+      />
     ),
   },
 
@@ -23,7 +26,10 @@ export const columns: ColumnDef<AdminOrder>[] = [
     accessorKey: "city",
     meta: "City",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="City" />
+      <DataTableColumnHeader
+        column={column}
+        title="City"
+      />
     ),
   },
 
@@ -31,11 +37,14 @@ export const columns: ColumnDef<AdminOrder>[] = [
     accessorKey: "totalAmount",
     meta: "Total",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Total" />
+      <DataTableColumnHeader
+        column={column}
+        title="Total"
+      />
     ),
     cell: ({ row }) => (
       <span className="font-medium">
-        {Number(row.original.totalAmount).toFixed(2)}
+        {Number(row.original.totalAmount).toFixed(2)+" JOD"}
       </span>
     ),
   },
@@ -60,7 +69,10 @@ export const columns: ColumnDef<AdminOrder>[] = [
     accessorKey: "status",
     meta: "Status",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader
+        column={column}
+        title="Status"
+      />
     ),
     cell: ({ row }) => {
       const status = String(
@@ -71,11 +83,11 @@ export const columns: ColumnDef<AdminOrder>[] = [
         pending:
           "border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-50",
 
-        processing:
-          "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-50",
-
         confirmed:
           "border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-50",
+
+        processing:
+          "border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-50",
 
         shipped:
           "border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-50",

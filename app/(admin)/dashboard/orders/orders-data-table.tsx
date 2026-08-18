@@ -4,14 +4,10 @@ import { DataTable } from "@/app/(admin)/dashboard/components/data-table";
 
 import { columns } from "./columns";
 
-import {
-  adminDeleteOrder,
-} from "@/features/orders/api/orders.client.api";
-
-import type { Order } from "@/features/orders/types";
+import type { AdminOrder } from "@/features/orders/services/orders.service";
 
 interface OrderDataTableProps {
-  data: Order[];
+  data: AdminOrder[];
 }
 
 export function OrderDataTable({
@@ -19,13 +15,10 @@ export function OrderDataTable({
 }: OrderDataTableProps) {
   return (
     <DataTable
-      columns={columns({
-        onDelete: adminDeleteOrder,
-      })}
+      columns={columns}
       data={data}
       title="Orders"
       description="Manage your orders"
-      deleteSuccessMessage="Orders deleted successfully"
     />
   );
 }
