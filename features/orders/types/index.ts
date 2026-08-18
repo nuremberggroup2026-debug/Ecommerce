@@ -1,4 +1,3 @@
-import { order_status } from "@/generated/prisma/client";
 
 export interface ResponseType<T> {
   message: string;
@@ -8,7 +7,6 @@ export interface ResponseType<T> {
 
 export type Locale = "ar" | "en";
 
-export type OrderStatus = order_status;
 
 export type AllOrdersByUser = {
   id: string;
@@ -49,4 +47,48 @@ export type OrderByID = {
       discountPercentage: number;
     };
   }[];
+};
+export enum order_status {
+  PENDING = "PENDING",
+  CONFIRMED = "CONFIRMED",
+  PROCESSING = "PROCESSING",
+  SHIPPED = "SHIPPED",
+  DELIVERED = "DELIVERED",
+  CANCELLED = "CANCELLED",
+}
+
+export enum PaymentMethod {
+  COD = "COD",
+  CLIQ = "CLIQ",
+}
+
+export type OrderItem = {
+  id: string;
+  orderId: string;
+  variantId: string | null;
+  quantity: number;
+  itemPrice: number;
+  createdAt: Date;
+  productNameAr: string;
+  productNameEn: string;
+};
+
+export type Order = {
+  id: string;
+  orderNumber: string;
+  userId: string | null;
+  totalAmount: number;
+  email: string;
+  phoneNumber: string;
+  city: string;
+  streetAddress: string;
+  buildingNumber: number;
+  additionalNote: string | null;
+  createdAt: Date;
+  status: order_status;
+  paymentMethod: PaymentMethod;
+  updatedAt: Date;
+  discountAmount: number;
+  subtotal: number;
+  orderItems: OrderItem[];
 };

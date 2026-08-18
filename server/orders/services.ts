@@ -233,8 +233,8 @@ export const updateOrderStatus = async (
     },
   });
 
-  revalidateTag("orders", "max");
-  revalidateTag(`order-${orderId}`, "max");
+  revalidateTag("orders", {expire:0});
+  revalidateTag(`order-${orderId}`, {expire:0});
 
   return {
     success: true,
@@ -364,6 +364,7 @@ const getCachedAdminOrders = () =>
           city: true,
           totalAmount: true,
           subtotal: true,
+          paymentMethod:true,
           discountAmount: true,
           status: true,
           createdAt: true,
