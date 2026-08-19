@@ -1,23 +1,25 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { SquarePen } from 'lucide-react';
-import { Trash2 } from 'lucide-react';
+import Image from "next/image";
+import Link from "next/link";
+import { ColumnDef } from "@tanstack/react-table";
+import { SquarePen } from "lucide-react";
+import type { deleteResponseType } from "@/types";
 
+import type { Product } from "@/features/products/types";
 
-
-import { Checkbox } from "@/components/ui/checkbox"
-import {DataTableColumnHeader} from "@/app/(admin)/dashboard/products/data-table-column-header"
+import { DeleteConfirmation } from "@/components/test/DeleteConfirmation";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { DataTableColumnHeader } from "@/app/(admin)/dashboard/components/data-table-column-header";
 
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
+interface ProductColumnsProps {
+  onDelete: (id: string) => Promise<deleteResponseType>;
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns = ({
+  onDelete,
+}: ProductColumnsProps): ColumnDef<Product>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -26,68 +28,147 @@ export const columns: ColumnDef<Payment>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value) =>
+          table.toggleAllPageRowsSelected(!!value)
+        }
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onCheckedChange={(value) =>
+          row.toggleSelected(!!value)
+        }
         aria-label="Select row"
       />
     ),
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
-    accessorKey: "email",
-       header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email" />)
 
-    },
-  
   {
-    accessorKey: "amount",
-    header: () => <div >Amount</div>,
+    accessorKey: "productCardImage",
+    meta: "Image",
+    header: "Image",
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
- 
-      return <div className=" font-medium">{formatted}</div>
+      const image = row.original.productCardImage;
+
+      return (
+        <div className="relative h-12 w-12 overflow-hidden rounded-lg border bg-muted">
+          <Image
+            src={image}
+            alt={row.original.productNameEn}
+            fill
+            className="object-cover"
+          />
+        </div>
+      );
+    },
+    enableSorting: false,
+  },
+
+  {
+    accessorKey: "productNameEn",
+    meta: "Product Name (EN)",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Product Name (EN)"
+      />
+    ),
+  },
+
+  {
+    accessorKey: "productNameAr",
+    meta: "Product Name (AR)",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Product Name (AR)"
+      />
+    ),
+  },
+
+  {
+    accessorKey: "startingPrice",
+    meta: "Starting Price",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Starting Price"
+      />
+    ),
+    cell: ({ row }) => {
+      const price = Number(row.original.startingPrice);
+
+      return (
+        <span className="font-medium">
+          {price.toFixed(2)}
+        </span>
+      );
     },
   },
-    {
-    id: "edit",
-    header:  () => <div className="text-center">Actions</div>,
-cell: () => (
-  <div className="flex items-center justify-center gap-2">
-    <Button
-      variant="ghost"
-      size="icon"
-      className="text-black hover:bg-gray-100 hover:text-black"
-    >
-      <SquarePen className="h-4 w-4" strokeWidth={1.8} />
-    </Button>
 
-    <Button
-      variant="ghost"
-      size="icon"
-      className="text-red-600 hover:bg-red-50 hover:text-red-700"
-    >
-      <Trash2 className="h-4 w-4" />
-    </Button>
-  </div>
-),
+  {
+    accessorKey: "isFeatured",
+    meta: "Featured",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Featured"
+      />
+    ),
+    cell: ({ row }) => (
+      <span>
+        {row.original.isFeatured ? "Yes" : "No"}
+      </span>
+    ),
+  },
+
+  {
+    accessorKey: "createdAt",
+    meta: "Created At",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Created At"
+      />
+    ),
+    cell: ({ row }) =>
+      new Date(row.original.createdAt).toLocaleDateString("en-GB"),
+  },
+
+  {
+    id: "actions",
+    header: () => "Actions",
+    cell: ({ row }) => {
+      const product = row.original;
+
+      return (
+        <div className="flex items-center gap-2">
+          <Button
+            asChild
+            variant="ghost"
+            size="icon"
+            className="h-9 w-9 rounded-md hover:bg-muted"
+          >
+            <Link href={`/dashboard/products/edit/${product.id}`}>
+              <SquarePen className="h-4 w-4" />
+              <span className="sr-only">
+                Edit product
+              </span>
+            </Link>
+          </Button>
+
+          <DeleteConfirmation
+            id={product.id}
+            onConfirm={onDelete}
+          />
+        </div>
+      );
+    },
     enableSorting: false,
     enableHiding: false,
   },
-    
-]
+];

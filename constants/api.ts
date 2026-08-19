@@ -2,13 +2,18 @@ export const API = {
   BASE_URL: process.env.NEXT_PUBLIC_API_URL,
 
   ENDPOINTS: {
-    PRODUCTS: {
-      FEATURED_PRODUCTS_BY_LOCALE: "products/featured-products-by-locale",
-      ON_DISCOUNT_PRODUCTS_BY_LOCALE: "products/on-discount-products-by-locale",
-      ALL_PRODUCTS: "/products",
-      FILTERED_PRODUCTS_BY_LOCALE: "products/filtered-products",
-      PRODUCT_BY_ID_AND_LOCALE: "products/product-by-id-and-locale",
-    },
+PRODUCTS: {
+  FEATURED_PRODUCTS_BY_LOCALE:"products/featured-products-by-locale",
+  ON_DISCOUNT_PRODUCTS_BY_LOCALE:"products/on-discount-products-by-locale",
+  ALL_PRODUCTS:"/products",
+  FILTERED_PRODUCTS_BY_LOCALE:"products/filtered-products",
+  PRODUCT_BY_ID_AND_LOCALE:"products/product-by-id-and-locale",
+ADD_PRODUCT:"products",
+ PRODUCT_BY_ID:"products",
+  ALL_PRODUCTS_BY_LOCALE: "products/all-products-by-locale",
+PRODUCT_BY_SLUG_AND_LOCALE:"products/product-by-slug-and-locale",
+DELETE_MANY_PRODUCTS:"products/delete-many",
+},
 
     CATEGORIES: {
       FEATURED_CATEGORIES_BY_LOCALE: "categories/featured-categories-by-locale",
@@ -50,6 +55,7 @@ export const API = {
       APPLICATIONS_BY_CAREER_ID: "applications/applications-by-career-id",
       MARK_APPLICATION_AS_SHOWN: "applications/mark-application-as-shown",
     },
+    
 
     ATTRIBUTES: {
       ALL_ATTRIBUTES: "/attributes",
@@ -67,7 +73,15 @@ export const API = {
       DELETE_ATTRIBUTE_VALUE: "attribute-values",
     },
 
-    USERS: "/users",
+USERS: {
+  ALL_USERS: "/auth/get-all-users",
+  USER_BY_ID: "/auth/get-user-by-id",
+  UPDATE_USER_ROLE: "/auth/update-role",
+  DELETE_USER: "/auth/delete-user",
+  DELETE_MANY_USERS:"/auth/delete-many-user"
+},
+
+
 
 ORDERS: {
   ALL_ORDERS: "/orders/admin",

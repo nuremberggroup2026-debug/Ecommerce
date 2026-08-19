@@ -1,162 +1,181 @@
 import { z } from "zod";
 
-export const createProductSchema = z.object({
+export const productVariantSchema = z.object({
+  id: z.string().uuid("Invalid variant ID").optional(),
+
+  sku: z
+    .string()
+    .trim()
+    .min(1, "SKU is required")
+    .max(255),
+
+  variantImage: z
+    .string()
+    .optional()
+    .nullable(),
+
+  price: z
+    .number()
+    .finite()
+    .min(0, "Price cannot be negative"),
+
+  discountPercentage: z
+    .number()
+    .finite()
+    .min(0, "Discount cannot be negative")
+    .max(
+      100,
+      "Discount cannot exceed 100"
+    ),
+
+  finalPrice: z
+    .number()
+    .finite()
+    .min(
+      0,
+      "Final price cannot be negative"
+    ),
+
+  stock: z
+    .number()
+    .int()
+    .min(0, "Stock cannot be negative"),
+
+  isDefault: z.boolean(),
+
+  attributeValueIds: z.array(
+    z.string().uuid(
+      "Invalid attribute value ID"
+    )
+  ),
+});
+
+export const productSchema = z.object({
+  slug: z
+    .string()
+    .trim()
+    .min(2, "Slug is required")
+    .max(255)
+    .regex(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      "Invalid slug"
+    ),
+
   productNameEn: z
     .string()
-    .min(2, "Product name in English must be at least 2 characters")
-    .max(255, "Product name in English cannot exceed 255 characters"),
+    .trim()
+    .min(
+      2,
+      "English product name is required"
+    )
+    .max(255),
 
   productNameAr: z
     .string()
-    .min(2, "Product name in Arabic must be at least 2 characters")
-    .max(255, "Product name in Arabic cannot exceed 255 characters"),
+    .trim()
+    .min(
+      2,
+      "Arabic product name is required"
+    )
+    .max(255),
 
   productDescriptionEn: z
     .string()
-    .min(10, "Product description in English must be at least 10 characters"),
+    .trim()
+    .min(
+      10,
+      "English description must be at least 10 characters"
+    ),
 
   productDescriptionAr: z
     .string()
-    .min(10, "Product description in Arabic must be at least 10 characters"),
+    .trim()
+    .min(
+      10,
+      "Arabic description must be at least 10 characters"
+    ),
 
-  productCardImage: z.string().min(1, "Product card image is required"),
+  productCardImage: z
+    .string()
+    .min(
+      1,
+      "Product card image is required"
+    ),
 
   productImages: z
     .array(z.string().min(1))
-    .min(1, "At least one product image is required"),
+    .min(
+      1,
+      "At least one product image is required"
+    ),
 
-  categoryId: z.string().uuid("Invalid category ID"),
-});
-
-export const updateProductSchema = createProductSchema.partial();
-
-export const productVariantNestedSchema = z.object({
-  sku: z
+  categoryId: z
     .string()
-    .min(1, "SKU is required")
-    .max(255, "SKU cannot exceed 255 characters"),
+    .uuid("Invalid category ID"),
 
-  variantImage: z.string().optional().nullable(),
-
-  price: z.number().min(0, "Price cannot be negative"),
-
-  discountPercentage: z
-    .number()
-    .min(0, "Discount cannot be negative")
-    .max(100, "Discount cannot exceed 100")
-    .optional()
-    .default(0),
-
-  stock: z
-    .number()
-    .int("Stock must be an integer")
-    .min(0, "Stock cannot be negative")
-    .default(0),
-
-  isDefault: z.boolean().optional().default(false),
-
-  attributeValueIds: z
-    .array(z.string().uuid("Invalid attribute value id"))
-    .optional()
-    .default([]),
-});
-
-export const updateProductVariantNestedSchema = z.object({
-  id: z.uuid(),
-  sku: z
-    .string()
-    .min(1, "SKU is required")
-    .max(255, "SKU cannot exceed 255 characters"),
-
-  variantImage: z.string().optional().nullable(),
-
-  price: z.number().min(0, "Price cannot be negative"),
-
-  discountPercentage: z
-    .number()
-    .min(0, "Discount cannot be negative")
-    .max(100, "Discount cannot exceed 100")
-    .optional()
-    .default(0),
-
-  stock: z
-    .number()
-    .int("Stock must be an integer")
-    .min(0, "Stock cannot be negative")
-    .default(0),
-
-  isDefault: z.boolean().optional().default(false),
-
-  attributeValueIds: z
-    .array(z.string().uuid("Invalid attribute value id"))
-    .optional()
-    .default([]),
-});
-
-export const createProductWithVariantsSchema = z.object({
-  productNameEn: z
-    .string()
-    .min(2, "Product name in English must be at least 2 characters")
-    .max(255),
-
-  productNameAr: z
-    .string()
-    .min(2, "Product name in Arabic must be at least 2 characters")
-    .max(255),
-
-  productDescriptionEn: z
-    .string()
-    .min(10, "Description must be at least 10 characters"),
-
-  productDescriptionAr: z
-    .string()
-    .min(10, "Description must be at least 10 characters"),
-
-  productCardImage: z.string().min(1, "Product card image is required"),
-
-  productImages: z
-    .array(z.string())
-    .min(1, "At least one product image is required"),
-
-  isFeatured: z.boolean().default(false),
-
-  categoryId: z.string().uuid("Invalid category id"),
+  isFeatured: z.boolean(),
 
   variants: z
-    .array(productVariantNestedSchema)
-    .min(1, "Product must have at least one variant"),
+    .array(productVariantSchema)
+    .min(
+      1,
+      "Product must have at least one variant"
+    )
+    .optional(),
 });
 
-export const updateProductWithVariantsSchema = z.object({
-  productNameEn: z
-    .string()
-    .min(2, "Product name in English must be at least 2 characters")
-    .max(255),
+export type ProductSchema =
+  z.infer<typeof productSchema>;
 
-  productNameAr: z
-    .string()
-    .min(2, "Product name in Arabic must be at least 2 characters")
-    .max(255),
+export type ProductVariantSchema =
+  z.infer<
+    typeof productVariantSchema
+  >;
 
-  productDescriptionEn: z
-    .string()
-    .min(10, "Description must be at least 10 characters"),
+export const updateProductSchema =
+  productSchema.partial();
 
-  productDescriptionAr: z
-    .string()
-    .min(10, "Description must be at least 10 characters"),
+export type UpdateProductSchema =
+  z.infer<typeof updateProductSchema>;
 
-  productCardImage: z.string().min(1, "Product card image is required"),
+export const createProductWithVariantsSchema =
+  productSchema;
 
-  productImages: z
-    .array(z.string())
-    .min(1, "At least one product image is required"),
+export const updateProductWithVariantsSchema =
+  z.object({
+    slug:
+      productSchema.shape.slug.optional(),
 
-  isFeatured: z.boolean().default(false),
+    productNameEn:
+      productSchema.shape.productNameEn.optional(),
 
-  categoryId: z.string().uuid("Invalid category id"),
+    productNameAr:
+      productSchema.shape.productNameAr.optional(),
 
-  variants: z
-    .array(updateProductVariantNestedSchema)
-    .min(1, "Product must have at least one variant"),
-});
+    productDescriptionEn:
+      productSchema.shape.productDescriptionEn.optional(),
+
+    productDescriptionAr:
+      productSchema.shape.productDescriptionAr.optional(),
+
+    productCardImage:
+      productSchema.shape.productCardImage.optional(),
+
+    productImages:
+      productSchema.shape.productImages.optional(),
+
+    isFeatured:
+      productSchema.shape.isFeatured.optional(),
+
+    categoryId:
+      productSchema.shape.categoryId.optional(),
+
+    variants: z
+      .array(productVariantSchema)
+      .optional(),
+  });
+
+export type UpdateProductWithVariantsSchema =
+  z.infer<
+    typeof updateProductWithVariantsSchema
+  >;

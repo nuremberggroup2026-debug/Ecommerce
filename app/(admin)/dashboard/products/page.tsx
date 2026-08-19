@@ -1,19 +1,13 @@
-import { columns, Payment } from "./columns"
-import { DataTable } from "./data-table"
-import {data} from "@/app/(admin)/dashboard/products/data"
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return data
-    
-}
+import { adminProducts } from "@/features/products/api/products.server.api";
+import { ProductDataTable } from "./products-data-table";
 
 export default async function DemoPage() {
-  const data = await getData()
+  const products = await adminProducts();
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data} />
+      <ProductDataTable data={products.data} />
     </div>
-  )
+  );
 }
