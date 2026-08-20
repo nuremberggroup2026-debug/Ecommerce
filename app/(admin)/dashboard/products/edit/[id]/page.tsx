@@ -1,5 +1,5 @@
 import {adminProductById} from "@/features/products/api/products.server.api";
-import EditProductForm from "@/app/(admin)/dashboard/products/edit/edit-product-form";
+import EditProductForm from "@/features/products/components/admin/editProductForm";
 
 export default async function Page({params}:{params:Promise<{id:string}>}){
  const {id}=await params;

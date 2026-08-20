@@ -1,4 +1,4 @@
-import OrdersComponent from "@/features/orders/components/OrdersComponent";
+import OrdersComponent from "@/features/orders/components/shop/OrdersComponent";
 import { Locale } from "@/types";
 import { fetchAllOrdersByUser } from "@/features/orders/api/orders.server.api";
 interface Props {

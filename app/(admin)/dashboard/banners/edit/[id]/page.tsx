@@ -1,5 +1,5 @@
 import { adminBannerById } from "@/features/banner/api/banners.server.api";
-import EditBannerForm from "@/app/(admin)/dashboard/banners/edit/edit-banner-form";
+import EditBannerForm from "@/features/banner/components/editBannerForm/edit-banner-form";
 
 export default async function Page({
   params,

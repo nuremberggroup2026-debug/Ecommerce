@@ -1,6 +1,6 @@
 
 import { adminCareerById } from "@/features/careers/api/careers.server.api";
-import EditCareerForm from "@/app/(admin)/dashboard/careers/edit/edit-career-form";
+import EditCareerForm from "@/features/careers/components/admin/editCareerFom/edit-career-form";
 
 export default async function Page({
   params,

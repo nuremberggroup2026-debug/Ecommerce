@@ -1,4 +1,6 @@
 
+
+
 export interface ResponseType<T> {
   message: string;
   success: boolean;
@@ -16,7 +18,7 @@ export type AllOrdersByUser = {
   };
   totalAmount: number;
   orderNumber: string;
-  status: order_status;
+  status: OrderStatus;
   discountAmount: number;
   subtotal: number;
 };
@@ -32,7 +34,7 @@ export type OrderByID = {
   orderNumber: string;
   totalAmount: number;
   discountAmount: number;
-  status: order_status;
+  status: OrderStatus;
   createdAt: Date;
   orderItems: {
     orderItemId: string;
@@ -48,7 +50,7 @@ export type OrderByID = {
     };
   }[];
 };
-export enum order_status {
+export enum OrderStatus {
   PENDING = "PENDING",
   CONFIRMED = "CONFIRMED",
   PROCESSING = "PROCESSING",
@@ -85,7 +87,7 @@ export type Order = {
   buildingNumber: number;
   additionalNote: string | null;
   createdAt: Date;
-  status: order_status;
+  status: OrderStatus;
   paymentMethod: PaymentMethod;
   updatedAt: Date;
   discountAmount: number;

@@ -1,5 +1,5 @@
 import { getAdminOrders } from "@/features/orders/services/orders.service";
-import { OrderDataTable } from "./orders-data-table";
+import { OrderDataTable } from "@/features/orders/components/admin/orders-data-table";
 
 export default async function OrdersPage() {
   const orders = await getAdminOrders();

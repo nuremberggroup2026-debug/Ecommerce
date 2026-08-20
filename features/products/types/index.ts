@@ -11,7 +11,8 @@ export type Product={
  createdAt:Date;
  isFeatured:boolean;
  startingPrice:number;
- variants:{
+ 
+ productVariants:{
   id:string;
   sku:string;
   variantImage:string;
@@ -32,7 +33,7 @@ export type CreateAdminProduct = {
   productDescriptionEn: string;
   productDescriptionAr: string;
   productCardImage: string;
-  productImages: string[];
+  productImages: string[] | null;
   categoryId: string;
   isFeatured: boolean;
   startingPrice: number;

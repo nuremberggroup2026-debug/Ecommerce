@@ -1,6 +1,6 @@
 
 import { adminProducts } from "@/features/products/api/products.server.api";
-import { ProductDataTable } from "./products-data-table";
+import { ProductDataTable } from "../../../../features/products/components/admin/products-data-table";
 
 export default async function DemoPage() {
   const products = await adminProducts();

@@ -1,6 +1,6 @@
 
 import React from "react";
-import AddCareerForm from "./add-career-form";
+import AddCareerForm from "../../../../../features/careers/components/admin/addCareerForm/add-career-form";
 
 export default function Page() {
   return (

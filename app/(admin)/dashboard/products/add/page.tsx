@@ -1,5 +1,5 @@
 import React from "react";
-import AddProductForm from "./add-product-form";
+import AddProductForm from "@/features/products/components/admin/addProductForm/add-product-form";
 
 import { adminCategories } from "@/features/catalog/categories/api/categories.server.api"
 import { adminAttributes } from "@/features/catalog/attributes/api/attributes.server.api";

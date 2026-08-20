@@ -1,5 +1,5 @@
 import { adminOrderById } from "@/features/orders/api/orders.server.api";
-import ViewOrder from "@/app/(admin)/dashboard/orders/view/ViewOrder";
+import ViewOrder from "@/features/orders/components/admin/ViewOrder";
 
 export default async function Page({
   params,

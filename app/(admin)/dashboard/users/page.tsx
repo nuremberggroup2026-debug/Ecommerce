@@ -1,6 +1,6 @@
 
 import { adminUsers } from "@/features/users/api/users.server.api";
-import { UserDataTable } from "./users-data-table";
+import { UserDataTable } from "../../../../features/users/components/admin/users-data-table";
 
 export default async function UsersPage() {
   const users = (await adminUsers()).data;

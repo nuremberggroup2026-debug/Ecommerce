@@ -1,5 +1,5 @@
 import { adminUserById } from "@/features/users/api/users.server.api";
-import ViewUser from "@/app/(admin)/dashboard/users/view/ViewUsers";
+import ViewUser from "@/features/users/components/admin/ViewUsers";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

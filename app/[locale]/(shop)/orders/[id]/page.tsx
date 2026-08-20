@@ -1,5 +1,5 @@
 import { fetchOrderByUserOrderIdAndLocale } from "@/features/orders/api/orders.server.api";
-import OrderDetailsComponent from "@/features/orders/components/OrderDetails";
+import OrderDetailsComponent from "@/features/orders/components/shop/OrderDetails";
 import { Locale } from "@/types";
 
 interface Props {

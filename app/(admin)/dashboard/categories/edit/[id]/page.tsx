@@ -1,5 +1,5 @@
 import { adminCategoryById } from "@/features/catalog/categories/api/categories.server.api";
-import EditCategoryForm from "@/app/(admin)/dashboard/categories/edit/edit-category-form";
+import EditCategoryForm from "@/features/catalog/categories/components/admin/editCategoryForm/edit-category-form";
 
 export default async function Page({
   params,
