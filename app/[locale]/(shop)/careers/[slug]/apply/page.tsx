@@ -1,4 +1,4 @@
-import ApplicationPage from "@/features/applications/components/ApplicationPage";
+import ApplicationPage from "@/features/applications/components/shop/ApplicationPage";
 import { careerBySlug } from "@/features/careers/api/careers.server.api";
 import { Locale } from "@/types";
 

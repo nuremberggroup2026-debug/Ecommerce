@@ -7,7 +7,7 @@ import {
   ProductWithVaraintsUpdateInput,
 } from "@/types";
 import {
-  createProductSchema,
+  productSchema,
   createProductWithVariantsSchema,
   updateProductSchema,
   updateProductWithVariantsSchema,
@@ -346,6 +346,10 @@ export const updateProductWithVariant = async (
 
     const validation =
       updateProductWithVariantsSchema.safeParse(updatedProductData);
+console.log("foooorm: ",updatedProductData);
+
+      console.log("validation pr:", validation.error);
+      
 
     if (!validation.success) {
       return {

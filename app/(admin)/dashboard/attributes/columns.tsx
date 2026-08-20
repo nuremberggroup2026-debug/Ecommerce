@@ -11,7 +11,7 @@ import { DeleteConfirmation } from "@/components/test/DeleteConfirmation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-import { DataTableColumnHeader } from "@/app/(admin)/dashboard/products/data-table-column-header";
+import { DataTableColumnHeader } from "@/app/(admin)/dashboard/components/data-table-column-header";
 
 interface AttributeColumnsProps {
   onDelete: (id: string) => Promise<unknown>;

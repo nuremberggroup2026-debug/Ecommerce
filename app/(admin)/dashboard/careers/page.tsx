@@ -1,6 +1,6 @@
 
 import { adminCareers } from "@/features/careers/api/careers.client.api";
-import { CareerDataTable } from "./careers-data-table";
+import { CareerDataTable } from "../../../../features/careers/components/admin/careers-data-table";
 
 export default async function DemoPage() {
   const careers = await adminCareers();

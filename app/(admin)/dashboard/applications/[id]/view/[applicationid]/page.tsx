@@ -1,4 +1,4 @@
-import ViewApplication from "@/app/(admin)/dashboard/applications/[id]/view/view-application";
+import ViewApplication from "@/features/applications/components/admin/view-application";
 import { adminApplicationById } from "@/features/applications/api/applications.server.api";
 
 export default async function Page({
@@ -12,7 +12,7 @@ export default async function Page({
 
   const response = await adminApplicationById(applicationid);
   const application = response.data;
-  console.log("لاbilal",application)
+  console.log("لاbilal", application);
 
   if (!application) {
     return (
@@ -32,7 +32,10 @@ export default async function Page({
 
   return (
     <div className="w-full p-6">
-      <ViewApplication application={application} applicationid={applicationid} />
+      <ViewApplication
+        application={application}
+        applicationid={applicationid}
+      />
     </div>
   );
 }
