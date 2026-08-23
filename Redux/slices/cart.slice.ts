@@ -4,6 +4,7 @@ import { ProductByLocale } from "@/features/catalog/products/types";
 type CartItem = {
   variantId: string;
   quantity: number;
+  
 };
 
 type CartState = {

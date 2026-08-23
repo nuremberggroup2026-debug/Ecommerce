@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import ProductGallery from "./ProductGallery";
 import ProductInfo from "./ProductInfo";
 import type { ProductByLocale } from "../../types";
 import { useTranslations } from "next-intl";
+import { theme } from "@/themes";
 
 export default function ProductSection({
   product,
@@ -24,6 +25,7 @@ export default function ProductSection({
       (item) => item.variantId === defaultVariant.variantId,
     )?.quantity ?? 1,
   );
+
   const handleVariantChange = (variant: typeof defaultVariant) => {
     setSelectedVariant(variant);
     if (
@@ -44,28 +46,28 @@ export default function ProductSection({
   };
 
   return (
-    <main className="min-h-screen bg-white text-black">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:py-20 lg:px-10">
-        <nav className="mb-8 text-xs font-light text-gray-400 tracking-tight">
-          <Link href="/products" className="hover:text-black transition">
+    <main className={theme.productSection.main}>
+      <div className={theme.productSection.container}>
+        <nav className={theme.productSection.nav}>
+          <Link href="/products" className={theme.productSection.navLink}>
             {t("Product.products")}
           </Link>
 
-          <span className="mx-2">•</span>
+          <span className={theme.productSection.navDot}>•</span>
 
-          <span className="text-gray-300">
+          <span className={theme.productSection.navCategory}>
             {product.productData.categoryName}
           </span>
 
-          <span className="mx-2">•</span>
+          <span className={theme.productSection.navDot}>•</span>
 
-          <span className="text-neutral-900 font-medium">
+          <span className={theme.productSection.navTitle}>
             {product.productData.productName}
           </span>
         </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          <div className="lg:col-span-7">
+        <div className={theme.productSection.grid}>
+          <div className={theme.productSection.galleryCol}>
             <ProductGallery
               product={product}
               activeImage={activeImage}
@@ -74,7 +76,7 @@ export default function ProductSection({
             />
           </div>
 
-          <div className="lg:col-span-5 space-y-8">
+          <div className={theme.productSection.infoCol}>
             <ProductInfo
               product={product}
               quantity={quantity}

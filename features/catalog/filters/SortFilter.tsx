@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { theme } from "@/themes";
 
 export default function SortFilter() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function SortFilter() {
     <select
       value={value}
       onChange={handleChange}
-      className="bg-transparent font-medium text-black focus:outline-none"
+      className={theme.sortFilter.select}
     >
       <option value="price_asc">{t("PRICE_ASC")}</option>
       <option value="price_desc">{t("PRICE_DESC")}</option>

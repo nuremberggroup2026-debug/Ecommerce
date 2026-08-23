@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Locale, TransalatedCategories } from "@/types";
+import { theme } from "@/themes";
 
 export default function CategoriesSection({
   categories,
@@ -13,15 +14,15 @@ export default function CategoriesSection({
   const count = categories.length;
 
   return (
-    <section className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-        <header className="mb-10">
-          <h2 className="text-4xl font-semibold tracking-tight">
+    <section className={theme.categories.section}>
+      <div className={theme.categories.container}>
+        <header className={theme.categories.header}>
+          <h2 className={theme.categories.title}>
             {isAr ? "الفئات" : "Categories"}
           </h2>
         </header>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-2 md:gap-6 md:h-137.5">
+        <div className={theme.categories.grid}>
           {count === 1 && (
             <div className="md:col-span-4 md:row-span-2">
               <CategoryCard cat={categories[0]} isAr={isAr} />
@@ -112,23 +113,23 @@ function CategoryCard({
   return (
     <Link
       href={`/products?page=1&categories=${encodeURIComponent(cat.id)}`}
-      className="group relative block h-full w-full overflow-hidden rounded-3xl border border-gray-100 shadow-sm transition-all duration-500 hover:shadow-md"
+      className={theme.categories.cardContainer}
     >
       <Image
         src={`https://picsum.photos/seed/${Math.random()}/600/800`}
         alt={cat.name}
         fill
-        className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
+        className={theme.categories.cardImage}
       />
 
-      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+      <div className={theme.categories.cardOverlay} />
 
-      <div className="absolute inset-0 flex items-end p-6 md:p-8">
-        <div className="transform transition-transform duration-500 group-hover:-translate-y-1">
-          <h3 className="text-xl font-medium text-white md:text-2xl tracking-tight">
+      <div className={theme.categories.cardContentWrapper}>
+        <div className={theme.categories.cardContentInner}>
+          <h3 className={theme.categories.cardTitle}>
             {cat.name}
           </h3>
-          <span className="mt-1.5 inline-flex items-center text-xs font-medium text-white/80 opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2">
+          <span className={theme.categories.cardAction}>
             {isAr ? "استكشف الفئة" : "Explore Category"}
           </span>
         </div>

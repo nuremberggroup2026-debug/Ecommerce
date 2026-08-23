@@ -1,0 +1,18 @@
+export const productsPageTheme = {
+  main: "min-h-screen bg-neutral-50/50 text-black",
+  heroSection: "mx-auto max-w-7xl px-6 pt-16 pb-12 lg:px-10 text-center",
+  heroSpace: "space-y-3",
+  title: "text-4xl font-semibold tracking-tight md:text-5xl",
+  description: "text-sm text-gray-400 font-light max-w-md mx-auto",
+  controlsRow: "mt-10 flex items-center justify-between border-b border-gray-100 pb-5 text-sm",
+  itemsCount: "text-gray-400 font-medium",
+  sortWrapper: "flex items-center gap-2",
+  sortLabel: "text-gray-400",
+  contentSection: "mx-auto max-w-7xl px-6 py-12 lg:px-10 grid grid-cols-1 lg:grid-cols-4 gap-10",
+  aside: "hidden lg:block space-y-8 sticky top-28 h-fit",
+  searchBox: "bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm",
+  searchTitle: "font-semibold text-xs uppercase tracking-wider text-gray-400 mb-4",
+  searchInput: "w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-2 text-xs outline-none transition-colors focus:border-neutral-900",
+  productsCol: "lg:col-span-3 space-y-14",
+  productsGrid: "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12",
+};

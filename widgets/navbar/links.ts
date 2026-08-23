@@ -25,10 +25,7 @@ export const links = [
     href: ROUTES.WISHLIST,
     label: "Wishlist",
   },
-  {
-    href: ROUTES.NEW_ARRIVALS,
-    label: "New Arrivals",
-  },
+
 
 
 ];

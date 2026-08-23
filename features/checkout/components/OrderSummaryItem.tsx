@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { CartData } from "../types";
+import { theme } from "@/themes";
 
 interface Props {
   item: CartData["items"][number];
@@ -10,43 +11,43 @@ function OrderSummaryItem({ item }: Props) {
   const t = useTranslations();
 
   return (
-    <div className="flex gap-4">
+    <div className={theme.orderSummaryItem.container}>
       {/* Product Image */}
-      <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-2xl bg-white">
+      <div className={theme.orderSummaryItem.imageWrapper}>
         <Image
           src={item.product.image}
           alt={item.product.name}
           fill
           sizes="80px"
-          className="object-cover"
+          className={theme.orderSummaryItem.image}
         />
       </div>
 
       {/* Product Information */}
-      <div className="min-w-0 flex-1">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <h3 className="truncate text-sm font-medium text-neutral-900">
+      <div className={theme.orderSummaryItem.contentWrapper}>
+        <div className={theme.orderSummaryItem.headerRow}>
+          <div className={theme.orderSummaryItem.infoCol}>
+            <h3 className={theme.orderSummaryItem.title}>
               {item.product.name}
             </h3>
 
-            <p className="mt-1 text-xs text-neutral-400">
+            <p className={theme.orderSummaryItem.sku}>
               {t("CHECKOUT.SKU")}: {item.variant.sku}
             </p>
           </div>
 
-          <p className="shrink-0 text-sm font-semibold text-neutral-900">
+          <p className={theme.orderSummaryItem.subtotal}>
             ${item.subtotal.toFixed(2)}
           </p>
         </div>
 
         {/* Variant Attributes */}
         {item.variant.attributes.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+          <div className={theme.orderSummaryItem.attributesWrapper}>
             {item.variant.attributes.map((attribute) => (
               <span
                 key={attribute.valueId}
-                className="text-xs text-neutral-400"
+                className={theme.orderSummaryItem.attributeSpan}
               >
                 {attribute.attributeName}: {attribute.value}
               </span>
@@ -55,12 +56,12 @@ function OrderSummaryItem({ item }: Props) {
         )}
 
         {/* Quantity + Unit Price */}
-        <div className="mt-3 flex items-center justify-between">
-          <p className="text-xs text-neutral-400">
+        <div className={theme.orderSummaryItem.footerRow}>
+          <p className={theme.orderSummaryItem.quantityText}>
             {item.quantity} × ${Number(item.itemPrice).toFixed(2)}
           </p>
 
-          <p className="text-xs text-neutral-400">
+          <p className={theme.orderSummaryItem.unitPriceText}>
             {t("CHECKOUT.UNIT_PRICE")}: ${Number(item.itemPrice).toFixed(2)}
           </p>
         </div>

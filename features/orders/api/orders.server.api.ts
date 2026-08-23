@@ -4,7 +4,12 @@ import { API } from "@/constants/api";
 
 import type {
   ResponseType,
-} from "@/types/index";
+  AllOrdersByUser,
+    Locale,
+  OrderByID,
+} from "../types/index";
+
+;
 
 import type {
   Order,
@@ -22,4 +27,28 @@ export async function adminOrderById(
   return api.get<ResponseType<Order>>(
     `${API.ENDPOINTS.ORDERS.ORDER_BY_ID}/${id}`
   );
+}
+
+export async function fetchAllOrdersByUser(): Promise<
+  ResponseType<AllOrdersByUser[]>
+> {
+  const data = await api.get<ResponseType<AllOrdersByUser[]>>(
+    `${API.ENDPOINTS.ORDERS.ALL_ORDERS_BY_USER}`,
+  );
+
+  console.log("data: ", data);
+
+  return data;
+}
+export async function fetchOrderByUserOrderIdAndLocale(
+  locale: Locale,
+  id: string,
+): Promise<ResponseType<OrderByID>> {
+  const data = await api.get<ResponseType<OrderByID>>(
+    `${API.ENDPOINTS.ORDERS.ORDER_BY_USER_ORDER_ID_AND_LOCALE}/${locale}?orderId=${id}`,
+  );
+
+  console.log("data: ", data);
+
+  return data;
 }

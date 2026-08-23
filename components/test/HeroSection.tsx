@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TranslatedBanner } from "@/types";
 import { useTranslations } from "next-intl";
+import { theme } from "@/themes";
 
 interface Prop {
   banners: TranslatedBanner[];
@@ -21,13 +22,13 @@ export default function HeroSection({ banners }: Prop) {
   }, [banners.length]);
 
   return (
-    <main className="relative w-full overflow-hidden bg-black">
-      <section className="relative h-150 w-full md:h-170">
+    <main className={theme.hero.main}>
+      <section className={theme.hero.section}>
         {banners.map((banner, index) => (
           <div
             key={index}
-            className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ease-in-out ${
-              index === current ? "opacity-100 z-10" : "opacity-0 z-0"
+            className={`${theme.hero.slide} ${
+              index === current ? theme.hero.slideActive : theme.hero.slideInactive
             }`}
           >
             <Image
@@ -35,22 +36,22 @@ export default function HeroSection({ banners }: Prop) {
               alt={banner.name}
               fill
               priority={index === 0}
-              className="object-cover object-center"
+              className={theme.hero.image}
             />
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
-            <div className="absolute inset-0 flex items-center">
-              <div className="mx-auto w-full max-w-7xl px-8 lg:px-16">
-                <article className="max-w-2xl space-y-6 text-white">
-                  <header className="space-y-4">
-                    <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-6xl lg:text-7xl">
+            <div className={theme.hero.overlay} />
+            <div className={theme.hero.contentWrapper}>
+              <div className={theme.hero.container}>
+                <article className={theme.hero.article}>
+                  <header className={theme.hero.header}>
+                    <h1 className={theme.hero.title}>
                       {banner.name}
                     </h1>
                   </header>
 
-                  <nav className="flex gap-4 pt-4">
+                  <nav className={theme.hero.nav}>
                     <Link
                       href={"/products"}
-                      className="rounded-full bg-white px-8 py-3.5 text-sm font-medium text-black transition hover:bg-neutral-200 shadow-sm"
+                      className={theme.hero.shopButton}
                     >
                       {t("ShopNow")}
                     </Link>
@@ -61,13 +62,13 @@ export default function HeroSection({ banners }: Prop) {
           </div>
         ))}
 
-        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
+        <div className={theme.hero.indicatorsWrapper}>
           {banners.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrent(index)}
-              className={`h-2 transition-all duration-500 rounded-full ${
-                index === current ? "w-8 bg-white" : "w-2 bg-white/40"
+              className={`${theme.hero.indicator} ${
+                index === current ? theme.hero.indicatorActive : theme.hero.indicatorInactive
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

@@ -8,16 +8,16 @@ import type {
 
 import type {
   Order,
-  order_status,
+  OrderStatus,
 } from "@/features/orders/types";
 
 export async function adminUpdateOrderStatus(
   id: string,
-  status: order_status
+  status: OrderStatus
 ): Promise<PutResponseType> {
   return Clientapi.put<
     PutResponseType,
-    { status: order_status }
+    { status: OrderStatus }
   >(
        `${API.ENDPOINTS.ORDERS.UPDATE_ORDER_STATUS}/${id}`,
     { status }

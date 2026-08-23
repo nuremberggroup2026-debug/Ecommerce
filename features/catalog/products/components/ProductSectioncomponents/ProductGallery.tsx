@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-
 import type { ProductByLocale } from "../../types";
 import { toastResponse } from "@/lib/toast";
 import {
@@ -10,12 +9,12 @@ import {
 } from "@/features/wishlist/api/wishlist.client.api";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { theme } from "@/themes";
 
 type Props = {
   product: ProductByLocale;
   activeImage: string;
   setActiveImage: (img: string) => void;
-
   handleVariantChange: (
     variant: ProductByLocale["productData"]["productVariants"][number],
   ) => void;
@@ -40,9 +39,7 @@ export default function ProductGallery({
   ];
 
   const [inWishist, setInWishist] = useState(product.isInWishlist);
-
   const t = useTranslations();
-
   const [loading, setLoading] = useState(false);
 
   const handleWishlist = async () => {
@@ -75,25 +72,23 @@ export default function ProductGallery({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="relative aspect-4/5 w-full overflow-hidden rounded-[32px] border border-neutral-100 bg-neutral-50 shadow-sm">
+    <div className={theme.productGallery.container}>
+      <div className={theme.productGallery.mainImageWrapper}>
         <Image
           src={activeImage}
           alt={product.productData.productName}
           fill
           priority
-          className="object-cover transition-all duration-500"
+          className={theme.productGallery.mainImage}
         />
 
         <button
           disabled={loading}
           onClick={() => handleWishlist()}
-          className="absolute top-6 right-6 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/80 backdrop-blur-md border border-neutral-200/40 shadow-sm"
+          className={theme.productGallery.wishlistButton}
         >
           <svg
-            className={`h-5 w-5 ${
-              inWishist ? "fill-red-500 stroke-red-500" : "text-neutral-600"
-            }`}
+            className={theme.productGallery.wishlistIcon(inWishist)}
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
@@ -108,31 +103,30 @@ export default function ProductGallery({
         </button>
       </div>
 
-      <div className="flex gap-4">
-        {allImages.map((item, idx) => (
-          <button
-            key={idx}
-            onClick={() => {
-              setActiveImage(item.image!);
+      <div className={theme.productGallery.thumbnailsContainer}>
+        {allImages.map((item, idx) => {
+          const isActive = activeImage === item.image;
+          return (
+            <button
+              key={idx}
+              onClick={() => {
+                setActiveImage(item.image!);
 
-              if (item.variant) {
-                handleVariantChange(item.variant);
-              }
-            }}
-            className={`relative aspect-4/5 w-20 overflow-hidden rounded-2xl border ${
-              activeImage === item.image
-                ? "border-black ring-1 ring-black"
-                : "border-neutral-200 opacity-60"
-            }`}
-          >
-            <Image
-              src={item.image!}
-              alt={`${product.productData.productName} ${idx + 1}`}
-              fill
-              className="object-cover"
-            />
-          </button>
-        ))}
+                if (item.variant) {
+                  handleVariantChange(item.variant);
+                }
+              }}
+              className={theme.productGallery.thumbnailButton(isActive)}
+            >
+              <Image
+                src={item.image!}
+                alt={`${product.productData.productName} ${idx + 1}`}
+                fill
+                className={theme.productGallery.thumbnailImage}
+              />
+            </button>
+          );
+        })}
       </div>
     </div>
   );

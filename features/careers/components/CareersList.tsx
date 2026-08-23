@@ -1,25 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { TransalatedCareer } from "@/types";
+import { theme } from "@/themes";
 
 interface CareersListProps {
   careers: TransalatedCareer[];
-
 }
 
-export default function CareersList({
-  careers,
- 
-}: CareersListProps) {
+export default function CareersList({ careers }: CareersListProps) {
   if (!careers?.length) {
     return (
-      <section className="py-16">
-        <div className="mx-auto max-w-7xl px-4 text-center">
-          <h2 className="text-2xl font-semibold text-gray-900">
+      <section className={theme.careers.section}>
+        <div className={theme.careers.emptyContainer}>
+          <h2 className={theme.careers.emptyTitle}>
             No open positions
           </h2>
 
-          <p className="mt-2 text-gray-500">
+          <p className={theme.careers.emptyDescription}>
             We currently don&apos;t have any open positions.
           </p>
         </div>
@@ -28,84 +25,74 @@ export default function CareersList({
   }
 
   return (
-    <section className="py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-10 max-w-2xl">
-          <span className="text-sm font-semibold uppercase tracking-wider text-primary">
+    <section className={theme.careers.section}>
+      <div className={theme.careers.container}>
+        <div className={theme.careers.headerWrapper}>
+          <span className={theme.careers.badge}>
             Careers
           </span>
 
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className={theme.careers.title}>
             Join our team
           </h2>
 
-          <p className="mt-4 text-base leading-7 text-gray-600">
+          <p className={theme.careers.description}>
             Explore our current opportunities and find the role that fits
             your skills and ambitions.
           </p>
         </div>
 
-        {/* Careers Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className={theme.careers.grid}>
           {careers.map((career) => (
             <article
               key={career.id}
-              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl"
+              className={theme.careers.card}
             >
-              {/* Image */}
-              <div className="relative h-52 overflow-hidden bg-gray-100">
+              <div className={theme.careers.imageWrapper}>
                 {career.image ? (
                   <Image
                     src={career.image}
                     alt={career.position}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className={theme.careers.image}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
-                    <span className="text-sm text-gray-400">
+                  <div className={theme.careers.imagePlaceholder}>
+                    <span className={theme.careers.imagePlaceholderText}>
                       Career opportunity
                     </span>
                   </div>
                 )}
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className={theme.careers.imageOverlay} />
 
-                {/* Experience */}
                 {career.experience && (
-                  <span className="absolute bottom-4 left-4 rounded-full bg-white/95 px-3 py-1 text-xs font-medium text-gray-800 shadow-sm backdrop-blur">
+                  <span className={theme.careers.experienceBadge}>
                     {career.experience}
                   </span>
                 )}
               </div>
 
-              {/* Content */}
-              <div className="flex flex-1 flex-col p-6">
-                {/* Role */}
+              <div className={theme.careers.cardBody}>
                 {career.role && (
-                  <span className="mb-2 text-sm font-medium text-primary">
+                  <span className={theme.careers.role}>
                     {career.role}
                   </span>
                 )}
 
-                {/* Position */}
-                <h3 className="text-xl font-bold text-gray-900 transition-colors group-hover:text-primary">
+                <h3 className={theme.careers.cardTitle}>
                   {career.position}
                 </h3>
 
-                {/* Description */}
-                <p className="mt-3 line-clamp-3 text-sm leading-6 text-gray-600">
+                <p className={theme.careers.cardDescription}>
                   {career.description}
                 </p>
 
-                {/* Requirements */}
                 {career.requirements?.length > 0 && (
-                  <div className="mt-5 flex items-center gap-2 text-sm text-gray-500">
+                  <div className={theme.careers.requirementsWrapper}>
                     <svg
-                      className="h-4 w-4 text-primary"
+                      className={theme.careers.requirementsIcon}
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -116,22 +103,19 @@ export default function CareersList({
                       />
                     </svg>
 
-                    <span>
-                      {career.requirements.length} requirements
-                    </span>
+                    <span>{career.requirements.length} requirements</span>
                   </div>
                 )}
 
-                {/* Button */}
-                <div className="mt-auto pt-6">
+                <div className={theme.careers.actionWrapper}>
                   <Link
                     href={`/careers/${career.slug}`}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary"
+                    className={theme.careers.actionButton}
                   >
                     View position
 
                     <svg
-                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1"
+                      className={theme.careers.actionIcon}
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >

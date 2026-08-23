@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Locale, TransalatedCategories } from "@/types";
 import { useTranslations } from "next-intl";
+import { theme } from "@/themes";
 
 export default function CategoriesListComponent({
   categories,
@@ -13,52 +14,46 @@ export default function CategoriesListComponent({
   const isAr = locale === "ar";
 
   return (
-    <main className="bg-white text-black">
+    <main className={theme.categoriesList.main}>
       {/* Hero */}
-      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
-        <div className="max-w-3xl">
-          <h1 className="text-5xl font-semibold tracking-tight md:text-6xl">
+      <section className={theme.categoriesList.heroSection}>
+        <div className={theme.categoriesList.heroContent}>
+          <h1 className={theme.categoriesList.title}>
             {t("TITLE")}
           </h1>
 
-          <p className="mt-6 text-lg leading-relaxed text-neutral-500">
+          <p className={theme.categoriesList.description}>
             {t("DESCRIPTION")}
           </p>
         </div>
       </section>
 
       {/* Categories Grid */}
-      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section className={theme.categoriesList.gridSection}>
+        <div className={theme.categoriesList.grid}>
           {categories.map((cat) => (
             <Link
               key={cat.slug}
               href={`/products?page=1&categories=${encodeURIComponent(cat.id)}`}
-              className=" group relative overflow-hidden rounded-3xl aspect-square border border-neutral-100 shadow-sm transition-all duration-500 hover:shadow-xl"
+              className={theme.categoriesList.card}
             >
               {/* Image */}
               <img
                 src={`https://picsum.photos/seed/${cat.slug}/900/900`}
                 alt={cat.name}
-                className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                className={theme.categoriesList.image}
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+              <div className={theme.categoriesList.overlay} />
 
               {/* Content */}
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <h2 className="text-2xl font-medium tracking-tight text-white">
+              <div className={theme.categoriesList.content}>
+                <h2 className={theme.categoriesList.cardTitle}>
                   {cat.name}
                 </h2>
 
-                <div
-                  className={`mt-2 flex items-center gap-2 text-sm text-white/80 opacity-0 transition-all duration-500 group-hover:opacity-100 ${
-                    isAr
-                      ? "group-hover:-translate-x-1"
-                      : "group-hover:translate-x-1"
-                  }`}
-                >
+                <div className={theme.categoriesList.exploreLink(isAr)}>
                   {t("EXPLORE_COLLECTION")} {isAr ? "←" : "→"}
                 </div>
               </div>

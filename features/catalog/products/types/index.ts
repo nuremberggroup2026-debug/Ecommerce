@@ -117,6 +117,7 @@ export type ProductByLocale = {
   cartItems: {
     quantity: number;
     variantId: string;
+    product:Product
   }[];
   isInWishlist: boolean;
 };

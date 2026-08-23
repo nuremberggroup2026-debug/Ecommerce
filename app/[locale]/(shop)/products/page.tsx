@@ -8,6 +8,7 @@ import SortFilter from "@/features/catalog/filters/SortFilter";
 import PriceFilter from "@/features/catalog/filters/PriceFilter";
 import { Locale, SortType } from "@/types";
 import { getTranslations } from "next-intl/server";
+import { theme } from "@/themes";
 
 export default async function ProductsPage({
   params,
@@ -64,34 +65,34 @@ export default async function ProductsPage({
   }
 
   return (
-    <main className="min-h-screen bg-neutral-50/50 text-black">
-      <section className="mx-auto max-w-7xl px-6 pt-16 pb-12 lg:px-10 text-center">
-        <div className="space-y-3">
-          <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
+    <main className={theme.productsPage.main}>
+      <section className={theme.productsPage.heroSection}>
+        <div className={theme.productsPage.heroSpace}>
+          <h1 className={theme.productsPage.title}>
             {t("TITLE")}
           </h1>
 
-          <p className="text-sm text-gray-400 font-light max-w-md mx-auto">
+          <p className={theme.productsPage.description}>
             {t("DESCRIPTION")}
           </p>
         </div>
 
-        <div className="mt-10 flex items-center justify-between border-b border-gray-100 pb-5 text-sm">
-          <span className="text-gray-400 font-medium">
+        <div className={theme.productsPage.controlsRow}>
+          <span className={theme.productsPage.itemsCount}>
             {t("ITEMS_COUNT", { count: premium.length })}
           </span>
 
-          <div className="flex items-center gap-2">
-            <span className="text-gray-400">{t("SORT_BY")}</span>
+          <div className={theme.productsPage.sortWrapper}>
+            <span className={theme.productsPage.sortLabel}>{t("SORT_BY")}</span>
             <SortFilter />
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-12 lg:px-10 grid grid-cols-1 lg:grid-cols-4 gap-10">
-        <aside className="hidden lg:block space-y-8 sticky top-28 h-fit">
-          <div className="bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm">
-            <h3 className="font-semibold text-xs uppercase tracking-wider text-gray-400 mb-4">
+      <section className={theme.productsPage.contentSection}>
+        <aside className={theme.productsPage.aside}>
+          <div className={theme.productsPage.searchBox}>
+            <h3 className={theme.productsPage.searchTitle}>
               {t("SEARCH")}
             </h3>
 
@@ -100,7 +101,7 @@ export default async function ProductsPage({
                 name="search"
                 defaultValue={search}
                 placeholder={t("SEARCH_PLACEHOLDER")}
-                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-2 text-xs outline-none transition-colors focus:border-neutral-900"
+                className={theme.productsPage.searchInput}
               />
             </form>
           </div>
@@ -110,8 +111,8 @@ export default async function ProductsPage({
           <PriceFilter />
         </aside>
 
-        <div className="lg:col-span-3 space-y-14">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
+        <div className={theme.productsPage.productsCol}>
+          <div className={theme.productsPage.productsGrid}>
             {premium.map((product) => {
               const isInWishlist =
                 productsIdsInWishlist &&

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AllOrdersByUser, OrderStatus } from "../../types";
 import { getStatusColor, formatDate } from "@/lib/helpers/clientSideHelpers";
+import { theme } from "@/themes";
 
 interface Props {
   orders: AllOrdersByUser[];
@@ -13,6 +14,7 @@ interface Props {
 
 export default function OrdersComponent({ orders, locale }: Props) {
   const t = useTranslations("ORDERS");
+  const isAr = locale === "ar";
 
   const [expandedOrder, setExpandedOrder] = useState<string | null>(
     orders[0]?.id || null,
@@ -23,118 +25,109 @@ export default function OrdersComponent({ orders, locale }: Props) {
   };
 
   return (
-    <main
-      dir={locale === "ar" ? "rtl" : "ltr"}
-      className="flex min-h-screen flex-col bg-white text-black"
-    >
-      <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 py-20 lg:px-10">
+    <main className={theme.ordersComponent.main(isAr)}>
+      <div className={theme.ordersComponent.container}>
         {/* Header */}
-        <header className="mb-12 border-b border-neutral-100 pb-6 text-center md:text-left">
-          <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+        <header className={theme.ordersComponent.header}>
+          <h1 className={theme.ordersComponent.title}>
             {t("TITLE")}
           </h1>
 
-          <p className="mt-2 text-xs font-light text-gray-400">
+          <p className={theme.ordersComponent.description}>
             {t("DESCRIPTION")}
           </p>
         </header>
 
         {/* Empty State */}
         {orders.length === 0 ? (
-          <div className="flex flex-1 flex-col items-center justify-center space-y-6 py-20 text-center">
-            <p className="text-sm font-light text-gray-400">
+          <div className={theme.ordersComponent.emptyContainer}>
+            <p className={theme.ordersComponent.emptyMessage}>
               {t("EMPTY_MESSAGE")}
             </p>
 
             <Link
               href={`/${locale}/products`}
-              className="rounded-full bg-black px-8 py-4 text-xs font-semibold uppercase tracking-widest text-white shadow-sm transition hover:bg-neutral-800 active:scale-[0.98]"
+              className={theme.ordersComponent.emptyButton}
             >
               {t("START_SHOPPING")}
             </Link>
           </div>
         ) : (
           /* Orders List */
-          <div className="space-y-6">
+          <div className={theme.ordersComponent.ordersList}>
             {orders.map((order) => {
               const isExpanded = expandedOrder === order.id;
 
               return (
                 <div
                   key={order.id}
-                  className={`overflow-hidden rounded-3xl border transition-all duration-300 ${
-                    isExpanded
-                      ? "border-neutral-200 bg-white shadow-md"
-                      : "border-neutral-100 bg-neutral-50/50 hover:border-neutral-200"
-                  }`}
+                  className={theme.ordersComponent.orderCard(isExpanded)}
                 >
                   {/* Order Summary */}
                   <button
                     type="button"
                     onClick={() => toggleOrder(order.id)}
-                    className="flex w-full flex-wrap items-center justify-between gap-4 p-6 text-left focus:outline-none"
+                    className={theme.ordersComponent.orderButton}
                   >
-                    <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+                    <div className={theme.ordersComponent.orderInfoGrid}>
                       {/* Order ID */}
                       <div>
-                        <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                        <p className={theme.ordersComponent.fieldLabel}>
                           {t("ORDER_ID")}
                         </p>
 
-                        <p className="text-sm font-medium text-neutral-900">
+                        <p className={theme.ordersComponent.fieldValue}>
                           {order.orderNumber}
                         </p>
                       </div>
 
                       {/* Date */}
                       <div>
-                        <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                        <p className={theme.ordersComponent.fieldLabel}>
                           {t("DATE")}
                         </p>
 
-                        <p className="text-sm text-neutral-700">
+                        <p className={theme.ordersComponent.fieldValueRegular}>
                           {formatDate(order.createdAt)}
                         </p>
                       </div>
 
                       {/* Items Count */}
                       <div>
-                        <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                        <p className={theme.ordersComponent.fieldLabel}>
                           {t("ITEMS")}
                         </p>
 
-                        <p className="text-sm text-neutral-700">
+                        <p className={theme.ordersComponent.fieldValueRegular}>
                           {order._count.orderItems}
                         </p>
                       </div>
 
                       {/* Total */}
                       <div>
-                        <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                        <p className={theme.ordersComponent.fieldLabel}>
                           {t("TOTAL")}
                         </p>
 
-                        <p className="text-sm font-bold text-black">
+                        <p className={theme.ordersComponent.fieldValueBold}>
                           ${Number(order.totalAmount).toFixed(2)}
                         </p>
                       </div>
                     </div>
 
-                    <div className="ml-auto flex items-center gap-6">
+                    <div className={theme.ordersComponent.cardHeaderRight}>
                       {/* Status */}
                       <span
-                        className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${getStatusColor(
-                          order.status as OrderStatus,
-                        )}`}
+                        className={theme.ordersComponent.statusBadge(
+                          getStatusColor(order.status as OrderStatus),
+                        )}
                       >
                         {t(`STATUS.${order.status}`)}
                       </span>
 
                       {/* Expand Icon */}
                       <svg
-                        className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
-                          isExpanded ? "rotate-180" : ""
-                        }`}
+                        className={theme.ordersComponent.expandIcon(isExpanded)}
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="1.5"
@@ -150,36 +143,30 @@ export default function OrdersComponent({ orders, locale }: Props) {
                   </button>
 
                   {/* Expanded Details */}
-                  <div
-                    className={`grid transition-all duration-300 ease-in-out ${
-                      isExpanded
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="mt-2 border-t border-neutral-100 p-6 pt-4">
+                  <div className={theme.ordersComponent.expandedGrid(isExpanded)}>
+                    <div className={theme.ordersComponent.expandedInner}>
+                      <div className={theme.ordersComponent.expandedContent}>
                         {/* Order Pricing */}
-                        <div className="space-y-3">
+                        <div className={theme.ordersComponent.pricingSpace}>
                           {/* Subtotal */}
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-neutral-500">
+                          <div className={theme.ordersComponent.pricingRow}>
+                            <span className={theme.ordersComponent.pricingLabel}>
                               {t("SUBTOTAL")}
                             </span>
 
-                            <span className="font-medium text-neutral-900">
+                            <span className={theme.ordersComponent.pricingValue}>
                               ${Number(order.subtotal).toFixed(2)}
                             </span>
                           </div>
 
                           {/* Discount */}
                           {Number(order.discountAmount) > 0 && (
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-neutral-500">
+                            <div className={theme.ordersComponent.pricingRow}>
+                              <span className={theme.ordersComponent.pricingLabel}>
                                 {t("DISCOUNT")}
                               </span>
 
-                              <span className="font-medium text-green-600">
+                              <span className={theme.ordersComponent.discountValue}>
                                 -$
                                 {Number(order.discountAmount).toFixed(2)}
                               </span>
@@ -187,35 +174,35 @@ export default function OrdersComponent({ orders, locale }: Props) {
                           )}
 
                           {/* Total */}
-                          <div className="flex items-center justify-between border-t border-neutral-100 pt-3">
-                            <span className="font-medium text-neutral-900">
+                          <div className={theme.ordersComponent.totalPricingRow}>
+                            <span className={theme.ordersComponent.totalPricingLabel}>
                               {t("TOTAL")}
                             </span>
 
-                            <span className="text-lg font-bold text-neutral-900">
+                            <span className={theme.ordersComponent.totalPricingValue}>
                               ${Number(order.totalAmount).toFixed(2)}
                             </span>
                           </div>
                         </div>
 
                         {/* Items Count */}
-                        <div className="mt-6 rounded-2xl bg-neutral-50 p-4">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs text-neutral-500">
+                        <div className={theme.ordersComponent.itemsBox}>
+                          <div className={theme.ordersComponent.itemsBoxRow}>
+                            <span className={theme.ordersComponent.itemsBoxLabel}>
                               {t("ITEMS_IN_ORDER")}
                             </span>
 
-                            <span className="text-sm font-semibold text-neutral-900">
+                            <span className={theme.ordersComponent.itemsBoxValue}>
                               {order._count.orderItems}
                             </span>
                           </div>
                         </div>
 
                         {/* Action */}
-                        <div className="mt-8 flex justify-end">
+                        <div className={theme.ordersComponent.actionContainer}>
                           <Link
                             href={`/${locale}/orders/${order.id}`}
-                            className="rounded-xl bg-black px-5 py-2.5 text-[11px] font-semibold uppercase tracking-widest text-white shadow-sm transition hover:bg-neutral-800"
+                            className={theme.ordersComponent.actionButton}
                           >
                             {t("VIEW_ORDER_DETAILS")}
                           </Link>

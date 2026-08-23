@@ -1,0 +1,23 @@
+export const orderSummaryTheme = {
+  container: (isAr: boolean) =>
+    `rounded-[32px] bg-neutral-50 p-6 sm:p-8 ${isAr ? "rtl" : "ltr"}`,
+  header: "mb-8",
+  title: "text-sm font-semibold uppercase tracking-wider text-neutral-900",
+  itemsCount: "mt-2 text-xs text-neutral-400",
+  itemsList: "space-y-6 border-b border-neutral-200 pb-8",
+  subtotalRow: "flex items-center justify-between pt-6",
+  subtotalLabel: "text-sm text-neutral-500",
+  subtotalValue: "text-sm font-medium text-neutral-900",
+  promoSection: "mt-6 border-b border-neutral-200 pb-6",
+  promoFlex: "flex gap-2",
+  promoInput: "min-w-0 flex-1 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-neutral-400",
+  promoButton: "rounded-xl bg-neutral-900 px-5 py-3 text-xs font-medium uppercase tracking-wider text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50",
+  discountRow: "flex items-center justify-between py-4 text-sm",
+  discountLabel: "text-neutral-500",
+  discountValue: "font-medium text-green-600",
+  totalRow: "flex items-center justify-between pt-2",
+  totalLabel: "font-medium text-neutral-900",
+  totalWrapper: "text-right",
+  oldTotalValue: "text-sm text-neutral-400 line-through",
+  finalTotalValue: "text-xl font-bold text-neutral-900",
+};

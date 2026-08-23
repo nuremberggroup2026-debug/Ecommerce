@@ -4,6 +4,7 @@ import type { ProductByLocale } from "../../types";
 import { addItemToCart } from "@/features/cart/api/cart.client.api";
 import { useTranslations } from "next-intl";
 import { toastResponse } from "@/lib/toast";
+import { theme } from "@/themes";
 
 type Props = {
   product: ProductByLocale;
@@ -49,72 +50,66 @@ export default function ProductInfo({
   };
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-xs uppercase tracking-widest text-gray-400 font-medium">
+    <div className={theme.productInfo.container}>
+      <div className={theme.productInfo.headerSpace}>
+        <div className={theme.productInfo.brandRow}>
+          <span className={theme.productInfo.brandText}>
             {product.productData.productName}
           </span>
-          <div className="flex items-center gap-2">
+          <div className={theme.productInfo.stockRow}>
             <span
-              className={`h-1.5 w-1.5 rounded-full ${
-                isOutOfStock
-                  ? "bg-red-500"
-                  : selectedVariant.stock > 5
-                    ? "bg-emerald-500"
-                    : "bg-amber-500"
-              }`}
+              className={theme.productInfo.stockIndicator(
+                isOutOfStock,
+                selectedVariant.stock
+              )}
             />
-            <span className="text-[11px] font-medium text-neutral-500">
+            <span className={theme.productInfo.stockText}>
               {isOutOfStock
                 ? t("Product.outOfStock")
                 : selectedVariant.stock > 5
-                  ? t("Product.inStock")
-                  : t("Product.onlyItemsLeft", {
-                      count: selectedVariant.stock,
-                    })}
+                ? t("Product.inStock")
+                : t("Product.onlyItemsLeft", {
+                    count: selectedVariant.stock,
+                  })}
             </span>
           </div>
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
+        <h1 className={theme.productInfo.title}>
           {product.productData.productName}
         </h1>
-        <div className="flex items-center gap-4 pt-1">
-          <p className="text-xl font-bold tracking-tight text-black">
+        <div className={theme.productInfo.priceRow}>
+          <p className={theme.productInfo.price}>
             ${selectedVariant.finalPrice}
           </p>
           {Number(selectedVariant.discountPercentage) > 0 && (
-            <p className="text-sm text-neutral-400 line-through">
+            <p className={theme.productInfo.oldPrice}>
               ${selectedVariant.price}
             </p>
           )}
         </div>
       </div>
 
-      <hr className="border-neutral-100" />
+      <hr className={theme.productInfo.divider} />
 
-      <div className="space-y-3">
-        <p className="text-sm text-gray-400 leading-relaxed font-light">
+      <div className={theme.productInfo.descriptionSpace}>
+        <p className={theme.productInfo.descriptionText}>
           {product.productData.productDescription}
         </p>
       </div>
 
       {product.productData.productVariants.length > 1 && (
-        <div className="space-y-3">
-          <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-800 block">
+        <div className={theme.productInfo.variantsContainer}>
+          <label className={theme.productInfo.variantsLabel}>
             {t("Product.options")}
           </label>
-          <div className="flex flex-wrap gap-2">
+          <div className={theme.productInfo.variantsGrid}>
             {product.productData.productVariants.map((variant) => {
+              const isSelected = selectedVariant.variantId === variant.variantId;
               return (
                 <button
                   key={variant.variantId}
                   onClick={() => handleVariantChange(variant)}
-                  className={`rounded-xl border px-4 py-2 text-sm transition ${
-                    selectedVariant.variantId === variant.variantId
-                      ? "border-black bg-black text-white"
-                      : "border-neutral-200 hover:border-black"
-                  }`}
+                  className={theme.productInfo.variantButton(isSelected)}
                 >
                   {variant.attributes.length > 0
                     ? variant.attributes
@@ -128,34 +123,32 @@ export default function ProductInfo({
         </div>
       )}
 
-      <span className="text-[10px] text-gray-300 font-mono block">
+      <span className={theme.productInfo.skuText}>
         {t("Product.sku")}: {selectedVariant.sku}
       </span>
 
-      <div className="space-y-3">
-        <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-800 block">
+      <div className={theme.productInfo.descriptionSpace}>
+        <label className={theme.productInfo.variantsLabel}>
           {t("Product.quantity")}
         </label>
 
-        <div
-          className={`inline-flex items-center border border-neutral-200 rounded-full bg-white p-1 shadow-sm ${isOutOfStock ? "opacity-50" : ""}`}
-        >
+        <div className={theme.productInfo.quantityBox(isOutOfStock)}>
           <button
             onClick={() => handleQuantityChange(-1)}
             disabled={quantity <= 1 || isOutOfStock}
-            className="p-2 text-gray-400 hover:text-black disabled:opacity-30 disabled:hover:text-gray-400"
+            className={theme.productInfo.quantityButton}
           >
             -
           </button>
 
-          <span className="w-10 text-center text-xs font-semibold">
+          <span className={theme.productInfo.quantityValue}>
             {quantity}
           </span>
 
           <button
             onClick={() => handleQuantityChange(1)}
             disabled={quantity >= selectedVariant.stock || isOutOfStock}
-            className="p-2 text-gray-400 hover:text-black disabled:opacity-30 disabled:hover:text-gray-400"
+            className={theme.productInfo.quantityButton}
           >
             +
           </button>
@@ -165,11 +158,7 @@ export default function ProductInfo({
       <button
         onClick={() => handleAddItem()}
         disabled={isOutOfStock}
-        className={`w-full py-4 text-xs font-semibold uppercase tracking-widest text-white rounded-2xl transition shadow-sm active:scale-[0.98] ${
-          isOutOfStock
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-black hover:bg-neutral-800"
-        }`}
+        className={theme.productInfo.addButton(isOutOfStock)}
       >
         {isOutOfStock ? t("Product.outOfStock") : t("Product.addToBag")}
       </button>

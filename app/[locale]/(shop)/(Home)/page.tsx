@@ -51,9 +51,6 @@ export default async function Home({ params }: Prop) {
 
       <PromoBanner />
 
-      <div className="bg-white">
-        <ProductShowcaseTabs />
-      </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="border-t border-gray-100" />

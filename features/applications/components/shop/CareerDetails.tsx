@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { TransalatedCareer } from "../../types";
+import { theme } from "@/themes";
 
 export default function CareerDetails({
   career,
@@ -12,52 +13,52 @@ export default function CareerDetails({
   const t = useTranslations("ApplicationPage");
 
   return (
-    <div className="space-y-8">
+    <div className={theme.careerDetailsWidget.container}>
       {/* Image */}
-      <div className="relative aspect-4/3 w-full overflow-hidden rounded-3xl bg-neutral-100">
+      <div className={theme.careerDetailsWidget.imageWrapper}>
         <Image
           src={career.image}
           alt={career.position}
           fill
-          className="object-cover"
+          className={theme.careerDetailsWidget.image}
         />
       </div>
 
       {/* Title & Basics */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+        <h1 className={theme.careerDetailsWidget.title}>
           {career.position}
         </h1>
-        <div className="mt-4 flex flex-wrap gap-4">
+        <div className={theme.careerDetailsWidget.badgesWrapper}>
           {career.role && (
-            <span className="rounded-full border border-neutral-200 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-600">
+            <span className={theme.careerDetailsWidget.badge}>
               {t("ROLE")}: {career.role}
             </span>
           )}
           {career.experience && (
-            <span className="rounded-full border border-neutral-200 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-600">
+            <span className={theme.careerDetailsWidget.badge}>
               {t("EXPERIENCE")}: {career.experience}
             </span>
           )}
         </div>
       </div>
 
-      <hr className="border-neutral-100" />
+      <hr className={theme.careerDetailsWidget.divider} />
 
       {/* Description */}
-      <div className="space-y-4">
-        <p className="text-sm font-light leading-relaxed text-neutral-500">
+      <div className={theme.careerDetailsWidget.descriptionSection}>
+        <p className={theme.careerDetailsWidget.description}>
           {career.description}
         </p>
       </div>
 
       {/* Requirements */}
       {career.requirements && career.requirements.length > 0 && (
-        <div className="space-y-4">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
+        <div className={theme.careerDetailsWidget.requirementsSection}>
+          <h3 className={theme.careerDetailsWidget.requirementsTitle}>
             {t("REQUIREMENTS")}
           </h3>
-          <ul className="list-inside list-disc space-y-2 text-sm font-light text-neutral-500">
+          <ul className={theme.careerDetailsWidget.requirementsList}>
             {career.requirements.map((req, idx) => (
               <li key={idx}>{req}</li>
             ))}

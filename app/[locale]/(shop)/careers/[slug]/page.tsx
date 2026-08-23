@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Locale } from "@/types";
 import { careerBySlug } from "@/features/careers/api/careers.server.api";
+import { theme } from "@/themes";
 
 interface Props {
   params: Promise<{
@@ -28,31 +29,31 @@ export default async function CareerDetailsPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className={theme.careerDetails.main}>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gray-950">
-        <div className="absolute inset-0">
+      <section className={theme.careerDetails.heroSection}>
+        <div className={theme.careerDetails.heroImageWrapper}>
           {career.image && (
             <Image
               src={career.image}
               alt={career.position}
               fill
               priority
-              className="object-cover opacity-30"
+              className={theme.careerDetails.heroImage}
               sizes="100vw"
             />
           )}
 
-          <div className="absolute inset-0 bg-linear-to-r from-gray-950 via-gray-950/90 to-gray-950/40" />
+          <div className={theme.careerDetails.heroOverlay} />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        <div className={theme.careerDetails.heroContainer}>
           <Link
             href={`/${locale}/careers`}
-            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/70 transition hover:text-white"
+            className={theme.careerDetails.backLink}
           >
             <svg
-              className="h-4 w-4 rtl:rotate-180"
+              className={theme.careerDetails.backIcon}
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -66,23 +67,23 @@ export default async function CareerDetailsPage({ params }: Props) {
           </Link>
 
           {career.role && (
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary-400">
+            <p className={theme.careerDetails.role}>
               {career.role}
             </p>
           )}
 
-          <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className={theme.careerDetails.title}>
             {career.position}
           </h1>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className={theme.careerDetails.metaWrapper}>
             {career.experience && (
-              <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white backdrop-blur">
+              <span className={theme.careerDetails.badge}>
                 {career.experience}
               </span>
             )}
 
-            <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white backdrop-blur">
+            <span className={theme.careerDetails.badge}>
               {career.requirements.length} Requirements
             </span>
           </div>
@@ -90,39 +91,39 @@ export default async function CareerDetailsPage({ params }: Props) {
       </section>
 
       {/* Content */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1fr_350px]">
+      <section className={theme.careerDetails.contentSection}>
+        <div className={theme.careerDetails.grid}>
           {/* Main */}
-          <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-10">
+          <div className={theme.careerDetails.card}>
             {/* Description */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className={theme.careerDetails.sectionTitle}>
                 About the position
               </h2>
 
-              <p className="mt-5 whitespace-pre-line text-base leading-8 text-gray-600">
+              <p className={theme.careerDetails.description}>
                 {career.description}
               </p>
             </div>
 
             {/* Requirements */}
             {career.requirements.length > 0 && (
-              <div className="mt-12 border-t border-gray-100 pt-10">
-                <h2 className="text-2xl font-bold text-gray-900">
+              <div className={theme.careerDetails.requirementsSection}>
+                <h2 className={theme.careerDetails.sectionTitle}>
                   Requirements
                 </h2>
 
-                <ul className="mt-6 space-y-4">
+                <ul className={theme.careerDetails.requirementsList}>
                   {career.requirements.map((requirement, index) => (
                     <li
                       key={`${career.id}-requirement-${index}`}
-                      className="flex gap-4 text-gray-600"
+                      className={theme.careerDetails.requirementItem}
                     >
-                      <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                      <span className={theme.careerDetails.requirementIcon}>
                         ✓
                       </span>
 
-                      <span className="leading-7">{requirement}</span>
+                      <span className={theme.careerDetails.requirementText}>{requirement}</span>
                     </li>
                   ))}
                 </ul>
@@ -131,29 +132,27 @@ export default async function CareerDetailsPage({ params }: Props) {
           </div>
 
           {/* Sidebar */}
-          <aside className="h-fit lg:sticky lg:top-8">
-            <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-gray-900">
+          <aside className={theme.careerDetails.sidebar}>
+            <div className={theme.careerDetails.sidebarCard}>
+              <h3 className={theme.careerDetails.sidebarTitle}>
                 Interested in this position?
               </h3>
 
-              <p className="mt-3 text-sm leading-6 text-gray-500">
+              <p className={theme.careerDetails.sidebarDescription}>
                 If you think you are a good fit for this position, we would love
                 to hear from you.
               </p>
-              <Link href={`/${locale}/careers/${career.slug}/apply`}>
-                {" "}
-                <button
-                  type="button"
-                  className="mt-6 w-full rounded-xl bg-gray-900 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-primary"
-                >
-                  Apply for this position
-                </button>
+              
+              <Link
+                href={`/${locale}/careers/${career.slug}/apply`}
+                className={theme.careerDetails.applyButton}
+              >
+                Apply for this position
               </Link>
 
               <Link
                 href={`/${locale}/careers`}
-                className="mt-3 flex w-full items-center justify-center rounded-xl border border-gray-200 px-5 py-3.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+                className={theme.careerDetails.viewAllButton}
               >
                 View all positions
               </Link>

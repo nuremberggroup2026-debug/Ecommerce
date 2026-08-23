@@ -5,6 +5,7 @@ import { Locale, CartData } from "../types";
 import CustomerDetails from "./CustomerDetails";
 import OrderSummary from "./OrderSummary";
 import { useTranslations } from "next-intl";
+import { theme } from "@/themes";
 
 interface Prop {
   locale: Locale;
@@ -17,18 +18,18 @@ function CheckoutComponent({ locale, cartData }: Prop) {
   const t = useTranslations("CHECKOUT");
 
   return (
-    <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-16">
+    <div className={theme.checkout.grid}>
       {/* Left Side — Customer Details */}
-      <section className="lg:col-span-7">
-        <div className="rounded-[32px] border border-neutral-100 bg-white p-6 shadow-sm sm:p-8">
-          <div className="mb-8">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-400">
+      <section className={theme.checkout.leftSection}>
+        <div className={theme.checkout.card}>
+          <div className={theme.checkout.header}>
+            <p className={theme.checkout.step}>
               {t("STEP_01")}
             </p>
-            <h2 className="mt-2 text-xl font-semibold tracking-tight">
+            <h2 className={theme.checkout.title}>
               {t("DELIVERY_DETAILS")}
             </h2>
-            <p className="mt-2 text-sm leading-6 text-neutral-400">
+            <p className={theme.checkout.description}>
               {t("DELIVERY_DESC")}
             </p>
           </div>
@@ -38,7 +39,7 @@ function CheckoutComponent({ locale, cartData }: Prop) {
       </section>
 
       {/* Right Side — Order Summary */}
-      <aside className="lg:col-span-5 lg:sticky lg:top-8">
+      <aside className={theme.checkout.rightSection}>
         <OrderSummary
           locale={locale}
           cartData={cartData}

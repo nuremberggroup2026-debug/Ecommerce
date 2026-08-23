@@ -1,0 +1,16 @@
+export const orderSummaryItemTheme = {
+  container: "flex gap-4",
+  imageWrapper: "relative h-24 w-20 shrink-0 overflow-hidden rounded-2xl bg-white",
+  image: "object-cover",
+  contentWrapper: "min-w-0 flex-1",
+  headerRow: "flex items-start justify-between gap-4",
+  infoCol: "min-w-0",
+  title: "truncate text-sm font-medium text-neutral-900",
+  sku: "mt-1 text-xs text-neutral-400",
+  subtotal: "shrink-0 text-sm font-semibold text-neutral-900",
+  attributesWrapper: "mt-2 flex flex-wrap gap-x-3 gap-y-1",
+  attributeSpan: "text-xs text-neutral-400",
+  footerRow: "mt-3 flex items-center justify-between",
+  quantityText: "text-xs text-neutral-400",
+  unitPriceText: "text-xs text-neutral-400",
+};

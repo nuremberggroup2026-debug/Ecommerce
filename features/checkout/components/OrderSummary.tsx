@@ -6,6 +6,7 @@ import { useState } from "react";
 import { validatePromoCode } from "../api/checkout.client.api";
 import { toast } from "sonner";
 import OrderSummaryItem from "./OrderSummaryItem";
+import { theme } from "@/themes";
 
 interface Props {
   locale: Locale;
@@ -15,6 +16,7 @@ interface Props {
 
 function OrderSummary({ locale, cartData, onPromoCodeChange }: Props) {
   const t = useTranslations();
+  const isAr = locale === "ar";
 
   const [promoCodeInput, setPromoCodeInput] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -69,49 +71,46 @@ function OrderSummary({ locale, cartData, onPromoCodeChange }: Props) {
   const total = subtotal - discountAmount;
 
   return (
-    <div
-      dir={locale === "ar" ? "rtl" : "ltr"}
-      className="rounded-[32px] bg-neutral-50 p-6 sm:p-8"
-    >
+    <div className={theme.orderSummary.container(isAr)}>
       {/* Header */}
-      <div className="mb-8">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-neutral-900">
+      <div className={theme.orderSummary.header}>
+        <h2 className={theme.orderSummary.title}>
           {t("CHECKOUT.ORDER_SUMMARY")}
         </h2>
 
-        <p className="mt-2 text-xs text-neutral-400">
+        <p className={theme.orderSummary.itemsCount}>
           {t("CHECKOUT.ITEMS_COUNT", { count: cartData.items.length })}
         </p>
       </div>
 
       {/* Cart Items */}
-      <div className="space-y-6 border-b border-neutral-200 pb-8">
+      <div className={theme.orderSummary.itemsList}>
         {cartData.items.map((item) => (
           <OrderSummaryItem item={item} key={item.cartItemId} />
         ))}
       </div>
 
       {/* Subtotal */}
-      <div className="flex items-center justify-between pt-6">
-        <span className="text-sm text-neutral-500">
+      <div className={theme.orderSummary.subtotalRow}>
+        <span className={theme.orderSummary.subtotalLabel}>
           {t("CHECKOUT.SUBTOTAL")}
         </span>
 
-        <span className="text-sm font-medium text-neutral-900">
+        <span className={theme.orderSummary.subtotalValue}>
           ${subtotal.toFixed(2)}
         </span>
       </div>
 
       {/* Promo Code */}
-      <div className="mt-6 border-b border-neutral-200 pb-6">
-        <div className="flex gap-2">
+      <div className={theme.orderSummary.promoSection}>
+        <div className={theme.orderSummary.promoFlex}>
           <input
             type="text"
             value={promoCodeInput}
             onChange={(e) => handlePromoCodeChange(e.target.value)}
             placeholder={t("CHECKOUT.PROMO_CODE")}
             disabled={isApplyingPromo}
-            className="min-w-0 flex-1 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-neutral-400"
+            className={theme.orderSummary.promoInput}
           />
 
           <button
@@ -120,7 +119,7 @@ function OrderSummary({ locale, cartData, onPromoCodeChange }: Props) {
             disabled={
               isApplyingPromo || !promoCodeInput.trim() || isPromoApplied
             }
-            className="rounded-xl bg-neutral-900 px-5 py-3 text-xs font-medium uppercase tracking-wider text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
+            className={theme.orderSummary.promoButton}
           >
             {isApplyingPromo
               ? t("CHECKOUT.APPLYING")
@@ -133,27 +132,27 @@ function OrderSummary({ locale, cartData, onPromoCodeChange }: Props) {
 
       {/* Discount */}
       {discount > 0 && (
-        <div className="flex items-center justify-between py-4 text-sm">
-          <span className="text-neutral-500">{t("CHECKOUT.DISCOUNT")}</span>
+        <div className={theme.orderSummary.discountRow}>
+          <span className={theme.orderSummary.discountLabel}>{t("CHECKOUT.DISCOUNT")}</span>
 
-          <span className="font-medium text-green-600">-{discount}%</span>
+          <span className={theme.orderSummary.discountValue}>-{discount}%</span>
         </div>
       )}
 
       {/* Total */}
-      <div className="flex items-center justify-between pt-2">
-        <span className="font-medium text-neutral-900">
+      <div className={theme.orderSummary.totalRow}>
+        <span className={theme.orderSummary.totalLabel}>
           {t("CHECKOUT.TOTAL")}
         </span>
 
-        <div className="text-right">
+        <div className={theme.orderSummary.totalWrapper}>
           {discount > 0 && (
-            <p className="text-sm text-neutral-400 line-through">
+            <p className={theme.orderSummary.oldTotalValue}>
               ${subtotal.toFixed(2)}
             </p>
           )}
 
-          <span className="text-xl font-bold text-neutral-900">
+          <span className={theme.orderSummary.finalTotalValue}>
             ${total.toFixed(2)}
           </span>
         </div>

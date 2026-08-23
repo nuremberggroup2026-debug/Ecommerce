@@ -1,3 +1,5 @@
+import { theme } from "@/themes";
+
 export function StoreFeaturesSection() {
   const features = [
     {
@@ -6,7 +8,7 @@ export function StoreFeaturesSection() {
         "Carefully packed and shipped directly to your doorstep in record time.",
       icon: (
         <svg
-          className="h-5 w-5"
+          className={theme.storeFeatures.icon}
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
@@ -26,7 +28,7 @@ export function StoreFeaturesSection() {
         "Every item in our collection is strictly curated to ensure premium standards.",
       icon: (
         <svg
-          className="h-5 w-5"
+          className={theme.storeFeatures.icon}
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
@@ -46,7 +48,7 @@ export function StoreFeaturesSection() {
         "Your data and payments are fully encrypted and protected at all times.",
       icon: (
         <svg
-          className="h-5 w-5"
+          className={theme.storeFeatures.icon}
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
@@ -63,25 +65,25 @@ export function StoreFeaturesSection() {
   ];
 
   return (
-    <section className="bg-white py-20 border-t border-neutral-100">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 divide-y divide-neutral-100 lg:divide-y-0 lg:divide-x lg:divide-neutral-100">
+    <section className={theme.storeFeatures.section}>
+      <div className={theme.storeFeatures.container}>
+        <div className={theme.storeFeatures.grid}>
           {features.map((item, index) => (
             <div
               key={index}
-              className={`flex flex-col items-center text-center sm:items-start sm:text-left space-y-4 ${
-                index !== 0 ? "pt-12 lg:pt-0 lg:pl-12" : ""
+              className={`${theme.storeFeatures.item} ${
+                index !== 0 ? theme.storeFeatures.itemSpacing : ""
               }`}
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral-50 text-neutral-800 border border-neutral-200/60 shadow-sm transition-colors duration-300 hover:bg-black hover:text-white">
+              <div className={theme.storeFeatures.iconBox}>
                 {item.icon}
               </div>
 
-              <div className="space-y-1.5">
-                <h3 className="text-sm font-semibold tracking-wider uppercase text-neutral-900">
+              <div className={theme.storeFeatures.contentWrapper}>
+                <h3 className={theme.storeFeatures.title}>
                   {item.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-gray-400 font-light max-w-sm">
+                <p className={theme.storeFeatures.description}>
                   {item.description}
                 </p>
               </div>

@@ -1,0 +1,17 @@
+export const orderItemsSectionTheme = {
+  section: "overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm",
+  header: "border-b border-neutral-100 bg-neutral-50/50 px-6 py-4",
+  title: "flex items-center text-lg font-semibold text-neutral-900",
+  badge: "ml-2 rounded-full bg-neutral-200 px-2.5 py-0.5 text-xs font-medium text-neutral-700",
+  itemsList: "divide-y divide-neutral-100 px-6",
+  itemRow: "flex items-center gap-6 py-6",
+  imageWrapper: "relative h-24 w-20 shrink-0 overflow-hidden rounded-xl border border-neutral-100 bg-neutral-50",
+  image: "object-cover",
+  contentWrapper: "flex min-w-0 flex-1 flex-col sm:flex-row sm:justify-between sm:gap-4",
+  infoCol: "mb-2 sm:mb-0",
+  productName: "line-clamp-2 text-base font-medium text-neutral-900",
+  metaRow: "mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-neutral-500",
+  separator: "hidden text-neutral-300 sm:block",
+  priceCol: "shrink-0 text-left sm:text-right",
+  totalPrice: "text-base font-semibold text-neutral-900",
+};

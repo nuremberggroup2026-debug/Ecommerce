@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { OrderByID } from "../../../types/index";
+import { theme } from "@/themes";
 
 interface DeliveryInfoSectionProps {
   order: OrderByID;
@@ -13,42 +14,42 @@ export default function DeliveryInfoSection({
   const t = useTranslations("ORDERS.ORDER_DETAILS");
 
   return (
-    <section className="rounded-2xl border border-neutral-200 bg-white shadow-sm">
-      <div className="border-b border-neutral-100 bg-neutral-50/50 px-6 py-4">
-        <h2 className="text-lg font-semibold text-neutral-900">
+    <section className={theme.deliveryInfoSection.section}>
+      <div className={theme.deliveryInfoSection.header}>
+        <h2 className={theme.deliveryInfoSection.title}>
           {t("DELIVERY.TITLE")}
         </h2>
       </div>
 
-      <div className="p-6">
-        <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-          <div className="space-y-5">
+      <div className={theme.deliveryInfoSection.body}>
+        <div className={theme.deliveryInfoSection.grid}>
+          <div className={theme.deliveryInfoSection.column}>
             <div>
-              <p className="text-sm text-neutral-500">{t("DELIVERY.EMAIL")}</p>
-              <p className="break-all text-base font-medium text-neutral-900">
+              <p className={theme.deliveryInfoSection.fieldLabel}>{t("DELIVERY.EMAIL")}</p>
+              <p className={theme.deliveryInfoSection.emailValue}>
                 {order.email}
               </p>
             </div>
             <div>
-              <p className="text-sm text-neutral-500">{t("DELIVERY.PHONE")}</p>
-              <p className="text-base font-medium text-neutral-900">
+              <p className={theme.deliveryInfoSection.fieldLabel}>{t("DELIVERY.PHONE")}</p>
+              <p className={theme.deliveryInfoSection.fieldValue}>
                 {order.phoneNumber}
               </p>
             </div>
           </div>
 
-          <div className="space-y-5">
+          <div className={theme.deliveryInfoSection.column}>
             <div>
-              <p className="text-sm text-neutral-500">{t("DELIVERY.CITY")}</p>
-              <p className="text-base font-medium text-neutral-900">
+              <p className={theme.deliveryInfoSection.fieldLabel}>{t("DELIVERY.CITY")}</p>
+              <p className={theme.deliveryInfoSection.fieldValue}>
                 {order.city}
               </p>
             </div>
             <div>
-              <p className="text-sm text-neutral-500">
+              <p className={theme.deliveryInfoSection.fieldLabel}>
                 {t("DELIVERY.STREET_ADDRESS")}
               </p>
-              <p className="text-base font-medium text-neutral-900">
+              <p className={theme.deliveryInfoSection.fieldValue}>
                 {order.streetAddress}, {t("DELIVERY.BUILDING_NUMBER")}:{" "}
                 {order.buildingNumber}
               </p>
@@ -56,12 +57,12 @@ export default function DeliveryInfoSection({
           </div>
 
           {order.additionalNote && (
-            <div className="border-t border-neutral-100 pt-5 sm:col-span-2">
-              <p className="mb-2 text-sm text-neutral-500">
+            <div className={theme.deliveryInfoSection.noteContainer}>
+              <p className={theme.deliveryInfoSection.noteLabel}>
                 {t("DELIVERY.ADDITIONAL_NOTE")}
               </p>
-              <div className="rounded-xl border border-amber-100 bg-amber-50/50 p-4">
-                <p className="text-sm leading-relaxed text-amber-900">
+              <div className={theme.deliveryInfoSection.noteBox}>
+                <p className={theme.deliveryInfoSection.noteText}>
                   {order.additionalNote}
                 </p>
               </div>

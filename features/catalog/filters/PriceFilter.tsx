@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { theme } from "@/themes";
 
 export default function PriceFilter() {
   const router = useRouter();
@@ -36,14 +37,14 @@ export default function PriceFilter() {
   }
 
   return (
-    <div className="bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm">
-      <h3 className="font-semibold text-xs uppercase tracking-wider text-gray-400 mb-5">
+    <div className={theme.priceFilter.card}>
+      <h3 className={theme.priceFilter.title}>
         {t("TITLE")}
       </h3>
 
-      <div className="flex items-end gap-3">
-        <div className="flex-1">
-          <label className="mb-2 block text-[11px] text-gray-400">
+      <div className={theme.priceFilter.inputsRow}>
+        <div className={theme.priceFilter.inputWrapper}>
+          <label className={theme.priceFilter.label}>
             {t("FROM")}
           </label>
 
@@ -52,14 +53,14 @@ export default function PriceFilter() {
             placeholder={t("PLACEHOLDER_MIN")}
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm outline-none focus:border-black"
+            className={theme.priceFilter.input}
           />
         </div>
 
-        <span className="pb-3 text-gray-300">—</span>
+        <span className={theme.priceFilter.separator}>—</span>
 
-        <div className="flex-1">
-          <label className="mb-2 block text-[11px] text-gray-400">
+        <div className={theme.priceFilter.inputWrapper}>
+          <label className={theme.priceFilter.label}>
             {t("TO")}
           </label>
 
@@ -68,14 +69,14 @@ export default function PriceFilter() {
             placeholder={t("PLACEHOLDER_MAX")}
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm outline-none focus:border-black"
+            className={theme.priceFilter.input}
           />
         </div>
       </div>
 
       <button
         onClick={applyFilter}
-        className="mt-5 w-full rounded-xl bg-black py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800"
+        className={theme.priceFilter.applyButton}
       >
         {t("APPLY")}
       </button>

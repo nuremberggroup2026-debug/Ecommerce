@@ -1,0 +1,18 @@
+export const orderSummarySectionTheme = {
+  section: "rounded-2xl border border-neutral-200 bg-white shadow-sm",
+  header: "border-b border-neutral-100 px-6 py-4",
+  title: "text-lg font-semibold text-neutral-900",
+  body: "space-y-4 p-6",
+  row: "flex items-center justify-between text-base",
+  rowLabel: "text-neutral-500",
+  rowValue: "font-medium text-neutral-900",
+  discountRow: "flex items-start justify-between text-base",
+  discountLeft: "flex flex-col items-start gap-1",
+  promoBadge: "rounded-md border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700",
+  discountValue: "font-medium text-emerald-600",
+  totalRow: "mt-2 flex items-center justify-between border-t border-dashed border-neutral-200 pt-4",
+  totalLabel: "text-lg font-semibold text-neutral-900",
+  totalValue: "text-2xl font-bold text-neutral-900",
+  footer: "rounded-b-2xl border-t border-neutral-100 bg-neutral-50 p-4",
+  button: "block w-full rounded-xl bg-neutral-900 px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-black active:scale-[0.98]",
+};

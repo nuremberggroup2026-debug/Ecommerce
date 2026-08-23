@@ -7,10 +7,13 @@ import { toastResponse } from "@/lib/toast";
 import { placeAnOrder } from "../api/checkout.client.api";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { theme } from "@/themes";
+
 interface Props {
   locale: Locale;
   promoCode?: string;
 }
+
 function CustomerDetails({ locale, promoCode }: Props) {
   const t = useTranslations();
   const router = useRouter();
@@ -21,6 +24,7 @@ function CustomerDetails({ locale, promoCode }: Props) {
   } = useForm<OrderFormDataType>({
     resolver: zodResolver(createOrderFrontendSchema(locale)),
   });
+
   const onSubmit = async (data: OrderFormDataType) => {
     const orderData = {
       ...data,
@@ -30,18 +34,14 @@ function CustomerDetails({ locale, promoCode }: Props) {
     router.replace("/orders");
   };
 
-  console.log("promoCode: ", promoCode);
-
   return (
-    <section className="">
-      {/* Header */}
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <section className={theme.customerDetails.section}>
+      <form onSubmit={handleSubmit(onSubmit)} className={theme.customerDetails.form}>
         {/* Email */}
         <div>
           <label
             htmlFor="email"
-            className="mb-2 block text-xs font-semibold uppercase tracking-wider text-neutral-600"
+            className={theme.customerDetails.label}
           >
             {t("CHECKOUT.CUSTOMER_DETAILS.EMAIL")}
           </label>
@@ -51,18 +51,19 @@ function CustomerDetails({ locale, promoCode }: Props) {
             autoComplete="email"
             disabled={isSubmitting}
             {...register("email")}
-            className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-neutral-900 ${errors.email ? "border-red-300 focus:border-red-500" : "border-neutral-200"}`}
+            className={theme.customerDetails.input(!!errors.email)}
             placeholder={t("CHECKOUT.CUSTOMER_DETAILS.EMAIL_PLACEHOLDER")}
           />
           {errors.email && (
-            <p className="mt-2 text-xs text-red-500">{errors.email.message}</p>
+            <p className={theme.customerDetails.errorText}>{errors.email.message}</p>
           )}
         </div>
+
         {/* Phone */}
         <div>
           <label
             htmlFor="phoneNumber"
-            className="mb-2 block text-xs font-semibold uppercase tracking-wider text-neutral-600"
+            className={theme.customerDetails.label}
           >
             {t("CHECKOUT.CUSTOMER_DETAILS.PHONE")}
           </label>
@@ -72,20 +73,21 @@ function CustomerDetails({ locale, promoCode }: Props) {
             autoComplete="tel"
             disabled={isSubmitting}
             {...register("phoneNumber")}
-            className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-neutral-900 ${errors.phoneNumber ? "border-red-300 focus:border-red-500" : "border-neutral-200"}`}
+            className={theme.customerDetails.input(!!errors.phoneNumber)}
             placeholder={t("CHECKOUT.CUSTOMER_DETAILS.PHONE_PLACEHOLDER")}
           />
           {errors.phoneNumber && (
-            <p className="mt-2 text-xs text-red-500">
+            <p className={theme.customerDetails.errorText}>
               {errors.phoneNumber.message}
             </p>
           )}
         </div>
+
         {/* City */}
         <div>
           <label
             htmlFor="city"
-            className="mb-2 block text-xs font-semibold uppercase tracking-wider text-neutral-600"
+            className={theme.customerDetails.label}
           >
             {t("CHECKOUT.CUSTOMER_DETAILS.CITY")}
           </label>
@@ -95,20 +97,21 @@ function CustomerDetails({ locale, promoCode }: Props) {
             autoComplete="address-level2"
             disabled={isSubmitting}
             {...register("city")}
-            className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-neutral-900 ${errors.city ? "border-red-300 focus:border-red-500" : "border-neutral-200"}`}
+            className={theme.customerDetails.input(!!errors.city)}
             placeholder={t("CHECKOUT.CUSTOMER_DETAILS.CITY_PLACEHOLDER")}
           />
           {errors.city && (
-            <p className="mt-2 text-xs text-red-500"> {errors.city.message} </p>
+            <p className={theme.customerDetails.errorText}> {errors.city.message} </p>
           )}
         </div>
+
         {/* Street + Building */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className={theme.customerDetails.gridRow}>
           {/* Street */}
-          <div className="sm:col-span-2">
+          <div className={theme.customerDetails.streetCol}>
             <label
               htmlFor="streetAddress"
-              className="mb-2 block text-xs font-semibold uppercase tracking-wider text-neutral-600"
+              className={theme.customerDetails.label}
             >
               {t("CHECKOUT.CUSTOMER_DETAILS.STREET_ADDRESS")}
             </label>
@@ -118,13 +121,13 @@ function CustomerDetails({ locale, promoCode }: Props) {
               autoComplete="street-address"
               disabled={isSubmitting}
               {...register("streetAddress")}
-              className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-neutral-900 ${errors.streetAddress ? "border-red-300 focus:border-red-500" : "border-neutral-200"}`}
+              className={theme.customerDetails.input(!!errors.streetAddress)}
               placeholder={t(
                 "CHECKOUT.CUSTOMER_DETAILS.STREET_ADDRESS_PLACEHOLDER",
               )}
             />
             {errors.streetAddress && (
-              <p className="mt-2 text-xs text-red-500">
+              <p className={theme.customerDetails.errorText}>
                 {errors.streetAddress.message}
               </p>
             )}
@@ -133,7 +136,7 @@ function CustomerDetails({ locale, promoCode }: Props) {
           <div>
             <label
               htmlFor="buildingNumber"
-              className="mb-2 block text-xs font-semibold uppercase tracking-wider text-neutral-600"
+              className={theme.customerDetails.label}
             >
               {t("CHECKOUT.CUSTOMER_DETAILS.BUILDING_NUMBER")}
             </label>
@@ -143,26 +146,27 @@ function CustomerDetails({ locale, promoCode }: Props) {
               min={1}
               disabled={isSubmitting}
               {...register("buildingNumber", { valueAsNumber: true })}
-              className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-neutral-900 ${errors.buildingNumber ? "border-red-300 focus:border-red-500" : "border-neutral-200"}`}
+              className={theme.customerDetails.input(!!errors.buildingNumber)}
               placeholder={t(
                 "CHECKOUT.CUSTOMER_DETAILS.BUILDING_NUMBER_PLACEHOLDER",
               )}
             />
             {errors.buildingNumber && (
-              <p className="mt-2 text-xs text-red-500">
+              <p className={theme.customerDetails.errorText}>
                 {errors.buildingNumber.message}
               </p>
             )}
           </div>
         </div>
+
         {/* Additional Note */}
         <div>
           <label
             htmlFor="additionalNote"
-            className="mb-2 block text-xs font-semibold uppercase tracking-wider text-neutral-600"
+            className={theme.customerDetails.label}
           >
             {t("CHECKOUT.CUSTOMER_DETAILS.ADDITIONAL_NOTE")}
-            <span className="ml-1 font-normal normal-case tracking-normal text-neutral-400">
+            <span className={theme.customerDetails.optionalLabel}>
               {" "} ({t("COMMON.OPTIONAL")})
             </span>
           </label>
@@ -171,23 +175,24 @@ function CustomerDetails({ locale, promoCode }: Props) {
             rows={4}
             disabled={isSubmitting}
             {...register("additionalNote")}
-            className={`w-full resize-none rounded-xl border bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-neutral-900 ${errors.additionalNote ? "border-red-300 focus:border-red-500" : "border-neutral-200"}`}
+            className={theme.customerDetails.textarea(!!errors.additionalNote)}
             placeholder={t(
               "CHECKOUT.CUSTOMER_DETAILS.ADDITIONAL_NOTE_PLACEHOLDER",
             )}
           />
           {errors.additionalNote && (
-            <p className="mt-2 text-xs text-red-500">
+            <p className={theme.customerDetails.errorText}>
               {errors.additionalNote.message}
             </p>
           )}
         </div>
+
         {/* Submit */}
-        <div className="border-t border-neutral-100 pt-6">
+        <div className={theme.customerDetails.submitSection}>
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-xl bg-neutral-900 py-4 text-[11px] font-medium uppercase tracking-[0.2em] text-white shadow-sm transition-all duration-300 hover:bg-black active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            className={theme.customerDetails.submitButton}
           >
             {isSubmitting
               ? t("CHECKOUT.CUSTOMER_DETAILS.PLACING_ORDER")
@@ -198,4 +203,5 @@ function CustomerDetails({ locale, promoCode }: Props) {
     </section>
   );
 }
+
 export default CustomerDetails;

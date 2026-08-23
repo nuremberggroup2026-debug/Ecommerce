@@ -2,20 +2,20 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
 import {
   createApplicationSchema,
   ApplicationFormValues,
-} from "@/server/applications/validators"; // Adjust path
+} from "@/server/applications/validators";
 import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types";
 
 import { TextInput } from "@/components/inputs/TextInput";
 import { EmailInput } from "@/components/inputs/EmailInput";
-import FileUploader from "@/components/inputs/FileUploader"; // Ensure correct path
+import FileUploader from "@/components/inputs/FileUploader";
 import { useRouter } from "next/navigation";
 import { applyApi } from "../../api/applications.client.api";
 import { toastResponse } from "@/lib/toast";
+import { theme } from "@/themes";
 
 export default function ApplicationForm({
   careerSlug,
@@ -49,18 +49,18 @@ export default function ApplicationForm({
   };
 
   return (
-    <div className="rounded-3xl border border-neutral-100 bg-white p-6 shadow-sm sm:p-8">
-      <div className="mb-8">
-        <h2 className="text-xl font-bold tracking-tight text-neutral-900">
+    <div className={theme.applicationForm.container}>
+      <div className={theme.applicationForm.header}>
+        <h2 className={theme.applicationForm.title}>
           {t("ApplicationPage.FORM_TITLE")}
         </h2>
-        <p className="mt-2 text-sm font-light text-neutral-500">
+        <p className={theme.applicationForm.subtitle}>
           {t("ApplicationPage.FORM_SUBTITLE")}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <form onSubmit={handleSubmit(onSubmit)} className={theme.applicationForm.form}>
+        <div className={theme.applicationForm.rowGrid}>
           <TextInput
             id="firstName"
             label={t("ApplicationPage.FIRST_NAME")}
@@ -88,7 +88,7 @@ export default function ApplicationForm({
           {...register("email")}
         />
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className={theme.applicationForm.rowGrid}>
           <TextInput
             id="phoneNumber"
             label={t("ApplicationPage.PHONE")}
@@ -108,15 +108,15 @@ export default function ApplicationForm({
         </div>
 
         {/* CV Upload */}
-        <div className="pt-2">
-          <div className="mb-2 flex items-center gap-2 px-1">
-            <label className="text-[11px] font-semibold  tracking-wider text-neutral-600">
+        <div className={theme.applicationForm.fileUploadSection}>
+          <div className={theme.applicationForm.fileUploadHeader}>
+            <label className={theme.applicationForm.fileUploadLabel}>
               {t("ApplicationPage.CV_LABEL")}
             </label>
           </div>
           <FileUploader
             name="cv"
-            label="" // Empty because we use the custom label above to match inputs
+            label=""
             control={control}
             error={errors.cv}
             locale={locale as Locale}
@@ -127,7 +127,7 @@ export default function ApplicationForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-6 w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+          className={theme.applicationForm.submitButton}
         >
           {isSubmitting
             ? t("ApplicationPage.SUBMITTING")

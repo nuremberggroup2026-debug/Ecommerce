@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { deleteItem, updateItemQuantity } from "../api/cart.client.api";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
+import { theme } from "@/themes";
 
 interface Prop {
   cartData: CartData;
@@ -77,14 +78,14 @@ export default function CartComponent({ cartData, locale }: Prop) {
   };
 
   return (
-    <main className="min-h-screen bg-white text-black">
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-        <header className="mb-16 border-b border-neutral-100 pb-6">
-          <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+    <main className={theme.cart.main}>
+      <div className={theme.cart.container}>
+        <header className={theme.cart.header}>
+          <h1 className={theme.cart.title}>
             {t("Cart.TITLE")}
           </h1>
 
-          <p className="mt-2 text-xs text-gray-400">
+          <p className={theme.cart.itemCount}>
             {items.length === 0
               ? t("Cart.EMPTY_CART")
               : t("Cart.ITEMS_COUNT", { count: items.length })}
@@ -92,70 +93,70 @@ export default function CartComponent({ cartData, locale }: Prop) {
         </header>
 
         {items.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center">
-            <p className="mb-6 text-sm text-gray-400">
+          <div className={theme.cart.emptyContainer}>
+            <p className={theme.cart.emptyText}>
               {t("Cart.FEELS_LIGHT")}
             </p>
 
             <Link
               href="/products"
-              className="rounded-full bg-black px-8 py-4 text-xs font-semibold uppercase tracking-widest text-white transition hover:bg-neutral-800"
+              className={theme.cart.emptyButton}
             >
               {t("Cart.CONTINUE_SHOPPING")}
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+          <div className={theme.cart.grid}>
             {/* Cart Items */}
-            <div className="divide-y divide-neutral-100 lg:col-span-7">
+            <div className={theme.cart.itemsList}>
               {items.map((item) => {
                 const product = item.product;
 
                 return (
-                  <div key={product.id} className="flex gap-6 py-8">
-                    <div className="relative h-32 w-24 overflow-hidden rounded-2xl bg-neutral-100">
+                  <div key={product.id} className={theme.cart.itemCard}>
+                    <div className={theme.cart.itemImageWrapper}>
                       <Image
                         src={product.image}
                         alt={product.name}
                         fill
-                        className="object-cover"
+                        className={theme.cart.itemImage}
                       />
                     </div>
 
-                    <div className="flex flex-1 flex-col justify-between">
+                    <div className={theme.cart.itemInfoWrapper}>
                       <div>
-                        <div className="flex justify-between gap-4">
-                          <h3 className="font-medium">{product.name}</h3>
+                        <div className={theme.cart.itemHeader}>
+                          <h3 className={theme.cart.itemTitle}>{product.name}</h3>
 
-                          <p className="font-semibold">
+                          <p className={theme.cart.itemSubtotal}>
                             {t("Cart.CURRENCY_SYMBOL")}
                             {item.subtotal.toFixed(2)}
                           </p>
                         </div>
 
-                        <p className="mt-1 text-sm text-gray-400">
+                        <p className={theme.cart.itemPrice}>
                           {t("Cart.CURRENCY_SYMBOL")}
                           {Number(item.itemPrice).toFixed(2)} {t("Cart.EACH")}
                         </p>
 
-                        <p className="mt-1 text-sm text-gray-400">
+                        <p className={theme.cart.itemSku}>
                           {t("Cart.SKU")}: {item.variant.sku}
                         </p>
                       </div>
 
-                      <div className="mt-5 flex items-center justify-between">
-                        <div className="flex items-center rounded-full border border-neutral-200">
+                      <div className={theme.cart.itemFooter}>
+                        <div className={theme.cart.quantityWrapper}>
                           <button
                             disabled={item.quantity <= 1}
                             onClick={() =>
                               updateQuantity(item.cartItemId, item.quantity - 1)
                             }
-                            className="px-4 py-2 text-gray-500 hover:text-black"
+                            className={theme.cart.quantityButton}
                           >
                             -
                           </button>
 
-                          <span className="px-3 text-sm font-semibold">
+                          <span className={theme.cart.quantityText}>
                             {item.quantity}
                           </span>
 
@@ -164,7 +165,7 @@ export default function CartComponent({ cartData, locale }: Prop) {
                             onClick={() =>
                               updateQuantity(item.cartItemId, item.quantity + 1)
                             }
-                            className="px-4 py-2 text-gray-500 hover:text-black"
+                            className={theme.cart.quantityButton}
                           >
                             +
                           </button>
@@ -174,7 +175,7 @@ export default function CartComponent({ cartData, locale }: Prop) {
                           onClick={() => {
                             handleDeleteItem(item.cartItemId);
                           }}
-                          className="text-sm text-gray-400 hover:text-black transition"
+                          className={theme.cart.removeButton}
                         >
                           {t("Cart.REMOVE")}
                         </button>
@@ -186,24 +187,24 @@ export default function CartComponent({ cartData, locale }: Prop) {
             </div>
 
             {/* Summary */}
-            <div className="lg:col-span-5">
-              <div className="rounded-[32px] bg-neutral-50 p-8">
-                <h2 className="mb-6 text-sm font-semibold uppercase tracking-wider">
+            <div className={theme.cart.summaryColumn}>
+              <div className={theme.cart.summaryCard}>
+                <h2 className={theme.cart.summaryTitle}>
                   {t("Cart.ORDER_SUMMARY")}
                 </h2>
 
-                <div className="space-y-4 border-b border-neutral-200 pb-6">
-                  <div className="flex justify-between text-sm">
+                <div className={theme.cart.summaryRows}>
+                  <div className={theme.cart.summaryRow}>
                     <span>{t("Cart.SUBTOTAL")}</span>
-                    <span className="font-semibold">
+                    <span className={theme.cart.summaryValue}>
                       {t("Cart.CURRENCY_SYMBOL")}
                       {subtotal}
                     </span>
                   </div>
 
-                  <div className="flex justify-between text-sm">
+                  <div className={theme.cart.summaryRow}>
                     <span>{t("Cart.SHIPPING")}</span>
-                    <span className="font-semibold">
+                    <span className={theme.cart.summaryValue}>
                       {shipping === 0
                         ? t("Cart.FREE")
                         : `${t("Cart.CURRENCY_SYMBOL")}${shipping}`}
@@ -211,9 +212,9 @@ export default function CartComponent({ cartData, locale }: Prop) {
                   </div>
                 </div>
 
-                <div className="flex justify-between py-6">
-                  <span className="font-medium">{t("Cart.TOTAL")}</span>
-                  <span className="text-xl font-bold">
+                <div className={theme.cart.totalRow}>
+                  <span className={theme.cart.totalLabel}>{t("Cart.TOTAL")}</span>
+                  <span className={theme.cart.totalValue}>
                     {t("Cart.CURRENCY_SYMBOL")}
                     {total.toFixed(2)}
                   </span>
@@ -221,14 +222,14 @@ export default function CartComponent({ cartData, locale }: Prop) {
 
                 <Link
                   href="/checkout"
-                  className="block w-full rounded-2xl bg-black py-4 text-center text-xs font-semibold uppercase tracking-widest text-white transition hover:bg-neutral-800"
+                  className={theme.cart.checkoutButton}
                 >
                   {t("Cart.PROCEED_TO_CHECKOUT")}
                 </Link>
 
                 <Link
                   href="/products"
-                  className="mt-5 flex items-center justify-center gap-2 text-xs text-gray-400 transition hover:text-black"
+                  className={theme.cart.continueShoppingLink}
                 >
                   {isAr ? "→" : "←"} {t("Cart.CONTINUE_SHOPPING")}
                 </Link>

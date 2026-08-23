@@ -5,6 +5,7 @@ import type { OrderStatus, OrderByID } from "../../types";
 import OrderItemsSection from "../shop/orderDetailsComponents/OrderItemsSection";
 import DeliveryInfoSection from "../shop/orderDetailsComponents/DeliveryInfoSection";
 import OrderSummarySection from "../shop/orderDetailsComponents/OrderSummarySection";
+import { theme } from "@/themes";
 
 interface Props {
   order: OrderByID;
@@ -27,35 +28,35 @@ export default function OrderDetailsComponent({ order }: Props) {
     : 0;
 
   return (
-    <main className="min-h-screen bg-neutral-50/50 pb-20 text-neutral-900">
-      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    <main className={theme.orderDetailsComponent.main}>
+      <div className={theme.orderDetailsComponent.container}>
         {/* Improved Header Section */}
-        <header className="mb-10 flex flex-col gap-4 border-b border-neutral-100 pb-8">
+        <header className={theme.orderDetailsComponent.header}>
           <Link
             href="/orders"
-            className="inline-flex w-fit items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500 transition-colors hover:text-neutral-900"
+            className={theme.orderDetailsComponent.backLink}
           >
             <span aria-hidden="true">{isAr ? "→" : "←"}</span>
             {t("BACK_TO_ORDERS")}
           </Link>
 
-          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-3">
-                <h1 className="text-xl font-bold tracking-tight text-neutral-900 wrap-break-word sm:text-2xl md:text-3xl">
+          <div className={theme.orderDetailsComponent.headerFlex}>
+            <div className={theme.orderDetailsComponent.titleSpace}>
+              <div className={theme.orderDetailsComponent.titleRow}>
+                <h1 className={theme.orderDetailsComponent.orderTitle}>
                   {order.orderNumber}
                 </h1>
                 <span
-                  className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-wider ${getStatusColor(
-                    order.status as OrderStatus,
-                  )}`}
+                  className={theme.orderDetailsComponent.statusBadge(
+                    getStatusColor(order.status as OrderStatus),
+                  )}
                 >
                   {t(`STATUS.${order.status}`)}
                 </span>
               </div>
 
-              <p className="text-sm font-medium text-neutral-400">
-                {t("TITLE")} <span className="mx-2 text-neutral-300">•</span>{" "}
+              <p className={theme.orderDetailsComponent.dateText}>
+                {t("TITLE")} <span className={theme.orderDetailsComponent.dotSeparator}>•</span>{" "}
                 {formatDate(order.createdAt)}
               </p>
             </div>
@@ -63,15 +64,15 @@ export default function OrderDetailsComponent({ order }: Props) {
         </header>
 
         {/* Main Grid Layout */}
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
+        <div className={theme.orderDetailsComponent.gridMain}>
           {/* Left Column: Items and Delivery */}
-          <div className="space-y-6 lg:col-span-8">
+          <div className={theme.orderDetailsComponent.leftColumn}>
             <OrderItemsSection order={order} />
             <DeliveryInfoSection order={order} />
           </div>
 
           {/* Right Column: Order Summary (Sticky) */}
-          <div className="lg:sticky lg:top-8 lg:col-span-4">
+          <div className={theme.orderDetailsComponent.rightColumn}>
             <OrderSummarySection
               order={order}
               subtotal={subtotal}
