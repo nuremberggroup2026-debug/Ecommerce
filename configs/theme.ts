@@ -1,4 +1,4 @@
 // config/theme.ts
 
-export const ACTIVE_THEME = "basic";
+export const ACTIVE_THEME = "luxury";
 

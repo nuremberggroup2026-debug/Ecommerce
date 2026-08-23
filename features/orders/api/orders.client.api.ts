@@ -6,7 +6,7 @@ import type { deleteResponseType, PutResponseType } from "@/types/index";
 
 
 
-import type { Order, OrderStatus } from "@/features/orders/types";
+import type {  OrderStatus } from "@/features/orders/types";
 
 export async function adminUpdateOrderStatus(
   id: string,

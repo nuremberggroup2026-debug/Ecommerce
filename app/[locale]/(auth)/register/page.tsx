@@ -4,7 +4,6 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
 import Link from "next/link";
 import {
   createRegisterSchema,
@@ -16,10 +15,10 @@ import { EmailInput } from "@/components/inputs/EmailInput";
 import { PasswordInput } from "@/components/inputs/PasswordInput";
 import { registerApi } from "@/features/auth/api/auth.client.api";
 import { toastResponse } from "@/lib/toast";
+import { theme } from "@/themes";
 
 export default function RegisterPage() {
   const locale = useLocale() as Locale;
-  const isAr = locale === "ar";
   const router = useRouter();
   const t = useTranslations("");
 
@@ -41,26 +40,23 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-neutral-50/50 px-4 py-12">
-      <div className="w-full max-w-lg rounded-3xl border border-neutral-100 bg-white p-8 shadow-sm sm:p-10">
+    <main className={theme.registerPage.main}>
+      <div className={theme.registerPage.card}>
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
+        <div className={theme.registerPage.header}>
+          <h1 className={theme.registerPage.title}>
             {t("RegisterPage.CREATE_ACCOUNT")}
           </h1>
-          <p className="mt-2 text-sm font-light text-neutral-500">
+          <p className={theme.registerPage.subtitle}>
             {t("RegisterPage.SUBTITLE")}
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className={theme.registerPage.form}>
           {/* Name Field */}
           <div>
-            <label
-              htmlFor="name"
-              className="mb-2 block text-[11px] font-semibold uppercase tracking-wider text-neutral-600"
-            >
+            <label htmlFor="name" className={theme.registerPage.label}>
               {t("RegisterPage.NAME_LABEL")}
             </label>
             <input
@@ -68,14 +64,12 @@ export default function RegisterPage() {
               type="text"
               autoComplete="name"
               disabled={isSubmitting}
-              className={`w-full rounded-xl border bg-neutral-50 px-4 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-black focus:bg-white ${
-                errors.name ? "border-red-300" : "border-neutral-200"
-              }`}
+              className={theme.registerPage.input(!!errors.name)}
               placeholder={t("RegisterPage.NAME_PLACEHOLDER")}
               {...register("name")}
             />
             {errors.name && (
-              <p className="mt-2 text-xs text-red-500">{errors.name.message}</p>
+              <p className={theme.registerPage.errorText}>{errors.name.message}</p>
             )}
           </div>
 
@@ -116,7 +110,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="mt-6 w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            className={theme.registerPage.submitButton}
           >
             {isSubmitting
               ? t("RegisterPage.CREATING_ACCOUNT")
@@ -125,21 +119,21 @@ export default function RegisterPage() {
         </form>
 
         {/* Divider */}
-        <div className="my-8 flex items-center">
-          <div className="grow border-t border-neutral-100"></div>
-          <span className="mx-4 text-xs font-light text-neutral-400">
+        <div className={theme.registerPage.divider}>
+          <div className={theme.registerPage.dividerLine}></div>
+          <span className={theme.registerPage.dividerText}>
             {t("RegisterPage.OR_CONTINUE_WITH")}
           </span>
-          <div className="grow border-t border-neutral-100"></div>
+          <div className={theme.registerPage.dividerLine}></div>
         </div>
 
         {/* Google Login */}
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="flex w-full items-center justify-center gap-3 rounded-2xl border border-neutral-200 bg-white py-3.5 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-50 active:scale-[0.98]"
+          className={theme.registerPage.googleButton}
         >
-          <svg className="h-4 w-4" viewBox="0 0 24 24">
+          <svg className={theme.registerPage.googleIcon} viewBox="0 0 24 24">
             <path
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
               fill="#4285F4"
@@ -160,11 +154,11 @@ export default function RegisterPage() {
           {t("RegisterPage.SIGN_IN_GOOGLE")}
         </button>
 
-        <p className="mt-8 text-center text-xs font-light text-neutral-500">
+        <p className={theme.registerPage.footerText}>
           {t("RegisterPage.ALREADY_HAVE_ACCOUNT")}{" "}
           <Link
             href="/login"
-            className="font-medium text-black transition hover:underline"
+            className={theme.registerPage.footerLink}
           >
             {t("RegisterPage.SIGN_IN")}
           </Link>

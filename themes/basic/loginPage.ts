@@ -1,0 +1,18 @@
+export const loginPageTheme = {
+  main: "flex min-h-screen items-center justify-center bg-neutral-50/50 px-4 py-8",
+  card: "w-full max-w-lg rounded-3xl border border-neutral-100 bg-white p-8 shadow-sm sm:p-10",
+  header: "mb-8 text-center",
+  title: "text-2xl font-bold tracking-tight text-neutral-900",
+  subtitle: "mt-2 text-sm text-neutral-500 font-light",
+  form: "space-y-5",
+  forgotPasswordWrapper: "flex items-center justify-end",
+  forgotPasswordLink: "text-xs font-medium text-neutral-500 transition hover:text-black",
+  submitButton: "w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50",
+  divider: "my-8 flex items-center",
+  dividerLine: "grow border-t border-neutral-100",
+  dividerText: "mx-4 text-xs font-light text-neutral-400",
+  googleButton: "flex w-full items-center justify-center gap-3 rounded-2xl border border-neutral-200 bg-white py-3.5 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-50 active:scale-[0.98]",
+  googleIcon: "h-4 w-4",
+  footerText: "mt-8 text-center text-xs font-light text-neutral-500",
+  footerLink: "font-medium text-black transition hover:underline",
+};

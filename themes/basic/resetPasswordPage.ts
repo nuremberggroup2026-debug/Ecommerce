@@ -1,0 +1,14 @@
+export const resetPasswordPageTheme = {
+  main: "flex min-h-screen items-center justify-center bg-neutral-50/50 px-4 py-12",
+  card: "w-full max-w-md rounded-3xl border border-neutral-100 bg-white p-8 text-center shadow-sm sm:p-10",
+  successWrapper: "flex flex-col items-center animate-in fade-in zoom-in duration-500",
+  successIconWrapper: "mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-green-50 text-green-600",
+  successIcon: "h-6 w-6",
+  title: "text-2xl font-bold tracking-tight text-neutral-900",
+  subtitle: "mt-2 text-sm font-light text-neutral-500",
+  successButton: "mt-8 inline-block w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98]",
+  formStateWrapper: "animate-in fade-in duration-300 text-left",
+  header: "mb-8 text-center",
+  form: "space-y-5",
+  submitButton: "mt-6 w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50",
+};

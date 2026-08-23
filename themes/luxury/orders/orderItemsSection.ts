@@ -1,0 +1,17 @@
+export const orderItemsSectionTheme = {
+  section: "overflow-hidden rounded-sm border border-[#b08d57]/20 bg-white shadow-sm",
+  header: "border-b border-[#b08d57]/15 bg-[#f3ede0]/40 px-6 py-4",
+  title: "flex items-center font-serif text-lg text-[#0c0a07]",
+  badge: "ml-2 rounded-full bg-[#b08d57]/15 px-2.5 py-0.5 text-xs font-medium text-[#8a6d3b]",
+  itemsList: "divide-y divide-[#b08d57]/15 px-6",
+  itemRow: "flex items-center gap-6 py-6",
+  imageWrapper: "relative h-24 w-20 shrink-0 overflow-hidden rounded-sm border border-[#b08d57]/15 bg-[#f3ede0]",
+  image: "object-cover",
+  contentWrapper: "flex min-w-0 flex-1 flex-col sm:flex-row sm:justify-between sm:gap-4",
+  infoCol: "mb-2 sm:mb-0",
+  productName: "line-clamp-2 text-base font-medium text-[#0c0a07]",
+  metaRow: "mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-stone-500",
+  separator: "hidden text-stone-300 sm:block",
+  priceCol: "shrink-0 text-left sm:text-right",
+  totalPrice: "text-base font-semibold text-[#0c0a07]",
+};

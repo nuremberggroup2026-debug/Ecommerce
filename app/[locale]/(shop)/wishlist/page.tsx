@@ -15,7 +15,7 @@ export default async function Page({ params }: Prop) {
   const { locale } = await params;
 
   if (!session) {
-    const t = await getTranslations("");
+    const t = await getTranslations("Wishlist");
     return (
       <main
         dir={locale === "ar" ? "rtl" : "ltr"}

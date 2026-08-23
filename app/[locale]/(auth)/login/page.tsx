@@ -11,6 +11,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types";
 import { EmailInput } from "@/components/inputs/EmailInput";
 import { PasswordInput } from "@/components/inputs/PasswordInput";
+import { theme } from "@/themes";
 
 export default function LoginPage() {
   const locale = useLocale() as Locale;
@@ -53,20 +54,20 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-neutral-50/50 px-4 py-8">
-      <div className="w-full max-w-lg rounded-3xl border border-neutral-100 bg-white p-8 shadow-sm sm:p-10">
+    <main className={theme.loginPage.main}>
+      <div className={theme.loginPage.card}>
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
+        <div className={theme.loginPage.header}>
+          <h1 className={theme.loginPage.title}>
             {t("WELCOME_BACK")}
           </h1>
-          <p className="mt-2 text-sm text-neutral-500 font-light">
+          <p className={theme.loginPage.subtitle}>
             {t("SUBTITLE")}
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className={theme.loginPage.form}>
           <EmailInput
             id="email"
             label={t("EMAIL_LABEL")}
@@ -88,10 +89,10 @@ export default function LoginPage() {
             {...register("password")}
           />
 
-          <div className="flex items-center justify-end">
+          <div className={theme.loginPage.forgotPasswordWrapper}>
             <Link
               href="/forgot-password"
-              className="text-xs font-medium text-neutral-500 transition hover:text-black"
+              className={theme.loginPage.forgotPasswordLink}
             >
               {t("FORGOT_PASSWORD")}
             </Link>
@@ -101,28 +102,28 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            className={theme.loginPage.submitButton}
           >
             {isSubmitting ? t("SIGNING_IN") : t("SIGN_IN")}
           </button>
         </form>
 
         {/* Divider */}
-        <div className="my-8 flex items-center">
-          <div className="grow border-t border-neutral-100"></div>
-          <span className="mx-4 text-xs font-light text-neutral-400">
+        <div className={theme.loginPage.divider}>
+          <div className={theme.loginPage.dividerLine}></div>
+          <span className={theme.loginPage.dividerText}>
             {t("OR_CONTINUE_WITH")}
           </span>
-          <div className="grow border-t border-neutral-100"></div>
+          <div className={theme.loginPage.dividerLine}></div>
         </div>
 
         {/* Google Login */}
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="flex w-full items-center justify-center gap-3 rounded-2xl border border-neutral-200 bg-white py-3.5 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-50 active:scale-[0.98]"
+          className={theme.loginPage.googleButton}
         >
-          <svg className="h-4 w-4" viewBox="0 0 24 24">
+          <svg className={theme.loginPage.googleIcon} viewBox="0 0 24 24">
             <path
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
               fill="#4285F4"
@@ -143,11 +144,11 @@ export default function LoginPage() {
           {t("SIGN_IN_GOOGLE")}
         </button>
 
-        <p className="mt-8 text-center text-xs font-light text-neutral-500">
+        <p className={theme.loginPage.footerText}>
           {t("NO_ACCOUNT")}{" "}
           <Link
             href="/register"
-            className="font-medium text-black transition hover:underline"
+            className={theme.loginPage.footerLink}
           >
             {t("CREATE_ONE")}
           </Link>

@@ -12,6 +12,7 @@ import { Locale } from "@/types";
 import { PasswordInput } from "@/components/inputs/PasswordInput";
 import { changePasswordApi } from "@/features/auth/api/auth.client.api";
 import { useRouter } from "next/navigation";
+import { theme } from "@/themes";
 
 export default function ChangePasswordPage() {
   const locale = useLocale() as Locale;
@@ -42,20 +43,20 @@ export default function ChangePasswordPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-neutral-50/50 px-4 py-12">
-      <div className="w-full max-w-md rounded-3xl border border-neutral-100 bg-white p-8 shadow-sm sm:p-10">
+    <main className={theme.changePasswordPage.main}>
+      <div className={theme.changePasswordPage.card}>
         {/* Header */}
-        <div className="mb-8 text-center sm:text-left">
-          <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
+        <div className={theme.changePasswordPage.header}>
+          <h1 className={theme.changePasswordPage.title}>
             {t("ChangePasswordPage.TITLE")}
           </h1>
-          <p className="mt-2 text-sm font-light text-neutral-500">
+          <p className={theme.changePasswordPage.subtitle}>
             {t("ChangePasswordPage.SUBTITLE")}
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className={theme.changePasswordPage.form}>
           <PasswordInput
             id="currentPassword"
             label={t("ChangePasswordPage.CURRENT_PASSWORD_LABEL")}
@@ -68,7 +69,7 @@ export default function ChangePasswordPage() {
           />
 
           {/* Divider */}
-          <div className="my-6 border-t border-neutral-100"></div>
+          <div className={theme.changePasswordPage.divider}></div>
 
           <PasswordInput
             id="newPassword"
@@ -95,7 +96,7 @@ export default function ChangePasswordPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="mt-8 w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+            className={theme.changePasswordPage.submitButton}
           >
             {isSubmitting
               ? t("ChangePasswordPage.UPDATING")
