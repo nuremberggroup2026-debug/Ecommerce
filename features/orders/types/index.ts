@@ -1,6 +1,4 @@
 
-
-
 export interface ResponseType<T> {
   message: string;
   success: boolean;
@@ -8,6 +6,7 @@ export interface ResponseType<T> {
 }
 
 export type Locale = "ar" | "en";
+
 
 
 export type AllOrdersByUser = {

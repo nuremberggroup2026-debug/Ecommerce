@@ -83,15 +83,16 @@ USERS: {
 
 
 
-ORDERS: {
-  ALL_ORDERS: "/orders/admin",
-  ALL_ORDERS_BY_USER:"/orders/admin",
-  ORDER_BY_ID: "/orders/admin",
-  UPDATE_ORDER_STATUS: "/orders/update-order-status",
-    DELETE_MANY_ORDERS: "orders/delete-many-orders",
-    ORDER_BY_USER_ORDER_ID_AND_LOCALE:"orders/order-details-by-user-id-and-locale"
 
-},
+    ORDERS: {
+      ALL_ORDERS: "/orders/admin",
+      ORDER_BY_ID: "/orders/admin",
+      UPDATE_ORDER_STATUS: "/orders/update-order-status",
+      DELETE_MANY_ORDERS: "orders/delete-many-orders",
+      ORDER_DETAILS_BY_ID_AND_LOCALE:
+        "orders/order-details-by-user-id-and-locale",
+      ALL_ORDERS_BY_USER: "orders/all-orders-by-user",
+    },
 
     CART_ITEMS: {
       ADD_NEW_ITEM: "cart-items",
