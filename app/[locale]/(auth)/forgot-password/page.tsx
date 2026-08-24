@@ -13,6 +13,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/types";
 import { EmailInput } from "@/components/inputs/EmailInput";
 import { generateForgotPasswordToken } from "@/features/auth/api/auth.client.api";
+import { theme } from "@/themes";
 
 export default function ForgotPasswordPage() {
   const locale = useLocale();
@@ -43,19 +44,19 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-neutral-50/50 px-4 py-12">
-      <div className="w-full max-w-md rounded-3xl border border-neutral-100 bg-white p-8 text-center shadow-sm sm:p-10">
+    <main className={theme.forgotPasswordPage.main}>
+      <div className={theme.forgotPasswordPage.card}>
         {isSuccess ? (
           /* SUCCESS STATE */
-          <div className="flex flex-col items-center animate-in fade-in zoom-in duration-500">
-            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-green-50 text-green-600">
+          <div className={theme.forgotPasswordPage.successWrapper}>
+            <div className={theme.forgotPasswordPage.successIconWrapper}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="h-6 w-6"
+                className={theme.forgotPasswordPage.successIcon}
               >
                 <path
                   strokeLinecap="round"
@@ -64,32 +65,32 @@ export default function ForgotPasswordPage() {
                 />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
+            <h1 className={theme.forgotPasswordPage.title}>
               {t("SUCCESS_TITLE")}
             </h1>
-            <p className="mt-2 text-sm font-light text-neutral-500">
+            <p className={theme.forgotPasswordPage.subtitle}>
               {t("SUCCESS_DESC")}
             </p>
             <Link
               href="/login"
-              className="mt-8 inline-block w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98]"
+              className={theme.forgotPasswordPage.successButton}
             >
               {t("BACK_TO_LOGIN")}
             </Link>
           </div>
         ) : (
           /* FORM STATE */
-          <div className="animate-in fade-in duration-300 text-left">
-            <div className="mb-8 text-center">
-              <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
+          <div className={theme.forgotPasswordPage.formStateWrapper}>
+            <div className={theme.forgotPasswordPage.header}>
+              <h1 className={theme.forgotPasswordPage.title}>
                 {t("TITLE")}
               </h1>
-              <p className="mt-2 text-sm font-light text-neutral-500">
+              <p className={theme.forgotPasswordPage.subtitle}>
                 {t("SUBTITLE")}
               </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className={theme.forgotPasswordPage.form}>
               <EmailInput
                 id="email"
                 label={t("EMAIL_LABEL")}
@@ -103,16 +104,16 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-6 w-full rounded-2xl bg-black py-4 text-[11px] font-bold uppercase tracking-widest text-white transition-all hover:bg-neutral-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
+                className={theme.forgotPasswordPage.submitButton}
               >
                 {isSubmitting ? t("SENDING") : t("SEND_LINK")}
               </button>
             </form>
 
-            <div className="mt-8 text-center">
+            <div className={theme.forgotPasswordPage.backLinkWrapper}>
               <Link
                 href="/login"
-                className="text-xs font-medium text-neutral-500 transition hover:text-black"
+                className={theme.forgotPasswordPage.backLink}
               >
                 &larr; {t("BACK_TO_LOGIN")}
               </Link>

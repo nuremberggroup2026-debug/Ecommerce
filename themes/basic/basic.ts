@@ -8,10 +8,10 @@ import { featuredProductsTheme } from "./home/FeaturedProductsComponent";
 import { forSaleTheme } from "./home/forSaleSection";
 import { promoBannerTheme } from "./home/promoBanner";
 import { storeFeaturesTheme } from "./home/storeFeaturesSection";
-import { careersTheme } from "./carrers/careerList";
-import { careerDetailsTheme } from "./carrers/careerDetails";
-import { applicationFormTheme } from "./carrers/applicationForm";
-import { careerDetailsWidgetTheme } from "./carrers/careerDetailsWidget";
+import { careersTheme } from "./carrers/careerList/careerList";
+import { careerDetailsTheme } from "./carrers/careerDetails/careerDetails";
+import { applicationFormTheme } from "./carrers/applicationForm/applicationForm";
+import { careerDetailsWidgetTheme } from "./carrers/careerDetailsWidget/careerDetailsWidget";
 import { cartTheme } from "./cart/cartComponent";
 import { categoriesListTheme} from "./categories/categoriesListComponent";
 import { checkoutTheme} from "./checkout/checkoutComponent";
@@ -36,6 +36,23 @@ import { wishlistAuthTheme} from "./wishlist/wishlistAuth";
 import { categoryFilterTheme} from "./filters/categoryFilter";
 import { priceFilterTheme} from "./filters/priceFilter";
 import { sortFilterTheme} from "./filters/sortFilter";
+import { footerTheme} from "./footer";
+import { aboutPageTheme} from "./aboutPage";
+import { loginPageTheme} from "./loginPage";
+import { registerPageTheme} from "./registerPage";
+import { changePasswordPageTheme} from "./changePasswordPage";
+import { forgotPasswordPageTheme} from "./forgotPasswordPage";
+import { resetPasswordPageTheme} from "./resetPasswordPage";
+import { verifyEmailPageTheme } from "./verifyEmailPage";
+import { applicationPageTheme } from "./carrers/applicationPage/applicationPage";
+
+
+
+
+
+
+
+
 
 
 
@@ -55,7 +72,14 @@ import { sortFilterTheme} from "./filters/sortFilter";
 
 export const basic = {
   navbar: navbarTheme,
-
+  footer:footerTheme,
+  loginPage:loginPageTheme,
+aboutPage:aboutPageTheme,
+forgetPasswordPage:forgotPasswordPageTheme,
+resetPasswordPage:resetPasswordPageTheme,
+registerPage:registerPageTheme,
+changePasswordPage:changePasswordPageTheme,
+verifyEmailPage:verifyEmailPageTheme,
   button: buttonTheme,
   hero: heroTheme,
 
@@ -72,6 +96,7 @@ export const basic = {
   careerDetails:careerDetailsTheme,
   applicationForm:applicationFormTheme,
   careerDetailsWidget:careerDetailsWidgetTheme,
+  applicationPage:applicationPageTheme,
   /////////////////////////////////////////////////
   cart:cartTheme,
   ////////////////////////////////////////////////

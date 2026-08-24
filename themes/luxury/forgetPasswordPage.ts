@@ -1,0 +1,16 @@
+export const forgotPasswordPageTheme = {
+  main: "flex min-h-screen items-center justify-center bg-[#f3ede0]/40 px-4 py-12",
+  card: "w-full max-w-md rounded-sm border border-[#b08d57]/15 bg-white p-8 text-center shadow-sm sm:p-10",
+  successWrapper: "flex flex-col items-center animate-in fade-in zoom-in duration-500",
+  successIconWrapper: "mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-[#b08d57]/10 text-[#b08d57]",
+  successIcon: "h-6 w-6",
+  title: "font-serif text-2xl tracking-tight text-[#0c0a07]",
+  subtitle: "mt-2 text-sm font-light text-stone-500",
+  successButton: "mt-8 inline-block w-full rounded-sm bg-[#0c0a07] py-4 text-[11px] font-bold uppercase tracking-widest text-[#d4b877] transition-all hover:bg-[#1a1611] active:scale-[0.98]",
+  formStateWrapper: "animate-in fade-in duration-300 text-left",
+  header: "mb-8 text-center",
+  form: "space-y-5",
+  submitButton: "mt-6 w-full rounded-sm bg-[#0c0a07] py-4 text-[11px] font-bold uppercase tracking-widest text-[#d4b877] transition-all hover:bg-[#1a1611] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50",
+  backLinkWrapper: "mt-8 text-center",
+  backLink: "text-xs font-medium text-stone-500 transition hover:text-[#b08d57]",
+};

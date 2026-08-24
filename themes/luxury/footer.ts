@@ -1,0 +1,18 @@
+export const footerTheme = {
+  footer: "border-t border-[#b08d57]/15 bg-[#f3ede0]/40",
+  container: "mx-auto max-w-[92%] px-6 pt-14 pb-7 lg:px-10",
+  grid: "grid gap-8 md:grid-cols-3 mb-12",
+  colSpace: "space-y-6",
+  titleSpace: "space-y-2",
+  brandTitle: "font-serif text-xl tracking-tight text-[#0c0a07]",
+  brandSuffix: "font-serif italic font-light text-[#b08d57]",
+  description: "max-w-sm text-xs leading-relaxed text-stone-500 font-light",
+  sectionTitle: "text-xs font-semibold tracking-wider uppercase text-[#b08d57]",
+  linksList: "space-y-2.5 text-xs text-stone-500 font-light",
+  link: "transition hover:text-[#b08d57]",
+  contactLabel: "font-medium text-stone-600",
+  socialBox: "flex gap-4 pt-2",
+  socialIcon: "text-stone-400 transition hover:text-[#b08d57]",
+  svgSize: "w-4 h-4",
+  copyrightRow: "flex justify-center border-t border-[#b08d57]/20 pt-8 text-[11px] text-stone-400 font-light",
+};
