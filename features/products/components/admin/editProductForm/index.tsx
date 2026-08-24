@@ -33,13 +33,18 @@ export type {
   EditProduct,
 } from "./types";
 
-export default function EditProductForm({ product, categories, attributes }: Props) {
+export default function EditProductForm({
+  product,
+  categories,
+  attributes,
+}: Props) {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
-
-  const [advancedVariants, setAdvancedVariants] = useState(product.variants.length > 1);
+  const [advancedVariants, setAdvancedVariants] = useState(
+    product.variants.length > 1,
+  );
 
   const [cardImageFile, setCardImageFile] = useState<File | null>(null);
   const [productImageFiles, setProductImageFiles] = useState<File[]>([]);
@@ -47,7 +52,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
   const [variantFiles, setVariantFiles] = useState<VariantFilesMap>({});
 
   const { startUpload, isUploading } = useUploadThing("products");
-
 
   const existingDefaultVariant =
     product.variants.find((v) => v.isDefault) ?? product.variants[0];
@@ -89,7 +93,10 @@ export default function EditProductForm({ product, categories, attributes }: Pro
             discountPercentage: Number(v.discountPercentage || 0),
             finalPrice: Number(
               v.finalPrice ??
-                calculateFinalPrice(Number(v.price) || 0, Number(v.discountPercentage || 0))
+                calculateFinalPrice(
+                  Number(v.price) || 0,
+                  Number(v.discountPercentage || 0),
+                ),
             ),
             stock: Number(v.stock) || 0,
             isDefault: Boolean(v.isDefault),
@@ -101,13 +108,15 @@ export default function EditProductForm({ product, categories, attributes }: Pro
               sku: simpleVariantSeed.sku || "",
               variantImage: simpleVariantSeed.variantImage || "",
               price: Number(simpleVariantSeed.price) || 0,
-              discountPercentage: Number(simpleVariantSeed.discountPercentage || 0),
+              discountPercentage: Number(
+                simpleVariantSeed.discountPercentage || 0,
+              ),
               finalPrice: Number(
                 simpleVariantSeed.finalPrice ??
                   calculateFinalPrice(
                     Number(simpleVariantSeed.price) || 0,
-                    Number(simpleVariantSeed.discountPercentage || 0)
-                  )
+                    Number(simpleVariantSeed.discountPercentage || 0),
+                  ),
               ),
               stock: Number(simpleVariantSeed.stock) || 0,
               isDefault: true,
@@ -117,7 +126,8 @@ export default function EditProductForm({ product, categories, attributes }: Pro
     },
   });
 
-  const { control, handleSubmit, watch, setValue, setError, clearErrors } = form;
+  const { control, handleSubmit, watch, setValue, setError, clearErrors } =
+    form;
 
   const { fields, append, remove, replace } = useFieldArray({
     control,
@@ -140,7 +150,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
     return url;
   };
 
-
   const uploadMany = async (files: File[]) => {
     if (!files.length) {
       return [];
@@ -149,8 +158,9 @@ export default function EditProductForm({ product, categories, attributes }: Pro
     const result = await startUpload(files);
 
     const urls =
-      result?.map((x) => x?.serverData?.uploadedUrl).filter((x): x is string => Boolean(x)) ??
-      [];
+      result
+        ?.map((x) => x?.serverData?.uploadedUrl)
+        .filter((x): x is string => Boolean(x)) ?? [];
 
     if (urls.length !== files.length) {
       throw new Error("One or more images failed to upload");
@@ -182,7 +192,9 @@ export default function EditProductForm({ product, categories, attributes }: Pro
     const currentVariants = variants;
 
     const defaultVariant =
-      currentVariants.find((v) => v.isDefault) ?? currentVariants[0] ?? simpleVariantSeed;
+      currentVariants.find((v) => v.isDefault) ??
+      currentVariants[0] ??
+      simpleVariantSeed;
 
     replace([
       {
@@ -193,7 +205,7 @@ export default function EditProductForm({ product, categories, attributes }: Pro
         discountPercentage: Number(defaultVariant.discountPercentage || 0),
         finalPrice: calculateFinalPrice(
           Number(defaultVariant.price) || 0,
-          Number(defaultVariant.discountPercentage || 0)
+          Number(defaultVariant.discountPercentage || 0),
         ),
         stock: Number(defaultVariant.stock) || 0,
         isDefault: true,
@@ -225,7 +237,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
       attributeValueIds: [],
     });
   };
-
 
   const removeVariant = (index: number) => {
     if (!advancedVariants) {
@@ -261,7 +272,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
     }
   };
 
-
   const setDefaultVariant = (index: number) => {
     variants.forEach((_, i) => {
       setValue(`variants.${i}.isDefault`, i === index, {
@@ -269,7 +279,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
         shouldValidate: true,
       });
 
-  
       if (i === index) {
         setValue(`variants.${i}.attributeValueIds`, [], {
           shouldDirty: true,
@@ -278,7 +287,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
       }
     });
   };
-
 
   const toggleAttribute = (index: number, valueId: string) => {
     if (variants[index]?.isDefault) {
@@ -290,22 +298,30 @@ export default function EditProductForm({ product, categories, attributes }: Pro
 
     setValue(
       `variants.${index}.attributeValueIds`,
-      current.includes(valueId) ? current.filter((x) => x !== valueId) : [...current, valueId],
-      { shouldDirty: true, shouldValidate: true }
+      current.includes(valueId)
+        ? current.filter((x) => x !== valueId)
+        : [...current, valueId],
+      { shouldDirty: true, shouldValidate: true },
     );
   };
-
 
   const updatePrice = (index: number, value: string) => {
     const price = Number(value) || 0;
     const discount = Number(variants[index]?.discountPercentage) || 0;
 
-    setValue(`variants.${index}.price`, price, { shouldDirty: true, shouldValidate: true });
-
-    setValue(`variants.${index}.finalPrice`, calculateFinalPrice(price, discount), {
+    setValue(`variants.${index}.price`, price, {
       shouldDirty: true,
       shouldValidate: true,
     });
+
+    setValue(
+      `variants.${index}.finalPrice`,
+      calculateFinalPrice(price, discount),
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      },
+    );
   };
 
   const updateDiscount = (index: number, value: string) => {
@@ -317,10 +333,14 @@ export default function EditProductForm({ product, categories, attributes }: Pro
       shouldValidate: true,
     });
 
-    setValue(`variants.${index}.finalPrice`, calculateFinalPrice(price, discount), {
-      shouldDirty: true,
-      shouldValidate: true,
-    });
+    setValue(
+      `variants.${index}.finalPrice`,
+      calculateFinalPrice(price, discount),
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      },
+    );
   };
 
   /*
@@ -330,7 +350,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
     try {
       setLoading(true);
 
-   
       let cardImage = data.productCardImage;
 
       if (cardImageFile) {
@@ -347,8 +366,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
         return;
       }
 
-  
-
       let additionalImages = data.productImages || [];
 
       if (productImageFiles.length) {
@@ -356,7 +373,9 @@ export default function EditProductForm({ product, categories, attributes }: Pro
         additionalImages = [...additionalImages, ...uploaded];
       }
 
-      additionalImages = additionalImages.filter((x) => !removeImages.includes(x));
+      additionalImages = additionalImages.filter(
+        (x) => !removeImages.includes(x),
+      );
 
       if (!advancedVariants) {
         const source = data.variants?.[0];
@@ -373,7 +392,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
 
         let variantImage = source.variantImage || "";
 
-    
         const simpleFieldId = fields[0]?.id;
         const simpleFile = simpleFieldId ? variantFiles[simpleFieldId] : null;
 
@@ -394,15 +412,20 @@ export default function EditProductForm({ product, categories, attributes }: Pro
           finalPrice: final,
           stock: Number(source.stock) || 0,
 
-         
           isDefault: true,
 
-      
           attributeValueIds: [],
         };
 
-    
         const startingPrice = final;
+
+        console.log("form dataddd: ", {
+          ...data,
+          productCardImage: cardImage,
+          productImages: additionalImages,
+          startingPrice,
+          variants: [simpleVariantPayload],
+        });
 
         await toastResponse(
           adminUpdateProduct(product.id, {
@@ -412,7 +435,7 @@ export default function EditProductForm({ product, categories, attributes }: Pro
             startingPrice,
             variants: [simpleVariantPayload],
           }),
-          "Product updated successfully"
+          "Product updated successfully",
         );
 
         router.push("/dashboard/products");
@@ -420,8 +443,6 @@ export default function EditProductForm({ product, categories, attributes }: Pro
 
         return;
       }
-
- 
 
       let variantsWithImages: NonNullable<UpdateProductSchema["variants"]> = [];
 
@@ -451,7 +472,7 @@ export default function EditProductForm({ product, categories, attributes }: Pro
             isDefault: Boolean(v.isDefault),
             attributeValueIds: v.isDefault ? [] : v.attributeValueIds || [],
           };
-        })
+        }),
       );
 
       if (!variantsWithImages.length) {
@@ -464,10 +485,9 @@ export default function EditProductForm({ product, categories, attributes }: Pro
         return;
       }
 
-     
       const defaultCount = variantsWithImages.filter((v) => v.isDefault).length;
 
-      if (defaultCount !== 1) {
+      /* if (defaultCount !== 1) {
         setError("variants", {
           type: "manual",
           message: "Please select exactly one default variant",
@@ -475,10 +495,19 @@ export default function EditProductForm({ product, categories, attributes }: Pro
 
         toast.error("Please select exactly one default variant");
         return;
-      }
+      }*/
 
-    
-      const startingPrice = Math.min(...variantsWithImages.map((v) => Number(v.finalPrice) || 0));
+      const startingPrice = Math.min(
+        ...variantsWithImages.map((v) => Number(v.finalPrice) || 0),
+      );
+
+      console.log("form dataddd: ", {
+        ...data,
+        productCardImage: cardImage,
+        productImages: additionalImages,
+        startingPrice,
+        variants: variantsWithImages,
+      });
 
       await toastResponse(
         adminUpdateProduct(product.id, {
@@ -488,7 +517,7 @@ export default function EditProductForm({ product, categories, attributes }: Pro
           startingPrice,
           variants: variantsWithImages,
         }),
-        "Product updated successfully"
+        "Product updated successfully",
       );
 
       router.push("/dashboard/products");
@@ -496,7 +525,9 @@ export default function EditProductForm({ product, categories, attributes }: Pro
     } catch (error) {
       console.error(error);
 
-      toast.error(error instanceof Error ? error.message : "Something went wrong");
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong",
+      );
     } finally {
       setLoading(false);
     }
@@ -511,7 +542,8 @@ export default function EditProductForm({ product, categories, attributes }: Pro
           <h1 className="text-2xl font-semibold">Edit Product</h1>
 
           <p className="mt-1 text-sm text-gray-500">
-            Update product information, images, pricing, stock, variants and attributes.
+            Update product information, images, pricing, stock, variants and
+            attributes.
           </p>
         </div>
 
@@ -529,11 +561,13 @@ export default function EditProductForm({ product, categories, attributes }: Pro
         />
         <section className="rounded-2xl border bg-white p-6 shadow-sm">
           <div className="mb-6">
-            <h2 className="text-lg font-semibold">Product Pricing & Variants</h2>
+            <h2 className="text-lg font-semibold">
+              Product Pricing & Variants
+            </h2>
 
             <p className="mt-1 text-sm text-gray-500">
-              A simple product still has price, discount, stock and SKU. Advanced products can
-              have multiple variants.
+              A simple product still has price, discount, stock and SKU.
+              Advanced products can have multiple variants.
             </p>
           </div>
 
@@ -575,7 +609,10 @@ export default function EditProductForm({ product, categories, attributes }: Pro
           )}
         </section>
 
-        <FormActions loading={loading || isUploading} onCancel={() => router.back()} />
+        <FormActions
+          loading={loading || isUploading}
+          onCancel={() => router.back()}
+        />
       </form>
     </FormProvider>
   );

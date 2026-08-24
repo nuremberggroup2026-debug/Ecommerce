@@ -37,6 +37,9 @@ export default function AdvancedVariantsSection({
     formState: { errors },
   } = useFormContext<UpdateProductSchema>();
 
+  console.log("variants: ", variants);
+  console.log("attributes: ", attributes);
+
   return (
     <>
       <div className="mb-6 flex items-center justify-end">

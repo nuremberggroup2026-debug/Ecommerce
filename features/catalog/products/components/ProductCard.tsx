@@ -77,7 +77,7 @@ export default function ProductCard({
       <div className={theme.productCard.imageWrapper}>
         <Link href={`/products/${product.id}`}>
           <Image
-            src={defaultImage}
+            src={product.productCardImage}
             alt={product.productName}
             fill
             sizes="(max-w-7xl) 33vw, 50vw"

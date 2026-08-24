@@ -1,7 +1,6 @@
 "use client";
 import type { CreateAdminProduct } from "@/features/products/types";
 
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -10,14 +9,21 @@ import { toast } from "sonner";
 
 import { useUploadThing } from "@/utils/uploadthing";
 import { toastResponse } from "@/lib/admintoast";
-import { productSchema, type ProductSchema } from "@/server/products/validators";
+import {
+  productSchema,
+  type ProductSchema,
+} from "@/server/products/validators";
 import { adminAddProduct } from "@/features/products/api/products.client.api";
 
-import ProductInfoSection, { ProductCategoryOption } from "./ProductInfoSection";
+import ProductInfoSection, {
+  ProductCategoryOption,
+} from "./ProductInfoSection";
 import ProductImagesSection from "./ProductImagesSection";
 import ProductTypeSelector from "./ProductTypeSelector";
 import SimpleVariantSection from "./SimpleVariantSection";
-import AdvancedVariantsSection, { ProductAttributeOption } from "./AdvancedVariantsSection";
+import AdvancedVariantsSection, {
+  ProductAttributeOption,
+} from "./AdvancedVariantsSection";
 
 interface AddProductFormProps {
   categories: ProductCategoryOption[];
@@ -30,14 +36,19 @@ const calculateFinalPrice = (price: number, discount: number) => {
   return Number(Math.max(0, price - price * (discount / 100)).toFixed(2));
 };
 
-export default function AddProductForm({ categories, attributes }: AddProductFormProps) {
+export default function AddProductForm({
+  categories,
+  attributes,
+}: AddProductFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [advancedVariants, setAdvancedVariants] = useState(false);
   const [cardImageFile, setCardImageFile] = useState<File | null>(null);
   const [productImageFiles, setProductImageFiles] = useState<File[]>([]);
-  const [variantFiles, setVariantFiles] = useState<Record<string, File | null>>({});
-  
+  const [variantFiles, setVariantFiles] = useState<Record<string, File | null>>(
+    {},
+  );
+
   const { startUpload } = useUploadThing("products");
 
   const {
@@ -78,7 +89,12 @@ export default function AddProductForm({ categories, attributes }: AddProductFor
     },
   });
 
-  const { fields: variantFields, append, remove, replace } = useFieldArray({
+  const {
+    fields: variantFields,
+    append,
+    remove,
+    replace,
+  } = useFieldArray({
     control,
     name: "variants",
   });
@@ -121,8 +137,14 @@ export default function AddProductForm({ categories, attributes }: AddProductFor
       });
       return;
     }
-    setValue("variants.0.isDefault", true, { shouldDirty: true, shouldValidate: true });
-    setValue("variants.0.attributeValueIds", [], { shouldDirty: true, shouldValidate: true });
+    setValue("variants.0.isDefault", true, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+    setValue("variants.0.attributeValueIds", [], {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
   };
 
   const disableAdvancedVariants = () => {
@@ -136,7 +158,7 @@ export default function AddProductForm({ categories, attributes }: AddProductFor
         discountPercentage: Number(current?.discountPercentage || 0),
         finalPrice: calculateFinalPrice(
           Number(current?.price || 0),
-          Number(current?.discountPercentage || 0)
+          Number(current?.discountPercentage || 0),
         ),
         stock: Number(current?.stock || 0),
         isDefault: true,
@@ -190,24 +212,30 @@ export default function AddProductForm({ categories, attributes }: AddProductFor
 
   const setDefaultVariant = (index: number) => {
     variants.forEach((_, i) => {
-      setValue(`variants.${i}.isDefault`, i === index, { shouldDirty: true, shouldValidate: true });
+      setValue(`variants.${i}.isDefault`, i === index, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
       if (i === index) {
-        setValue(`variants.${i}.attributeValueIds`, [], { shouldDirty: true, shouldValidate: true });
+        setValue(`variants.${i}.attributeValueIds`, [], {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
       }
     });
   };
 
   const toggleAttributeValue = (index: number, valueId: string) => {
-    if (variants[index]?.isDefault) {
-      toast.error("Default variant cannot have attributes");
-      return;
-    }
+   
     const current = variants[index]?.attributeValueIds ?? [];
     const next = current.includes(valueId)
       ? current.filter((id) => id !== valueId)
       : [...current, valueId];
 
-    setValue(`variants.${index}.attributeValueIds`, next, { shouldDirty: true, shouldValidate: true });
+    setValue(`variants.${index}.attributeValueIds`, next, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
   };
 
   const isSelected = (index: number, valueId: string) => {
@@ -218,22 +246,38 @@ export default function AddProductForm({ categories, attributes }: AddProductFor
     const safePrice = Number.isFinite(price) ? Math.max(0, price) : 0;
     const discount = Number(variants[index]?.discountPercentage ?? 0);
 
-    setValue(`variants.${index}.price`, safePrice, { shouldDirty: true, shouldValidate: true });
-    setValue(`variants.${index}.finalPrice`, calculateFinalPrice(safePrice, discount), {
+    setValue(`variants.${index}.price`, safePrice, {
       shouldDirty: true,
       shouldValidate: true,
     });
+    setValue(
+      `variants.${index}.finalPrice`,
+      calculateFinalPrice(safePrice, discount),
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      },
+    );
   };
 
   const updateDiscount = (index: number, discount: number) => {
-    const safeDiscount = Number.isFinite(discount) ? Math.min(100, Math.max(0, discount)) : 0;
+    const safeDiscount = Number.isFinite(discount)
+      ? Math.min(100, Math.max(0, discount))
+      : 0;
     const price = Number(variants[index]?.price ?? 0);
 
-    setValue(`variants.${index}.discountPercentage`, safeDiscount, { shouldDirty: true, shouldValidate: true });
-    setValue(`variants.${index}.finalPrice`, calculateFinalPrice(price, safeDiscount), {
+    setValue(`variants.${index}.discountPercentage`, safeDiscount, {
       shouldDirty: true,
       shouldValidate: true,
     });
+    setValue(
+      `variants.${index}.finalPrice`,
+      calculateFinalPrice(price, safeDiscount),
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      },
+    );
   };
 
   const onSubmit = async (data: ProductSchema) => {
@@ -241,13 +285,19 @@ export default function AddProductForm({ categories, attributes }: AddProductFor
       setLoading(true);
 
       if (!cardImageFile) {
-        setError("productCardImage", { type: "manual", message: "Product card image is required" });
+        setError("productCardImage", {
+          type: "manual",
+          message: "Product card image is required",
+        });
         toast.error("Please upload the product card image");
         return;
       }
 
       if (!productImageFiles.length) {
-        setError("productImages", { type: "manual", message: "At least one product image is required" });
+        setError("productImages", {
+          type: "manual",
+          message: "At least one product image is required",
+        });
         toast.error("Please upload at least one product image");
         return;
       }
@@ -255,18 +305,22 @@ export default function AddProductForm({ categories, attributes }: AddProductFor
       const productCardImage = await uploadOne(cardImageFile);
       const productImages = await uploadMany(productImageFiles);
 
-let variantsWithImages: CreateAdminProduct["variants"] = [];
+      let variantsWithImages: CreateAdminProduct["variants"] = [];
 
       if (!advancedVariants) {
         const simpleVariant = data.variants?.[0];
         if (!simpleVariant) {
-          setError("variants", { type: "manual", message: "Product pricing information is required" });
+          setError("variants", {
+            type: "manual",
+            message: "Product pricing information is required",
+          });
           toast.error("Please enter product price and stock");
           return;
         }
 
         const price = Number(simpleVariant.price) || 0;
-        const discountPercentage = Number(simpleVariant.discountPercentage) || 0;
+        const discountPercentage =
+          Number(simpleVariant.discountPercentage) || 0;
 
         variantsWithImages = [
           {
@@ -302,23 +356,23 @@ let variantsWithImages: CreateAdminProduct["variants"] = [];
               finalPrice: calculateFinalPrice(price, discountPercentage),
               stock: Number(variant.stock) || 0,
               isDefault: Boolean(variant.isDefault),
-              attributeValueIds: variant.isDefault ? [] : variant.attributeValueIds || [],
+              attributeValueIds: variant.isDefault
+                ? []
+                : variant.attributeValueIds || [],
             };
-          })
+          }),
         );
 
         if (!variantsWithImages.length) {
-          setError("variants", { type: "manual", message: "Add at least one variant" });
+          setError("variants", {
+            type: "manual",
+            message: "Add at least one variant",
+          });
           toast.error("Please add at least one variant");
           return;
         }
 
-        const defaultCount = variantsWithImages.filter((v) => v.isDefault).length;
-        if (defaultCount !== 1) {
-          setError("variants", { type: "manual", message: "Please select exactly one default variant" });
-          toast.error("Please select exactly one default variant");
-          return;
-        }
+     
       }
 
       const startingPrice = variantsWithImages.length
@@ -333,21 +387,26 @@ let variantsWithImages: CreateAdminProduct["variants"] = [];
           startingPrice,
           variants: variantsWithImages,
         }),
-        "Product created successfully"
+        "Product created successfully",
       );
 
       router.push("/dashboard/products");
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error(error instanceof Error ? error.message : "Something went wrong");
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong",
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-7xl space-y-6 pb-10">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="mx-auto max-w-7xl space-y-6 pb-10"
+    >
       <div className="rounded-2xl border bg-white p-6">
         <h1 className="text-2xl font-semibold">Add Product</h1>
         <p className="mt-1 text-sm text-gray-500">
@@ -355,7 +414,11 @@ let variantsWithImages: CreateAdminProduct["variants"] = [];
         </p>
       </div>
 
-      <ProductInfoSection register={register} errors={errors} categories={categories} />
+      <ProductInfoSection
+        register={register}
+        errors={errors}
+        categories={categories}
+      />
 
       <ProductImagesSection
         errors={errors}

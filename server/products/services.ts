@@ -40,7 +40,7 @@ export const createNewProduct = async (newProduct: ProductCreateInput) => {
       data: { ...validation.data, slug },
     });
 
-    revalidateTag("products", "max");
+    revalidateTag("products", {expire:0});
     return {
       success: true,
       message: "Product added successfully",
@@ -110,7 +110,7 @@ export const updateProduct = async (
       },
     });
 
-    revalidateTag("products", "max");
+    revalidateTag("products", {expire:0});
 
     return {
       success: true,
@@ -300,8 +300,8 @@ export const createProductWithVariant = async (
       }
     });
 
-    revalidateTag("products", "max");
-    revalidateTag("productVariants", "max");
+    revalidateTag("products", { expire: 0 });
+    revalidateTag("productVariants", { expire: 0 });
 
     return {
       success: true,
@@ -346,10 +346,9 @@ export const updateProductWithVariant = async (
 
     const validation =
       updateProductWithVariantsSchema.safeParse(updatedProductData);
-console.log("foooorm: ",updatedProductData);
+    console.log("foooorm: ", updatedProductData);
 
-      console.log("validation pr:", validation.error);
-      
+    console.log("validation pr:", validation.error);
 
     if (!validation.success) {
       return {
@@ -531,8 +530,8 @@ console.log("foooorm: ",updatedProductData);
       }
     });
 
-    revalidateTag("products", "max");
-    revalidateTag("productVariants", "max");
+    revalidateTag("products", { expire: 0 });
+    revalidateTag("productVariants", { expire: 0 });
 
     return {
       success: true,
@@ -584,7 +583,7 @@ export const deleteProduct = async (id: string) => {
     where: { id },
   });
 
-  revalidateTag("products", "max");
+  revalidateTag("products", { expire: 0 });
 
   return {
     success: true,
@@ -887,7 +886,7 @@ const getCachedfilteredProducts = (
             select: {
               finalPrice: true,
               price: true,
-              stock:true,
+              stock: true,
               discountPercentage: true,
               id: true,
             },
@@ -959,7 +958,7 @@ const getCachedFeaturedProductsByLocale = (locale: Locale) =>
             select: {
               finalPrice: true,
               price: true,
-              
+
               discountPercentage: true,
               stock: true,
             },
