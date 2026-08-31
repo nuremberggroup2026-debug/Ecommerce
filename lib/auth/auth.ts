@@ -9,7 +9,7 @@ import { sendVerificationEmail } from "../emails/send-verification";
 import crypto from "crypto";
 
 class EmailNotVerifiedError extends CredentialsSignin {
-  code = "email not verified";
+  code = "EMAIL_NOT_VERIFIED";
 }
 // Check next-auth.d.ts file to see the extanded type
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -95,7 +95,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
         });
 
-        
         if (!dbUser) throw new Error("User no longer exists in database");
         token.role = dbUser.role;
         session.user.email = token.email!;

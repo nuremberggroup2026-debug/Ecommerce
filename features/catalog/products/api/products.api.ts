@@ -54,12 +54,12 @@ export async function getProducts({
   return result;
 }
 // ------------------------------------------------------------------------------ //
-export async function getProductById(
+export async function getProductBySlug(
   locale: Locale,
-  id: string,
+  slug: string,
 ): Promise<ProductByLocale> {
   const result = await api.get<ResponseType<ProductByLocale>>(
-    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID_AND_LOCALE}/${locale}?id=${id}`,
+    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_SLUG_AND_LOCALE}/${locale}?slug=${slug}`,
   );
 
   console.log("ressss:", result);

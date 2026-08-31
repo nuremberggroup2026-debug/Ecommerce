@@ -12,10 +12,17 @@ import {
   fetchFeaturedProducts,
   fetchOnDiscountProducts,
 } from "@/features/catalog/products/api/products.api";
+import { generateStaticMetadata } from "@/lib/constants/metadata";
 
 interface Prop {
   params: Promise<{ locale: Locale }>;
 }
+
+export const generateMetadata = async ({ params }: Prop) => {
+  const locale = (await params).locale;
+  return generateStaticMetadata("home", locale);
+};
+
 export default async function Home({ params }: Prop) {
   const locale = (await params).locale;
   const [banners, categories, featuredProducts, onDiscountProducts] =
@@ -50,7 +57,6 @@ export default async function Home({ params }: Prop) {
       </div>
 
       <PromoBanner />
-
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="border-t border-gray-100" />

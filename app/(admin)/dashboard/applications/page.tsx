@@ -11,7 +11,7 @@ export default async function Page() {
   const careers = response.data as unknown as CareerCard[];
 
   return (
-    <div className="container mx-auto px-4 py-10">
+    <div className="container  mx-auto px-4 py-10">
       {/* Header */}
       <div className="mb-10 flex items-end justify-between">
         <div>

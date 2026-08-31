@@ -23,7 +23,7 @@ import {
   Timeline,
   BriefcaseBusiness,
   Images,
-  ClipboardList 
+  ClipboardList,
 } from "lucide-react";
 
 const items = [
@@ -33,9 +33,19 @@ const items = [
     icon: Home,
   },
   {
+    title: "Users",
+    url: "/dashboard/users",
+    icon: Users,
+  },
+  {
     title: "Banners",
     url: "/dashboard/banners",
     icon: Images,
+  },
+  {
+    title: "Categories",
+    url: "/dashboard/categories",
+    icon: Folder,
   },
   {
     title: "Products",
@@ -49,41 +59,21 @@ const items = [
   },
 
   {
-    title: "Categories",
-    url: "/dashboard/categories",
-    icon: Folder,
-  },
-
-  {
     title: "Orders",
     url: "/dashboard/orders",
     icon: ShoppingCart,
   },
-  {
-    title: "Customers",
-    url: "/dashboard/customers",
-    icon: Users,
-  },
+
   {
     title: "Careers",
     url: "/dashboard/careers",
     icon: BriefcaseBusiness,
   },
-  {
-    title: "Analytics",
-    url: "/dashboard/analytics",
-    icon: BarChart,
-  },
 
   {
-    title: "Users",
-    url: "/dashboard/users",
-    icon: Users,
-  },
-   {
     title: "Applications",
     url: "/dashboard/applications",
-    icon: ClipboardList ,
+    icon: ClipboardList,
   },
 ];
 

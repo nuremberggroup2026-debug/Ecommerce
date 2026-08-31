@@ -93,7 +93,7 @@ export const createRegisterSchema = (locale: Locale = "en") => {
     .object({
       name: z
         .string({ message: t.nameRequired })
-        .min(5, { message: t.nameMin }),
+        .min(2, { message: t.nameMin }),
       email: z
         .string({ message: t.emailRequired })
         .min(1, { message: t.emailRequired })

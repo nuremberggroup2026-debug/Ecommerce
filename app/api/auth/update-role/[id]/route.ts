@@ -9,9 +9,10 @@ export const PUT = withAuth(
   async (request: Request, { params }) => {
     try {
       const { id } = await params;
-      const body = (await request.json()) as { newRole: UserRoles };
+      const body = (await request.json()) as { role: UserRoles };
 
-      const result = await updateRole(id, body.newRole);
+      
+      const result = await updateRole(id, body.role);
 
       const httpStatus = HTTP_STATUS_MAP[result.code] || 500;
 

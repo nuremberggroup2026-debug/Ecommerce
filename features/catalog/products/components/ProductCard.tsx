@@ -25,8 +25,8 @@ export default function ProductCard({
   isInWishlist,
   isInCart,
 }: Props) {
-  console.log("product.variants[0].stock: ",product);
-  
+  console.log("product.variants[0].stock: ", product);
+
   const isOutOfStock = product.variants[0].stock <= 0;
   const [inWishist, setInWishist] = useState(isInWishlist);
   const [inCart, setInCart] = useState(isInCart);
@@ -75,7 +75,7 @@ export default function ProductCard({
   return (
     <div className={theme.productCard.container}>
       <div className={theme.productCard.imageWrapper}>
-        <Link href={`/products/${product.id}`}>
+        <Link href={`/products/${product.slug}`}>
           <Image
             src={product.productCardImage}
             alt={product.productName}

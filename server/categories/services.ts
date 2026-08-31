@@ -341,6 +341,39 @@ const getCachedFeaturedCategoriesByLocale = (locale: Locale) =>
     },
   )();
 
+const getCachedCategoriesNameAndId = () =>
+  unstable_cache(
+    async () => {
+      const categories = await prisma.categories.findMany({
+        select: {
+          id: true,
+          categoryNameEn: true,
+        },
+      });
+
+      return categories.map((c) => ({
+        categoryId: c.id,
+        categoryName: c.categoryNameEn,
+      }));
+    },
+    [`categories-name-id`],
+    {
+      tags: ["categories"],
+      revalidate: 3600,
+    },
+  )();
+
+export const getCategoriesNameAndId = async () => {
+  const data = await getCachedCategoriesNameAndId();
+
+  return {
+    success: true,
+    message: "CATEGORIES_RETRIEVED_SUCCESSFULLY",
+    code: RESPONSE_CODES.OK,
+    data,
+  };
+};
+
 /* -------------------- Caching Helps --------------------  */
 
 export const getAllCategories = async () => {

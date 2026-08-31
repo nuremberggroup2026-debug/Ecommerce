@@ -3,10 +3,16 @@ import { Locale } from "@/types";
 import { getCart } from "@/features/cart/api/cart.server.api";
 import CheckoutComponent from "@/features/checkout/components/CheckoutComponent";
 import { getTranslations } from "next-intl/server";
+import { generateStaticMetadata } from "@/lib/constants/metadata";
 
 interface Props {
   params: Promise<{ locale: Locale }>;
 }
+
+export const generateMetadata = async ({ params }: Props) => {
+  const locale = (await params).locale;
+  return generateStaticMetadata("checkout", locale);
+};
 
 export default async function Page({ params }: Props) {
   const { locale } = await params;

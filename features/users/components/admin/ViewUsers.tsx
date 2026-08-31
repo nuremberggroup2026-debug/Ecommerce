@@ -14,12 +14,7 @@ import {
 import type { User, UserRole } from "@/features/users/types";
 import { adminUpdateUserRole } from "@/features/users/api/users.client.api";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -46,11 +41,7 @@ const USER_ROLE_STYLES: Record<UserRole, string> = {
   super_admin: "border-purple-200 bg-purple-50 text-purple-700",
 };
 
-const USER_ROLES: UserRole[] = [
-  "user",
-  "admin",
-  "super_admin",
-];
+const USER_ROLES: UserRole[] = ["user", "admin", "super_admin"];
 
 export default function ViewUser({ user }: ViewUserProps) {
   const router = useRouter();
@@ -58,14 +49,11 @@ export default function ViewUser({ user }: ViewUserProps) {
   const [role, setRole] = useState<UserRole>(user.role);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const formattedDate = new Date(user.createdAt).toLocaleDateString(
-    "en-GB",
-    {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }
-  );
+  const formattedDate = new Date(user.createdAt).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 
   const initials =
     user.name
@@ -102,9 +90,7 @@ export default function ViewUser({ user }: ViewUserProps) {
         </Button>
 
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            User Details
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight">User Details</h1>
 
           <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
             <CalendarDays className="h-4 w-4" />
@@ -114,7 +100,7 @@ export default function ViewUser({ user }: ViewUserProps) {
       </div>
 
       <Card className="overflow-hidden shadow-sm">
-        <div className="h-32 bg-gradient-to-r from-primary/10 via-primary/5 to-muted" />
+        <div className="h-32 bg-linear-to-r from-primary/10 via-primary/5 to-muted" />
 
         <CardContent className="relative px-6 pb-6">
           <div className="-mt-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -140,16 +126,11 @@ export default function ViewUser({ user }: ViewUserProps) {
                   {user.name || "Unnamed User"}
                 </h2>
 
-                <p className="text-sm text-muted-foreground">
-                  {user.email}
-                </p>
+                <p className="text-sm text-muted-foreground">{user.email}</p>
               </div>
             </div>
 
-            <Badge
-              variant="outline"
-              className={USER_ROLE_STYLES[role]}
-            >
+            <Badge variant="outline" className={USER_ROLE_STYLES[role]}>
               {USER_ROLE_LABELS[role]}
             </Badge>
           </div>
@@ -159,9 +140,7 @@ export default function ViewUser({ user }: ViewUserProps) {
       <div className="grid gap-6 md:grid-cols-2">
         <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-base">
-              Personal Information
-            </CardTitle>
+            <CardTitle className="text-base">Personal Information</CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-5">
@@ -171,13 +150,9 @@ export default function ViewUser({ user }: ViewUserProps) {
               </div>
 
               <div>
-                <p className="text-xs text-muted-foreground">
-                  Name
-                </p>
+                <p className="text-xs text-muted-foreground">Name</p>
 
-                <p className="font-medium">
-                  {user.name || "Not provided"}
-                </p>
+                <p className="font-medium">{user.name || "Not provided"}</p>
               </div>
             </div>
 
@@ -187,13 +162,9 @@ export default function ViewUser({ user }: ViewUserProps) {
               </div>
 
               <div className="min-w-0">
-                <p className="text-xs text-muted-foreground">
-                  Email
-                </p>
+                <p className="text-xs text-muted-foreground">Email</p>
 
-                <p className="truncate font-medium">
-                  {user.email}
-                </p>
+                <p className="truncate font-medium">{user.email}</p>
               </div>
             </div>
           </CardContent>
@@ -201,9 +172,7 @@ export default function ViewUser({ user }: ViewUserProps) {
 
         <Card className="shadow-sm">
           <CardHeader>
-            <CardTitle className="text-base">
-              Account Information
-            </CardTitle>
+            <CardTitle className="text-base">Account Information</CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-5">
@@ -213,15 +182,11 @@ export default function ViewUser({ user }: ViewUserProps) {
               </div>
 
               <div className="flex-1 space-y-2">
-                <p className="text-xs text-muted-foreground">
-                  Role
-                </p>
+                <p className="text-xs text-muted-foreground">Role</p>
 
                 <Select
                   value={role}
-                  onValueChange={(value) =>
-                    handleRoleChange(value as UserRole)
-                  }
+                  onValueChange={(value) => handleRoleChange(value as UserRole)}
                   disabled={isUpdating}
                 >
                   <SelectTrigger className="w-full">
@@ -230,10 +195,7 @@ export default function ViewUser({ user }: ViewUserProps) {
 
                   <SelectContent>
                     {USER_ROLES.map((value) => (
-                      <SelectItem
-                        key={value}
-                        value={value}
-                      >
+                      <SelectItem key={value} value={value}>
                         {USER_ROLE_LABELS[value]}
                       </SelectItem>
                     ))}
@@ -248,13 +210,9 @@ export default function ViewUser({ user }: ViewUserProps) {
               </div>
 
               <div>
-                <p className="text-xs text-muted-foreground">
-                  Member Since
-                </p>
+                <p className="text-xs text-muted-foreground">Member Since</p>
 
-                <p className="font-medium">
-                  {formattedDate}
-                </p>
+                <p className="font-medium">{formattedDate}</p>
               </div>
             </div>
           </CardContent>

@@ -5,10 +5,16 @@ import { getWishlistItems } from "@/features/wishlist/api/wishlist.server.api";
 import { auth } from "@/lib/auth/auth";
 import { getTranslations } from "next-intl/server";
 import { theme } from "@/themes";
+import { generateStaticMetadata } from "@/lib/constants/metadata";
 
 interface Prop {
   params: Promise<{ locale: Locale }>;
 }
+
+export const generateMetadata = async ({ params }: Prop) => {
+  const locale = (await params).locale;
+  return generateStaticMetadata("wishlist", locale);
+};
 
 export default async function Page({ params }: Prop) {
   const session = await auth();
@@ -48,18 +54,12 @@ export default async function Page({ params }: Prop) {
             </p>
             {/* Login */}
             <div className={theme.wishlistAuth.actionBox}>
-              <Link
-                href="/login"
-                className={theme.wishlistAuth.loginButton}
-              >
+              <Link href="/login" className={theme.wishlistAuth.loginButton}>
                 {t("login")}
               </Link>
             </div>
             {/* Continue Shopping */}
-            <Link
-              href="/products"
-              className={theme.wishlistAuth.continueLink}
-            >
+            <Link href="/products" className={theme.wishlistAuth.continueLink}>
               {t("continueShopping")}
             </Link>
           </div>

@@ -10,6 +10,8 @@ import {
   Award,
 } from "lucide-react";
 import { theme } from "@/themes";
+import { Locale } from "@/types";
+import { generateStaticMetadata } from "@/lib/constants/metadata";
 
 const values = [
   {
@@ -44,6 +46,14 @@ const features = [
   "Reliable and trusted solutions",
   "Continuous improvement",
 ];
+interface Prop {
+  params: Promise<{ locale: Locale }>;
+}
+
+export const generateMetadata = async ({ params }: Prop) => {
+  const locale = (await params).locale;
+  return generateStaticMetadata("aboutUs", locale);
+};
 
 export default function Page() {
   return (
@@ -53,9 +63,7 @@ export default function Page() {
 
         <div className={theme.aboutPage.heroContainer}>
           <div className={theme.aboutPage.heroContent}>
-            <span className={theme.aboutPage.badge}>
-              About Us
-            </span>
+            <span className={theme.aboutPage.badge}>About Us</span>
 
             <h1 className={theme.aboutPage.heroTitle}>
               Building trust through quality and excellence
@@ -68,18 +76,12 @@ export default function Page() {
             </p>
 
             <div className={theme.aboutPage.heroButtons}>
-              <Link
-                href="/careers"
-                className={theme.aboutPage.primaryBtn}
-              >
+              <Link href="/careers" className={theme.aboutPage.primaryBtn}>
                 Join our team
                 <ArrowRight className="h-4 w-4" />
               </Link>
 
-              <Link
-                href="/contact"
-                className={theme.aboutPage.secondaryBtn}
-              >
+              <Link href="/contact" className={theme.aboutPage.secondaryBtn}>
                 Contact us
               </Link>
             </div>
@@ -102,9 +104,7 @@ export default function Page() {
           </div>
 
           <div>
-            <span className={theme.aboutPage.sectionSubtitle}>
-              Who we are
-            </span>
+            <span className={theme.aboutPage.sectionSubtitle}>Who we are</span>
 
             <h2 className={theme.aboutPage.sectionTitle}>
               More than a company, we are a team with a purpose
@@ -118,9 +118,9 @@ export default function Page() {
             </p>
 
             <p className={theme.aboutPage.sectionTextSecondary}>
-              From the way we select our products to the way we communicate
-              with our customers, we pay attention to the details that matter.
-              Our goal is to build long-term relationships based on trust and
+              From the way we select our products to the way we communicate with
+              our customers, we pay attention to the details that matter. Our
+              goal is to build long-term relationships based on trust and
               consistency.
             </p>
 
@@ -128,9 +128,7 @@ export default function Page() {
               {features.map((feature) => (
                 <div key={feature} className={theme.aboutPage.featureItem}>
                   <CheckCircle2 className={theme.aboutPage.featureIcon} />
-                  <span className={theme.aboutPage.featureText}>
-                    {feature}
-                  </span>
+                  <span className={theme.aboutPage.featureText}>{feature}</span>
                 </div>
               ))}
             </div>
@@ -145,14 +143,11 @@ export default function Page() {
               What drives us
             </span>
 
-            <h2 className={theme.aboutPage.sectionTitle}>
-              Our values
-            </h2>
+            <h2 className={theme.aboutPage.sectionTitle}>Our values</h2>
 
             <p className={theme.aboutPage.sectionText}>
-              Everything we do is guided by a clear set of principles that
-              help us deliver a better experience for our customers and our
-              team.
+              Everything we do is guided by a clear set of principles that help
+              us deliver a better experience for our customers and our team.
             </p>
           </div>
 
@@ -161,17 +156,12 @@ export default function Page() {
               const Icon = value.icon;
 
               return (
-                <div
-                  key={value.title}
-                  className={theme.aboutPage.valueCard}
-                >
+                <div key={value.title} className={theme.aboutPage.valueCard}>
                   <div className={theme.aboutPage.valueIconBox}>
                     <Icon className="h-6 w-6" />
                   </div>
 
-                  <h3 className={theme.aboutPage.valueTitle}>
-                    {value.title}
-                  </h3>
+                  <h3 className={theme.aboutPage.valueTitle}>{value.title}</h3>
 
                   <p className={theme.aboutPage.valueDesc}>
                     {value.description}
@@ -198,10 +188,7 @@ export default function Page() {
             </div>
 
             <div className={theme.aboutPage.ctaButtonWrapper}>
-              <Link
-                href="/contact"
-                className={theme.aboutPage.primaryBtn}
-              >
+              <Link href="/contact" className={theme.aboutPage.primaryBtn}>
                 Get in touch
                 <ArrowRight className="h-4 w-4" />
               </Link>

@@ -2,14 +2,9 @@ import { api } from "@/services/server/api";
 
 import { API } from "@/constants/api";
 
-import type {
-  Locale,
-  ResponseType,
-} from "@/types/index";
+import type { Locale, ResponseType } from "@/types/index";
 
-import type {
-  Product,
-} from "@/features/products/types";
+import type { Product, ProductById } from "@/features/products/types";
 
 export async function fetchProducts(
   locale: Locale,
@@ -33,14 +28,12 @@ export async function productBySlug(
 }
 
 export async function adminProductById(
-  id: string
-): Promise<ResponseType<Product>> {
-  return api.get<ResponseType<Product>>(
-    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID}/${id}`
+  id: string,
+): Promise<ResponseType<ProductById>> {
+  return api.get<ResponseType<ProductById>>(
+    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID}/${id}`,
   );
 }
 export async function adminProducts(): Promise<ResponseType<Product[]>> {
-  return api.get<ResponseType<Product[]>>(
-    API.ENDPOINTS.PRODUCTS.ALL_PRODUCTS
-  );
+  return api.get<ResponseType<Product[]>>(API.ENDPOINTS.PRODUCTS.ALL_PRODUCTS);
 }

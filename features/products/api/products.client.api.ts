@@ -1,6 +1,9 @@
 import { Clientapi } from "@/services/client/api";
 import { API } from "@/constants/api";
-
+import {
+  CreateProductFormType,
+  UpdateProductFormType,
+} from "@/server/products/validators";
 import type {
   deleteResponseType,
   AddResponseType,
@@ -8,36 +11,32 @@ import type {
   ResponseType,
 } from "@/types/index";
 
-import type {
-  CreateAdminProduct,
-  PUTAdminProduct,
-  Product,
-} from "@/features/products/types";
+import type { CreateAdminProduct, Product } from "@/features/products/types";
 
 export async function adminAddProduct(
-  data: CreateAdminProduct
+  data: CreateProductFormType,
 ): Promise<AddResponseType> {
-  return Clientapi.post<AddResponseType, CreateAdminProduct>(
+  return Clientapi.post<AddResponseType, CreateProductFormType>(
     API.ENDPOINTS.PRODUCTS.ADD_PRODUCT,
-    data
+    data,
   );
 }
 
 export async function adminUpdateProduct(
   id: string,
-  data: PUTAdminProduct
+  data: UpdateProductFormType,
 ): Promise<PutResponseType> {
-  return Clientapi.put<PutResponseType, PUTAdminProduct>(
+  return Clientapi.put<PutResponseType, UpdateProductFormType>(
     `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID}/${id}`,
-    data
+    data,
   );
 }
 
 export async function adminDeleteProduct(
-  id: string
+  id: string,
 ): Promise<deleteResponseType> {
   const result = await Clientapi.delete<deleteResponseType>(
-    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID}/${id}`
+    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID}/${id}`,
   );
 
   return result;
@@ -46,11 +45,10 @@ export async function adminDeleteProduct(
 /////////////////////////////////////////
 
 export async function deleteManyProducts(
-  ids: string[]
+  ids: string[],
 ): Promise<deleteResponseType> {
   return Clientapi.delete<deleteResponseType, string[]>(
     API.ENDPOINTS.PRODUCTS.DELETE_MANY_PRODUCTS,
-    ids
+    ids,
   );
 }
-

@@ -16,7 +16,7 @@ export const ourFileRouter = {
     return { uploadedUrl: file.ufsUrl };
   }),
   products: f({
-    image: { maxFileSize: "4MB", maxFileCount: 1 },
+    image: { maxFileSize: "4MB", maxFileCount: 5 },
   }).onUploadComplete(async ({ file }) => {
     console.log("Our Team Upload Complete:", file.ufsUrl);
     return { uploadedUrl: file.ufsUrl };
@@ -34,13 +34,12 @@ export const ourFileRouter = {
     console.log("Product Variants Upload Complete:", file.ufsUrl);
     return { uploadedUrl: file.ufsUrl };
   }),
-   cv: f({
+  cv: f({
     blob: { maxFileSize: "8MB", maxFileCount: 1 },
   }).onUploadComplete(async ({ file }) => {
     console.log("CV Upload Complete:", file.ufsUrl);
     return { uploadedUrl: file.ufsUrl, fileName: file.name };
   }),
- 
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

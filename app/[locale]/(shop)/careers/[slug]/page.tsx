@@ -5,12 +5,27 @@ import Link from "next/link";
 import { Locale } from "@/types";
 import { careerBySlug } from "@/features/careers/api/careers.server.api";
 import { theme } from "@/themes";
+import { generateDynamicMetadata } from "@/lib/constants/metadata";
 
 interface Props {
   params: Promise<{
     locale: Locale;
     slug: string;
   }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { locale, slug } = await params;
+  const career = (await careerBySlug(slug, locale)).data;
+  if (!career) return notFound();
+  return generateDynamicMetadata.page({
+    type: "careers",
+    name: career.position,
+    description: career.description,
+    imageUrl: career.image,
+    itemPath: career.slug,
+    locale,
+  });
 }
 
 export default async function CareerDetailsPage({ params }: Props) {
@@ -67,14 +82,10 @@ export default async function CareerDetailsPage({ params }: Props) {
           </Link>
 
           {career.role && (
-            <p className={theme.careerDetails.role}>
-              {career.role}
-            </p>
+            <p className={theme.careerDetails.role}>{career.role}</p>
           )}
 
-          <h1 className={theme.careerDetails.title}>
-            {career.position}
-          </h1>
+          <h1 className={theme.careerDetails.title}>{career.position}</h1>
 
           <div className={theme.careerDetails.metaWrapper}>
             {career.experience && (
@@ -123,7 +134,9 @@ export default async function CareerDetailsPage({ params }: Props) {
                         ✓
                       </span>
 
-                      <span className={theme.careerDetails.requirementText}>{requirement}</span>
+                      <span className={theme.careerDetails.requirementText}>
+                        {requirement}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -142,7 +155,7 @@ export default async function CareerDetailsPage({ params }: Props) {
                 If you think you are a good fit for this position, we would love
                 to hear from you.
               </p>
-              
+
               <Link
                 href={`/${locale}/careers/${career.slug}/apply`}
                 className={theme.careerDetails.applyButton}

@@ -20,7 +20,6 @@ export type AdminCategories = {
   isFeatured: boolean;
 };
 
-
 export interface PUTAdminCategory {
   image: string;
   categoryNameAr: string;
@@ -29,7 +28,6 @@ export interface PUTAdminCategory {
   categoryDescriptionEn: string;
   isFeatured: boolean;
 }
-  
 
 export interface CreateAdminCategory {
   image: string;
@@ -39,3 +37,17 @@ export interface CreateAdminCategory {
   categoryDescriptionEn: string;
   isFeatured: boolean;
 }
+
+export type CategoiresNameAndIDs = {
+  categoryId: string;
+  categoryName: string;
+};
+
+export type Locale = "ar" | "en";
+export interface ResponseType<T> {
+  message: string;
+  success: boolean;
+  data: T;
+}
+
+

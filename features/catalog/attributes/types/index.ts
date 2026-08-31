@@ -41,3 +41,11 @@ export type UpdateAdminAttributeValue = {
   attributeValueAr: string;
 };
 
+export type AttributesWithValues = {
+  attributeId: string;
+  attributeName: string;
+  attributeValues: {
+    attributeValueId: string;
+    attributeValue: string;
+  }[];
+};

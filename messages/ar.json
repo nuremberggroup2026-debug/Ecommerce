@@ -47,6 +47,8 @@
     "ATTRIBUTE_DELETED_SUCCESSFULLY": "تم حذف الخاصية بنجاح",
     "ATTRIBUTE_NOT_FOUND": "الخاصية غير موجودة",
     "ATTRIBUTES_RETRIEVED_SUCCESSFULLY": "تم جلب الخصائص بنجاح",
+    "ATTRIBUTES_WITH_VALUES_RETRIEVED_SUCCESSFULLY": "تم جلب الخصائص مع القيم بنجاح",
+
     "ATTRIBUTE_VALUE_ALREADY_EXISTS": "قيمة الخاصية موجودة مسبقاً",
     "ATTRIBUTE_VALUE_CREATED_SUCCESSFULLY": "تم إنشاء قيمة الخاصية بنجاح",
     "ATTRIBUTE_VALUE_UPDATED_SUCCESSFULLY": "تم تحديث قيمة الخاصية بنجاح",
@@ -425,8 +427,6 @@
       "CAREERS": "الوظائف",
       "ABOUT_US": "عنا",
       "WISHLIST": "المفضلة"
-      
-      
     }
   },
   "Footer": {

@@ -1,23 +1,18 @@
-import React from "react";
-import AddProductForm from "@/features/products/components/admin/addProductForm/add-product-form";
+import { adminAttributeWithValues } from "@/features/catalog/attributes/api/attributes.server.api";
+import { adminCategoriesNameAndIDs } from "@/features/catalog/categories/api/categories.server.api";
+import CreateProductForm from "@/features/products/components/admin/addProduct/CreateProductForm";
 
-import { adminCategories } from "@/features/catalog/categories/api/categories.server.api"
-import { adminAttributes } from "@/features/catalog/attributes/api/attributes.server.api";
-
-export default async function Page() {
-  const [categoriesResponse, attributesResponse] = await Promise.all([
-    adminCategories(),
-    adminAttributes(),
+export default async function page() {
+  const [attributesWithValues, categories] = await Promise.all([
+    adminAttributeWithValues(),
+    adminCategoriesNameAndIDs(),
   ]);
 
-  const categories = categoriesResponse.data ?? [];
-  const attributes = attributesResponse.data ?? [];
-
   return (
-    <div className="container mx-auto py-10">
-      <AddProductForm
-        categories={categories}
-        attributes={attributes}
+    <div className=" mb-14">
+      <CreateProductForm
+        categoriesNamesAndIDs={categories.data}
+        attributeswithValues={attributesWithValues.data}
       />
     </div>
   );

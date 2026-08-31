@@ -1,5 +1,5 @@
 import React from "react";
-import AddBannerForm from "../../../../../features/banner/components/admin/addBannerForm/add-banner-form";
+import AddBannerForm from "@/features/banner/components/admin/addBannerForm/index";
 export default function page() {
   return (
     <div>

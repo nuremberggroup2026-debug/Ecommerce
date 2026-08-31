@@ -300,7 +300,7 @@ export const updateRole = async (userId: string, newRole: UserRoles) => {
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
-  await prisma.user.update({
+   await prisma.user.update({
     where: { id: userId },
     data: { role: newRole },
   });

@@ -1,5 +1,5 @@
 import { adminBannerById } from "@/features/banner/api/banners.server.api";
-import EditBannerForm from "@/features/banner/components/editBannerForm/edit-banner-form";
+import EditBannerForm from "@/features/banner/components/admin/editBannerForm/index";
 
 export default async function Page({
   params,
@@ -16,8 +16,6 @@ export default async function Page({
 
   return (
     <div className="space-y-6">
-    
-
       <EditBannerForm
         banner={{
           id: banner.id,

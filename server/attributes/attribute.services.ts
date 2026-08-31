@@ -4,9 +4,7 @@ import { RESPONSE_CODES } from "@/lib/constants/response";
 import { prisma } from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 
-export const createAttribute = async (
-  newAttribute: AttributeCreateInput,
-) => {
+export const createAttribute = async (newAttribute: AttributeCreateInput) => {
   const validation = attributeSchema.safeParse(newAttribute);
 
   if (!validation.success) {
@@ -56,9 +54,7 @@ export const updateAttribute = async (
     };
   }
 
-  const validation = updateAttributeSchema.safeParse(
-    updatedAttributeData,
-  );
+  const validation = updateAttributeSchema.safeParse(updatedAttributeData);
 
   if (!validation.success) {
     console.error(
@@ -73,10 +69,9 @@ export const updateAttribute = async (
     };
   }
 
-  const existingAttribute =
-    await prisma.attributes.findUnique({
-      where: { id },
-    });
+  const existingAttribute = await prisma.attributes.findUnique({
+    where: { id },
+  });
 
   if (!existingAttribute) {
     return {
@@ -91,11 +86,9 @@ export const updateAttribute = async (
       where: { id },
 
       data: {
-        attributeNameEn:
-          validation.data.attributeNameEn,
+        attributeNameEn: validation.data.attributeNameEn,
 
-        attributeNameAr:
-          validation.data.attributeNameAr,
+        attributeNameAr: validation.data.attributeNameAr,
       },
     });
 
@@ -107,10 +100,7 @@ export const updateAttribute = async (
       code: RESPONSE_CODES.OK,
     };
   } catch (error) {
-    console.error(
-      "Update attribute error:",
-      error,
-    );
+    console.error("Update attribute error:", error);
 
     return {
       success: false,
@@ -208,8 +198,6 @@ export const deleteManyAttributes = async (ids: string[]) => {
   };
 };
 
-
-
 /////////////////////////////////////////////////////////////////
 // Caching
 /////////////////////////////////////////////////////////////////
@@ -264,16 +252,14 @@ const getCachedAttributesByLocale = (locale: Locale) =>
               ? attribute.attributeNameEn
               : attribute.attributeNameAr,
           createdAt: attribute.createdAt,
-          attributeValues: attribute.attributeValues.map(
-            (attributeValue) => ({
-              attributeValue:
-                locale === "en"
-                  ? attributeValue.attributeValueEn
-                  : attributeValue.attributeValueAr,
-              attributeValueId: attributeValue.id,
-              createdAt: attributeValue.createdAt,
-            }),
-          ),
+          attributeValues: attribute.attributeValues.map((attributeValue) => ({
+            attributeValue:
+              locale === "en"
+                ? attributeValue.attributeValueEn
+                : attributeValue.attributeValueAr,
+            attributeValueId: attributeValue.id,
+            createdAt: attributeValue.createdAt,
+          })),
         };
       });
 
@@ -286,10 +272,7 @@ const getCachedAttributesByLocale = (locale: Locale) =>
     },
   )();
 
-const getCachedAttributeByIdAndLocale = (
-  id: string,
-  locale: Locale,
-) =>
+const getCachedAttributeByIdAndLocale = (id: string, locale: Locale) =>
   unstable_cache(
     async () => {
       const attribute = await prisma.attributes.findUnique({
@@ -308,16 +291,14 @@ const getCachedAttributeByIdAndLocale = (
             ? attribute.attributeNameEn
             : attribute.attributeNameAr,
         createdAt: attribute.createdAt,
-        attributeValues: attribute.attributeValues.map(
-          (attributeValue) => ({
-            attributeValue:
-              locale === "en"
-                ? attributeValue.attributeValueEn
-                : attributeValue.attributeValueAr,
-            attributeValueId: attributeValue.id,
-            createdAt: attributeValue.createdAt,
-          }),
-        ),
+        attributeValues: attribute.attributeValues.map((attributeValue) => ({
+          attributeValue:
+            locale === "en"
+              ? attributeValue.attributeValueEn
+              : attributeValue.attributeValueAr,
+          attributeValueId: attributeValue.id,
+          createdAt: attributeValue.createdAt,
+        })),
       };
     },
     [`all-attributes-by-id-${id}-and-locale-${locale}`],
@@ -380,10 +361,7 @@ export const getAttributesByLocale = async (locale: Locale) => {
   };
 };
 
-export const getAttributeByIdAndLocale = async (
-  id: string,
-  locale: Locale,
-) => {
+export const getAttributeByIdAndLocale = async (id: string, locale: Locale) => {
   if (!id) {
     return {
       success: false,
@@ -392,10 +370,7 @@ export const getAttributeByIdAndLocale = async (
     };
   }
 
-  const attribute = await getCachedAttributeByIdAndLocale(
-    id,
-    locale,
-  );
+  const attribute = await getCachedAttributeByIdAndLocale(id, locale);
 
   if (!attribute) {
     return {
@@ -410,5 +385,36 @@ export const getAttributeByIdAndLocale = async (
     message: "ATTRIBUTE_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
     attribute,
+  };
+};
+
+export const getAttributesWithValues = async () => {
+  const result = await prisma.attributes.findMany({
+    select: {
+      id: true,
+      attributeNameEn: true,
+      attributeValues: {
+        select: {
+          id: true,
+          attributeValueEn: true,
+        },
+      },
+    },
+  });
+
+  const data = result.map((u) => ({
+    attributeId: u.id,
+    attributeName: u.attributeNameEn,
+    attributeValues: u.attributeValues.map((u) => ({
+      attributeValueId: u.id,
+      attributeValue: u.attributeValueEn,
+    })),
+  }));
+
+  return {
+    data,
+    success: true,
+    message: "ATTRIBUTES_WITH_VALUES_RETRIEVED_SUCCESSFULLY",
+    code: RESPONSE_CODES.OK,
   };
 };

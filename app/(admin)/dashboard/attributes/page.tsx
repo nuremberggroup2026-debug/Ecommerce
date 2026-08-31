@@ -7,7 +7,7 @@ export default async function AttributesPage() {
   console.log(attributes)
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container  mx-auto py-10">
       <AttributeDataTable data={attributes.data} />
     </div>
   );

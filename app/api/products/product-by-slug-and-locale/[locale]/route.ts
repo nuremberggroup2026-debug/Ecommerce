@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth/auth";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
-import { getProductByIdAndLocale } from "@/server/products/services";
+import { getProductBySlugAndLocale } from "@/server/products/services";
 import { Locale } from "@/types";
 import { NextResponse } from "next/server";
 
@@ -10,19 +10,19 @@ export const GET = async (
 ) => {
   try {
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
-    if (!id)
+    const slug = searchParams.get("slug");
+    if (!slug)
       return NextResponse.json(
         {
           success: false,
           data: null,
-          message: "Query string (id) is required",
+          message: "Query string (slug) is required",
         },
         { status: 400 },
       );
     const userId = (await auth())?.user?.id;
     const { locale } = await params;
-    const result = await getProductByIdAndLocale(locale, id, userId);
+    const result = await getProductBySlugAndLocale(locale, slug, userId);
     const status = HTTP_STATUS_MAP[result.code] || 500;
 
     return NextResponse.json(

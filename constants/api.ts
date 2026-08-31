@@ -7,11 +7,10 @@ export const API = {
       ON_DISCOUNT_PRODUCTS_BY_LOCALE: "products/on-discount-products-by-locale",
       ALL_PRODUCTS: "/products",
       FILTERED_PRODUCTS_BY_LOCALE: "products/filtered-products",
-      PRODUCT_BY_ID_AND_LOCALE: "products/product-by-id-and-locale",
+      PRODUCT_BY_SLUG_AND_LOCALE: "products/product-by-slug-and-locale",
       ADD_PRODUCT: "products",
       PRODUCT_BY_ID: "products",
       ALL_PRODUCTS_BY_LOCALE: "products/all-products-by-locale",
-      PRODUCT_BY_SLUG_AND_LOCALE: "products/product-by-slug-and-locale",
       DELETE_MANY_PRODUCTS: "products/delete-many",
     },
 
@@ -22,6 +21,7 @@ export const API = {
       CATEGORY_BY_ID: "categories",
       ADD_CATEGORY: "categories",
       DELETE_MANY_CATEGORIES: "categories/delete-many-categories",
+      CATEGORIES_NAME_AND_IDS: "categories/categories_name_and_id",
     },
     BANNERS: {
       ALL_BANNERS: "/banners",
@@ -63,6 +63,7 @@ export const API = {
       ADD_ATTRIBUTES: "attributes",
       DELETE_MANY_ATTRIBUTES: "attributes/delete-many-attributes",
       ATTRIBUTE_VALUES: "attributes-values",
+      ATTRIBUTE_WITH_VALUES: "attributes/attributes_with_values",
     },
     ATTRIBUTE_VALUES: {
       // Attribute Values

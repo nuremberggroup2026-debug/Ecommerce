@@ -5,6 +5,17 @@ import { routing } from "@/i18n/routing";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/widgets/Footer";
 import { Navbar } from "@/widgets/navbar";
+import { generateSiteMetadata } from "@/lib/constants/metadata";
+import { Locale } from "@/types";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  return generateSiteMetadata(locale);
+}
 
 export default async function LocaleLayout({
   children,

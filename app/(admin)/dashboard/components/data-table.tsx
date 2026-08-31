@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 
 import {
   ColumnDef,
@@ -11,16 +10,16 @@ import {
   SortingState,
   useReactTable,
   VisibilityState,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Trash2 } from "lucide-react"
-import { toast } from "sonner"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button"
-import { DataTablePagination } from "./pagination"
-import { DataTableViewOptions } from "@/app/(admin)/dashboard/components/DataTableViewOptions"
+import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "./pagination";
+import { DataTableViewOptions } from "@/app/(admin)/dashboard/components/DataTableViewOptions";
 
 import {
   Table,
@@ -29,7 +28,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
 import {
   AlertDialog,
@@ -40,26 +39,23 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 
 interface DataTableProps<TData extends { id: string }, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 
-  title?: string
-  description?: string
+  title?: string;
+  description?: string;
 
-  addHref?: string
-  addLabel?: string
+  addHref?: string;
+  addLabel?: string;
 
-  onDeleteSelected?: (ids: string[]) => Promise<unknown>
-  deleteSuccessMessage?: string
+  onDeleteSelected?: (ids: string[]) => Promise<unknown>;
+  deleteSuccessMessage?: string;
 }
 
-export function DataTable<
-  TData extends { id: string },
-  TValue
->({
+export function DataTable<TData extends { id: string }, TValue>({
   columns,
   data,
   title = "Data",
@@ -69,14 +65,13 @@ export function DataTable<
   onDeleteSelected,
   deleteSuccessMessage = "Deleted successfully",
 }: DataTableProps<TData, TValue>) {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [sorting, setSorting] = useState<SortingState>([])
-  const [columnVisibility, setColumnVisibility] =
-    useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = useState({})
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const table = useReactTable({
     data,
@@ -105,53 +100,48 @@ export function DataTable<
     },
 
     enableRowSelection: true,
-  })
+  });
 
   const selectedIds = table
     .getSelectedRowModel()
-    .rows
-    .map((row) => row.original.id)
+    .rows.map((row) => row.original.id);
 
-  const selectedCount = selectedIds.length
+  const selectedCount = selectedIds.length;
 
   const handleDeleteSelected = async () => {
     if (!onDeleteSelected || selectedIds.length === 0) {
-      return
+      return;
     }
 
     try {
-      setIsDeleting(true)
+      setIsDeleting(true);
 
-      await onDeleteSelected(selectedIds)
+      await onDeleteSelected(selectedIds);
 
-      table.resetRowSelection()
+      table.resetRowSelection();
 
-      setDeleteDialogOpen(false)
+      setDeleteDialogOpen(false);
 
-      toast.success(deleteSuccessMessage)
+      toast.success(deleteSuccessMessage);
 
-      router.refresh()
+      router.refresh();
     } catch (error) {
-      console.error(error)
+      console.error(error);
 
-      toast.error("Failed to delete selected items")
+      toast.error("Failed to delete selected items");
     } finally {
-      setIsDeleting(false)
+      setIsDeleting(false);
     }
-  }
+  };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       {/* Header */}
       <div className="flex items-center justify-between gap-4 rounded-xl border bg-white p-4 shadow-sm">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">
-            {title}
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
 
-          <p className="text-sm text-muted-foreground">
-            {description}
-          </p>
+          <p className="text-sm text-muted-foreground">{description}</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -164,7 +154,6 @@ export function DataTable<
               disabled={isDeleting}
             >
               <Trash2 className="mr-2 h-4 w-4" />
-
               Delete ({selectedCount})
             </Button>
           )}
@@ -178,9 +167,7 @@ export function DataTable<
               asChild
               className="h-9 rounded-lg bg-black px-5 text-white shadow-sm hover:bg-neutral-800"
             >
-              <a href={addHref}>
-                {addLabel}
-              </a>
+              <a href={addHref}>{addLabel}</a>
             </Button>
           )}
         </div>
@@ -201,7 +188,7 @@ export function DataTable<
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
                 ))}
@@ -214,21 +201,14 @@ export function DataTable<
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={
-                    row.getIsSelected()
-                      ? "selected"
-                      : undefined
-                  }
+                  data-state={row.getIsSelected() ? "selected" : undefined}
                   className="transition hover:bg-gray-50"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className="px-6 py-4"
-                    >
+                    <TableCell key={cell.id} className="px-6 py-4">
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -254,36 +234,28 @@ export function DataTable<
       </div>
 
       {/* Delete Confirmation */}
-      <AlertDialog
-        open={deleteDialogOpen}
-        onOpenChange={setDeleteDialogOpen}
-      >
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>
-              Delete selected items?
-            </AlertDialogTitle>
+            <AlertDialogTitle>Delete selected items?</AlertDialogTitle>
 
             <AlertDialogDescription>
               You are about to delete{" "}
               <span className="font-semibold text-foreground">
                 {selectedCount}
               </span>{" "}
-              selected{" "}
-              {selectedCount === 1 ? "item" : "items"}.
-              This action cannot be undone.
+              selected {selectedCount === 1 ? "item" : "items"}. This action
+              cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>
-              Cancel
-            </AlertDialogCancel>
+            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
 
             <AlertDialogAction
               onClick={(event) => {
-                event.preventDefault()
-                handleDeleteSelected()
+                event.preventDefault();
+                handleDeleteSelected();
               }}
               disabled={isDeleting}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
@@ -294,6 +266,5 @@ export function DataTable<
         </AlertDialogContent>
       </AlertDialog>
     </div>
-  )
+  );
 }
-

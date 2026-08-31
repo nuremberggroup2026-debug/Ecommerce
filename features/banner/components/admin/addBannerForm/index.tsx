@@ -58,7 +58,7 @@ export default function AddBannerForm() {
           ...data,
           image: imageUrl,
         }),
-        "bilal not halsis"
+        "ADDING_BANNER"
       );
 
       router.push("/dashboard/banners");

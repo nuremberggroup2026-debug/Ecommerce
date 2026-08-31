@@ -2,7 +2,10 @@ import { api } from "@/services/server/api";
 
 import { API } from "@/constants/api";
 import type { ResponseType } from "@/types/index";
-import type { AdminAttribute } from "@/features/catalog/attributes/types";
+import type {
+  AdminAttribute,
+  AttributesWithValues,
+} from "@/features/catalog/attributes/types";
 import { auth } from "@/lib/auth/auth";
 
 export async function adminAttributes(): Promise<
@@ -23,6 +26,16 @@ export async function adminAttributeById(
 
   const data = await api.get<ResponseType<AdminAttribute>>(
     `${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_BY_ID}/${id}`,
+  );
+
+  return data;
+}
+
+export async function adminAttributeWithValues(): Promise<
+  ResponseType<AttributesWithValues[]>
+> {
+  const data = await api.get<ResponseType<AttributesWithValues[]>>(
+    `${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_WITH_VALUES}`,
   );
 
   return data;
