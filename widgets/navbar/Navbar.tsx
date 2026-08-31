@@ -6,8 +6,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 
 import { theme } from "@/themes";
-import { useAppSelector } from "@/Redux/store/hooks";
-import { DesktopLinks } from "./DesktopLinks";
+ import { DesktopLinks } from "./DesktopLinks";
 import { Actions } from "./Actions";
 import { MobileMenu } from "./MobileMenu";
 import { Overlay } from "./Overlay";
