@@ -11,8 +11,6 @@ import type {
   ResponseType,
 } from "@/types/index";
 
-import type { CreateAdminProduct, Product } from "@/features/products/types";
-
 export async function adminAddProduct(
   data: CreateProductFormType,
 ): Promise<AddResponseType> {

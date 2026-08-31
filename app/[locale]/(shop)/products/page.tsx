@@ -113,7 +113,7 @@ export default function ProductsPage() {
   if (isError || !productsData) {
     return (
       <main className={theme.productsPage.main}>
-        <div className="flex min-h-[400px] items-center justify-center">
+        <div className="flex min-h-100 items-center justify-center">
           <p>Something went wrong while loading products.</p>
         </div>
       </main>

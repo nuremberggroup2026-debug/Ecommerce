@@ -32,17 +32,7 @@ export default function ProductCard({
   isInWishlist,
   isInCart,
 }: Props) {
-<<<<<<< HEAD
-  console.log("product.variants[0].stock: ", product);
-
-  const isOutOfStock = product.variants[0].stock <= 0;
-  const [inWishist, setInWishist] = useState(isInWishlist);
-  const [inCart, setInCart] = useState(isInCart);
-  const [loading, setLoading] = useState(false);
-
-=======
   const router = useRouter();
->>>>>>> f5ccd3c9aec08eaa088233b41bb6cc5bff9f57ec
   const t = useTranslations("");
   const locale = useLocale()as Locale;
 
@@ -241,25 +231,9 @@ export default function ProductCard({
   };
 
   return (
-<<<<<<< HEAD
     <div className={theme.productCard.container}>
       <div className={theme.productCard.imageWrapper}>
         <Link href={`/products/${product.slug}`}>
-=======
-    <div
-      className={
-        theme.productCard.container
-      }
-    >
-      <div
-        className={
-          theme.productCard.imageWrapper
-        }
-      >
-        <Link
-          href={`/products/${product.id}`}
-        >
->>>>>>> f5ccd3c9aec08eaa088233b41bb6cc5bff9f57ec
           <Image
             src={productImage}
             alt={product.productName}

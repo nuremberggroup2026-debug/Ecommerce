@@ -81,10 +81,10 @@ export async function getProducts({
 
 export async function getProductById(
   locale: Locale,
-  id: string,
+  slug: string,
 ): Promise<ProductByLocale> {
   const result = await Clientapi.get<ResponseType<ProductByLocale>>(
-    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID_AND_LOCALE}/${locale}?id=${id}`,
+    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_SLUG_AND_LOCALE}/${locale}?slug=${slug}`,
   );
 
   return result.data;

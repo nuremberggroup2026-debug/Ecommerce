@@ -1,5 +1,5 @@
 import NotFound from "@/app/not-found";
-import { getProductBySlug } from "@/features/catalog/products/api/products.api";
+import { getProductBySlug } from "@/features/products/api/products.server.api";
 import ProductSection from "@/features/catalog/products/components/ProductSectioncomponents/ProductSection";
 import { generateDynamicMetadata } from "@/lib/constants/metadata";
 import { Locale } from "@/types";
@@ -24,8 +24,5 @@ export async function generateMetadata({ params }: Prop) {
 
 export default async function ProductDetailsPage({ params }: Prop) {
   const { slug, locale } = await params;
-
-  const product = await getProductBySlug(locale, slug);
-  if (!product) return NotFound();
-  return <ProductSection key={product.productData.id} product={product} />;
+  return <ProductSection locale={locale} id={slug} />;
 }
