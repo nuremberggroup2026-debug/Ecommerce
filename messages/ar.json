@@ -21,7 +21,7 @@
     "NOT_FOUND": "غير موجود",
     "UNAUTHORIZED": "غير مصرح",
     "FORBIDDEN": "غير مسموح",
-    "UNAUTHORIZED_ACCESS": "يجب تسجيل الدخول للوصول إلى هذا المورد.",
+    "UNAUTHORIZED_ACCESS": "يجب تسجيل الدخول أولا.",
     "FORBIDDEN_ACCESS": "ليس لديك صلاحية للوصول إلى هذا المورد.",
     "EMAIL_ALREADY_EXISTS": "البريد الإلكتروني موجود مسبقاً",
     "USER_NOT_FOUND": "المستخدم غير موجود",
@@ -276,7 +276,9 @@
     "FREE": "مجاني",
     "TOTAL": "الإجمالي",
     "PROCEED_TO_CHECKOUT": "الاستمرار للدفع",
-    "CURRENCY_SYMBOL": "$"
+    "CURRENCY_SYMBOL": "$",
+    "LOADING": "...جاري تحميل السلة",
+    "ERROR": "صار خطأ أثناء تحميل السلة"
   },
 
   "Wishlist": {

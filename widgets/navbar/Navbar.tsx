@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+
 import { theme } from "@/themes";
 import { useAppSelector } from "@/Redux/store/hooks";
 import { DesktopLinks } from "./DesktopLinks";
@@ -10,20 +13,31 @@ import { MobileMenu } from "./MobileMenu";
 import { Overlay } from "./Overlay";
 import { links } from "./links";
 import { ROUTES } from "@/shared/config/routes";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+
+import { useCartQuery } from "@/features/cart/hooks/useCart";
+import type { Locale } from "@/types";
 
 export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const items = useAppSelector((state) => state.cart.items);
-  const totalQty = items.reduce((sum, item) => sum + item.quantity, 0);
+  const locale = useLocale() as Locale;
+
+  const cartQuery = useCartQuery({ locale });
+
+const totalQty =
+  cartQuery.data?.items.reduce(
+    (total, item) => total + item.quantity,
+    0,
+  ) ?? 0;
+
 
   const t = useTranslations("Navbar");
+
   const translatedLinks = links.map((link) => {
-    const translationKey = link.label.toUpperCase().replace(/\s+/g, "_");
-    console.log("translationKey: ", translationKey);
+    const translationKey = link.label
+      .toUpperCase()
+      .replace(/\s+/g, "_");
 
     return {
       ...link,
@@ -42,21 +56,26 @@ export function Navbar() {
   return (
     <>
       <header className={theme.navbar.header}>
-        <nav className={theme.navbar.nav} aria-label="Main navigation">
-          {/* Logo */}
+        <nav
+          className={theme.navbar.nav}
+          aria-label="Main navigation"
+        >
           <Link
             href={ROUTES.HOME}
             onClick={closeMobileMenu}
             className={theme.navbar.logo}
           >
             {t("BRAND_NAME")}
-            <span className={theme.navbar.logoAccent}>{t("BRAND_SUFFIX")}</span>
+            <span className={theme.navbar.logoAccent}>
+              {t("BRAND_SUFFIX")}
+            </span>
           </Link>
 
-          {/* Desktop Navigation - Passing the TRANSLATED links */}
-          <DesktopLinks pathname={pathname} links={translatedLinks} />
+          <DesktopLinks
+            pathname={pathname}
+            links={translatedLinks}
+          />
 
-          {/* Actions */}
           <Actions
             pathname={pathname}
             totalQty={totalQty}
@@ -67,13 +86,11 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile Overlay */}
       <Overlay
         isMobileMenuOpen={isMobileMenuOpen}
         closeMobileMenu={closeMobileMenu}
       />
 
-      {/* Mobile Drawer - Passing the TRANSLATED links */}
       <MobileMenu
         pathname={pathname}
         links={translatedLinks}

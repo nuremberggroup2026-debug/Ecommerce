@@ -1,19 +1,32 @@
-import React from "react";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import CartComponent from "@/features/cart/components/CartComponent";
-import { Locale } from "@/types";
-import { getCart } from "@/features/cart/api/cart.server.api";
+import { cartQueryKey } from "@/features/cart/hooks/cart.query-key";
+import { getCart } from "@/features/cart/api/cart.client.api";
+import type { Locale } from "@/types";
 
 interface Props {
   params: Promise<{ locale: Locale }>;
 }
-export default async function page({ params }: Props) {
+
+export default async function Page({ params }: Props) {
   const { locale } = await params;
-  const data = (await getCart(locale)).data;
-  console.log("cart data: ", data);
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: cartQueryKey({ locale }),
+    queryFn: () => getCart(locale),
+  });
 
   return (
     <div>
-      <CartComponent cartData={data} locale={locale} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <CartComponent locale={locale} />
+      </HydrationBoundary>
     </div>
   );
 }

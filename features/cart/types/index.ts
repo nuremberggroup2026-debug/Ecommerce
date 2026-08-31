@@ -1,3 +1,5 @@
+
+
 export interface ResponseType<T> {
   messgae: string;
   success: boolean;
@@ -17,17 +19,23 @@ export type NewCartItem = {
 
 export type CartData = {
   cartId: string;
+
   totalAmount: number;
+
   items: {
     cartItemId: string;
+
     quantity: number;
+
     itemPrice: number;
+
     product: {
       id: string;
       name: string;
       image: string;
       slug: string;
     };
+
     variant: {
       id: string;
       sku: string;
@@ -39,8 +47,20 @@ export type CartData = {
         valueId: string;
       }[];
     };
+
     subtotal: number;
   }[];
 };
 
 export type Locale = "ar" | "en";
+
+export interface CartQuery {
+  locale: Locale;
+};
+
+
+export type Cart = CartData;
+
+export interface CartMutationContext {
+  previousCart: Cart | undefined;
+}

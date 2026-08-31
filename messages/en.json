@@ -1,4 +1,7 @@
 {
+
+
+  
   "Home": {
     "title": "Welcome to our store",
     "ShopNow": "Shop Now",
@@ -13,6 +16,7 @@
       "VIEW_ALL_DEALS": "View All Deals"
     }
   },
+  
   "LoginPage": {
     "WELCOME_BACK": "Welcome Back",
     "SUBTITLE": "Enter your credentials to access your account.",
@@ -263,6 +267,7 @@
   },
   "Cart": {
     "TITLE": "Shopping Cart",
+    
     "EMPTY_CART": "Your cart is empty",
     "ITEMS_COUNT": "You have {count} items in your cart",
     "FEELS_LIGHT": "Your cart feels light.",
@@ -276,7 +281,9 @@
     "FREE": "Free",
     "TOTAL": "Total",
     "PROCEED_TO_CHECKOUT": "Proceed To Checkout",
-    "CURRENCY_SYMBOL": "$"
+    "CURRENCY_SYMBOL": "$",
+      "LOADING": "Loading your cart...",
+    "ERROR": "Something went wrong while loading your cart."
   },
   "Wishlist": {
     "title": "Your Wishlist",
