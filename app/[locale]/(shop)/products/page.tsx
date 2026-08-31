@@ -1,20 +1,12 @@
-"use client";
-
-import { useParams, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-
 import { useProductsQuery } from "@/features/catalog/products/hooks/useProducts";
 import { useCategoriesQuery } from "@/features/catalog/categories/hooks/useCategories";
-
 import ProductCard from "@/features/catalog/products/components/ProductCard";
-
 import { applyPremiumPricing } from "@/features/catalog/products/services/products.services";
-
 import CategoryFilterWrapper from "@/features/catalog/filters/CategoryFilter";
 import SecondPaginationComponent from "@/features/catalog/pagination/SecondPaginationComponent";
 import SortFilter from "@/features/catalog/filters/SortFilter";
 import PriceFilter from "@/features/catalog/filters/PriceFilter";
-
 import { Locale, SortType } from "@/types";
 import { theme } from "@/themes";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
@@ -28,20 +20,38 @@ export const generateMetadata = async ({
   return generateStaticMetadata("products", locale);
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{
+    page?: string;
+    categories?: string;
+    search?: string;
+    sort?: SortType;
+    minPrice?: string;
+    maxPrice?: string;
+  }>;
+}) {
   const t = useTranslations("Product");
 
-  const params = useParams<{ locale: Locale }>();
-  const searchParams = useSearchParams();
-
-  const locale = params.locale;
-
-  const page = searchParams.get("page") ?? "1";
+  const { locale } = await params;
+  const searchParamsData = await searchParams;
+  const {
+    page = "1",
+    categories,
+    search,
+    sort,
+    minPrice,
+    maxPrice,
+  } = searchParamsData;
+  /* const page = searchParams.get("page") ?? "1";
   const categories = searchParams.get("categories") ?? undefined;
   const search = searchParams.get("search") ?? undefined;
   const sort = searchParams.get("sort") as SortType | undefined;
   const minPrice = searchParams.get("minPrice") ?? undefined;
-  const maxPrice = searchParams.get("maxPrice") ?? undefined;
+  const maxPrice = searchParams.get("maxPrice") ?? undefined;*/
 
   // =====================================================
   // Products
@@ -66,10 +76,8 @@ export default function ProductsPage() {
   // Categories
   // =====================================================
 
-  const {
-    data: categoriesData,
-    isLoading: isCategoriesLoading,
-  } = useCategoriesQuery(locale);
+  const { data: categoriesData, isLoading: isCategoriesLoading } =
+    useCategoriesQuery(locale);
 
   // =====================================================
   // Loading
@@ -80,13 +88,9 @@ export default function ProductsPage() {
       <main className={theme.productsPage.main}>
         <section className={theme.productsPage.heroSection}>
           <div className={theme.productsPage.heroSpace}>
-            <h1 className={theme.productsPage.title}>
-              {t("TITLE")}
-            </h1>
+            <h1 className={theme.productsPage.title}>{t("TITLE")}</h1>
 
-            <p className={theme.productsPage.description}>
-              {t("DESCRIPTION")}
-            </p>
+            <p className={theme.productsPage.description}>{t("DESCRIPTION")}</p>
           </div>
         </section>
 
@@ -124,12 +128,8 @@ export default function ProductsPage() {
   // Data
   // =====================================================
 
-  const {
-    products,
-    pagination,
-    productsIdsInCart,
-    productsIdsInWishlist,
-  } = productsData.data;
+  const { products, pagination, productsIdsInCart, productsIdsInWishlist } =
+    productsData.data;
 
   let premium = applyPremiumPricing(products);
 
@@ -138,15 +138,11 @@ export default function ProductsPage() {
   // =====================================================
 
   if (minPrice) {
-    premium = premium.filter(
-      (product) => product.price >= Number(minPrice),
-    );
+    premium = premium.filter((product) => product.price >= Number(minPrice));
   }
 
   if (maxPrice) {
-    premium = premium.filter(
-      (product) => product.price <= Number(maxPrice),
-    );
+    premium = premium.filter((product) => product.price <= Number(maxPrice));
   }
 
   // =====================================================
@@ -170,9 +166,7 @@ export default function ProductsPage() {
           </span>
 
           <div className={theme.productsPage.sortWrapper}>
-            <span className={theme.productsPage.sortLabel}>
-              {t("SORT_BY")}
-            </span>
+            <span className={theme.productsPage.sortLabel}>{t("SORT_BY")}</span>
 
             <SortFilter />
           </div>
@@ -195,9 +189,7 @@ export default function ProductsPage() {
           </div>
 
           {!isCategoriesLoading && categoriesData && (
-            <CategoryFilterWrapper
-              categoriesData={categoriesData}
-            />
+            <CategoryFilterWrapper categoriesData={categoriesData} />
           )}
 
           <PriceFilter />
@@ -205,9 +197,7 @@ export default function ProductsPage() {
 
         <div className={theme.productsPage.productsCol}>
           {isFetching && (
-            <div className="mb-3 text-sm opacity-60">
-              Loading...
-            </div>
+            <div className="mb-3 text-sm opacity-60">Loading...</div>
           )}
 
           <div className={theme.productsPage.productsGrid}>
@@ -215,8 +205,7 @@ export default function ProductsPage() {
               const isInWishlist =
                 productsIdsInWishlist?.includes(product.id) ?? false;
 
-              const isInCart =
-                productsIdsInCart?.includes(product.id) ?? false;
+              const isInCart = productsIdsInCart?.includes(product.id) ?? false;
 
               return (
                 <ProductCard
@@ -232,9 +221,7 @@ export default function ProductsPage() {
           <SecondPaginationComponent
             currentPage={Number(page)}
             totalPages={pagination.totalPages}
-            searchParams={Object.fromEntries(
-              searchParams.entries(),
-            )}
+            searchParams={searchParamsData}
           />
         </div>
       </section>

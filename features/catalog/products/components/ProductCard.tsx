@@ -34,24 +34,19 @@ export default function ProductCard({
 }: Props) {
   const router = useRouter();
   const t = useTranslations("");
-  const locale = useLocale()as Locale;
+  const locale = useLocale() as Locale;
 
-  const [inWishist, setInWishist] =
-    useState(isInWishlist);
+  const [inWishist, setInWishist] = useState(isInWishlist);
 
-  const [inCart, setInCart] =
-    useState(isInCart);
+  const [inCart, setInCart] = useState(isInCart);
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const addToCartMutation =
-    useAddToCart();
+  const addToCartMutation = useAddToCart();
 
   const variant = product.variants[0];
 
-  const isOutOfStock =
-    variant.stock <= 0;
+  const isOutOfStock = variant.stock <= 0;
 
   const getProductImage = (
     image: string | null | undefined,
@@ -85,10 +80,7 @@ export default function ProductCard({
     try {
       const url = new URL(trimmedImage);
 
-      if (
-        url.protocol === "http:" ||
-        url.protocol === "https:"
-      ) {
+      if (url.protocol === "http:" || url.protocol === "https:") {
         return trimmedImage;
       }
 
@@ -98,10 +90,7 @@ export default function ProductCard({
     }
   };
 
-  const productImage =
-    getProductImage(
-      product.productCardImage,
-    );
+  const productImage = getProductImage(product.productCardImage);
 
   /**
    * Handle API errors.
@@ -125,9 +114,7 @@ export default function ProductCard({
         return;
 
       case HTTP_STATUS_MAP.TOO_MANY_REQUESTS:
-        router.replace(
-          "/too-many-requests",
-        );
+        router.replace("/too-many-requests");
         return;
 
       case HTTP_STATUS_MAP.INTERNAL_ERROR:
@@ -164,9 +151,7 @@ export default function ProductCard({
           ? removeItemFromWishlist(product.id)
           : addItemToWishlist(product.id),
         t,
-        previous
-          ? "DELETING_ITEM"
-          : "CART_ITEM_ADDING",
+        previous ? "DELETING_ITEM" : "CART_ITEM_ADDING",
       );
     } catch (error) {
       // Rollback optimistic update
@@ -189,11 +174,7 @@ export default function ProductCard({
    * Add product to cart.
    */
   const handleAddItem = async () => {
-    if (
-      loading ||
-      isOutOfStock ||
-      addToCartMutation.isPending
-    ) {
+    if (loading || isOutOfStock || addToCartMutation.isPending) {
       return;
     }
 
@@ -212,10 +193,7 @@ export default function ProductCard({
 
       setInCart(true);
     } catch (error) {
-      console.error(
-        "Failed to add item to cart:",
-        error,
-      );
+      console.error("Failed to add item to cart:", error);
 
       if (
         error &&
@@ -239,37 +217,21 @@ export default function ProductCard({
             alt={product.productName}
             fill
             sizes="(max-width: 1280px) 33vw, 50vw"
-            className={
-              theme.productCard.image
-            }
+            className={theme.productCard.image}
           />
         </Link>
 
         <button
           type="button"
-          className={
-            theme.productCard.wishlistButton
-          }
-          aria-label={t(
-            "Product.ProductCard.ADD_TO_WISHLIST",
-          )}
+          className={theme.productCard.wishlistButton}
+          aria-label={t("Product.ProductCard.ADD_TO_WISHLIST")}
           onClick={handleWishlist}
           disabled={loading}
         >
           <svg
-            className={
-              theme.productCard.wishlistIcon
-            }
-            fill={
-              inWishist
-                ? "red"
-                : "none"
-            }
-            stroke={
-              inWishist
-                ? "red"
-                : "currentColor"
-            }
+            className={theme.productCard.wishlistIcon}
+            fill={inWishist ? "red" : "none"}
+            stroke={inWishist ? "red" : "currentColor"}
             strokeWidth="2"
             viewBox="0 0 24 24"
             width="24"
@@ -283,22 +245,12 @@ export default function ProductCard({
           </svg>
         </button>
 
-        <div
-          className={
-            theme.productCard.addCartWrapper
-          }
-        >
+        <div className={theme.productCard.addCartWrapper}>
           <button
             type="button"
             onClick={handleAddItem}
-            disabled={
-              isOutOfStock ||
-              loading ||
-              addToCartMutation.isPending
-            }
-            className={`${
-              theme.productCard.addCartButton
-            } ${
+            disabled={isOutOfStock || loading || addToCartMutation.isPending}
+            className={`${theme.productCard.addCartButton} ${
               inCart
                 ? "bg-green-600"
                 : isOutOfStock
@@ -307,56 +259,27 @@ export default function ProductCard({
             }`}
           >
             {isOutOfStock
-              ? t(
-                  "Product.ProductCard.OUT_OF_STOCK",
-                )
+              ? t("Product.ProductCard.OUT_OF_STOCK")
               : inCart
-                ? t(
-                    "Product.ProductCard.ADDED",
-                  )
-                : t(
-                    "Product.ProductCard.ADD_TO_CART",
-                  )}
+                ? t("Product.ProductCard.ADDED")
+                : t("Product.ProductCard.ADD_TO_CART")}
           </button>
         </div>
       </div>
 
-      <div
-        className={
-          theme.productCard.info
-        }
-      >
+      <div className={theme.productCard.info}>
         <div className="space-y-0.5">
-          <span
-            className={
-              theme.productCard.meta
-            }
-          >
-            {product.productName} •{" "}
-            {product.categoryName}
+          <span className={theme.productCard.meta}>
+            {product.productName} • {product.categoryName}
           </span>
 
-          <Link
-            href={`/products/${product.id}`}
-          >
-            <h3
-              className={
-                theme.productCard.title
-              }
-            >
-              {product.productName}
-            </h3>
+          <Link href={`/products/${product.slug}`}>
+            <h3 className={theme.productCard.title}>{product.productName}</h3>
           </Link>
         </div>
 
-        <p
-          className={
-            theme.productCard.price
-          }
-        >
-          {t(
-            "Product.ProductCard.CURRENCY_SYMBOL",
-          )}
+        <p className={theme.productCard.price}>
+          {t("Product.ProductCard.CURRENCY_SYMBOL")}
           {Number(variant.finalPrice)}
         </p>
       </div>
