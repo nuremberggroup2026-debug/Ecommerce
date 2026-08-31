@@ -1,0 +1,15 @@
+export const promoBannerTheme = {
+  section: "bg-[#ffffff] py-16",
+  container: "mx-auto max-w-7xl px-6 lg:px-10",
+  bannerWrapper: "relative overflow-hidden rounded-lg bg-[#111827] border border-[#2563eb]/20 shadow-md grid grid-cols-1 md:grid-cols-12 items-stretch min-h-[420px]",
+  imageWrapper: "relative md:col-span-5 min-h-[260px] md:min-h-full overflow-hidden",
+  image: "absolute inset-0 h-full w-full object-cover opacity-90",
+  overlay: "absolute inset-0 bg-gradient-to-r from-[#111827]/30 to-transparent",
+  contentWrapper: "md:col-span-7 flex flex-col justify-center items-start p-8 sm:p-12 md:p-16 space-y-6",
+  textWrapper: "space-y-3",
+  badge: "text-[10px] font-bold normal-case tracking-wide text-[#2563eb] block",
+  title: "font-sans text-3xl tracking-tight sm:text-4xl text-[#ffffff] leading-tight",
+  description: "max-w-md text-sm text-slate-400 font-light leading-relaxed",
+  button: "group relative inline-flex items-center gap-4 bg-transparent border border-[#93c5fd]/50 px-8 py-4 text-xs font-semibold normal-case tracking-wide text-[#93c5fd] rounded-lg overflow-hidden transition-all hover:bg-[#93c5fd] hover:text-[#111827] active:scale-[0.98]",
+  buttonArrow: "text-current transition-transform group-hover:translate-x-1",
+};

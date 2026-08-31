@@ -2,43 +2,65 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import ProductGallery from "./ProductGallery";
 import ProductInfo from "./ProductInfo";
 import type { ProductByLocale } from "../../types";
-import { useTranslations } from "next-intl";
+import { useProductByIdQuery } from "@/features/catalog/products/hooks/useProductById";
+import { Locale } from "@/types";
 import { theme } from "@/themes";
 
 export default function ProductSection({
-  product,
+  id,
+  locale,
 }: {
-  product: ProductByLocale;
+  id: string;
+  locale: Locale;
 }) {
   const t = useTranslations();
-  const defaultVariant = product.productData.productVariants[0];
 
-  const [activeImage, setActiveImage] = useState(
-    product.productData.productCardImage,
-  );
-  const [selectedVariant, setSelectedVariant] = useState(defaultVariant);
-  const [quantity, setQuantity] = useState(
-    product.cartItems.find(
-      (item) => item.variantId === defaultVariant.variantId,
-    )?.quantity ?? 1,
+  const { data: product, isLoading, isError } = useProductByIdQuery(
+    locale,
+    id,
   );
 
-  const handleVariantChange = (variant: typeof defaultVariant) => {
+  const defaultVariant = product?.productData.productVariants[0];
+
+  const [activeImage, setActiveImage] = useState<string | undefined>(
+    product?.productData.productCardImage,
+  );
+
+  const [selectedVariant, setSelectedVariant] = useState<
+    ProductByLocale["productData"]["productVariants"][number] | undefined
+  >(defaultVariant);
+
+  const [quantity, setQuantity] = useState(1);
+
+  if (isLoading) {
+    return <main className={theme.productSection.main} />;
+  }
+
+  if (isError || !product || !defaultVariant) {
+    return <main className={theme.productSection.main} />;
+  }
+
+  const currentVariant = selectedVariant ?? defaultVariant;
+
+  const currentImage =
+    activeImage ??
+    currentVariant.variantImage ??
+    product.productData.productCardImage;
+
+  const handleVariantChange = (
+    variant: ProductByLocale["productData"]["productVariants"][number],
+  ) => {
     setSelectedVariant(variant);
-    if (
-      product.cartItems.find((item) => item.variantId === variant.variantId)
-    ) {
-      const quantity = product.cartItems.find(
-        (item) => item.variantId === variant.variantId,
-      )?.quantity;
 
-      setQuantity(quantity ?? 1);
-    } else {
-      setQuantity(1);
-    }
+    const cartItem = product.cartItems.find(
+      (item) => item.variantId === variant.variantId,
+    );
+
+    setQuantity(cartItem?.quantity ?? 1);
 
     if (variant.variantImage) {
       setActiveImage(variant.variantImage);
@@ -70,7 +92,7 @@ export default function ProductSection({
           <div className={theme.productSection.galleryCol}>
             <ProductGallery
               product={product}
-              activeImage={activeImage}
+              activeImage={currentImage}
               setActiveImage={setActiveImage}
               handleVariantChange={handleVariantChange}
             />
@@ -81,7 +103,7 @@ export default function ProductSection({
               product={product}
               quantity={quantity}
               setQuantity={setQuantity}
-              selectedVariant={selectedVariant}
+              selectedVariant={currentVariant}
               handleVariantChange={handleVariantChange}
             />
           </div>

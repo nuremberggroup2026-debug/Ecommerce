@@ -1,0 +1,18 @@
+export const orderSummarySectionTheme = {
+  section: "rounded-none border border-[#a78bfa]/20 bg-white shadow-sm",
+  header: "border-b border-[#a78bfa]/15 px-6 py-4",
+  title: "font-mono text-lg text-[#f5f2fb]",
+  body: "space-y-4 p-6",
+  row: "flex items-center justify-between text-base",
+  rowLabel: "text-violet-400",
+  rowValue: "font-medium text-[#f5f2fb]",
+  discountRow: "flex items-start justify-between text-base",
+  discountLeft: "flex flex-col items-start gap-1",
+  promoBadge: "rounded-none border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700",
+  discountValue: "font-medium text-emerald-700",
+  totalRow: "mt-2 flex items-center justify-between border-t border-dashed border-[#a78bfa]/25 pt-4",
+  totalLabel: "text-lg font-semibold text-[#f5f2fb]",
+  totalValue: "font-mono text-2xl font-bold text-[#f5f2fb]",
+  footer: "rounded-b-none border-t border-[#a78bfa]/15 bg-[#130e1a]/50 p-4",
+  button: "block w-full rounded-none bg-[#f5f2fb] px-4 py-3 text-center text-sm font-semibold uppercase tracking-wider text-[#3d2b5c] transition-colors hover:bg-[#e6e0f7] active:scale-[0.98]",
+};

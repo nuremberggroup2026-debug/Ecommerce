@@ -1,0 +1,16 @@
+export const deliveryInfoSectionTheme = {
+  section: "rounded-lg border border-[#2563eb]/20 bg-white shadow-sm",
+  header: "border-b border-[#2563eb]/15 bg-[#eff6ff]/40 px-6 py-4",
+  title: "font-sans text-lg text-[#111827]",
+  body: "p-6",
+  grid: "grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8",
+  column: "space-y-5",
+  fieldWrapper: "",
+  fieldLabel: "text-sm text-slate-500",
+  fieldValue: "text-base font-medium text-[#111827]",
+  emailValue: "break-all text-base font-medium text-[#111827]",
+  noteContainer: "border-t border-[#2563eb]/15 pt-5 sm:col-span-2",
+  noteLabel: "mb-2 text-sm text-slate-500",
+  noteBox: "rounded-lg border border-[#2563eb]/25 bg-[#eff6ff]/50 p-4",
+  noteText: "text-sm leading-relaxed text-[#1d4ed8]",
+};

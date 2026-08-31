@@ -40,16 +40,11 @@ export default function CategoryFilter({ categoriesData }: Props) {
 
   return (
     <div className={theme.categoryFilter.card}>
-      <h3 className={theme.categoryFilter.title}>
-        {t("Categories")}
-      </h3>
+      <h3 className={theme.categoryFilter.title}>{t("Categories")}</h3>
 
       <div className={theme.categoryFilter.listContainer}>
         {categoriesData.map((category) => (
-          <label
-            key={category.id}
-            className={theme.categoryFilter.label}
-          >
+          <label key={category.id} className={theme.categoryFilter.label}>
             <input
               type="checkbox"
               checked={selectedCategories.includes(category.id)}

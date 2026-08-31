@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { api } from "@/services/server/api";
 import { API } from "@/constants";
 import type {
@@ -85,3 +86,5 @@ export async function fetchOnDiscountProducts(
 
   return result.data;
 }
+=======
+>>>>>>> f5ccd3c9aec08eaa088233b41bb6cc5bff9f57ec

@@ -11,7 +11,7 @@ import { Locale } from "@/types";
 import {
   fetchFeaturedProducts,
   fetchOnDiscountProducts,
-} from "@/features/catalog/products/api/products.api";
+} from "@/features/catalog/products/api/products.client.api";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
 
 interface Prop {

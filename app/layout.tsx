@@ -1,3 +1,5 @@
+// app/layout.tsx
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -5,6 +7,7 @@ import "./globals.css";
 import { StoreProvider } from "@/providers/StoreProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { generateSiteMetadata } from "@/lib/constants/metadata";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +35,12 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <StoreProvider>
           <AuthProvider>
-            <main className="flex-1">{children}</main>
+
+            <ReactQueryProvider>
+              <main className="flex-1">
+                {children}
+              </main>
+            </ReactQueryProvider>
           </AuthProvider>
         </StoreProvider>
       </body>

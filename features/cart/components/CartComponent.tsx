@@ -2,49 +2,62 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CartData, Locale } from "../types";
-import { useRef, useState } from "react";
+import type { CartData, Locale } from "../types";
+import { useRef } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { deleteItem, updateItemQuantity } from "../api/cart.client.api";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { theme } from "@/themes";
+import { useCartQuery } from "../hooks/useCart";
+import { cartQueryKey } from "../hooks/cart.query-key";
 
 interface Prop {
-  cartData: CartData;
   locale: Locale;
 }
 
-export default function CartComponent({ cartData, locale }: Prop) {
-  const [items, setItems] = useState(cartData.items);
+export default function CartComponent({ locale }: Prop) {
+  const queryClient = useQueryClient();
+  const queryKey = cartQueryKey({ locale });
+
+  const { data: cartData, isPending, isError } = useCartQuery({ locale });
 
   const t = useTranslations();
-
   const isAr = locale === "ar";
 
   const pendingUpdates = useRef<Record<string, number>>({});
   const timers = useRef<Record<string, NodeJS.Timeout>>({});
 
+  if (isPending) return <div>{t("Cart.LOADING")}</div>;
+  if (isError) return <div>{t("Cart.ERROR")}</div>;
+
+  const items = cartData.items;
+
   const subtotal = items
     .reduce((total, item) => total + item.subtotal, 0)
     .toFixed(2);
   const shipping = Number(subtotal) > 300 ? 0 : 15;
-
   const total = Number(subtotal) + shipping;
 
   const updateQuantity = (itemId: string, quantity: number) => {
-    const previousItems = items;
+    const previousCart = queryClient.getQueryData<CartData>(queryKey);
 
-    setItems((prev) =>
-      prev.map((item) =>
-        item.cartItemId === itemId
-          ? {
-              ...item,
-              quantity,
-              subtotal: quantity * Number(item.itemPrice),
-            }
-          : item,
-      ),
-    );
+    // تحديث فوري بالـ cache
+    queryClient.setQueryData<CartData>(queryKey, (old) => {
+      if (!old) return old;
+      return {
+        ...old,
+        items: old.items.map((item) =>
+          item.cartItemId === itemId
+            ? {
+                ...item,
+                quantity,
+                subtotal: quantity * Number(item.itemPrice),
+              }
+            : item
+        ),
+      };
+    });
 
     pendingUpdates.current[itemId] = quantity;
 
@@ -55,15 +68,24 @@ export default function CartComponent({ cartData, locale }: Prop) {
         await updateItemQuantity(pendingUpdates.current[itemId], itemId);
         delete pendingUpdates.current[itemId];
       } catch {
-        setItems(previousItems);
+        // rollback عند الفشل
+        queryClient.setQueryData(queryKey, previousCart);
+        toast.error(t("ResponseMessages.UPDATE_CART_ITEM_FAILED"));
       }
     }, 750);
   };
 
   const handleDeleteItem = async (itemId: string) => {
-    const previousItems = items;
+    const previousCart = queryClient.getQueryData<CartData>(queryKey);
 
-    setItems((prev) => prev.filter((item) => item.cartItemId !== itemId));
+    // حذف فوري بالـ cache
+    queryClient.setQueryData<CartData>(queryKey, (old) => {
+      if (!old) return old;
+      return {
+        ...old,
+        items: old.items.filter((item) => item.cartItemId !== itemId),
+      };
+    });
 
     try {
       const result = await deleteItem(itemId);
@@ -72,7 +94,8 @@ export default function CartComponent({ cartData, locale }: Prop) {
 
       toast.success(t(`ResponseMessages.${result.message}`));
     } catch {
-      setItems(previousItems);
+      // rollback عند الفشل
+      queryClient.setQueryData(queryKey, previousCart);
       toast.error(t("ResponseMessages.DELETE_CART_ITEM_FAILED"));
     }
   };
@@ -81,9 +104,7 @@ export default function CartComponent({ cartData, locale }: Prop) {
     <main className={theme.cart.main}>
       <div className={theme.cart.container}>
         <header className={theme.cart.header}>
-          <h1 className={theme.cart.title}>
-            {t("Cart.TITLE")}
-          </h1>
+          <h1 className={theme.cart.title}>{t("Cart.TITLE")}</h1>
 
           <p className={theme.cart.itemCount}>
             {items.length === 0
@@ -94,20 +115,14 @@ export default function CartComponent({ cartData, locale }: Prop) {
 
         {items.length === 0 ? (
           <div className={theme.cart.emptyContainer}>
-            <p className={theme.cart.emptyText}>
-              {t("Cart.FEELS_LIGHT")}
-            </p>
+            <p className={theme.cart.emptyText}>{t("Cart.FEELS_LIGHT")}</p>
 
-            <Link
-              href="/products"
-              className={theme.cart.emptyButton}
-            >
+            <Link href="/products" className={theme.cart.emptyButton}>
               {t("Cart.CONTINUE_SHOPPING")}
             </Link>
           </div>
         ) : (
           <div className={theme.cart.grid}>
-            {/* Cart Items */}
             <div className={theme.cart.itemsList}>
               {items.map((item) => {
                 const product = item.product;
@@ -126,7 +141,9 @@ export default function CartComponent({ cartData, locale }: Prop) {
                     <div className={theme.cart.itemInfoWrapper}>
                       <div>
                         <div className={theme.cart.itemHeader}>
-                          <h3 className={theme.cart.itemTitle}>{product.name}</h3>
+                          <h3 className={theme.cart.itemTitle}>
+                            {product.name}
+                          </h3>
 
                           <p className={theme.cart.itemSubtotal}>
                             {t("Cart.CURRENCY_SYMBOL")}
@@ -172,9 +189,7 @@ export default function CartComponent({ cartData, locale }: Prop) {
                         </div>
 
                         <button
-                          onClick={() => {
-                            handleDeleteItem(item.cartItemId);
-                          }}
+                          onClick={() => handleDeleteItem(item.cartItemId)}
                           className={theme.cart.removeButton}
                         >
                           {t("Cart.REMOVE")}
@@ -186,7 +201,6 @@ export default function CartComponent({ cartData, locale }: Prop) {
               })}
             </div>
 
-            {/* Summary */}
             <div className={theme.cart.summaryColumn}>
               <div className={theme.cart.summaryCard}>
                 <h2 className={theme.cart.summaryTitle}>
@@ -213,17 +227,16 @@ export default function CartComponent({ cartData, locale }: Prop) {
                 </div>
 
                 <div className={theme.cart.totalRow}>
-                  <span className={theme.cart.totalLabel}>{t("Cart.TOTAL")}</span>
+                  <span className={theme.cart.totalLabel}>
+                    {t("Cart.TOTAL")}
+                  </span>
                   <span className={theme.cart.totalValue}>
                     {t("Cart.CURRENCY_SYMBOL")}
                     {total.toFixed(2)}
                   </span>
                 </div>
 
-                <Link
-                  href="/checkout"
-                  className={theme.cart.checkoutButton}
-                >
+                <Link href="/checkout" className={theme.cart.checkoutButton}>
                   {t("Cart.PROCEED_TO_CHECKOUT")}
                 </Link>
 

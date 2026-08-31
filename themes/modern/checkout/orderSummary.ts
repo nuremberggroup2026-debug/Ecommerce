@@ -1,0 +1,23 @@
+export const orderSummaryTheme = {
+  container: (isAr: boolean) =>
+    `rounded-lg bg-[#eff6ff] p-6 sm:p-8 border border-[#2563eb]/15 ${isAr ? "rtl" : "ltr"}`,
+  header: "mb-8",
+  title: "text-sm font-semibold normal-case tracking-wide text-[#111827]",
+  itemsCount: "mt-2 text-xs text-slate-400",
+  itemsList: "space-y-6 border-b border-[#2563eb]/20 pb-8",
+  subtotalRow: "flex items-center justify-between pt-6",
+  subtotalLabel: "text-sm text-slate-500",
+  subtotalValue: "text-sm font-medium text-[#111827]",
+  promoSection: "mt-6 border-b border-[#2563eb]/20 pb-6",
+  promoFlex: "flex gap-2",
+  promoInput: "min-w-0 flex-1 rounded-lg border border-[#2563eb]/25 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2563eb]",
+  promoButton: "rounded-lg bg-[#111827] px-5 py-3 text-xs font-medium normal-case tracking-wide text-[#93c5fd] transition hover:bg-[#1e293b] disabled:cursor-not-allowed disabled:opacity-50",
+  discountRow: "flex items-center justify-between py-4 text-sm",
+  discountLabel: "text-slate-500",
+  discountValue: "font-medium text-green-700",
+  totalRow: "flex items-center justify-between pt-2",
+  totalLabel: "font-medium text-[#111827]",
+  totalWrapper: "text-right",
+  oldTotalValue: "text-sm text-slate-400 line-through",
+  finalTotalValue: "font-sans text-xl font-bold text-[#111827]",
+};
