@@ -124,15 +124,7 @@ async function request<
 
     /**
      * Preserve the HTTP status
-     *
-     * 401
-     * 403
-     * 404
-     * 409
-     * 422
-     * 429
-     * 500
-     * 503
+
      */
     throw new ApiError(
       res.status,

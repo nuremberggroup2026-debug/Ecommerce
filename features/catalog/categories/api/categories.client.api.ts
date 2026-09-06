@@ -1,5 +1,5 @@
 import { Clientapi } from "@/services/client/api";
-import { API } from "@/constants";
+import { API } from "@/lib/constants/api";
 import type { PutResponseType, AddResponseType ,deleteResponseType} from "@/types/index";
 
 import type {

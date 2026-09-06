@@ -5,7 +5,7 @@ import {
   getPromoCodeById,
   updatePromoCode,
 } from "@/server/promoCodes/services";
-import { PromoCodeCreateInput } from "@/types";
+import { PromoCodeCreateInput } from "@/server/promoCodes/types";
 import { NextResponse } from "next/server";
 
 export const GET = withAuth(

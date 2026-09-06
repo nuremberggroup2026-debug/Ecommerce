@@ -367,6 +367,10 @@
     "VIEW_ORDER_DETAILS": "View Order Details",
     "EMPTY_MESSAGE": "You haven't placed any orders yet.",
     "START_SHOPPING": "Start Shopping",
+    "loginRequiredTitle": "Sign in to view your orders",
+    "loginRequiredDescription": "Your order history is waiting for you. Sign in to view your orders and keep track of your purchases anytime.", 
+    "login": "Sign In", 
+    "continueShopping": "Continue Shopping",
     "ORDER_DETAILS": {
       "TITLE": "Order Details",
       "BACK_TO_ORDERS": "Back to Orders",

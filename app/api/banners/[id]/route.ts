@@ -6,7 +6,7 @@ import {
   getBannerById,
   updateBanner,
 } from "@/server/banner/services";
-import { UpdateBanner } from "@/types";
+import { UpdateBanner } from "@/server/banner/types";
 import { NextResponse } from "next/server";
 
 export const GET = withAuth(
@@ -79,11 +79,9 @@ export const DELETE = withAuth(
   async (request: Request, { params }) => {
     try {
       const { id } = await params;
-                  console.log(id);
-
+      console.log(id);
 
       const result = await deleteBanner(id);
-
 
       const status = HTTP_STATUS_MAP[result.code] || 500;
 
@@ -96,7 +94,7 @@ export const DELETE = withAuth(
       );
     } catch (error) {
       console.log(error);
-      
+
       return NextResponse.json(
         {
           success: false,

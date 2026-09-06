@@ -1,6 +1,7 @@
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { prisma } from "@/lib/prisma";
-import { Locale, WishlistCreateInput } from "@/types";
+import { Locale } from "@/types";
+import { WishlistCreateInput } from "./types";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { addWishlistItemSchema } from "./validations";
 
@@ -44,7 +45,6 @@ export const addWishlistItem = async (newWishlistItem: WishlistCreateInput) => {
     });
 
     revalidateTag("wishlist", { expire: 0 });
-    
 
     return {
       success: true,
@@ -79,7 +79,6 @@ export const deleteWishlistItem = async (productId: string, userId: string) => {
   });
 
   revalidateTag("wishlist", { expire: 0 });
-  
 
   return {
     success: true,

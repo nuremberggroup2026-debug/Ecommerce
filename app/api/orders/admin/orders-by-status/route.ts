@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { adminGetOrdersByStatus } from "@/server/orders/services";
-import { OrderStatus } from "@/types";
+import { OrderStatus } from "@/server/orders/types";
 import { NextResponse } from "next/server";
 
 export const GET = withAuth(["admin", "super_admin"], async (request) => {

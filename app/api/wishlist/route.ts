@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { addWishlistItem } from "@/server/wishlist/services";
-import { WishlistBodyType } from "@/types";
+import { WishlistBodyType } from "@/server/wishlist/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth([], async (request: Request, { user }) => {

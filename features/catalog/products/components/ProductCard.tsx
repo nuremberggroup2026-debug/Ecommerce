@@ -6,14 +6,11 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Locale } from "../types";
-
 import defaultImage from "@/app/defaultImage.jpg";
 import { theme } from "@/themes";
 import type { GetProductType } from "@/types/index";
-
 import { toastResponse } from "@/lib/toast";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
-
 import {
   addItemToWishlist,
   removeItemFromWishlist,
@@ -43,6 +40,7 @@ export default function ProductCard({
   const [loading, setLoading] = useState(false);
 
   const addToCartMutation = useAddToCart();
+
 
   const variant = product.variants[0];
 
@@ -181,6 +179,7 @@ export default function ProductCard({
     setLoading(true);
 
     try {
+
       await toastResponse(
         addToCartMutation.mutateAsync({
           variantId: variant.id,

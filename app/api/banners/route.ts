@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { getAllBanners, createBanner } from "@/server/banner/services";
-import { NewBanner } from "@/types";
+import { NewBanner } from "@/server/banner/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth(["super_admin"], async (request: Request) => {

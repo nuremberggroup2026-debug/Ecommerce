@@ -10,12 +10,10 @@ interface OrderDataTableProps {
   data: AdminOrder[];
 }
 
-export function OrderDataTable({
-  data,
-}: OrderDataTableProps) {
+export function OrderDataTable({ data }: OrderDataTableProps) {
   return (
     <DataTable
-      columns={columns}
+      columns={columns("/dashboard/orders/view")}
       data={data}
       title="Orders"
       description="Manage your orders"

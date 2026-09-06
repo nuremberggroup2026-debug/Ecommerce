@@ -1,6 +1,5 @@
 export const API = {
   BASE_URL: process.env.NEXT_PUBLIC_API_URL,
-
   ENDPOINTS: {
     PRODUCTS: {
       FEATURED_PRODUCTS_BY_LOCALE: "products/featured-products-by-locale",

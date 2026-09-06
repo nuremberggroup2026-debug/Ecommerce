@@ -1,14 +1,7 @@
-
-
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { deleteManyCategories } from "@/server/categories/services";
 import { NextResponse } from "next/server";
-
-
-
-
-
 
 
 export const DELETE = withAuth(["super_admin"], async (request: Request) => {

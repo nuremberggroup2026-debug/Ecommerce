@@ -5,7 +5,7 @@ import {
   getAttributeValueById,
   updateAttributeValue,
 } from "@/server/attributes/attributeValue.services";
-import { AttributeValuesUpdateInput } from "@/types";
+import { AttributeValuesUpdateInput } from "@/server/attributes/types";
 import { NextResponse } from "next/server";
 
 export const GET = withAuth(

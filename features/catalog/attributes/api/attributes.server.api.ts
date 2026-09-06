@@ -1,6 +1,6 @@
 import { api } from "@/services/server/api";
 
-import { API } from "@/constants/api";
+import { API } from "@/lib/constants/api";
 import type { ResponseType } from "@/types/index";
 import type {
   AdminAttribute,

@@ -8,7 +8,7 @@ import { RESPONSE_CODES } from "@/lib/constants/response";
 import { sendVerificationEmail } from "@/lib/emails/send-verification";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import { UserRoles } from "@/types";
+import { UserRoles } from "./types";
 import { sendPasswordResetEmail } from "@/lib/emails/send-reset-password-email";
 
 export const register = async (
@@ -300,7 +300,7 @@ export const updateRole = async (userId: string, newRole: UserRoles) => {
       code: RESPONSE_CODES.NOT_FOUND,
     };
 
-   await prisma.user.update({
+  await prisma.user.update({
     where: { id: userId },
     data: { role: newRole },
   });

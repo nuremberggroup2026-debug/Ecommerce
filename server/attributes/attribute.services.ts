@@ -1,4 +1,5 @@
-import { AttributeCreateInput, AttributeUpdateInput, Locale } from "@/types";
+import { AttributeCreateInput, AttributeUpdateInput } from "./types";
+import { Locale } from "@/types/index";
 import { attributeSchema, updateAttributeSchema } from "./validators";
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { prisma } from "@/lib/prisma";

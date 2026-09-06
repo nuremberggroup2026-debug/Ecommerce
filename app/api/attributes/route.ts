@@ -4,7 +4,7 @@ import {
   getAllAttributes,
   createAttribute,
 } from "@/server/attributes/attribute.services";
-import { AttributeCreateInput } from "@/types";
+import { AttributeCreateInput } from "@/server/attributes/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth(["super_admin"], async (request: Request) => {
@@ -21,7 +21,7 @@ export const POST = withAuth(["super_admin"], async (request: Request) => {
       { status },
     );
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return NextResponse.json(
       {
         success: false,

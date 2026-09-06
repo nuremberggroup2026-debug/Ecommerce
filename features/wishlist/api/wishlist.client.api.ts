@@ -1,4 +1,4 @@
-import { API } from "@/constants";
+import { API } from "@/lib/constants/api";
 import { PostResponseType } from "@/features/cart/types";
 import { Clientapi } from "@/services/client/api";
 

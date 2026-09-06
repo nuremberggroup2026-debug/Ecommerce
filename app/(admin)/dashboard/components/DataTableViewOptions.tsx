@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { type Table } from "@tanstack/react-table"
-import { Settings2 } from "lucide-react"
+import { type Table } from "@tanstack/react-table";
+import { Settings2 } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -11,13 +11,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { title } from "process"
+} from "@/components/ui/dropdown-menu";
+import { title } from "process";
 
 export function DataTableViewOptions<TData>({
   table,
 }: {
-  table: Table<TData>
+  table: Table<TData>;
 }) {
   return (
     <DropdownMenu>
@@ -32,7 +32,7 @@ export function DataTableViewOptions<TData>({
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-[180px]">
+      <DropdownMenuContent align="end" className="w-45">
         <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
@@ -40,26 +40,22 @@ export function DataTableViewOptions<TData>({
           .getAllColumns()
           .filter(
             (column) =>
-              typeof column.accessorFn !== "undefined" &&
-              column.getCanHide()
+              typeof column.accessorFn !== "undefined" && column.getCanHide(),
           )
           .map((column) => {
-            const header = column.columnDef.meta
+            const header = column.columnDef.meta;
 
             return (
               <DropdownMenuCheckboxItem
                 key={column.id}
                 checked={column.getIsVisible()}
-                onCheckedChange={(value) =>
-                  column.toggleVisibility(!!value)
-                }
+                onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
                 {typeof header === "string" ? header : column.id}
               </DropdownMenuCheckboxItem>
-            )
+            );
           })}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
-

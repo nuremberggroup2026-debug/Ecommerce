@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { TranslatedBanner } from "@/types";
+import { TranslatedBanner } from "@/server/banner/types";
 import { useTranslations } from "next-intl";
 import { theme } from "@/themes";
 
@@ -28,7 +28,9 @@ export default function HeroSection({ banners }: Prop) {
           <div
             key={index}
             className={`${theme.hero.slide} ${
-              index === current ? theme.hero.slideActive : theme.hero.slideInactive
+              index === current
+                ? theme.hero.slideActive
+                : theme.hero.slideInactive
             }`}
           >
             <Image
@@ -43,16 +45,11 @@ export default function HeroSection({ banners }: Prop) {
               <div className={theme.hero.container}>
                 <article className={theme.hero.article}>
                   <header className={theme.hero.header}>
-                    <h1 className={theme.hero.title}>
-                      {banner.name}
-                    </h1>
+                    <h1 className={theme.hero.title}>{banner.name}</h1>
                   </header>
 
                   <nav className={theme.hero.nav}>
-                    <Link
-                      href={"/products"}
-                      className={theme.hero.shopButton}
-                    >
+                    <Link href={"/products"} className={theme.hero.shopButton}>
                       {t("ShopNow")}
                     </Link>
                   </nav>
@@ -68,7 +65,9 @@ export default function HeroSection({ banners }: Prop) {
               key={index}
               onClick={() => setCurrent(index)}
               className={`${theme.hero.indicator} ${
-                index === current ? theme.hero.indicatorActive : theme.hero.indicatorInactive
+                index === current
+                  ? theme.hero.indicatorActive
+                  : theme.hero.indicatorInactive
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

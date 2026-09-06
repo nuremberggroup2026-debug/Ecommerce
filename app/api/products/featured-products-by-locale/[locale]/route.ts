@@ -6,10 +6,10 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   request: Request,
-  { params }: { params: Promise<{ locale: Locale }> },
+  { params }: { params: Promise<{ locale: string }> },
 ) => {
   try {
-    const { locale } = await params;
+    const locale = (await params).locale as Locale;
     const session = await auth();
     const userId = session?.user?.id;
     const result = await getFeaturedProductsByLocale(locale, userId);

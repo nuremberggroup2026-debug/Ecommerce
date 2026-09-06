@@ -5,7 +5,7 @@ import {
   getProductById,
   updateProductWithVariant,
 } from "@/server/products/services";
-import { ProductWithVaraintsUpdateInput } from "@/types";
+import { ProductWithVaraintsUpdateInput } from "@/server/products/types";
 import { NextResponse } from "next/server";
 
 export const GET = async (
@@ -82,10 +82,9 @@ export const DELETE = withAuth(
         },
         { status },
       );
-    } catch(error) {
- 
-        console.log("error: ",error);
-        
+    } catch (error) {
+      console.log("error: ", error);
+
       return NextResponse.json(
         {
           success: false,

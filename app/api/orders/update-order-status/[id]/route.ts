@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { updateOrderStatus } from "@/server/orders/services";
-import { OrderStatus, UpdateOrderStatusRequest } from "@/types";
+import { OrderStatus, UpdateOrderStatusRequest } from "@/server/orders/types";
 import { NextResponse } from "next/server";
 
 export const PUT = withAuth(

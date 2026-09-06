@@ -1,9 +1,15 @@
-import { Locale, PlaceOrderCreateInputs, OrderStatus } from "@/types";
+import { Locale } from "@/types";
+import {
+  PlaceOrderCreateInputs,
+  OrderStatus,
+  OrdersFilteration,
+} from "./types";
 import { createOrderBackendSchema } from "./validators";
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { prisma } from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { generateOrderNumber } from "@/lib/helpers";
+import { Prisma } from "@/generated/prisma/client";
 
 export const placeAnOrder = async (
   orderData: PlaceOrderCreateInputs,
@@ -233,8 +239,8 @@ export const updateOrderStatus = async (
     },
   });
 
-  revalidateTag("orders", {expire:0});
-  revalidateTag(`order-${orderId}`, {expire:0});
+  revalidateTag("orders", { expire: 0 });
+  revalidateTag(`order-${orderId}`, { expire: 0 });
 
   return {
     success: true,
@@ -318,7 +324,9 @@ const getCachedOrderByIdUserAndLocale = (
           },
 
           userPromoCodes: {
-            select: { promoCodes: { select: { code: true,discountPercentage:true } } },
+            select: {
+              promoCodes: { select: { code: true, discountPercentage: true } },
+            },
           },
         },
       });
@@ -353,26 +361,52 @@ const getCachedOrderByIdUserAndLocale = (
     { tags: ["orders"], revalidate: 3600 },
   )();
 
-const getCachedAdminOrders = () =>
-  unstable_cache(
+const getCachedAdminOrders = (filterationObject: OrdersFilteration) => {
+  const page = filterationObject.page ?? 1;
+  const take = filterationObject.take ?? 15;
+  const customerEmail = filterationObject.customerEmail ?? "";
+  const status = filterationObject.status ?? "";
+  const orderNumber = filterationObject.orderNumber ?? "";
+
+  return unstable_cache(
     async () => {
-      return prisma.orders.findMany({
+      const skip = take * (page - 1);
+
+      const where: Prisma.ordersWhereInput = {};
+
+      if (status) {
+        where.status = status;
+      }
+
+      if (customerEmail) {
+        where.users = {
+          email: customerEmail,
+        };
+      }
+
+      if (orderNumber) {
+        where.orderNumber = {
+          contains: orderNumber,
+          mode: "insensitive",
+        };
+      }
+
+      const ordersCount = await prisma.orders.count({ where });
+      const result = await prisma.orders.findMany({
+        where,
+        skip,
+        take,
         select: {
           id: true,
-          email: true,
-          phoneNumber: true,
-          city: true,
           totalAmount: true,
-          subtotal: true,
-          paymentMethod:true,
-          discountAmount: true,
+          paymentMethod: true,
           status: true,
           createdAt: true,
+          orderNumber: true,
+          updatedAt: true,
 
           users: {
             select: {
-              id: true,
-              name: true,
               email: true,
             },
           },
@@ -388,13 +422,37 @@ const getCachedAdminOrders = () =>
           createdAt: "desc",
         },
       });
+
+      return {
+        orders: result.map((o) => ({
+          id: o.id,
+          orderNumber: o.orderNumber,
+          paymentMethod: o.paymentMethod,
+          customerEmail: o.users?.email,
+          createdAt: o.createdAt,
+          itemsCount: o._count.orderItems,
+          totalAmount: o.totalAmount,
+          status: o.status,
+          updatedAt: o.updatedAt,
+        })),
+
+        pagination: {
+          currentPage: page,
+          itemsPerPage: take,
+          totalItems: ordersCount,
+          totalPages: Math.ceil(ordersCount / take),
+        },
+      };
     },
-    ["admin-orders"],
+    [
+      `admin-orders-pag-${page}-${customerEmail}-${status}-${take}-${orderNumber}`,
+    ],
     {
       tags: ["orders"],
       revalidate: 3600,
     },
   )();
+};
 
 const getCachedAdminOrderById = (orderId: string) =>
   unstable_cache(
@@ -406,11 +464,12 @@ const getCachedAdminOrderById = (orderId: string) =>
 
         select: {
           id: true,
-
+          orderNumber: true,
           email: true,
           phoneNumber: true,
           city: true,
           streetAddress: true,
+          paymentMethod: true,
           buildingNumber: true,
           additionalNote: true,
           subtotal: true,
@@ -418,6 +477,17 @@ const getCachedAdminOrderById = (orderId: string) =>
           totalAmount: true,
           status: true,
           createdAt: true,
+          userPromoCodes: {
+            where: { orderId },
+            select: {
+              promoCodes: {
+                select: {
+                  code: true,
+                  discountPercentage: true,
+                },
+              },
+            },
+          },
 
           users: {
             select: {
@@ -442,6 +512,7 @@ const getCachedAdminOrderById = (orderId: string) =>
                   finalPrice: true,
                   discountPercentage: true,
                   isDefault: true,
+                  variantImage: true,
                 },
               },
             },
@@ -565,8 +636,8 @@ export const getOrderDetailsByUserIdAndLocale = async (
   }
 };
 
-export const adminGetOrders = async () => {
-  const orders = await getCachedAdminOrders();
+export const adminGetOrders = async (filtrationObject: OrdersFilteration) => {
+  const orders = await getCachedAdminOrders(filtrationObject);
 
   return {
     success: true,

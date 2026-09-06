@@ -1,8 +1,8 @@
 import {
   AttributeValuesCreateInput,
   AttributeValuesUpdateInput,
-  Locale,
-} from "@/types";
+} from "./types";
+import { Locale } from "@/types/index";
 import {
   createAttributeValueSchema,
   updateAttributeValueSchema,
@@ -14,10 +14,7 @@ import { revalidateTag, unstable_cache } from "next/cache";
 export const createAttributeValue = async (
   newAttributeValue: AttributeValuesCreateInput,
 ) => {
-  const validation =
-    createAttributeValueSchema.safeParse(
-      newAttributeValue,
-    );
+  const validation = createAttributeValueSchema.safeParse(newAttributeValue);
 
   if (!validation.success) {
     console.error(
@@ -32,12 +29,11 @@ export const createAttributeValue = async (
     };
   }
 
-  const attribute =
-    await prisma.attributes.findUnique({
-      where: {
-        id: validation.data.attributeId,
-      },
-    });
+  const attribute = await prisma.attributes.findUnique({
+    where: {
+      id: validation.data.attributeId,
+    },
+  });
 
   if (!attribute) {
     return {
@@ -47,24 +43,20 @@ export const createAttributeValue = async (
     };
   }
 
-  const duplicate =
-    await prisma.attribute_values.findFirst({
-      where: {
-        attributeId:
-          validation.data.attributeId,
+  const duplicate = await prisma.attribute_values.findFirst({
+    where: {
+      attributeId: validation.data.attributeId,
 
-        OR: [
-          {
-            attributeValueEn:
-              validation.data.attributeValueEn,
-          },
-          {
-            attributeValueAr:
-              validation.data.attributeValueAr,
-          },
-        ],
-      },
-    });
+      OR: [
+        {
+          attributeValueEn: validation.data.attributeValueEn,
+        },
+        {
+          attributeValueAr: validation.data.attributeValueAr,
+        },
+      ],
+    },
+  });
 
   if (duplicate) {
     return {
@@ -77,14 +69,11 @@ export const createAttributeValue = async (
   try {
     await prisma.attribute_values.create({
       data: {
-        attributeId:
-          validation.data.attributeId,
+        attributeId: validation.data.attributeId,
 
-        attributeValueEn:
-          validation.data.attributeValueEn,
+        attributeValueEn: validation.data.attributeValueEn,
 
-        attributeValueAr:
-          validation.data.attributeValueAr,
+        attributeValueAr: validation.data.attributeValueAr,
       },
     });
 
@@ -93,15 +82,11 @@ export const createAttributeValue = async (
 
     return {
       success: true,
-      message:
-        "ATTRIBUTE_VALUE_CREATED_SUCCESSFULLY",
+      message: "ATTRIBUTE_VALUE_CREATED_SUCCESSFULLY",
       code: RESPONSE_CODES.CREATED,
     };
   } catch (error) {
-    console.error(
-      "Create attribute value error:",
-      error,
-    );
+    console.error("Create attribute value error:", error);
 
     return {
       success: false,
@@ -123,10 +108,9 @@ export const updateAttributeValue = async (
     };
   }
 
-  const validation =
-    updateAttributeValueSchema.safeParse(
-      updatedAttributeValueData,
-    );
+  const validation = updateAttributeValueSchema.safeParse(
+    updatedAttributeValueData,
+  );
 
   if (!validation.success) {
     console.error(
@@ -141,10 +125,9 @@ export const updateAttributeValue = async (
     };
   }
 
-  const existingAttributeValue =
-    await prisma.attribute_values.findUnique({
-      where: { id },
-    });
+  const existingAttributeValue = await prisma.attribute_values.findUnique({
+    where: { id },
+  });
 
   if (!existingAttributeValue) {
     return {
@@ -154,28 +137,24 @@ export const updateAttributeValue = async (
     };
   }
 
-  const duplicate =
-    await prisma.attribute_values.findFirst({
-      where: {
-        attributeId:
-          existingAttributeValue.attributeId,
+  const duplicate = await prisma.attribute_values.findFirst({
+    where: {
+      attributeId: existingAttributeValue.attributeId,
 
-        OR: [
-          {
-            attributeValueEn:
-              validation.data.attributeValueEn,
-          },
-          {
-            attributeValueAr:
-              validation.data.attributeValueAr,
-          },
-        ],
-
-        NOT: {
-          id,
+      OR: [
+        {
+          attributeValueEn: validation.data.attributeValueEn,
         },
+        {
+          attributeValueAr: validation.data.attributeValueAr,
+        },
+      ],
+
+      NOT: {
+        id,
       },
-    });
+    },
+  });
 
   if (duplicate) {
     return {
@@ -190,11 +169,9 @@ export const updateAttributeValue = async (
       where: { id },
 
       data: {
-        attributeValueEn:
-          validation.data.attributeValueEn,
+        attributeValueEn: validation.data.attributeValueEn,
 
-        attributeValueAr:
-          validation.data.attributeValueAr,
+        attributeValueAr: validation.data.attributeValueAr,
       },
     });
 
@@ -203,15 +180,11 @@ export const updateAttributeValue = async (
 
     return {
       success: true,
-      message:
-        "ATTRIBUTE_VALUE_UPDATED_SUCCESSFULLY",
+      message: "ATTRIBUTE_VALUE_UPDATED_SUCCESSFULLY",
       code: RESPONSE_CODES.OK,
     };
   } catch (error) {
-    console.error(
-      "Update attribute value error:",
-      error,
-    );
+    console.error("Update attribute value error:", error);
 
     return {
       success: false,
@@ -230,10 +203,9 @@ export const deleteAttributeValue = async (id: string) => {
     };
   }
 
-  const existingAttributeValue =
-    await prisma.attribute_values.findUnique({
-      where: { id },
-    });
+  const existingAttributeValue = await prisma.attribute_values.findUnique({
+    where: { id },
+  });
 
   if (!existingAttributeValue) {
     return {
@@ -297,12 +269,11 @@ const getCachedAttributeValueById = (id: string) =>
 const getCachedAttributeValuesByLocale = (locale: Locale) =>
   unstable_cache(
     async () => {
-      const attributeValues =
-        await prisma.attribute_values.findMany({
-          include: {
-            attributes: true,
-          },
-        });
+      const attributeValues = await prisma.attribute_values.findMany({
+        include: {
+          attributes: true,
+        },
+      });
 
       return attributeValues.map((attributeValue) => ({
         id: attributeValue.id,
@@ -331,19 +302,15 @@ const getCachedAttributeValuesByLocale = (locale: Locale) =>
     },
   )();
 
-const getCachedAttributeValueByIdAndLocale = (
-  id: string,
-  locale: Locale,
-) =>
+const getCachedAttributeValueByIdAndLocale = (id: string, locale: Locale) =>
   unstable_cache(
     async () => {
-      const attributeValue =
-        await prisma.attribute_values.findUnique({
-          where: { id },
-          include: {
-            attributes: true,
-          },
-        });
+      const attributeValue = await prisma.attribute_values.findUnique({
+        where: { id },
+        include: {
+          attributes: true,
+        },
+      });
 
       if (!attributeValue) return null;
 
@@ -398,8 +365,7 @@ export const getAttributeValueById = async (id: string) => {
     };
   }
 
-  const attributeValue =
-    await getCachedAttributeValueById(id);
+  const attributeValue = await getCachedAttributeValueById(id);
 
   if (!attributeValue) {
     return {
@@ -417,11 +383,8 @@ export const getAttributeValueById = async (id: string) => {
   };
 };
 
-export const getAttributeValuesByLocale = async (
-  locale: Locale,
-) => {
-  const attributeValues =
-    await getCachedAttributeValuesByLocale(locale);
+export const getAttributeValuesByLocale = async (locale: Locale) => {
+  const attributeValues = await getCachedAttributeValuesByLocale(locale);
 
   return {
     success: true,
@@ -443,8 +406,7 @@ export const getAttributeValueByIdAndLocale = async (
     };
   }
 
-  const attributeValue =
-    await getCachedAttributeValueByIdAndLocale(id, locale);
+  const attributeValue = await getCachedAttributeValueByIdAndLocale(id, locale);
 
   if (!attributeValue) {
     return {

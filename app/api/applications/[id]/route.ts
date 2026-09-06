@@ -5,7 +5,6 @@ import {
   getApplicationsByApplicationId,
 } from "@/server/applications/services";
 import { NextResponse } from "next/server";
-import { log } from "util";
 
 export const GET = withAuth(
   ["super_admin"],

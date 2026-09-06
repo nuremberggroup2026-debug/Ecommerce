@@ -6,12 +6,12 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   request: Request,
-  { params }: { params: Promise<{ locale: Locale }> },
+  { params }: { params: Promise<{ locale: string }> },
 ) => {
   try {
     const session = await auth();
     const userId = session?.user?.id;
-    const { locale } = await params;
+    const locale = (await params).locale as Locale;
     const { searchParams } = new URL(request.url);
     const categories = searchParams.getAll("categories");
     const minPrice = searchParams.get("minPrice");

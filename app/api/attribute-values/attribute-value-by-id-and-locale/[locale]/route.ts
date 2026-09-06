@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   request: Request,
-  { params }: { params: Promise<{ locale: Locale }> },
+  { params }: { params: Promise<{ locale: string }> },
 ) => {
   try {
     const { searchParams } = new URL(request.url);
@@ -21,7 +21,7 @@ export const GET = async (
         { status: 400 },
       );
 
-    const { locale } = await params;
+    const locale = (await params).locale as Locale;
     const result = await getAttributeValueByIdAndLocale(id, locale);
     const status = HTTP_STATUS_MAP[result.code] || 500;
 

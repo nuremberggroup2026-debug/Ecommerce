@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { revalidateTag, unstable_cache } from "next/cache";
-import { CategoriesCreateInput, CategoriesUpdateInput, Locale } from "@/types";
+import { CategoriesCreateInput, CategoriesUpdateInput } from "./types";
+import { Locale } from "@/types/index";
 import { categorySchema, updateCategorySchema } from "./validators";
 import { generateSlug } from "@/lib/helpers/index";
 

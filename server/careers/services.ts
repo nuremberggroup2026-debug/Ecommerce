@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import {
-  Locale,
   CareersCreateInput,
   CareersUpdateInput,
   CareersGetPayload,
-} from "@/types";
+} from "./types";
+import { Locale } from "@/types/index";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { UTApi } from "uploadthing/server";
 import { RESPONSE_CODES } from "@/lib/constants/response";
@@ -36,7 +36,7 @@ export const addNewCareer = async (newCareer: CareersCreateInput) => {
       data: { ...validation.data, slug },
     });
 
-    revalidateTag("careers",  {expire:0});
+    revalidateTag("careers", { expire: 0 });
 
     return {
       success: true,
@@ -107,7 +107,7 @@ export const updateCareer = async (
       },
     });
 
-    revalidateTag("careers", {expire:0});
+    revalidateTag("careers", { expire: 0 });
 
     return {
       success: true,
@@ -156,9 +156,8 @@ export const deleteCareer = async (id: string) => {
     await utapi.deleteFiles(imageKey);
   }
 
-  revalidateTag("careers",  {expire:0});
-    revalidateTag("applications",  {expire:0});
-
+  revalidateTag("careers", { expire: 0 });
+  revalidateTag("applications", { expire: 0 });
 
   return {
     success: true,
@@ -225,7 +224,6 @@ export const deleteManyCareers = async (ids: string[]) => {
     code: RESPONSE_CODES.OK,
   };
 };
-
 
 ///////////////////////////////////////////////////////////////
 /* -------------------- Caching Helps --------------------  */

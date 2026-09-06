@@ -1,9 +1,9 @@
 import {
-  Locale,
   ProductFilters,
   ProductWithVaraintsCreateInput,
   ProductWithVaraintsUpdateInput,
-} from "@/types";
+} from "./types";
+import { Locale } from "@/types";
 import {
   createProductWithVariantsSchema,
   updateProductSchema,
@@ -940,6 +940,7 @@ const getCachedFeaturedProductsByLocale = (locale: Locale) =>
             },
             take: 1,
             select: {
+              id: true,
               finalPrice: true,
               price: true,
 

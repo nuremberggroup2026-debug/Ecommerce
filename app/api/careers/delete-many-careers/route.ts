@@ -1,19 +1,11 @@
-
-
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { deleteManyCareers } from "@/server/careers/services";
 import { NextResponse } from "next/server";
 
-
-
-
-
-
-
 export const DELETE = withAuth(["super_admin"], async (request: Request) => {
   try {
-    const body = (await request.json()) as  string[];
+    const body = (await request.json()) as string[];
     const result = await deleteManyCareers(body);
     const status = HTTP_STATUS_MAP[result.code] || 500;
     return NextResponse.json(

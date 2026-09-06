@@ -1,6 +1,6 @@
 import { Clientapi } from "@/services/client/api";
 
-import { API } from "@/constants";
+import { API } from "@/lib/constants/api";
 
 import type {
   AddResponseType,
@@ -11,12 +11,10 @@ import type {
 } from "@/types";
 
 import type {
-  CreateAdminProduct,
   FilteredProductsData,
   Product,
   ProductByLocale,
   ProductsDataWithOutPag,
-  PUTAdminProduct,
 } from "@/features/catalog/products/types";
 
 export type ProductsQuery = {
@@ -121,7 +119,7 @@ export async function fetchOnDiscountProducts(
 // =====================================================
 // Admin Products
 // =====================================================
-
+/*
 export async function adminAddProduct(
   data: CreateAdminProduct,
 ): Promise<AddResponseType> {
@@ -139,7 +137,7 @@ export async function adminUpdateProduct(
     `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID}/${id}`,
     data,
   );
-}
+}*/
 
 export async function adminDeleteProduct(
   id: string,

@@ -1,4 +1,3 @@
-// providers/ReactQueryProvider.tsx
 
 "use client";
 

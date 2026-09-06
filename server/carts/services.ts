@@ -1,6 +1,7 @@
 import { type Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { ClearCartData, Locale } from "@/types";
+import { ClearCartData } from "./types";
+import { Locale } from "@/types/index";
 import { clearCartSchema } from "./validators";
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { revalidateTag, unstable_cache } from "next/cache";
@@ -144,7 +145,7 @@ const getCachedCartByUserIdAndLocale = (userId: string, locale: Locale) =>
                   id: true,
                   sku: true,
                   variantImage: true,
-                  stock:true,
+                  stock: true,
 
                   products: {
                     select: {
@@ -213,7 +214,7 @@ const getCachedCartByUserIdAndLocale = (userId: string, locale: Locale) =>
           variant: {
             id: item.productVariants.id,
             sku: item.productVariants.sku,
-            stock:item.productVariants.stock,
+            stock: item.productVariants.stock,
 
             attributes: item.productVariants.variantAttributeValues.map(
               (value) => ({

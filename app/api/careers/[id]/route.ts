@@ -5,7 +5,7 @@ import {
   getCareerById,
   updateCareer,
 } from "@/server/careers/services";
-import { CareersUpdateInput } from "@/types";
+import { CareersUpdateInput } from "@/server/careers/types";
 import { NextResponse } from "next/server";
 
 export const GET = withAuth(

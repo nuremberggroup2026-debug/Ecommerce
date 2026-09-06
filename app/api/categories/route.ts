@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { addNewCategory, getAllCategories } from "@/server/categories/services";
-import { CategoriesCreateInput } from "@/types";
+import { CategoriesCreateInput } from "@/server/categories/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth(["super_admin"], async (request: Request) => {

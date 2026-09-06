@@ -44,19 +44,19 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <main className={theme.forgotPasswordPage.main}>
-      <div className={theme.forgotPasswordPage.card}>
+    <main className={theme.forgetPasswordPage.main}>
+      <div className={theme.forgetPasswordPage.card}>
         {isSuccess ? (
           /* SUCCESS STATE */
-          <div className={theme.forgotPasswordPage.successWrapper}>
-            <div className={theme.forgotPasswordPage.successIconWrapper}>
+          <div className={theme.forgetPasswordPage.successWrapper}>
+            <div className={theme.forgetPasswordPage.successIconWrapper}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className={theme.forgotPasswordPage.successIcon}
+                className={theme.forgetPasswordPage.successIcon}
               >
                 <path
                   strokeLinecap="round"
@@ -65,32 +65,32 @@ export default function ForgotPasswordForm() {
                 />
               </svg>
             </div>
-            <h1 className={theme.forgotPasswordPage.title}>
+            <h1 className={theme.forgetPasswordPage.title}>
               {t("SUCCESS_TITLE")}
             </h1>
-            <p className={theme.forgotPasswordPage.subtitle}>
+            <p className={theme.forgetPasswordPage.subtitle}>
               {t("SUCCESS_DESC")}
             </p>
             <Link
               href="/login"
-              className={theme.forgotPasswordPage.successButton}
+              className={theme.forgetPasswordPage.successButton}
             >
               {t("BACK_TO_LOGIN")}
             </Link>
           </div>
         ) : (
           /* FORM STATE */
-          <div className={theme.forgotPasswordPage.formStateWrapper}>
-            <div className={theme.forgotPasswordPage.header}>
-              <h1 className={theme.forgotPasswordPage.title}>{t("TITLE")}</h1>
-              <p className={theme.forgotPasswordPage.subtitle}>
+          <div className={theme.forgetPasswordPage.formStateWrapper}>
+            <div className={theme.forgetPasswordPage.header}>
+              <h1 className={theme.forgetPasswordPage.title}>{t("TITLE")}</h1>
+              <p className={theme.forgetPasswordPage.subtitle}>
                 {t("SUBTITLE")}
               </p>
             </div>
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className={theme.forgotPasswordPage.form}
+              className={theme.forgetPasswordPage.form}
             >
               <EmailInput
                 id="email"
@@ -105,14 +105,14 @@ export default function ForgotPasswordForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={theme.forgotPasswordPage.submitButton}
+                className={theme.forgetPasswordPage.submitButton}
               >
                 {isSubmitting ? t("SENDING") : t("SEND_LINK")}
               </button>
             </form>
 
-            <div className={theme.forgotPasswordPage.backLinkWrapper}>
-              <Link href="/login" className={theme.forgotPasswordPage.backLink}>
+            <div className={theme.forgetPasswordPage.backLinkWrapper}>
+              <Link href="/login" className={theme.forgetPasswordPage.backLink}>
                 &larr; {t("BACK_TO_LOGIN")}
               </Link>
             </div>

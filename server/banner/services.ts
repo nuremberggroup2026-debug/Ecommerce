@@ -2,31 +2,18 @@ import { prisma } from "@/lib/prisma";
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { bannerSchema, updateBannerSchema } from "./validators";
 import { revalidateTag, unstable_cache } from "next/cache";
-import { NewBanner, UpdateBanner } from "@/types";
+import { NewBanner, UpdateBanner } from "./types";
 import { UTApi } from "uploadthing/server";
 
 const utapi = new UTApi();
 
-
-
-
-
-function getFileKey(url:string){
-  try{
-    return new URL(url).pathname.split("/f/")[1]||null;
-  }catch{
+function getFileKey(url: string) {
+  try {
+    return new URL(url).pathname.split("/f/")[1] || null;
+  } catch {
     return null;
   }
 }
-
-
-
-
-
-
-
-
-
 
 export const createBanner = async (newBanner: NewBanner) => {
   const validation = bannerSchema.safeParse(newBanner);
@@ -51,63 +38,62 @@ export const createBanner = async (newBanner: NewBanner) => {
   };
 };
 
-export const updateBanner=async(
-  id:string,
-  updatedBannerData:UpdateBanner,
-)=>{
-  if(!id)return{
-    success:false,
-    message:"BANNER_ID_REQUIRED",
-    code:RESPONSE_CODES.BAD_REQUEST,
-  };
+export const updateBanner = async (
+  id: string,
+  updatedBannerData: UpdateBanner,
+) => {
+  if (!id)
+    return {
+      success: false,
+      message: "BANNER_ID_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+    };
 
-  const validation=updateBannerSchema.safeParse(updatedBannerData);
+  const validation = updateBannerSchema.safeParse(updatedBannerData);
 
-  if(!validation.success){
-    return{
-      success:false,
-      message:"VALIDATION_ERROR",
-      code:RESPONSE_CODES.BAD_REQUEST,
+  if (!validation.success) {
+    return {
+      success: false,
+      message: "VALIDATION_ERROR",
+      code: RESPONSE_CODES.BAD_REQUEST,
     };
   }
 
-  const existingBanner=await prisma.banners.findUnique({
-    where:{id},
+  const existingBanner = await prisma.banners.findUnique({
+    where: { id },
   });
 
-  if(!existingBanner){
-    return{
-      success:false,
-      message:"BANNER_NOT_FOUND",
-      code:RESPONSE_CODES.NOT_FOUND,
+  if (!existingBanner) {
+    return {
+      success: false,
+      message: "BANNER_NOT_FOUND",
+      code: RESPONSE_CODES.NOT_FOUND,
     };
   }
 
   await prisma.banners.update({
-    where:{id},
-    data:validation.data,
+    where: { id },
+    data: validation.data,
   });
 
-  if(
-    existingBanner.image!==validation.data.image
-  ){
-    const key=getFileKey(existingBanner.image);
+  if (existingBanner.image !== validation.data.image) {
+    const key = getFileKey(existingBanner.image);
 
-    if(key){
-      try{
+    if (key) {
+      try {
         await utapi.deleteFiles(key);
-      }catch(err){
-        console.error("UploadThing delete error:",err);
+      } catch (err) {
+        console.error("UploadThing delete error:", err);
       }
     }
   }
 
-  revalidateTag("banners",{expire:0});
+  revalidateTag("banners", { expire: 0 });
 
-  return{
-    success:true,
-    message:"BANNER_UPDATED_SUCCESSFULLY",
-    code:RESPONSE_CODES.OK,
+  return {
+    success: true,
+    message: "BANNER_UPDATED_SUCCESSFULLY",
+    code: RESPONSE_CODES.OK,
   };
 };
 export const deleteBanner = async (id: string) => {
@@ -133,12 +119,12 @@ export const deleteBanner = async (id: string) => {
     where: { id },
   });
 
-    const fileKey=getFileKey(existingBanner.image);
+  const fileKey = getFileKey(existingBanner.image);
 
   if (fileKey) {
     await utapi.deleteFiles(fileKey);
   }
-  revalidateTag("banners", {expire:0});
+  revalidateTag("banners", { expire: 0 });
   return {
     success: true,
     message: "BANNER_DELETED_SUCCESSFULLY",
@@ -146,8 +132,6 @@ export const deleteBanner = async (id: string) => {
   };
 };
 ///////////////////////////////////////////////////////////////////////////////////////
-
-
 
 export const deleteManyBanner = async (ids: string[]) => {
   if (!ids.length) {
@@ -206,10 +190,6 @@ export const deleteManyBanner = async (ids: string[]) => {
     code: RESPONSE_CODES.OK,
   };
 };
-
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 /* -------------------- Caching Helps --------------------  */

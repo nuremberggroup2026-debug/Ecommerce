@@ -1,4 +1,4 @@
-import { PromoCodeCreateInput } from "@/types";
+import { PromoCodeCreateInput } from "./types";
 import { createPromoCodeSchema, updatePromoCodeSchema } from "./validators";
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { prisma } from "@/lib/prisma";

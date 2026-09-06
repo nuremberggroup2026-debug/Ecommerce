@@ -5,7 +5,7 @@ import {
   getAllProductVariantById,
   updateProductVariant,
 } from "@/server/productVariants/services";
-import { ProductVariantUpdateInput } from "@/types";
+import { ProductVariantUpdateInput } from "@/server/productVariants/types";
 import { NextResponse } from "next/server";
 
 export const GET = withAuth(

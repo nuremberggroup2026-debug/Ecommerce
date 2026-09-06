@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { placeAnOrder } from "@/server/orders/services";
-import { PlaceOrderCreateInputs } from "@/types";
+import { PlaceOrderCreateInputs } from "@/server/orders/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth([], async (request: Request, { user }) => {

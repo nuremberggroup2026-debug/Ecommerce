@@ -1,4 +1,3 @@
-
 export interface ResponseType<T> {
   message: string;
   success: boolean;
@@ -6,8 +5,6 @@ export interface ResponseType<T> {
 }
 
 export type Locale = "ar" | "en";
-
-
 
 export type AllOrdersByUser = {
   id: string;
@@ -34,6 +31,7 @@ export type OrderByID = {
   totalAmount: number;
   discountAmount: number;
   status: OrderStatus;
+  paymentMethod: PaymentMethod;
   createdAt: Date;
   orderItems: {
     orderItemId: string;
@@ -77,7 +75,18 @@ export type OrderItem = {
 export type Order = {
   id: string;
   orderNumber: string;
-  userId: string | null;
+  paymentMethod: PaymentMethod;
+  customerEmail: string | undefined;
+  createdAt: Date;
+  itemsCount: number;
+  totalAmount: Number;
+  status: OrderStatus;
+  updatedAt: Date;
+};
+
+export type OrderByIdAdmin = {
+  id: string;
+  orderNumber: string;
   totalAmount: number;
   email: string;
   phoneNumber: string;
@@ -86,10 +95,56 @@ export type Order = {
   buildingNumber: number;
   additionalNote: string | null;
   createdAt: Date;
-  status: OrderStatus;
-  paymentMethod: PaymentMethod;
   updatedAt: Date;
+  status: OrderStatus;
   discountAmount: number;
   subtotal: number;
-  orderItems: OrderItem[];
+  orderItems: {
+    id: string;
+    variantId: string | null;
+    quantity: number;
+    itemPrice: number;
+    productNameEn: string;
+    productVariants: {
+      price: number;
+      discountPercentage: number | null;
+      finalPrice: number;
+      stock: number;
+      isDefault: boolean | null;
+      sku: string;
+      variantImage: string | null;
+    } | null;
+  }[];
+  users: {
+    id: string;
+    name: string;
+    email: string;
+  } | null;
+
+  userPromoCodes:
+    | {
+        promoCodes: {
+          code: string;
+          discountPercentage: number;
+        };
+      }[]
+    | null;
+};
+
+export type AdminOrdersData = {
+  orders: Order[];
+  pagination: {
+    currentPage: number;
+    itemsPerPage: number;
+    totalItems: number;
+    totalPages: number;
+  };
+};
+
+export type OrdersFilteration = {
+  page: number;
+  take?: number;
+  customerEmail?: string | null;
+  status?: OrderStatus;
+  orderNumber?: string | null;
 };

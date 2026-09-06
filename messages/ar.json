@@ -369,6 +369,10 @@
     "VIEW_ORDER_DETAILS": "عرض تفاصيل الطلب",
     "EMPTY_MESSAGE": "لم تقم بإجراء أي طلبات بعد.",
     "START_SHOPPING": "ابدأ التسوق",
+    "loginRequiredTitle": "سجّل الدخول لعرض طلباتك", 
+    "loginRequiredDescription": "سجل طلباتك بانتظارك. سجّل الدخول لعرض طلباتك ومتابعة مشترياتك في أي وقت.", 
+    "login": "تسجيل الدخول", 
+    "continueShopping": "متابعة التسوق",
     "ORDER_DETAILS": {
       "TITLE": "تفاصيل الطلب",
       "BACK_TO_ORDERS": "العودة إلى الطلبات",

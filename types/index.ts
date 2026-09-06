@@ -24,16 +24,6 @@ export interface ShownResponseType {
   success: boolean;
 }
 
-// Banners Types
-export type NewBanner = Prisma.bannersCreateInput;
-export type UpdateBanner = Prisma.bannersUpdateInput;
-export type BannerData = Prisma.bannersGetPayload<{}>;
-export type TranslatedBanner = {
-  id: string;
-  name: string;
-  image: string;
-};
-
 // Careers types
 export type CareersCreateInput = {
   id?: string | undefined;
@@ -97,7 +87,6 @@ export type TransalatedCategories = {
   description: string;
   isFeatured: boolean;
 };
-
 
 // Attribute types
 export type AttributeCreateInput = Prisma.attributesCreateInput;
@@ -285,6 +274,14 @@ export type OrderStatus = order_status;
 
 export type UpdateOrderStatusRequest = {
   status: OrderStatus;
+};
+
+export type OrdersFilteration = {
+  page: number;
+  take?: number;
+  customerEmail?: string | null;
+  status?: OrderStatus;
+  orderNumber?: string | null;
 };
 
 // Promo Codes

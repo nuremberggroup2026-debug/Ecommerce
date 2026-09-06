@@ -5,7 +5,7 @@ import {
   getCategoryById,
   updateCategory,
 } from "@/server/categories/services";
-import { CategoriesUpdateInput } from "@/types";
+import { CategoriesUpdateInput } from "@/server/categories/types";
 import { NextResponse } from "next/server";
 
 export const GET = withAuth(

@@ -1,4 +1,4 @@
-import { ProductVariantCreateInput, ProductVariantUpdateInput } from "@/types";
+import { ProductVariantCreateInput, ProductVariantUpdateInput } from "./types";
 import {
   createProductVariantSchema,
   updateProductVariantSchema,

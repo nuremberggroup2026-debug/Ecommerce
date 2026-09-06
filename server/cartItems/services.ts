@@ -1,4 +1,4 @@
-import { CartitemCreateInput, UpdateQuantity } from "@/types";
+import { CartitemCreateInput, UpdateQuantity } from "./types";
 import {
   deleteCartItemSchema,
   newCartItemSchema,
@@ -81,7 +81,6 @@ export const addCartItem = async (
 
       revalidateTag("cartItems", { expire: 0 });
       revalidateTag("cart", { expire: 0 });
-      
 
       return {
         success: true,

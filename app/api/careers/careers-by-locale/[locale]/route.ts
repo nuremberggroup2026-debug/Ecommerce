@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   request: Request,
-  { params }: { params: Promise<{ locale: Locale }> },
+  { params }: { params: Promise<{ locale: string }> },
 ) => {
   try {
-    const { locale } = await params;
+    const locale = (await params).locale as Locale;
     const result = await getCareersByLocale(locale);
     const status = HTTP_STATUS_MAP[result.code] || 500;
     return NextResponse.json(

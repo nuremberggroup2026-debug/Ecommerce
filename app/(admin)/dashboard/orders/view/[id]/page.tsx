@@ -9,13 +9,14 @@ export default async function Page({
   const { id } = await params;
 
   const order = (await adminOrderById(id)).data;
+  
 
   if (!order) {
     return <div>Order not found</div>;
   }
 
   return (
-    <div className="p-6">
+    <div className="">
       <ViewOrder order={order} />
     </div>
   );

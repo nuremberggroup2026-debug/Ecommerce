@@ -1,25 +1,16 @@
 import { api } from "@/services/server/api";
-
-import { API } from "@/constants/api";
-import type {
-  Locale,
-  TranslatedBanner,
-  ResponseType,
-  PutResponseType,
-
-} from "@/types/index";
+import { API } from "@/lib/constants/api";
+import type { Locale, ResponseType, PutResponseType } from "@/types/index";
 import type {
   AdminBanner,
   PUTAdminBanner,
-
-  
+  TranslatedBanner,
 } from "@/features/banner/types/index";
 import { auth } from "@/lib/auth/auth";
 
 export async function fetchBanners(
   locale: Locale,
 ): Promise<ResponseType<TranslatedBanner[]>> {
-
   const data = await api.get<ResponseType<TranslatedBanner[]>>(
     `${API.ENDPOINTS.BANNERS.ALL_BANNERS_BY_LOCALE}/${locale}`,
   );
@@ -45,7 +36,6 @@ export async function adminBannerById(
 
   const data = await api.get<ResponseType<AdminBanner>>(
     `${API.ENDPOINTS.BANNERS.BANNER_BY_ID}/${id}`,
-   
   );
 
   return data;

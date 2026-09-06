@@ -2,7 +2,6 @@ import HeroSection from "@/components/test/HeroSection";
 import CategoriesSection from "@/features/catalog/categories/components/CategoriesSection";
 import PromoBanner from "@/components/test/PromoBanner";
 import ForSaleSection from "@/components/test/ForSaleSection";
-import ProductShowcaseTabs from "@/components/test/ProductShowcaseTabs";
 import { fetchFeaturedCategories } from "@/features/catalog/categories/api/categories.client.api";
 import FeaturedProductsComponent from "@/features/catalog/featuredProducts/components/FeaturedProductsComponent";
 import { StoreFeaturesSection } from "@/components/test/StoreFeaturesSection";

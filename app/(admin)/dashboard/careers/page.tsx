@@ -1,5 +1,5 @@
 
-import { adminCareers } from "@/features/careers/api/careers.client.api";
+import { adminCareers } from "@/features/careers/api/careers.server.api";
 import { CareerDataTable } from "@/features/careers/components/admin/careers-data-table";
 
 export default async function DemoPage() {

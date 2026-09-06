@@ -4,7 +4,7 @@ import {
   createProductWithVariant,
   getAllProducts,
 } from "@/server/products/services";
-import { ProductWithVaraintsCreateInput } from "@/types";
+import { ProductWithVaraintsCreateInput } from "@/server/products/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth(["super_admin"], async (request: Request) => {

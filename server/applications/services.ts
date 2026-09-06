@@ -1,6 +1,6 @@
 import { RESPONSE_CODES } from "@/lib/constants/response";
 import { prisma } from "@/lib/prisma";
-import { type ApplicationCreateInput } from "@/types/index";
+import { type ApplicationCreateInput } from "./types";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { UTApi } from "uploadthing/server";
 import { applicationSchemaEn } from "./validators";
@@ -11,8 +11,8 @@ export const addNewApplication = async (
   newApplication: ApplicationCreateInput,
 ) => {
   const validation = applicationSchemaEn.safeParse(newApplication);
-   console.log("valdation: ",validation.error);
-   
+  console.log("valdation: ", validation.error);
+
   if (validation.success) {
     const career = await prisma.careers.findUnique({
       where: { slug: newApplication.careerSlug },
@@ -26,7 +26,7 @@ export const addNewApplication = async (
         code: RESPONSE_CODES.NOT_FOUND,
       };
 
-    const {  phoneNumber, ...applicationData } = validation.data;
+    const { phoneNumber, ...applicationData } = validation.data;
 
     await prisma.applications.create({
       data: {
@@ -36,9 +36,8 @@ export const addNewApplication = async (
       },
     });
 
-    revalidateTag("applications",  {expire:0});
-        revalidateTag("careers",  {expire:0});
-
+    revalidateTag("applications", { expire: 0 });
+    revalidateTag("careers", { expire: 0 });
 
     return {
       success: true,
@@ -87,9 +86,8 @@ export const deleteApplication = async (id: string) => {
     await utapi.deleteFiles(fileKey);
   }
 
-  revalidateTag("applications",  {expire:0});
-          revalidateTag("careers",  {expire:0});
-
+  revalidateTag("applications", { expire: 0 });
+  revalidateTag("careers", { expire: 0 });
 
   return {
     success: true,
@@ -142,9 +140,8 @@ export const deleteAllExpiredApplications = async () => {
     await utapi.deleteFiles(cvKeys as string[]);
   }
 
-  revalidateTag("applications",  {expire:0});
-          revalidateTag("careers",  {expire:0});
-
+  revalidateTag("applications", { expire: 0 });
+  revalidateTag("careers", { expire: 0 });
 
   return {
     success: true,
@@ -485,8 +482,7 @@ export const markApplicationAsShown = async (id: string) => {
   });
 
   revalidateTag("applications", { expire: 0 });
-          revalidateTag("careers",  {expire:0});
-
+  revalidateTag("careers", { expire: 0 });
 
   return {
     success: true,

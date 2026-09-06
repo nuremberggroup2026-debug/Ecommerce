@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import { StoreProvider } from "@/providers/StoreProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { generateSiteMetadata } from "@/lib/constants/metadata";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
@@ -33,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-screen flex flex-col">
-        <StoreProvider>
+      
           <AuthProvider>
 
             <ReactQueryProvider>
@@ -42,7 +41,7 @@ export default function RootLayout({
               </main>
             </ReactQueryProvider>
           </AuthProvider>
-        </StoreProvider>
+     
       </body>
     </html>
   );

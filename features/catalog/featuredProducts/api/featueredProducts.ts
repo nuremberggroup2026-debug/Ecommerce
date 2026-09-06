@@ -2,7 +2,7 @@ import { api } from "@/services/server/api";
 
 import type { Product, ProductsResponse } from "../types";
 import { Import } from "lucide-react";
-import { API } from "@/constants";
+import { API } from "@/lib/constants/api";
 
 export async function getFeaturedProducts(): Promise<ProductsResponse> {
   return api.get<ProductsResponse>(

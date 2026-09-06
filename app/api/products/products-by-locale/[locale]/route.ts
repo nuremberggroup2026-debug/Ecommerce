@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
   _request: Request,
-  { params }: { params: Promise<{ locale: Locale }> },
+  { params }: { params: Promise<{ locale: string }> },
 ) => {
   try {
-    const { locale } = await params;
+    const locale = (await params).locale as Locale;
     const result = await getAllProductsByLocale(locale);
     const status = HTTP_STATUS_MAP[result.code] || 500;
 

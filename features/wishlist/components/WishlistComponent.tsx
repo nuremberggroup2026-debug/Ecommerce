@@ -17,6 +17,7 @@ export default function WishlistComponent({ locale, wishlistItems }: Prop) {
   const isArabic = locale === "ar";
 
   const handleRemoveItem = async (id: string) => {
+
     const result = await toastResponse(removeItemFromWishlist(id), t, "");
 
     if (result.success) setItems(items.filter((item) => item.productId !== id));
@@ -74,9 +75,7 @@ export default function WishlistComponent({ locale, wishlistItems }: Prop) {
                     {/* Remove Button */}
                     <button
                       onClick={() => {
-                        console.log("item.itemId: ", item.productId);
-
-                        handleRemoveItem(item.itemId);
+                        handleRemoveItem(item.productId);
                       }}
                       type="button"
                       aria-label={t("Wishlist.remove")}
