@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { fetchALLCategories } from "@/features/catalog/categories/api/categories.client.api";
+import { fetchALLCategories } from "@/features/catalog/categories/api/categories.server.api";
 import CategoriesListComponent from "@/features/catalog/categoriesList/components/CategoriesListComponent";
 import { Locale } from "@/types";
 import { generateStaticMetadata } from "@/lib/constants/metadata";

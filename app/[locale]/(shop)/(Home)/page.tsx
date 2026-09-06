@@ -2,7 +2,7 @@ import HeroSection from "@/components/test/HeroSection";
 import CategoriesSection from "@/features/catalog/categories/components/CategoriesSection";
 import PromoBanner from "@/components/test/PromoBanner";
 import ForSaleSection from "@/components/test/ForSaleSection";
-import { fetchFeaturedCategories } from "@/features/catalog/categories/api/categories.client.api";
+import { fetchFeaturedCategories } from "@/features/catalog/categories/api/categories.server.api";
 import FeaturedProductsComponent from "@/features/catalog/featuredProducts/components/FeaturedProductsComponent";
 import { StoreFeaturesSection } from "@/components/test/StoreFeaturesSection";
 import { fetchBanners } from "@/features/banner/api/banners.server.api";
@@ -10,7 +10,7 @@ import { Locale } from "@/types";
 import {
   fetchFeaturedProducts,
   fetchOnDiscountProducts,
-} from "@/features/catalog/products/api/products.client.api";
+} from "@/features/catalog/products/api/products.server.api";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
 
 interface Prop {

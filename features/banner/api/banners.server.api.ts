@@ -15,7 +15,6 @@ export async function fetchBanners(
     `${API.ENDPOINTS.BANNERS.ALL_BANNERS_BY_LOCALE}/${locale}`,
   );
 
-  console.log("data: ", data);
 
   return data;
 }

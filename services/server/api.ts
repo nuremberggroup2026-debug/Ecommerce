@@ -12,62 +12,47 @@ export class ApiError extends Error {
   status: number;
   data?: unknown;
 
-  constructor(
-    status: number,
-    message: string,
-    data?: unknown,
-  ) {
+  constructor(status: number, message: string, data?: unknown) {
     super(message);
 
     this.name = "ApiError";
     this.status = status;
     this.data = data;
 
-    Object.setPrototypeOf(
-      this,
-      ApiError.prototype,
-    );
+    Object.setPrototypeOf(this, ApiError.prototype);
   }
 }
 
-async function request<
-  TResponse,
-  TBody = unknown,
->(
+async function request<TResponse, TBody = unknown>(
   url: string,
   options: FetchOptions<TBody> = {},
 ): Promise<TResponse> {
   const cookieStore = await cookies();
 
-  const isGet =
-    !options.method ||
-    options.method === "GET";
+  const isGet = !options.method || options.method === "GET";
+  const apiUrl = `${process.env.API_URL || ""}/api/${url}`;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL || ""}/api/${url}`,
-    {
-      method: options.method || "GET",
+  console.log("API URL:", process.env.API_URL);
+  console.log("Request URL:", apiUrl);
+  const res = await fetch(`${process.env.API_URL || ""}/api/${url}`, {
+    method: options.method || "GET",
 
-      headers: {
-        Cookie: cookieStore.toString(),
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
-
-      body: isGet
-        ? undefined
-        : JSON.stringify(options.body),
-
-      cache: options.cache || "default",
-
-      next: options.revalidate
-        ? {
-            revalidate:
-              options.revalidate,
-          }
-        : undefined,
+    headers: {
+      Cookie: cookieStore.toString(),
+      "Content-Type": "application/json",
+      ...options.headers,
     },
-  );
+
+    body: isGet ? undefined : JSON.stringify(options.body),
+
+    cache: options.cache || "default",
+
+    next: options.revalidate
+      ? {
+          revalidate: options.revalidate,
+        }
+      : undefined,
+  });
 
   /**
    * Handle HTTP errors
@@ -108,17 +93,13 @@ async function request<
       typeof errorData.message === "string"
     ) {
       message = errorData.message;
-    }
+    } else if (typeof errorData === "string" && errorData.length > 0) {
 
     /**
      * Example:
      *
      * "Unauthorized"
      */
-    else if (
-      typeof errorData === "string" &&
-      errorData.length > 0
-    ) {
       message = errorData;
     }
 
@@ -126,11 +107,7 @@ async function request<
      * Preserve the HTTP status
 
      */
-    throw new ApiError(
-      res.status,
-      message,
-      errorData,
-    );
+    throw new ApiError(res.status, message, errorData);
   }
 
   /**
@@ -152,68 +129,41 @@ async function request<
 export const api = {
   get: <TResponse>(
     url: string,
-    options?: Omit<
-      FetchOptions,
-      "method" | "body"
-    >,
+    options?: Omit<FetchOptions, "method" | "body">,
   ) =>
     request<TResponse>(url, {
       ...options,
       method: "GET",
     }),
 
-  post: <
-    TResponse,
-    TBody,
-  >(
+  post: <TResponse, TBody>(
     url: string,
     body: TBody,
-    options?: Omit<
-      FetchOptions<TBody>,
-      "method" | "body"
-    >,
+    options?: Omit<FetchOptions<TBody>, "method" | "body">,
   ) =>
-    request<TResponse, TBody>(
-      url,
-      {
-        ...options,
-        method: "POST",
-        body,
-      },
-    ),
+    request<TResponse, TBody>(url, {
+      ...options,
+      method: "POST",
+      body,
+    }),
 
-  put: <
-    TResponse,
-    TBody,
-  >(
+  put: <TResponse, TBody>(
     url: string,
     body: TBody,
-    options?: Omit<
-      FetchOptions<TBody>,
-      "method" | "body"
-    >,
+    options?: Omit<FetchOptions<TBody>, "method" | "body">,
   ) =>
-    request<TResponse, TBody>(
-      url,
-      {
-        ...options,
-        method: "PUT",
-        body,
-      },
-    ),
+    request<TResponse, TBody>(url, {
+      ...options,
+      method: "PUT",
+      body,
+    }),
 
   delete: <TResponse>(
     url: string,
-    options?: Omit<
-      FetchOptions,
-      "method" | "body"
-    >,
+    options?: Omit<FetchOptions, "method" | "body">,
   ) =>
-    request<TResponse>(
-      url,
-      {
-        ...options,
-        method: "DELETE",
-      },
-    ),
+    request<TResponse>(url, {
+      ...options,
+      method: "DELETE",
+    }),
 };

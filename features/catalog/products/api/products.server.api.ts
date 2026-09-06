@@ -6,6 +6,12 @@ import type { Locale, ResponseType } from "@/types/index";
 
 import type { Product, ProductById } from "@/features/products/types";
 
+import type {
+  FilteredProductsData,
+  ProductByLocale,
+  ProductsDataWithOutPag,
+} from "@/features/catalog/products/types";
+
 export async function getProducts(
   locale: Locale,
 ): Promise<ResponseType<Product[]>> {
@@ -14,6 +20,26 @@ export async function getProducts(
   );
 
   return data;
+}
+
+export async function fetchFeaturedProducts(
+  locale: Locale,
+): Promise<ProductsDataWithOutPag> {
+  const result = await api.get<ResponseType<ProductsDataWithOutPag>>(
+    `${API.ENDPOINTS.PRODUCTS.FEATURED_PRODUCTS_BY_LOCALE}/${locale}`,
+  );
+
+  return result.data;
+}
+
+export async function fetchOnDiscountProducts(
+  locale: Locale,
+): Promise<ProductsDataWithOutPag> {
+  const result = await api.get<ResponseType<ProductsDataWithOutPag>>(
+    `${API.ENDPOINTS.PRODUCTS.ON_DISCOUNT_PRODUCTS_BY_LOCALE}/${locale}`,
+  );
+
+  return result.data;
 }
 
 export async function productBySlug(
