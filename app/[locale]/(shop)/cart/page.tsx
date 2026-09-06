@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 import CartComponent from "@/features/cart/components/CartComponent";
 import { cartQueryKey } from "@/features/cart/hooks/cart.query-key";
-import { getCart } from "@/features/cart/api/cart.server.api";
+import { getCart } from "@/features/cart/api/cart.client.api";
 import type { Locale } from "@/types";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
 
