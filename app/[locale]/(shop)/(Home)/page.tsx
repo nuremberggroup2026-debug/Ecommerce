@@ -3,7 +3,7 @@ import CategoriesSection from "@/features/catalog/categories/components/Categori
 import PromoBanner from "@/components/test/PromoBanner";
 import ForSaleSection from "@/components/test/ForSaleSection";
 import { fetchFeaturedCategories } from "@/features/catalog/categories/api/categories.server.api";
-import FeaturedProductsComponent from "@/features/catalog/featuredProducts/components/FeaturedProductsComponent";
+import FeaturedProductsComponent from "@/features/catalog/products/components/FeaturedProductsComponent";
 import { StoreFeaturesSection } from "@/components/test/StoreFeaturesSection";
 import { fetchBanners } from "@/features/banner/api/banners.server.api";
 import { Locale } from "@/types";

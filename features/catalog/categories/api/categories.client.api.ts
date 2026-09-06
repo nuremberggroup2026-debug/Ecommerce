@@ -18,15 +18,7 @@ export type Category = {
   url: string;
 };
 
-export async function fetchFeaturedCategories(
-  locale: Locale,
-): Promise<TransalatedCategories[]> {
-  const data = await Clientapi.get<ResponseType<TransalatedCategories[]>>(
-    `${API.ENDPOINTS.CATEGORIES.FEATURED_CATEGORIES_BY_LOCALE}/${locale}`,
-  );
 
-  return data.data;
-}
 
 export async function fetchALLCategories(
   locale: Locale,

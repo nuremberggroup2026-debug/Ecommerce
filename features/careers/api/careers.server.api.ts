@@ -9,7 +9,6 @@ import type {
   ApplicationGetPayloadWithCareer,
 } from "@/types/index";
 import type { AdminCareers } from "@/features/careers/types/index";
-import { auth } from "@/lib/auth/auth";
 
 export async function fetchCareers(
   locale: Locale,
