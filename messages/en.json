@@ -479,5 +479,52 @@
     "PHONE_VALUE": "+1 (555) 123-4567",
     "LOCATION_VALUE": "123 Studio Ave, Creative District",
     "COPYRIGHT": "© {year} AURA Studio. All rights reserved."
+  },
+  "AboutPage": {
+    "HERO": {
+      "BADGE": "Our Story & Atelier",
+      "TITLE": "Crafting timeless fashion for the modern silhouette",
+      "DESCRIPTION": "Born from a passion for mindful tailoring and enduring aesthetics, we curate and create contemporary apparel that blends everyday elegance with effortless comfort.",
+      "PRIMARY_BTN": "Explore Collection",
+      "SECONDARY_BTN": "Our Philosophy"
+    },
+    "STORY": {
+      "SUBTITLE": "The Philosophy",
+      "TITLE": "Thoughtful garments designed to be worn, loved, and lived in",
+      "PARAGRAPH_1": "We believe clothing is more than just fabric—it is your everyday statement. Every silhouette, texture, and seam in our collections is meticulously chosen to bring you effortless sophistication without compromising on ease or durability.",
+      "PARAGRAPH_2": "From breathable natural linens and structured cottons to contemporary evening tailoring, we partner with skilled artisans who share our dedication to mindful production, ethical practices, and immaculate fits.",
+      "FEATURES": {
+        "FEATURE_1": "Premium, breathable natural fabrics",
+        "FEATURE_2": "Modern tailored fits for all body types",
+        "FEATURE_3": "Ethical and responsible craftsmanship",
+        "FEATURE_4": "Uncompromising attention to seam detail"
+      }
+    },
+    "VALUES": {
+      "HEADER_SUBTITLE": "What Drives Our Atelier",
+      "HEADER_TITLE": "Our Fashion Pillars",
+      "HEADER_DESC": "Every piece in our catalog is shaped by four uncompromising commitments to quality, comfort, sustainability, and personal expression.",
+      "VALUE_1": {
+        "TITLE": "Artisanal Tailoring",
+        "DESC": "Precision stitching, reinforced finishing, and sculpted silhouettes that look and feel custom-made."
+      },
+      "VALUE_2": {
+        "TITLE": "Effortless Comfort",
+        "DESC": "Textiles selected for supreme softness and breathability, allowing natural movement from day to night."
+      },
+      "VALUE_3": {
+        "TITLE": "Timeless Longevity",
+        "DESC": "We reject fast-fashion trends, focusing instead on enduring capsule essentials built to last through the seasons."
+      },
+      "VALUE_4": {
+        "TITLE": "Exceptional Care",
+        "DESC": "Prompt delivery, seamless fit consultations and exchanges, and a customer experience that always puts you first."
+      }
+    },
+    "CTA": {
+      "TITLE": "Ready to redefine your everyday wardrobe?",
+      "DESCRIPTION": "Explore our curated catalog of seasonal essentials, refined outerwear, and statement clothing designed for effortless living.",
+      "BUTTON": "Shop The Collection"
+    }
   }
 }

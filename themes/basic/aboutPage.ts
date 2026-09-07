@@ -36,5 +36,5 @@ export const aboutPageTheme = {
   ctaTextContainer: "max-w-2xl",
   ctaTitle: "text-3xl font-bold tracking-tight text-white sm:text-4xl",
   ctaDesc: "mt-4 text-base leading-7 text-gray-300",
-  ctaButtonWrapper: "mt-8 shrink-0 lg:ml-10 lg:mt-0",
+  ctaButtonWrapper: "mt-8 shrink-0 lg:ms-10 lg:mt-0",
 };

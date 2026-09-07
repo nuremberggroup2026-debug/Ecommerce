@@ -4,48 +4,16 @@ import Link from "next/link";
 import {
   ArrowRight,
   CheckCircle2,
-  Target,
-  Eye,
-  Users,
-  Award,
+  Sparkles,
+  Feather,
+  ShieldCheck,
+  Truck,
 } from "lucide-react";
 import { theme } from "@/themes";
 import { Locale } from "@/types";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
+import { getTranslations } from "next-intl/server";
 
-const values = [
-  {
-    icon: Target,
-    title: "Our Mission",
-    description:
-      "We are committed to delivering high-quality products and services while creating a seamless experience for every customer.",
-  },
-  {
-    icon: Eye,
-    title: "Our Vision",
-    description:
-      "We aim to build a trusted and innovative brand that continuously evolves to meet the changing needs of our customers.",
-  },
-  {
-    icon: Users,
-    title: "Our People",
-    description:
-      "Our team is at the heart of everything we do. We believe in collaboration, creativity, and continuous growth.",
-  },
-  {
-    icon: Award,
-    title: "Our Standards",
-    description:
-      "Quality, reliability, and customer satisfaction guide every decision we make and every product we deliver.",
-  },
-];
-
-const features = [
-  "High-quality products",
-  "Customer-focused service",
-  "Reliable and trusted solutions",
-  "Continuous improvement",
-];
 interface Prop {
   params: Promise<{ locale: Locale }>;
 }
@@ -55,73 +23,106 @@ export const generateMetadata = async ({ params }: Prop) => {
   return generateStaticMetadata("aboutUs", locale);
 };
 
-export default function Page() {
+export default async function Page({ params }: Prop) {
+  const locale = (await params).locale;
+  const t = await getTranslations({ locale, namespace: "AboutPage" });
+  const isAr = locale === "ar";
+
+  const features = [
+    t("STORY.FEATURES.FEATURE_1"),
+    t("STORY.FEATURES.FEATURE_2"),
+    t("STORY.FEATURES.FEATURE_3"),
+    t("STORY.FEATURES.FEATURE_4"),
+  ];
+
+  const values = [
+    {
+      icon: Sparkles,
+      title: t("VALUES.VALUE_1.TITLE"),
+      description: t("VALUES.VALUE_1.DESC"),
+    },
+    {
+      icon: Feather,
+      title: t("VALUES.VALUE_2.TITLE"),
+      description: t("VALUES.VALUE_2.DESC"),
+    },
+    {
+      icon: ShieldCheck,
+      title: t("VALUES.VALUE_3.TITLE"),
+      description: t("VALUES.VALUE_3.DESC"),
+    },
+    {
+      icon: Truck,
+      title: t("VALUES.VALUE_4.TITLE"),
+      description: t("VALUES.VALUE_4.DESC"),
+    },
+  ];
+
   return (
-    <main className={theme.aboutPage.main}>
+    <main className={theme.aboutPage.main} dir={isAr ? "rtl" : "ltr"}>
+      {/* Hero Section */}
       <section className={theme.aboutPage.heroSection}>
         <div className={theme.aboutPage.heroGradient} />
 
         <div className={theme.aboutPage.heroContainer}>
           <div className={theme.aboutPage.heroContent}>
-            <span className={theme.aboutPage.badge}>About Us</span>
+            <span className={theme.aboutPage.badge}>
+              {t("HERO.BADGE")}
+            </span>
 
             <h1 className={theme.aboutPage.heroTitle}>
-              Building trust through quality and excellence
+              {t("HERO.TITLE")}
             </h1>
 
             <p className={theme.aboutPage.heroDescription}>
-              We are dedicated to providing exceptional products and services
-              that make a real difference. Our focus is simple: quality,
-              reliability, and an experience our customers can trust.
+              {t("HERO.DESCRIPTION")}
             </p>
 
             <div className={theme.aboutPage.heroButtons}>
-              <Link href="/careers" className={theme.aboutPage.primaryBtn}>
-                Join our team
-                <ArrowRight className="h-4 w-4" />
+              <Link href="/products" className={theme.aboutPage.primaryBtn}>
+                {t("HERO.PRIMARY_BTN")}
+                <ArrowRight className="h-4 w-4 rtl:rotate-180" />
               </Link>
 
-              <Link href="/contact" className={theme.aboutPage.secondaryBtn}>
-                Contact us
-              </Link>
+              <a href="#philosophy" className={theme.aboutPage.secondaryBtn}>
+                {t("HERO.SECONDARY_BTN")}
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      <section className={theme.aboutPage.storySection}>
+      {/* Story & Philosophy Section */}
+      <section id="philosophy" className={theme.aboutPage.storySection}>
         <div className={theme.aboutPage.storyContainer}>
           <div className={theme.aboutPage.imageWrapper}>
             <div className={theme.aboutPage.imageInner}>
               <Image
-                src="/about-us.jpg"
-                alt="About our company"
+                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop"
+                alt="Apparel and fashion atelier"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
               />
             </div>
           </div>
 
           <div>
-            <span className={theme.aboutPage.sectionSubtitle}>Who we are</span>
+            <span className={theme.aboutPage.sectionSubtitle}>
+              {t("STORY.SUBTITLE")}
+            </span>
 
             <h2 className={theme.aboutPage.sectionTitle}>
-              More than a company, we are a team with a purpose
+              {t("STORY.TITLE")}
             </h2>
 
             <p className={theme.aboutPage.sectionText}>
-              We believe that a successful business starts with understanding
-              people. That is why we work every day to create products,
-              services, and experiences that are practical, reliable, and
-              valuable.
+              {t("STORY.PARAGRAPH_1")}
             </p>
 
             <p className={theme.aboutPage.sectionTextSecondary}>
-              From the way we select our products to the way we communicate with
-              our customers, we pay attention to the details that matter. Our
-              goal is to build long-term relationships based on trust and
-              consistency.
+              {t("STORY.PARAGRAPH_2")}
             </p>
 
             <div className={theme.aboutPage.featuresGrid}>
@@ -136,18 +137,20 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Values & Fashion Pillars Section */}
       <section className={theme.aboutPage.valuesSection}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className={theme.aboutPage.valuesHeader}>
             <span className={theme.aboutPage.sectionSubtitle}>
-              What drives us
+              {t("VALUES.HEADER_SUBTITLE")}
             </span>
 
-            <h2 className={theme.aboutPage.sectionTitle}>Our values</h2>
+            <h2 className={theme.aboutPage.sectionTitle}>
+              {t("VALUES.HEADER_TITLE")}
+            </h2>
 
             <p className={theme.aboutPage.sectionText}>
-              Everything we do is guided by a clear set of principles that help
-              us deliver a better experience for our customers and our team.
+              {t("VALUES.HEADER_DESC")}
             </p>
           </div>
 
@@ -173,24 +176,24 @@ export default function Page() {
         </div>
       </section>
 
+      {/* CTA Section */}
       <section className={theme.aboutPage.storySection}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className={theme.aboutPage.ctaBox}>
             <div className={theme.aboutPage.ctaTextContainer}>
               <h2 className={theme.aboutPage.ctaTitle}>
-                Let&apos;s build something great together
+                {t("CTA.TITLE")}
               </h2>
 
               <p className={theme.aboutPage.ctaDesc}>
-                Whether you are looking for our products, want to work with us,
-                or simply have a question, we would love to hear from you.
+                {t("CTA.DESCRIPTION")}
               </p>
             </div>
 
             <div className={theme.aboutPage.ctaButtonWrapper}>
-              <Link href="/contact" className={theme.aboutPage.primaryBtn}>
-                Get in touch
-                <ArrowRight className="h-4 w-4" />
+              <Link href="/products" className={theme.aboutPage.primaryBtn}>
+                {t("CTA.BUTTON")}
+                <ArrowRight className="h-4 w-4 rtl:rotate-180" />
               </Link>
             </div>
           </div>
