@@ -15,7 +15,6 @@ export default async function EditProductPage({ params }: PageProps) {
     adminProductById(id),
   ]);
 
-  console.log("product: ", product);
 
   return (
     <div className="mx-7 mb-14 max-w-6xl">

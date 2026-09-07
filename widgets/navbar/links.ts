@@ -11,7 +11,7 @@ export const links = [
   },
   {
     href: ROUTES.PRODUCTS,
-    label: "Products",
+    label: "Shop Now",
   },
   {
     href: ROUTES.CAREERS,
@@ -21,12 +21,5 @@ export const links = [
     href: ROUTES.ABOUT_US,
     label: "About Us",
   },
-    {
-    href: ROUTES.WISHLIST,
-    label: "Wishlist",
-  },
-
-
-
 ];
 

@@ -17,6 +17,8 @@ export async function generateMetadata({
   return generateSiteMetadata(locale);
 }
 
+
+
 export default async function LocaleLayout({
   children,
   params,
@@ -32,12 +34,21 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
+  const isArabic = locale === "ar";
+  const dir = isArabic ? "rtl" : "ltr";
+
   return (
-    <div dir={locale === "ar" ? "rtl" : "ltr"}>
+    <div dir={dir} className="min-h-full">
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.dir='${dir}';document.documentElement.lang='${locale}';`,
+        }}
+      />
       <NextIntlClientProvider messages={messages}>
         <Navbar />
         {children}
         <Toaster
+          dir={dir}
           toastOptions={{
             classNames: {
               success: "border-green-500",

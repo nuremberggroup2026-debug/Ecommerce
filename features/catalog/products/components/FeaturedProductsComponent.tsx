@@ -1,28 +1,21 @@
 import ProductCard from "@/features/catalog/products/components/ProductCard";
 import type { ProductsDataWithOutPag } from "../types/index";
-import { useTranslations } from "next-intl";
 import { theme } from "@/themes";
+import { Locale } from "@/types";
 
 export default function FeaturedProductsComponent({
   featuredProductsData,
+  locale,
 }: {
   featuredProductsData: ProductsDataWithOutPag;
+  locale: Locale;
 }) {
   const { products, productsIdsInCart, productsIdsInWishlist } =
     featuredProductsData;
-  const t = useTranslations("Home.FeaturedProducts");
-  
+  const isAr = locale === "ar";
   return (
-    <section className={theme.featuredProducts.section}>
+    <section className={theme.featuredProducts.section} dir={isAr ? "rtl" : "ltr"}>
       <div className={theme.featuredProducts.container}>
-        <header className={theme.featuredProducts.header}>
-          <h2 className={theme.featuredProducts.title}>
-            {t("TITLE")}
-          </h2>
-          <p className={theme.featuredProducts.description}>
-            {t("DESCRIPTION")}
-          </p>
-        </header>
         <div className={theme.featuredProducts.grid}>
           {products.map((product) => {
             const isInWishlist =

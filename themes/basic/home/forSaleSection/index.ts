@@ -1,5 +1,5 @@
 export const forSaleTheme = {
-  section: "bg-neutral-50/60 py-24 border-y border-neutral-100",
+  section: "bg-neutral-50/60  pt-6",
   container: "mx-auto max-w-7xl px-6 lg:px-10",
   header: "mb-14 flex items-end justify-between",
   headerInfo: "space-y-2 text-center sm:text-start",

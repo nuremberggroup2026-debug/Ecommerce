@@ -12,6 +12,8 @@ import {
   fetchOnDiscountProducts,
 } from "@/features/catalog/products/api/products.server.api";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
+import { getTranslations } from "next-intl/server";
+import { SectionSeparator } from "@/components/common/SectionSeparator";
 
 interface Prop {
   params: Promise<{ locale: Locale }>;
@@ -24,43 +26,45 @@ export const generateMetadata = async ({ params }: Prop) => {
 
 export default async function Home({ params }: Prop) {
   const locale = (await params).locale;
-  const [banners, categories, featuredProducts, onDiscountProducts] =
+  const [banners, categories, featuredProducts, onDiscountProducts, t] =
     await Promise.all([
       fetchBanners(locale),
       fetchFeaturedCategories(locale),
       fetchFeaturedProducts(locale),
       fetchOnDiscountProducts(locale),
+      getTranslations({ locale, namespace: "Home.Separators" }),
     ]);
 
   return (
     <main className="bg-white text-black antialiased">
       <HeroSection banners={banners.data} />
 
+      <SectionSeparator title={t("CATEGORIES")} />
       <div className="bg-white">
         <CategoriesSection categories={categories} locale={locale} />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="border-t border-gray-100" />
-      </div>
-
+      <SectionSeparator title={t("FEATURED_PRODUCTS")} />
       <div className="bg-white">
-        <FeaturedProductsComponent featuredProductsData={featuredProducts} />
+        <FeaturedProductsComponent
+          featuredProductsData={featuredProducts}
+          locale={locale}
+        />
       </div>
 
-      <div className="bg-neutral-50 py-4">
+      <SectionSeparator title={t("FLASH_SALE")} />
+      <div className="bg-neutral-50/60 py-2">
         <ForSaleSection
           discountProductsData={onDiscountProducts}
           locale={locale}
         />
       </div>
 
-      <PromoBanner />
-
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="border-t border-gray-100" />
+      <div className="my-8 sm:my-12">
+        <PromoBanner />
       </div>
 
+      <SectionSeparator title={t("STORE_FEATURES")} />
       <StoreFeaturesSection />
     </main>
   );

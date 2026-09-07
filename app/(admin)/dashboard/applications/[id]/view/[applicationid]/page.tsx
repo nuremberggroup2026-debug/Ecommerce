@@ -12,7 +12,6 @@ export default async function Page({
 
   const response = await adminApplicationById(applicationid);
   const application = response.data;
-  console.log("لاbilal", application);
 
   if (!application) {
     return (

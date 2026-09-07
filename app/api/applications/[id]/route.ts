@@ -53,7 +53,6 @@ export const DELETE = withAuth(
         { status },
       );
     } catch (error) {
-        console.log("error: ",error);
         
       return NextResponse.json(
         {

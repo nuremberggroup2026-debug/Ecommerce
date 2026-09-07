@@ -39,7 +39,6 @@ export default function VariantInformationSection({
     setIsDefault(defaultVariant);
 
     if (defaultVariant) {
-      console.log("variants in def: ", variants);
 
       setValue(
         "variants",
@@ -62,7 +61,6 @@ export default function VariantInformationSection({
         },
       );
     } else {
-      console.log("variants in adv: ", variants);
 
       setValue(
         "variants",

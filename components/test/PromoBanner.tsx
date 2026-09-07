@@ -1,45 +1,50 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { theme } from "@/themes";
+import { ROUTES } from "@/shared/config/routes";
 
 export default function PromoBanner() {
+  const t = useTranslations("Home.PromoBanner");
+
   return (
     <section className={theme.promoBanner.section}>
       <div className={theme.promoBanner.container}>
         <div className={theme.promoBanner.bannerWrapper}>
-          
-          {/* الجانب الأيسر البصري (الصورة السينمائية) */}
+          {/* Visual Clothing / Fashion Editorial Image */}
           <div className={theme.promoBanner.imageWrapper}>
             <img
-              src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=1000&q=80"
-              alt="Mid Season Sale"
+              src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1200&q=80"
+              alt="Exclusive Apparel Collection"
               className={theme.promoBanner.image}
+              loading="lazy"
             />
             <div className={theme.promoBanner.overlay} />
           </div>
 
-          {/* الجانب الأيمن (المحتوى والنصوص الفاخرة) */}
+          {/* Content & Fashion Narrative */}
           <div className={theme.promoBanner.contentWrapper}>
             <div className={theme.promoBanner.textWrapper}>
               <span className={theme.promoBanner.badge}>
-                Limited Curation
+                {t("BADGE")}
               </span>
               <h2 className={theme.promoBanner.title}>
-                Mid Season Sale
+                {t("TITLE")}
               </h2>
               <p className={theme.promoBanner.description}>
-                Elevate your everyday layout. Enjoy up to 40% off selected objects across all architectural and lifestyle categories.
+                {t("DESCRIPTION")}
               </p>
             </div>
 
             <Link
-              href="/shop"
+              href={ROUTES.PRODUCTS}
               className={theme.promoBanner.button}
             >
-              <span>Explore Collection</span>
+              <span>{t("BUTTON")}</span>
               <span className={theme.promoBanner.buttonArrow}>→</span>
             </Link>
           </div>
-
         </div>
       </div>
     </section>

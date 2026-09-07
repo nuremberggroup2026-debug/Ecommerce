@@ -9,13 +9,13 @@ export const productCardTheme = {
     "object-cover transition duration-700 ease-out group-hover:scale-105",
 
   brandBadge:
-    "absolute top-4 left-4 bg-black px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white rounded-full shadow-sm z-10",
+    "absolute top-3.5 start-3.5 bg-black/90 backdrop-blur-xs px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white rounded-full shadow-sm z-10",
 
   wishlistButton:
-    "absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/80 border border-neutral-200/40 text-neutral-600 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black hover:scale-110 active:scale-95 shadow-sm",
+    "absolute top-3.5 end-3.5 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 border border-neutral-200/60 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:scale-110 active:scale-90 shadow-sm cursor-pointer disabled:opacity-50",
 
   wishlistIcon:
-    "h-4 w-4",
+    "h-4.5 w-4.5 transition-all duration-200",
 
   addCartWrapper:
     "absolute inset-x-4 bottom-4 translate-y-4 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 z-10",

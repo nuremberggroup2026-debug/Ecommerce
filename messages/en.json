@@ -5,6 +5,12 @@
   "Home": {
     "title": "Welcome to our store",
     "ShopNow": "Shop Now",
+    "Separators": {
+      "CATEGORIES": "Categories",
+      "FEATURED_PRODUCTS": "Featured Products",
+      "FLASH_SALE": "Flash Sale",
+      "STORE_FEATURES": "Why Choose Us"
+    },
 
     "FeaturedProducts": {
       "TITLE": "Featured Products",
@@ -14,6 +20,20 @@
       "LIMITED_OFFERS": "Limited Offers",
       "FLASH_SALE": "Flash Sale",
       "VIEW_ALL_DEALS": "View All Deals"
+    },
+    "StoreFeatures": {
+      "FAST_DELIVERY_TITLE": "Fast Delivery",
+      "FAST_DELIVERY_DESC": "Carefully packaged and shipped directly to your doorstep in record time.",
+      "TRUSTED_QUALITY_TITLE": "Trusted Quality",
+      "TRUSTED_QUALITY_DESC": "100% authentic curated goods crafted with premium materials.",
+      "BEST_PRICE_TITLE": "Best Price Guarantee",
+      "BEST_PRICE_DESC": "Unbeatable value with direct pricing and exclusive seasonal offers."
+    },
+    "PromoBanner": {
+      "BADGE": "Exclusive Apparel Edition",
+      "TITLE": "Curated Fits, Everyday Elegance",
+      "DESCRIPTION": "Elevate your wardrobe with tailored silhouettes, breathable premium fabrics, and timeless statement pieces. Enjoy up to 40% off our seasonal clothing collection.",
+      "BUTTON": "Explore Collection"
     }
   },
   
@@ -423,19 +443,27 @@
   },
   "Navbar": {
     "BRAND_NAME": "AURA",
-    "BRAND_SUFFIX": ".STUDIO",
+    "BRAND_SUFFIX": " Store",
     "LINKS": {
       "HOME": "Home",
-      "PRODUCTS": "Products",
+      "SHOP_NOW": "Shop Now",
+      "PRODUCTS": "Shop Now",
       "CATEGORIES": "Categories",
       "CAREERS": "Careers",
       "ABOUT_US": "About Us",
       "WISHLIST": "Wishlist"
+    },
+    "USER_MENU": {
+      "LOGIN": "Login",
+      "WISHLIST": "Wishlist",
+      "MY_ORDERS": "My Orders",
+      "CHANGE_PASSWORD": "Change Password",
+      "LOGOUT": "Logout"
     }
   },
   "Footer": {
     "BRAND_NAME": "AURA",
-    "BRAND_SUFFIX": ".STUDIO",
+    "BRAND_SUFFIX": " Store",
     "DESCRIPTION": "A curated retail experience built for simplicity, fluid interaction, and timeless quality goods.",
     "LINKS_TITLE": "Quick Links",
     "LINKS_HOME": "Home",

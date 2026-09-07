@@ -1,5 +1,9 @@
 import { OrderStatus } from "@/types";
-
+import { HTTP_STATUS_MAP } from "@/lib/constants/response";
+type Router = {
+  push: (href: string) => void;
+  replace: (href: string) => void;
+};
 export const getStatusColor = (status: OrderStatus) => {
   switch (status) {
     case "DELIVERED":
@@ -30,4 +34,41 @@ export const formatDate = (date: Date | string) => {
     month: "short",
     day: "numeric",
   });
+};
+
+export const handleApiError = (status: number, router: Router) => {
+  switch (status) {
+    case HTTP_STATUS_MAP.UNAUTHORIZED:
+      router.push("/login");
+      return;
+
+    case HTTP_STATUS_MAP.PAYMENT_REQUIRED:
+      router.replace("/checkout/payment");
+      return;
+
+    case HTTP_STATUS_MAP.FORBIDDEN:
+      router.replace("/forbidden");
+      return;
+
+    case HTTP_STATUS_MAP.NOT_FOUND:
+      router.replace("/not-found");
+      return;
+
+    case HTTP_STATUS_MAP.TOO_MANY_REQUESTS:
+      router.replace("/too-many-requests");
+      return;
+
+    case HTTP_STATUS_MAP.INTERNAL_ERROR:
+    case HTTP_STATUS_MAP.SERVICE_UNAVAILABLE:
+      router.replace("/server-error");
+      return;
+
+    case HTTP_STATUS_MAP.BAD_REQUEST:
+    case HTTP_STATUS_MAP.CONFLICT:
+    case HTTP_STATUS_MAP.UNPROCESSABLE_ENTITY:
+      return;
+
+    default:
+      return;
+  }
 };

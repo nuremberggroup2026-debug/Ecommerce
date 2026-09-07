@@ -16,11 +16,7 @@ export default function CategoriesSection({
   return (
     <section className={theme.categories.section}>
       <div className={theme.categories.container}>
-        <header className={theme.categories.header}>
-          <h2 className={theme.categories.title}>
-            {isAr ? "الفئات" : "Categories"}
-          </h2>
-        </header>
+       
 
         <div className={theme.categories.grid}>
           {count === 1 && (
@@ -116,7 +112,7 @@ function CategoryCard({
       className={theme.categories.cardContainer}
     >
       <Image
-        src={`https://picsum.photos/seed/${Math.random()}/600/800`}
+        src={cat.image}
         alt={cat.name}
         fill
         className={theme.categories.cardImage}

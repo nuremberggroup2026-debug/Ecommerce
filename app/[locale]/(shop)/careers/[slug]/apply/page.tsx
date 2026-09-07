@@ -19,7 +19,6 @@ export async function generateMetadata({ params }: Props) {
     itemPath: `${career.slug}/apply`,
     locale,
   });
-  console.log("metadata: ", metadata);
 
   return metadata;
 }

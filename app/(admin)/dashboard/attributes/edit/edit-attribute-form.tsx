@@ -86,14 +86,13 @@ export default function EditAttributeForm({
     try {
       setLoading(true);
 
-      console.log("========== FORM DATA ==========");
-      console.log(data);
+    
 
       /* =====================================================
          1. Update Attribute
       ===================================================== */
 
-      console.log("========== UPDATE ATTRIBUTE ==========");
+
 
       const attributeResult = await adminUpdateAttribute(
         attribute.id,
@@ -103,10 +102,7 @@ export default function EditAttributeForm({
         },
       );
 
-      console.log(
-        "UPDATE ATTRIBUTE RESULT:",
-        attributeResult,
-      );
+     
 
       if (!attributeResult.success) {
         throw new Error(
@@ -145,21 +141,12 @@ export default function EditAttributeForm({
         );
 
       for (const value of deletedValues) {
-        console.log(
-          "========== DELETE VALUE ==========",
-        );
-
-        console.log("Deleting:", value.id);
+       
 
         const result =
           await adminDeleteAttributeValue(
             value.id,
           );
-
-        console.log(
-          "DELETE VALUE RESULT:",
-          result,
-        );
 
         if (!result.success) {
           throw new Error(
@@ -186,21 +173,10 @@ export default function EditAttributeForm({
               value.attributeValueAr,
           };
 
-          console.log(
-            "========== ADD VALUE ==========",
-          );
-
-          console.log("ADD PAYLOAD:", payload);
-
           const result =
             await adminAddAttributeValue(
               payload,
             );
-
-          console.log(
-            "ADD VALUE RESULT:",
-            result,
-          );
 
           if (!result.success) {
             throw new Error(
@@ -222,27 +198,11 @@ export default function EditAttributeForm({
             attributeValueAr:
               value.attributeValueAr,
           };
-
-          console.log(
-            "========== UPDATE VALUE ==========",
-          );
-
-          console.log({
-            id: value.id,
-            payload,
-          });
-
           const result =
             await adminUpdateAttributeValue(
               value.id,
               payload,
             );
-
-          console.log(
-            "UPDATE VALUE RESULT:",
-            result,
-          );
-
           if (!result.success) {
             throw new Error(
               `Update value failed: ${result.message}`,

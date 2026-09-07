@@ -127,14 +127,12 @@ export default function EditProductForm({
         productImages,
       };
 
-      console.log("payload: ", payload);
 
       await toastResponse(
         adminUpdateProduct(productId, payload),
         "Updating Product",
       );
       router.replace("/dashboard/products");
-      toast.success("Product updated successfully");
     } catch (error) {
       console.error(error);
       toast.error(

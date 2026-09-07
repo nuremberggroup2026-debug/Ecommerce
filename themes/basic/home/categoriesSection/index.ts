@@ -1,6 +1,6 @@
 export const categoriesTheme = {
   section: "bg-white",
-  container: "mx-auto max-w-7xl px-6 py-20 lg:px-10",
+  container: "mx-auto max-w-7xl px-6  lg:px-10",
   header: "mb-10",
   title: "text-4xl font-semibold tracking-tight",
   grid: "grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-2 md:gap-6 md:h-137.5",

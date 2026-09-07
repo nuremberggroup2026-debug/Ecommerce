@@ -1,17 +1,21 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { theme } from "@/themes";
 
 export function StoreFeaturesSection() {
+  const t = useTranslations("Home.StoreFeatures");
+
   const features = [
     {
-      title: "Fast Delivery",
-      description:
-        "Carefully packed and shipped directly to your doorstep in record time.",
+      title: t("FAST_DELIVERY_TITLE"),
+      description: t("FAST_DELIVERY_DESC"),
       icon: (
         <svg
           className={theme.storeFeatures.icon}
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          strokeWidth="1.75"
           viewBox="0 0 24 24"
         >
           <path
@@ -23,42 +27,41 @@ export function StoreFeaturesSection() {
       ),
     },
     {
-      title: "Trusted Quality",
-      description:
-        "Every item in our collection is strictly curated to ensure premium standards.",
+      title: t("TRUSTED_QUALITY_TITLE"),
+      description: t("TRUSTED_QUALITY_DESC"),
       icon: (
         <svg
           className={theme.storeFeatures.icon}
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          strokeWidth="1.75"
           viewBox="0 0 24 24"
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+            d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
           />
         </svg>
       ),
     },
     {
-      title: "Secure Checkout",
-      description:
-        "Your data and payments are fully encrypted and protected at all times.",
+      title: t("BEST_PRICE_TITLE"),
+      description: t("BEST_PRICE_DESC"),
       icon: (
         <svg
           className={theme.storeFeatures.icon}
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          strokeWidth="1.75"
           viewBox="0 0 24 24"
         >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+            d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.386a3.75 3.75 0 0 0 1.257-1.257c.486-.827.313-1.908-.386-2.607L7.136 7.67A2.25 2.25 0 0 1 6.477 6.079V5.25c0-.621.504-1.125 1.125-1.125h.829a2.25 2.25 0 0 1 1.591.659l9.582 9.581c.699.699 1.78.872 2.607.386.438-.258.8-.62 1.058-1.058.486-.827.313-1.908-.386-2.607L12.75 3.659A2.25 2.25 0 0 0 11.159 3H9.568Z"
           />
+          <circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none" />
         </svg>
       ),
     },

@@ -10,7 +10,6 @@ export default async function Page({
 }) {
   const { id } = await params;
   const applications = await adminApplicationsByCareerId(id);
-  console.log("bilal", applications);
 
   return (
     <div className="container mx-auto py-10">

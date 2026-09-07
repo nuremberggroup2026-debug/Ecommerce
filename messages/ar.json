@@ -2,6 +2,12 @@
   "Home": {
     "title": "مرحبا بكم في متجرنا",
     "ShopNow": "تسوق الأن",
+    "Separators": {
+      "CATEGORIES": "الفئات",
+      "FEATURED_PRODUCTS": "منتجات مميزة",
+      "FLASH_SALE": "تخفيضات كبرى",
+      "STORE_FEATURES": "لماذا تختارنا"
+    },
 
     "FeaturedProducts": {
       "TITLE": "منتجات مميزة",
@@ -11,6 +17,20 @@
       "LIMITED_OFFERS": "عروض محدودة",
       "FLASH_SALE": "تخفيضات كبرى",
       "VIEW_ALL_DEALS": "عرض كل الصفقات"
+    },
+    "StoreFeatures": {
+      "FAST_DELIVERY_TITLE": "توصيل سريع",
+      "FAST_DELIVERY_DESC": "تغليف بعناية فائقة وشحن مباشر يصل إلى باب منزلك في وقت قياسي.",
+      "TRUSTED_QUALITY_TITLE": "جودة موثوقة",
+      "TRUSTED_QUALITY_DESC": "منتجات أصلية 100% مختارة بعناية فائقة لضمان أعلى معايير الجودة.",
+      "BEST_PRICE_TITLE": "ضمان أفضل الأسعار",
+      "BEST_PRICE_DESC": "قيمة استثنائية مع أسعار لا تقبل المنافسة وعروض حصرية مباشرة."
+    },
+    "PromoBanner": {
+      "BADGE": "تشكيلة أزياء حصرية",
+      "TITLE": "أناقة خالدة وتصاميم عصرية",
+      "DESCRIPTION": "ارتقِ بإطلالتك مع قصّات استثنائية، أقمشة فاخرة ومريحة، وقطع ملابس أساسية صُممت لتدوم. استمتع بخصم يصل إلى 40% على تشكيلة الملابس المختارة.",
+      "BUTTON": "استكشف التشكيلة"
     }
   },
   "ResponseMessages": {
@@ -425,19 +445,27 @@
   },
   "Navbar": {
     "BRAND_NAME": "أورا",
-    "BRAND_SUFFIX": ".ستوديو",
+    "BRAND_SUFFIX": " متجر",
     "LINKS": {
       "HOME": "الرئيسية",
-      "PRODUCTS": "المنتجات",
+      "SHOP_NOW": "تسوق الآن",
+      "PRODUCTS": "تسوق الآن",
       "CATEGORIES": "الفئات",
       "CAREERS": "الوظائف",
       "ABOUT_US": "عنا",
       "WISHLIST": "المفضلة"
+    },
+    "USER_MENU": {
+      "LOGIN": "تسجيل الدخول",
+      "WISHLIST": "المفضلة",
+      "MY_ORDERS": "طلباتي",
+      "CHANGE_PASSWORD": "تغيير كلمة المرور",
+      "LOGOUT": "تسجيل الخروج"
     }
   },
   "Footer": {
     "BRAND_NAME": "أورا",
-    "BRAND_SUFFIX": ".ستوديو",
+    "BRAND_SUFFIX": " متجر",
     "DESCRIPTION": "تجربة تسوق منتقاة بعناية مبنية على البساطة، التفاعل السلس، والمنتجات ذات الجودة الخالدة.",
     "LINKS_TITLE": "روابط سريعة",
     "LINKS_HOME": "الرئيسية",
