@@ -154,6 +154,7 @@ export const deleteManyAttributes = async (ids: string[]) => {
       success: false,
       message: "ATTRIBUTE_IDS_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: 0,
     };
   }
 
@@ -170,6 +171,7 @@ export const deleteManyAttributes = async (ids: string[]) => {
       success: false,
       message: "ATTRIBUTES_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
+      deletedCount: 0,
     };
   }
 
@@ -186,6 +188,7 @@ export const deleteManyAttributes = async (ids: string[]) => {
       success: false,
       message: "ATTRIBUTES_DELETE_FAILED",
       code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: result.count,
     };
   }
 
@@ -196,6 +199,7 @@ export const deleteManyAttributes = async (ids: string[]) => {
     success: true,
     message: "ATTRIBUTES_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
+    deletedCount: result.count,
   };
 };
 

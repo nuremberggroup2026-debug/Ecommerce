@@ -19,6 +19,7 @@ export default function ForgotPasswordForm() {
   const locale = useLocale();
   const t = useTranslations("ForgotPasswordPage");
 
+  const isAr = locale === "ar";
   const [isSuccess, setIsSuccess] = useState(false);
 
   const {
@@ -44,7 +45,7 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <main className={theme.forgetPasswordPage.main}>
+    <main className={theme.forgetPasswordPage.main} dir={isAr ? "rtl" : "ltr"}>
       <div className={theme.forgetPasswordPage.card}>
         {isSuccess ? (
           /* SUCCESS STATE */
@@ -80,7 +81,7 @@ export default function ForgotPasswordForm() {
           </div>
         ) : (
           /* FORM STATE */
-          <div className={theme.forgetPasswordPage.formStateWrapper}>
+          <div className={`${theme.forgetPasswordPage.formStateWrapper} text-start`}>
             <div className={theme.forgetPasswordPage.header}>
               <h1 className={theme.forgetPasswordPage.title}>{t("TITLE")}</h1>
               <p className={theme.forgetPasswordPage.subtitle}>
@@ -113,7 +114,7 @@ export default function ForgotPasswordForm() {
 
             <div className={theme.forgetPasswordPage.backLinkWrapper}>
               <Link href="/login" className={theme.forgetPasswordPage.backLink}>
-                &larr; {t("BACK_TO_LOGIN")}
+                {isAr ? "→" : "←"} {t("BACK_TO_LOGIN")}
               </Link>
             </div>
           </div>

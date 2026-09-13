@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import type { OrderByID } from "../../../types/index";
 import DefaultImage from "@/app/defaultImage.jpg";
 import { theme } from "@/themes";
+import { ShoppingBag } from "lucide-react";
 
 interface OrderItemsSectionProps {
   order: OrderByID;
@@ -17,8 +18,9 @@ export default function OrderItemsSection({ order }: OrderItemsSectionProps) {
     <section className={theme.orderItemsSection.section}>
       <div className={theme.orderItemsSection.header}>
         <h2 className={theme.orderItemsSection.title}>
+          <ShoppingBag className="me-2.5 h-5 w-5 text-neutral-500" />
           {t("ITEMS.TITLE")}
-          <span className={theme.orderItemsSection.badge}>
+          <span className="ms-2 rounded-full bg-neutral-200 px-2.5 py-0.5 text-xs font-semibold text-neutral-700">
             {order.orderItems.length}
           </span>
         </h2>
@@ -60,7 +62,7 @@ export default function OrderItemsSection({ order }: OrderItemsSectionProps) {
                   </div>
                 </div>
 
-                <div className={theme.orderItemsSection.priceCol}>
+                <div className="shrink-0 text-start sm:text-end">
                   <p className={theme.orderItemsSection.totalPrice}>
                     ${itemTotal.toFixed(2)}
                   </p>

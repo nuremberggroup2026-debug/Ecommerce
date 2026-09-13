@@ -71,6 +71,8 @@ export const DELETE = withAuth(
   ["super_admin"],
   async (_request: Request, { params }) => {
     try {
+      console.log("i am in delete: ");
+      
       const { id } = await params;
       const result = await deleteProduct(id);
       const status = HTTP_STATUS_MAP[result.code] || 500;

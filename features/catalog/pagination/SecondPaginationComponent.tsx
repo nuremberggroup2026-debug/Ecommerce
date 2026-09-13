@@ -7,31 +7,22 @@ PaginationNext,
 PaginationPrevious
 }
 from "@/components/ui/pagination";
-
-
+import { Locale } from "@/types";
 
 type Props={
-
 currentPage:number;
-
 totalPages:number;
-
 searchParams:{
 [key:string]:string | undefined
 };
-
+locale?: Locale;
 }
 
-
-
 export default function SecondPaginationComponent({
-
 currentPage,
-
 totalPages,
-
-searchParams
-
+searchParams,
+locale
 }:Props){
 
 
@@ -99,6 +90,8 @@ startPage=Math.max(totalPages-2,1);
 
 
 
+const isAr = locale === "ar";
+
 return (
 
 <Pagination>
@@ -115,6 +108,8 @@ currentPage > 1 &&
 <PaginationPrevious
 
 href={createUrl(currentPage-1)}
+
+text={isAr ? "السابق" : "Previous"}
 
 />
 
@@ -173,6 +168,8 @@ currentPage < totalPages &&
 <PaginationNext
 
 href={createUrl(currentPage+1)}
+
+text={isAr ? "التالي" : "Next"}
 
 />
 

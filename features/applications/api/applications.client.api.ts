@@ -10,6 +10,7 @@ import type {
 } from "../types/index";
 
 import type { CareerApplication } from "@/features/applications/types";
+import { deleteManyResponseType } from "@/types";
 
 /**
  * Delete one application
@@ -27,8 +28,8 @@ export async function adminDeleteApplication(
  */
 export async function deleteManyApplications(
   ids: string[],
-): Promise<deleteResponseType> {
-  return Clientapi.delete<deleteResponseType, string[]>(
+): Promise<deleteManyResponseType> {
+  return Clientapi.delete<deleteManyResponseType, string[]>(
     API.ENDPOINTS.APPLICATIONS.DELETE_MANY_APPLICATIONS,
     ids,
   );

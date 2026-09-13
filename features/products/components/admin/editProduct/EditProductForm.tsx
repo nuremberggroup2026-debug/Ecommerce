@@ -65,6 +65,10 @@ export default function EditProductForm({
     },
   });
 
+  const { getValues } = methods;
+
+  console.log("getValuesvariants): ", getValues("variants"));
+
   const [loading, setLoading] = useState(false);
   const { startUpload } = useUploadThing("products");
 
@@ -76,6 +80,8 @@ export default function EditProductForm({
 
   const onSubmit = async (data: UpdateProductFormType) => {
     try {
+      console.log("data: ", data);
+
       setLoading(true);
 
       let cardImageUrl = product.productCardImage;
@@ -127,12 +133,12 @@ export default function EditProductForm({
         productImages,
       };
 
-
-      await toastResponse(
+      const result = await toastResponse(
         adminUpdateProduct(productId, payload),
         "Updating Product",
       );
-      router.replace("/dashboard/products");
+
+      if (result.success) return router.replace("/dashboard/products");
     } catch (error) {
       console.error(error);
       toast.error(

@@ -1,4 +1,3 @@
-
 import { Clientapi } from "@/services/client/api";
 import { API } from "@/lib/constants/api";
 import type {
@@ -6,6 +5,7 @@ import type {
   AddResponseType,
   PutResponseType,
   ResponseType,
+  deleteManyResponseType,
 } from "@/types/index";
 import type {
   CreateAdminCareer,
@@ -14,50 +14,46 @@ import type {
 } from "@/features/careers/types";
 
 export async function adminAddCareer(
-  data: CreateAdminCareer
+  data: CreateAdminCareer,
 ): Promise<AddResponseType> {
   return Clientapi.post<AddResponseType, CreateAdminCareer>(
     API.ENDPOINTS.CAREERS.ADD_CAREER,
-    data
+    data,
   );
 }
 
 export async function adminUpdateCareer(
   id: string,
-  data: PUTAdminCareer
+  data: PUTAdminCareer,
 ): Promise<PutResponseType> {
   return Clientapi.put<PutResponseType, PUTAdminCareer>(
     `${API.ENDPOINTS.CAREERS.CAREER_BY_ID}/${id}`,
-    data
+    data,
   );
 }
 
 export async function adminDeleteCareer(
-    id: string,
+  id: string,
 ): Promise<deleteResponseType> {
-  const result =await Clientapi.delete<deleteResponseType>(
-    `${API.ENDPOINTS.CAREERS.CAREER_BY_ID}/${id}`
+  const result = await Clientapi.delete<deleteResponseType>(
+    `${API.ENDPOINTS.CAREERS.CAREER_BY_ID}/${id}`,
   );
-  return result
+  return result;
 }
-
-
-
 
 /////////////////////////////////////////
 
 export async function deleteManyCareers(
-  ids: string[]
-): Promise<deleteResponseType> {
-  return Clientapi.delete<deleteResponseType, string[]>(
+  ids: string[],
+): Promise<deleteManyResponseType> {
+  return Clientapi.delete<deleteManyResponseType, string[]>(
     API.ENDPOINTS.CAREERS.DELETE_MANY_CAREERS,
-    ids
+    ids,
   );
 }
 
 export async function adminCareers(): Promise<ResponseType<AdminCareers[]>> {
   return Clientapi.get<ResponseType<AdminCareers[]>>(
-    API.ENDPOINTS.CAREERS.ALL_CAREERS
+    API.ENDPOINTS.CAREERS.ALL_CAREERS,
   );
 }
-

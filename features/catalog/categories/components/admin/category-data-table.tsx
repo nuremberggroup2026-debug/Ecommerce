@@ -15,9 +15,7 @@ interface CategoryDataTableProps {
   data: AdminCategories[];
 }
 
-export function CategoryDataTable({
-  data,
-}: CategoryDataTableProps) {
+export function CategoryDataTable({ data }: CategoryDataTableProps) {
   return (
     <DataTable
       columns={columns({
@@ -29,7 +27,6 @@ export function CategoryDataTable({
       addHref="/dashboard/categories/add"
       addLabel="Add Category"
       onDeleteSelected={deleteManyCategories}
-      deleteSuccessMessage="Categories deleted successfully"
     />
   );
 }

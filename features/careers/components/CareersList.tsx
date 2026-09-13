@@ -1,44 +1,51 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TransalatedCareer } from "@/types";
+import { Locale, TransalatedCareer } from "@/types";
 import { theme } from "@/themes";
+import { useTranslations } from "next-intl";
 
 interface CareersListProps {
   careers: TransalatedCareer[];
+  locale?: Locale;
 }
 
-export default function CareersList({ careers }: CareersListProps) {
+export default function CareersList({ careers, locale = "en" }: CareersListProps) {
+  const t = useTranslations("CareersPage");
+  const isAr = locale === "ar";
+
   if (!careers?.length) {
     return (
-      <section className={theme.careers.section}>
+      <section className={theme.careers.section} dir={isAr ? "rtl" : "ltr"}>
         <div className={theme.careers.emptyContainer}>
           <h2 className={theme.careers.emptyTitle}>
-            No open positions
+            {t("EMPTY_TITLE")}
           </h2>
 
           <p className={theme.careers.emptyDescription}>
-            We currently don&apos;t have any open positions.
+            {t("EMPTY_DESCRIPTION")}
           </p>
         </div>
       </section>
     );
   }
 
+  
+  
+
   return (
-    <section className={theme.careers.section}>
+    <section className={theme.careers.section} dir={isAr ? "rtl" : "ltr"}>
       <div className={theme.careers.container}>
         <div className={theme.careers.headerWrapper}>
           <span className={theme.careers.badge}>
-            Careers
+            {t("BADGE")}
           </span>
 
           <h2 className={theme.careers.title}>
-            Join our team
+            {t("TITLE")}
           </h2>
 
           <p className={theme.careers.description}>
-            Explore our current opportunities and find the role that fits
-            your skills and ambitions.
+            {t("DESCRIPTION")}
           </p>
         </div>
 
@@ -60,7 +67,7 @@ export default function CareersList({ careers }: CareersListProps) {
                 ) : (
                   <div className={theme.careers.imagePlaceholder}>
                     <span className={theme.careers.imagePlaceholderText}>
-                      Career opportunity
+                      {t("IMAGE_PLACEHOLDER")}
                     </span>
                   </div>
                 )}
@@ -103,19 +110,19 @@ export default function CareersList({ careers }: CareersListProps) {
                       />
                     </svg>
 
-                    <span>{career.requirements.length} requirements</span>
+                    <span>{t("REQUIREMENTS_COUNT", { count: career.requirements.length })}</span>
                   </div>
                 )}
 
                 <div className={theme.careers.actionWrapper}>
                   <Link
-                    href={`/careers/${career.slug}`}
+                    href={`/${locale}/careers/${career.slug}`}
                     className={theme.careers.actionButton}
                   >
-                    View position
+                    {t("VIEW_POSITION")}
 
                     <svg
-                      className={theme.careers.actionIcon}
+                      className={`${theme.careers.actionIcon} rtl:rotate-180`}
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >

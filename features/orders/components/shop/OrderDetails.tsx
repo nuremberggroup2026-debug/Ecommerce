@@ -6,6 +6,7 @@ import OrderItemsSection from "../shop/orderDetailsComponents/OrderItemsSection"
 import DeliveryInfoSection from "../shop/orderDetailsComponents/DeliveryInfoSection";
 import OrderSummarySection from "../shop/orderDetailsComponents/OrderSummarySection";
 import { theme } from "@/themes";
+import { ArrowLeft } from "lucide-react";
 
 interface Props {
   order: OrderByID;
@@ -28,15 +29,15 @@ export default function OrderDetailsComponent({ order }: Props) {
     : 0;
 
   return (
-    <main className={theme.orderDetailsComponent.main}>
+    <main className={theme.orderDetailsComponent.main} dir={isAr ? "rtl" : "ltr"}>
       <div className={theme.orderDetailsComponent.container}>
         {/* Improved Header Section */}
         <header className={theme.orderDetailsComponent.header}>
           <Link
-            href="/orders"
+            href={`/${locale}/orders`}
             className={theme.orderDetailsComponent.backLink}
           >
-            <span aria-hidden="true">{isAr ? "→" : "←"}</span>
+            <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
             {t("BACK_TO_ORDERS")}
           </Link>
 
@@ -44,20 +45,22 @@ export default function OrderDetailsComponent({ order }: Props) {
             <div className={theme.orderDetailsComponent.titleSpace}>
               <div className={theme.orderDetailsComponent.titleRow}>
                 <h1 className={theme.orderDetailsComponent.orderTitle}>
-                  {order.orderNumber}
+                  #{order.orderNumber}
                 </h1>
                 <span
                   className={theme.orderDetailsComponent.statusBadge(
                     getStatusColor(order.status as OrderStatus),
                   )}
                 >
+                  <span className="h-1.5 w-1.5 rounded-full bg-current" />
                   {t(`STATUS.${order.status}`)}
                 </span>
               </div>
 
               <p className={theme.orderDetailsComponent.dateText}>
-                {t("TITLE")} <span className={theme.orderDetailsComponent.dotSeparator}>•</span>{" "}
-                {formatDate(order.createdAt)}
+                {t("TITLE")}{" "}
+                <span className={theme.orderDetailsComponent.dotSeparator}>•</span>{" "}
+                {formatDate(order.createdAt, locale as "en" | "ar")}
               </p>
             </div>
           </div>

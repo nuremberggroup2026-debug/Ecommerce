@@ -274,6 +274,7 @@ export const deleteManyApplications = async (ids: string[]) => {
       success: false,
       message: "APPLICATIONS_IDS_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: 0,
     };
   }
 
@@ -290,6 +291,7 @@ export const deleteManyApplications = async (ids: string[]) => {
       success: false,
       message: "APPLICATIONS_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
+      deletedCount: 0,
     };
   }
 
@@ -306,6 +308,7 @@ export const deleteManyApplications = async (ids: string[]) => {
       success: false,
       message: "APPLICATIONS_DELETE_FAILED",
       code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: result.count,
     };
   }
 
@@ -321,8 +324,9 @@ export const deleteManyApplications = async (ids: string[]) => {
 
   return {
     success: true,
-    message: "APPLICATIONS_DELETED_SUCCESSFULLY",
+    message: "ITEMS_DELETED",
     code: RESPONSE_CODES.OK,
+    deletedCount: result.count,
   };
 };
 ///////////////////////////////////////////////////////

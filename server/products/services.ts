@@ -528,6 +528,8 @@ export const updateProductWithVariant = async (
 };
 
 export const deleteProduct = async (id: string) => {
+  console.log(" i am in action: ", id);
+
   if (!id)
     return {
       success: false,
@@ -556,6 +558,32 @@ export const deleteProduct = async (id: string) => {
     success: true,
     message: "PRODUCT_DELETED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
+  };
+};
+
+export const deleteManyProducts = async (ids: string[]) => {
+  if (!ids.length) {
+    return {
+      success: false,
+      message: "PRODUCTS_IDS_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: 0,
+    };
+  }
+  const result = await prisma.products.deleteMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  revalidateTag("products", { expire: 0 });
+  return {
+    success: true,
+    message: "ITEMS_DELETED",
+    code: RESPONSE_CODES.OK,
+    deletedCount: result.count,
   };
 };
 

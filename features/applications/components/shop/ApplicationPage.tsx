@@ -3,14 +3,18 @@ import type { TransalatedCareer } from "../../types";
 import CareerDetails from "./CareerDetails";
 import ApplicationForm from "./ApplicationForm";
 import { theme } from "@/themes";
+import { useLocale } from "next-intl";
 
 interface Prop {
   career: TransalatedCareer;
 }
 
 export default function ApplicationPage({ career }: Prop) {
+  const locale = useLocale();
+  const isAr = locale === "ar";
+
   return (
-    <main className={theme.applicationPage.main}>
+    <main className={theme.applicationPage.main} dir={isAr ? "rtl" : "ltr"}>
       <div className={theme.applicationPage.container}>
         <div className={theme.applicationPage.grid}>
           {/* Left Side: Career Details (Sticky) */}

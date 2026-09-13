@@ -1,14 +1,15 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
-import { deleteManyCategories } from "@/server/categories/services";
+import { deleteManyProducts } from "@/server/products/services";
 import { NextResponse } from "next/server";
-
 
 export const DELETE = withAuth(["super_admin"], async (request: Request) => {
   try {
-    const body = (await request.json()) as  string[];
-    const result = await deleteManyCategories(body);
+    const body = (await request.json()) as string[];
+
+    const result = await deleteManyProducts(body);
     const status = HTTP_STATUS_MAP[result.code] || 500;
+
     return NextResponse.json(
       {
         success: result.success,
@@ -18,6 +19,8 @@ export const DELETE = withAuth(["super_admin"], async (request: Request) => {
       { status },
     );
   } catch (error) {
+    console.log("error: ", error);
+
     return NextResponse.json(
       {
         success: false,

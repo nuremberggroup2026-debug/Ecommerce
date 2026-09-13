@@ -50,7 +50,7 @@ export default function ResetPasswordForm() {
   };
 
   return (
-    <main className={theme.resetPasswordPage.main}>
+    <main className={theme.resetPasswordPage.main} dir={isAr ? "rtl" : "ltr"}>
       <div className={theme.resetPasswordPage.card}>
         {isSuccess ? (
           /* SUCCESS STATE */
@@ -86,7 +86,7 @@ export default function ResetPasswordForm() {
           </div>
         ) : (
           /* FORM STATE */
-          <div className={theme.resetPasswordPage.formStateWrapper}>
+          <div className={`${theme.resetPasswordPage.formStateWrapper} text-start`}>
             <div className={theme.resetPasswordPage.header}>
               <h1 className={theme.resetPasswordPage.title}>{t("TITLE")}</h1>
               <p className={theme.resetPasswordPage.subtitle}>

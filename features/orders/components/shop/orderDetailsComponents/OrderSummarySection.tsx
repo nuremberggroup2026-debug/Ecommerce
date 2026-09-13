@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import type { OrderByID } from "../../../types/index";
 import { theme } from "@/themes";
+import { Receipt, ArrowLeft } from "lucide-react";
 
 interface OrderSummarySectionProps {
   order: OrderByID;
@@ -19,11 +20,13 @@ export default function OrderSummarySection({
   discountAmount,
 }: OrderSummarySectionProps) {
   const t = useTranslations("ORDERS.ORDER_DETAILS");
+  const locale = useLocale();
 
   return (
     <section className={theme.orderSummarySection.section}>
       <div className={theme.orderSummarySection.header}>
-        <h2 className={theme.orderSummarySection.title}>
+        <h2 className="flex items-center text-lg font-semibold text-neutral-900">
+          <Receipt className="me-2.5 h-5 w-5 text-neutral-500" />
           {t("SUMMARY.TITLE")}
         </h2>
       </div>
@@ -39,7 +42,7 @@ export default function OrderSummarySection({
         {appliedPromoCode && (
           <div className={theme.orderSummarySection.discountRow}>
             <div className={theme.orderSummarySection.discountLeft}>
-              <span className={theme.orderSummarySection.rowLabel}> {t("SUMMARY.DISCOUNT")}</span>
+              <span className={theme.orderSummarySection.rowLabel}>{t("SUMMARY.DISCOUNT")}</span>
               <span className={theme.orderSummarySection.promoBadge}>
                 {appliedPromoCode}
               </span>
@@ -62,9 +65,10 @@ export default function OrderSummarySection({
 
       <div className={theme.orderSummarySection.footer}>
         <Link
-          href="/orders"
-          className={theme.orderSummarySection.button}
+          href={`/${locale}/orders`}
+          className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-neutral-900 px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-black active:scale-[0.98]"
         >
+          <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
           {t("BACK_TO_ORDERS")}
         </Link>
       </div>

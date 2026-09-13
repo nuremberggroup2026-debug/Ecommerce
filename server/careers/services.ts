@@ -173,6 +173,7 @@ export const deleteManyCareers = async (ids: string[]) => {
       success: false,
       message: "CAREERS_IDS_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
+       deletedCount:0
     };
   }
 
@@ -189,6 +190,7 @@ export const deleteManyCareers = async (ids: string[]) => {
       success: false,
       message: "CAREERS_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
+       deletedCount:0
     };
   }
 
@@ -205,6 +207,7 @@ export const deleteManyCareers = async (ids: string[]) => {
       success: false,
       message: "CAREERS_DELETE_FAILED",
       code: RESPONSE_CODES.BAD_REQUEST,
+       deletedCount:result.count
     };
   }
 
@@ -220,8 +223,9 @@ export const deleteManyCareers = async (ids: string[]) => {
 
   return {
     success: true,
-    message: "CAREERS_DELETED_SUCCESSFULLY",
+    message: "ITEMS_DELETED",
     code: RESPONSE_CODES.OK,
+     deletedCount:result.count
   };
 };
 

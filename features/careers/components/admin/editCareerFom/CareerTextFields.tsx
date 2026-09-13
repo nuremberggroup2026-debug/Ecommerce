@@ -79,7 +79,7 @@ export default function CareerTextFields() {
 
         <input
           {...register("experienceEn")}
-          placeholder="Enter English experience"
+          placeholder="e.g 0-1 years"
           className={inputClass}
         />
 
@@ -94,7 +94,7 @@ export default function CareerTextFields() {
         <input
           dir="rtl"
           {...register("experienceAr")}
-          placeholder="أدخل الخبرة المطلوبة"
+          placeholder="من 0 إلى سنة خبرة"
           className={inputClass}
         />
 
@@ -113,7 +113,9 @@ export default function CareerTextFields() {
           className={`${inputClass} resize-none`}
         />
 
-        {errors.roleEn && <p className="text-xs text-red-600">{errors.roleEn.message}</p>}
+        {errors.roleEn && (
+          <p className="text-xs text-red-600">{errors.roleEn.message}</p>
+        )}
       </div>
 
       <div className="space-y-1">
@@ -127,7 +129,9 @@ export default function CareerTextFields() {
           className={`${inputClass} resize-none`}
         />
 
-        {errors.roleAr && <p className="text-xs text-red-600">{errors.roleAr.message}</p>}
+        {errors.roleAr && (
+          <p className="text-xs text-red-600">{errors.roleAr.message}</p>
+        )}
       </div>
     </>
   );

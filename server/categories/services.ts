@@ -193,6 +193,7 @@ export const deleteManyCategories = async (ids: string[]) => {
       success: false,
       message: "CATEGORY_IDS_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: 0,
     };
   }
 
@@ -209,10 +210,11 @@ export const deleteManyCategories = async (ids: string[]) => {
       success: false,
       message: "CATEGORIES_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
+      deletedCount: 0,
     };
   }
 
-  await prisma.categories.deleteMany({
+  const result = await prisma.categories.deleteMany({
     where: {
       id: {
         in: ids,
@@ -225,8 +227,9 @@ export const deleteManyCategories = async (ids: string[]) => {
 
   return {
     success: true,
-    message: "CATEGORIES_DELETED_SUCCESSFULLY",
+    message: "ITEMS_DELETED",
     code: RESPONSE_CODES.OK,
+    deletedCount: result.count,
   };
 };
 

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { DataTable } from "@/app/(admin)/dashboard/components/data-table";
@@ -12,18 +11,11 @@ import {
 
 import type { AdminCareers } from "@/features/careers/types";
 
-
-
-
-
-
 interface CareerDataTableProps {
   data: AdminCareers[];
 }
 
-export function CareerDataTable({
-  data,
-}: CareerDataTableProps) {
+export function CareerDataTable({ data }: CareerDataTableProps) {
   return (
     <DataTable
       columns={columns({
@@ -35,7 +27,6 @@ export function CareerDataTable({
       addHref="/dashboard/careers/add"
       addLabel="Add Career"
       onDeleteSelected={deleteManyCareers}
-      deleteSuccessMessage="Careers deleted successfully"
     />
   );
 }

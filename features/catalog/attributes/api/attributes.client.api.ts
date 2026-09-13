@@ -5,6 +5,7 @@ import type {
   deleteResponseType,
   AddResponseType,
   PutResponseType,
+  deleteManyResponseType,
 } from "@/types/index";
 
 import type {
@@ -24,10 +25,7 @@ import type {
 export async function adminAddAttribute(
   data: CreateAdminAttribute,
 ): Promise<AddResponseType> {
-  return Clientapi.post<
-    AddResponseType,
-    CreateAdminAttribute
-  >(
+  return Clientapi.post<AddResponseType, CreateAdminAttribute>(
     API.ENDPOINTS.ATTRIBUTES.ADD_ATTRIBUTES,
     data,
   );
@@ -40,10 +38,7 @@ export async function adminUpdateAttribute(
   id: string,
   data: PUTAdminAttribute,
 ): Promise<PutResponseType> {
-  return Clientapi.put<
-    PutResponseType,
-    PUTAdminAttribute
-  >(
+  return Clientapi.put<PutResponseType, PUTAdminAttribute>(
     `${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_BY_ID}/${id}`,
     data,
   );
@@ -55,9 +50,7 @@ export async function adminUpdateAttribute(
 export async function adminDeleteAttribute(
   id: string,
 ): Promise<deleteResponseType> {
-  return Clientapi.delete(
-    `${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_BY_ID}/${id}`,
-  );
+  return Clientapi.delete(`${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_BY_ID}/${id}`);
 }
 
 /**
@@ -65,16 +58,12 @@ export async function adminDeleteAttribute(
  */
 export async function deleteManyAttributes(
   ids: string[],
-): Promise<deleteResponseType> {
-  return Clientapi.delete<
-    deleteResponseType,
-    string[]
-  >(
+): Promise<deleteManyResponseType> {
+  return Clientapi.delete<deleteManyResponseType, string[]>(
     API.ENDPOINTS.ATTRIBUTES.DELETE_MANY_ATTRIBUTES,
     ids,
   );
 }
-
 
 /* =========================================================
    ATTRIBUTE VALUES
@@ -86,12 +75,8 @@ export async function deleteManyAttributes(
 export async function adminAddAttributeValue(
   data: CreateAdminAttributeValue,
 ): Promise<AddResponseType> {
-  return Clientapi.post<
-    AddResponseType,
-    CreateAdminAttributeValue
-  >(
-    API.ENDPOINTS.ATTRIBUTE_VALUES
-      .ADD_ATTRIBUTE_VALUE,
+  return Clientapi.post<AddResponseType, CreateAdminAttributeValue>(
+    API.ENDPOINTS.ATTRIBUTE_VALUES.ADD_ATTRIBUTE_VALUE,
     data,
   );
 }
@@ -103,10 +88,7 @@ export async function adminUpdateAttributeValue(
   id: string,
   data: UpdateAdminAttributeValue,
 ): Promise<PutResponseType> {
-  return Clientapi.put<
-    PutResponseType,
-    UpdateAdminAttributeValue
-  >(
+  return Clientapi.put<PutResponseType, UpdateAdminAttributeValue>(
     `${API.ENDPOINTS.ATTRIBUTE_VALUES.ATTRIBUTE_VALUE_BY_ID}/${id}`,
     data,
   );

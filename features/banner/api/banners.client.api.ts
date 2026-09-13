@@ -5,6 +5,7 @@ import type {
   deleteResponseType,
   PutResponseType,
   AddResponseType,
+  deleteManyResponseType,
 } from "@/types/index";
 
 import type {
@@ -46,8 +47,8 @@ export async function adminAddBanner(
 
 export async function deleteManyBanners(
   ids: string[],
-): Promise<deleteResponseType> {
-  const result = await Clientapi.delete<deleteResponseType, string[]>(
+): Promise<deleteManyResponseType> {
+  const result = await Clientapi.delete<deleteManyResponseType, string[]>(
     `${API.ENDPOINTS.BANNERS.DELETE_MANY_BANNERS}`,
     ids,
   );

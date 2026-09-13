@@ -70,7 +70,7 @@ export default function CareerTextFields() {
         <label className="text-sm font-medium text-gray-700">English Experience</label>
         <input
           {...register("experienceEn")}
-          placeholder="Enter required experience"
+          placeholder="e.g 0-1 years"
           className={inputClass}
         />
         {errors.experienceEn && (
@@ -83,7 +83,7 @@ export default function CareerTextFields() {
         <input
           dir="rtl"
           {...register("experienceAr")}
-          placeholder="أدخل الخبرة المطلوبة"
+          placeholder="من 0 إلى سنة خبرة"
           className={inputClass}
         />
         {errors.experienceAr && (

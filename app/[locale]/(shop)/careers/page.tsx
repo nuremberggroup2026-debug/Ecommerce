@@ -18,7 +18,7 @@ export default async function page({ params }: Prop) {
 
   return (
     <div>
-      <CareersList careers={careers} />
+      <CareersList careers={careers} locale={locale} />
     </div>
   );
 }

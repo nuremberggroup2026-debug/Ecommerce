@@ -13,6 +13,7 @@ import { PasswordInput } from "@/components/inputs/PasswordInput";
 import { changePasswordApi } from "@/features/auth/api/auth.client.api";
 import { useRouter } from "next/navigation";
 import { theme } from "@/themes";
+import { KeyRound } from "lucide-react";
 
 export default function ChangePasswordForm() {
   const locale = useLocale() as Locale;
@@ -32,10 +33,20 @@ export default function ChangePasswordForm() {
     try {
       const response = await changePasswordApi(data);
       if (response.success) {
-        toast.success(t(response.message));
+        const responseKey = `ResponseMessages.${response.message}`;
+        const translatedMsg = t(responseKey);
+        toast.success(
+          translatedMsg !== responseKey
+            ? translatedMsg
+            : t("ChangePasswordPage.SUCCESS_MESSAGE"),
+        );
         router.replace("/");
       } else {
-        toast.error(t(response.message));
+        const responseKey = `ResponseMessages.${response.message}`;
+        const translatedMsg = t(responseKey);
+        toast.error(
+          translatedMsg !== responseKey ? translatedMsg : response.message,
+        );
       }
     } catch (error) {
       toast.error(t("ChangePasswordPage.UNEXPECTED_ERROR"));
@@ -43,8 +54,18 @@ export default function ChangePasswordForm() {
   };
 
   return (
-    <main className={theme.changePasswordPage.main}>
+    <main
+      className={theme.changePasswordPage.main}
+      dir={isAr ? "rtl" : "ltr"}
+    >
       <div className={theme.changePasswordPage.card}>
+        {/* Header Icon */}
+        <div className="mb-6 flex justify-center rtl:sm:justify-start ltr:sm:justify-start">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-100 text-neutral-800">
+            <KeyRound className="h-6 w-6" />
+          </div>
+        </div>
+
         {/* Header */}
         <div className={theme.changePasswordPage.header}>
           <h1 className={theme.changePasswordPage.title}>

@@ -1,6 +1,11 @@
 import { Clientapi } from "@/services/client/api";
 import { API } from "@/lib/constants/api";
-import type { PutResponseType, AddResponseType ,deleteResponseType} from "@/types/index";
+import type {
+  PutResponseType,
+  AddResponseType,
+  deleteResponseType,
+  deleteManyResponseType,
+} from "@/types/index";
 
 import type {
   PUTAdminCategory,
@@ -17,8 +22,6 @@ export type Category = {
   name: string;
   url: string;
 };
-
-
 
 export async function fetchALLCategories(
   locale: Locale,
@@ -53,8 +56,8 @@ export async function adminAddCategory(
 }
 export async function deleteManyCategories(
   ids: string[],
-): Promise<deleteResponseType> {
-  const result = await Clientapi.delete<deleteResponseType, string[]>(
+): Promise<deleteManyResponseType> {
+  const result = await Clientapi.delete<deleteManyResponseType, string[]>(
     `${API.ENDPOINTS.CATEGORIES.DELETE_MANY_CATEGORIES}`,
     ids,
   );
@@ -65,7 +68,7 @@ export async function adminDeleteCategory(
   id: string,
 ): Promise<deleteResponseType> {
   const result = await Clientapi.delete<deleteResponseType>(
-    `${API.ENDPOINTS.CATEGORIES.CATEGORY_BY_ID}/${id}`
+    `${API.ENDPOINTS.CATEGORIES.CATEGORY_BY_ID}/${id}`,
   );
 
   return result;

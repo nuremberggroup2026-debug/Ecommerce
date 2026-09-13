@@ -3,17 +3,16 @@ import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { deleteManyAttributes } from "@/server/attributes/attribute.services";
 import { NextResponse } from "next/server";
 
-
-
 export const DELETE = withAuth(["super_admin"], async (request: Request) => {
   try {
-    const body = (await request.json()) as  string[];
+    const body = (await request.json()) as string[];
     const result = await deleteManyAttributes(body);
     const status = HTTP_STATUS_MAP[result.code] || 500;
     return NextResponse.json(
       {
         success: result.success,
         message: result.message,
+        deletedCount: result.deletedCount,
       },
       { status },
     );
@@ -22,6 +21,7 @@ export const DELETE = withAuth(["super_admin"], async (request: Request) => {
       {
         success: false,
         message: "INTERNAL_SERVER_ERROR",
+        deletedCount:0,
       },
       { status: 500 },
     );

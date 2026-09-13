@@ -16,7 +16,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       <div className={className}>
         <label
           htmlFor={props.id || props.name}
-          className="mb-2 block text-[11px] font-semibold  tracking-wider text-neutral-600"
+          className="mb-2 block text-[11px] font-semibold tracking-wider text-neutral-600 text-start"
         >
           {label}
         </label>
@@ -24,7 +24,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           <input
             type={showPassword ? "text" : "password"}
             ref={ref}
-            className={`w-full rounded-xl border bg-neutral-50 px-4 py-3  text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-black focus:bg-white ${
+            className={`w-full rounded-xl border bg-neutral-50 ps-4 pe-11 py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-300 focus:border-black focus:bg-white text-start ${
               error ? "border-red-300" : "border-neutral-200"
             }`}
             {...props}
@@ -32,7 +32,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className={`absolute inset-y-0 ${isAr ? "left-0" : "right-0"} flex items-center px-4 text-neutral-400 transition-colors hover:text-black`}
+            className="absolute inset-y-0 end-0 flex items-center px-3.5 text-neutral-400 transition-colors hover:text-black"
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? (
@@ -75,7 +75,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             )}
           </button>
         </div>
-        {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
+        {error && <p className="mt-2 text-xs text-red-500 text-start">{error}</p>}
       </div>
     );
   },

@@ -255,6 +255,7 @@
     "DESCRIPTION": "A refined collection of premium essentials crafted for modern everyday life.",
     "ITEMS_COUNT": "{count} items",
     "SORT_BY": "Sort by:",
+    "FILTER": "Filters & Search",
     "SEARCH": "Search",
     "SEARCH_PLACEHOLDER": "Find a product...",
     "outOfStock": "Out of stock",
@@ -440,6 +441,26 @@
     "ROLE": "Role",
     "EXPERIENCE": "Experience",
     "REQUIREMENTS": "Requirements"
+  },
+  "CareersPage": {
+    "BADGE": "Careers",
+    "TITLE": "Join our team",
+    "DESCRIPTION": "Explore our current opportunities and find the role that fits your skills and ambitions.",
+    "EMPTY_TITLE": "No open positions",
+    "EMPTY_DESCRIPTION": "We currently don't have any open positions.",
+    "IMAGE_PLACEHOLDER": "Career opportunity",
+    "REQUIREMENTS_COUNT": "{count} requirements",
+    "VIEW_POSITION": "View position",
+    "DETAILS": {
+      "BACK_TO_CAREERS": "Back to careers",
+      "REQUIREMENTS_COUNT": "{count} Requirements",
+      "ABOUT_POSITION": "About the position",
+      "REQUIREMENTS": "Requirements",
+      "SIDEBAR_TITLE": "Interested in this position?",
+      "SIDEBAR_DESC": "If you think you are a good fit for this position, we would love to hear from you.",
+      "APPLY_NOW": "Apply for this position",
+      "VIEW_ALL": "View all positions"
+    }
   },
   "Navbar": {
     "BRAND_NAME": "AURA",

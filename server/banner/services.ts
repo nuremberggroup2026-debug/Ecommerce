@@ -139,6 +139,7 @@ export const deleteManyBanner = async (ids: string[]) => {
       success: false,
       message: "BANNER_IDS_REQUIRED",
       code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: 0,
     };
   }
 
@@ -155,6 +156,7 @@ export const deleteManyBanner = async (ids: string[]) => {
       success: false,
       message: "BANNERS_NOT_FOUND",
       code: RESPONSE_CODES.NOT_FOUND,
+      deletedCount: 0,
     };
   }
 
@@ -171,6 +173,7 @@ export const deleteManyBanner = async (ids: string[]) => {
       success: false,
       message: "BANNERS_DELETE_FAILED",
       code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: result.count,
     };
   }
 
@@ -186,8 +189,9 @@ export const deleteManyBanner = async (ids: string[]) => {
 
   return {
     success: true,
-    message: "BANNERS_DELETED_SUCCESSFULLY",
+    message: "ITEMS_DELETED",
     code: RESPONSE_CODES.OK,
+    deletedCount: result.count,
   };
 };
 

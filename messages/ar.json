@@ -33,6 +33,30 @@
       "BUTTON": "استكشف التشكيلة"
     }
   },
+  "ForgotPasswordPage": {
+    "TITLE": "نسيت كلمة المرور؟",
+    "SUBTITLE": "أدخل بريدك الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور.",
+    "EMAIL_LABEL": "البريد الإلكتروني",
+    "EMAIL_PLACEHOLDER": "hello@aura.studio",
+    "SEND_LINK": "إرسال رابط التعيين",
+    "SENDING": "جاري إرسال الرابط...",
+    "SUCCESS_TITLE": "تفقد بريدك الإلكتروني",
+    "SUCCESS_DESC": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى عنوان بريدك الإلكتروني.",
+    "BACK_TO_LOGIN": "العودة إلى تسجيل الدخول",
+    "UNEXPECTED_ERROR": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+  },
+  "ResetPasswordPage": {
+    "TITLE": "إعادة تعيين كلمة المرور",
+    "SUBTITLE": "أدخل كلمة المرور الجديدة أدناه.",
+    "PASSWORD_LABEL": "كلمة المرور الجديدة",
+    "CONFIRM_PASSWORD_LABEL": "تأكيد كلمة المرور الجديدة",
+    "RESETTING": "جاري إعادة التعيين...",
+    "RESET_PASSWORD": "إعادة تعيين كلمة المرور",
+    "SUCCESS_TITLE": "تمت إعادة تعيين كلمة المرور بنجاح",
+    "SUCCESS_DESC": "تم تحديث كلمة المرور الخاصة بك. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+    "PROCEED_TO_LOGIN": "الانتقال إلى تسجيل الدخول",
+    "UNEXPECTED_ERROR": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى أو طلب رابط جديد."
+  },
   "ResponseMessages": {
     "VALIDATION_ERROR": "خطأ في التحقق من البيانات",
     "INVALID_REQUEST": "طلب غير صالح",
@@ -252,6 +276,7 @@
     "DESCRIPTION": "مجموعة راقية من الأساسيات المتميزة المصممة للحياة اليومية العصرية.",
     "ITEMS_COUNT": "{count} عناصر",
     "SORT_BY": "ترتيب حسب:",
+    "FILTER": "التصفية والبحث",
     "SEARCH": "بحث",
     "SEARCH_PLACEHOLDER": "ابحث عن منتج...",
     "ProductCard": {
@@ -442,6 +467,26 @@
     "ROLE": "الدور",
     "EXPERIENCE": "الخبرة",
     "REQUIREMENTS": "المتطلبات"
+  },
+  "CareersPage": {
+    "BADGE": "الوظائف",
+    "TITLE": "انضم إلى فريقنا",
+    "DESCRIPTION": "استكشف الفرص المتاحة حالياً واعثر على الدور الذي يناسب مهاراتك وطموحاتك.",
+    "EMPTY_TITLE": "لا توجد وظائف شاغرة",
+    "EMPTY_DESCRIPTION": "لا توجد لدينا أي وظائف شاغرة في الوقت الحالي.",
+    "IMAGE_PLACEHOLDER": "فرصة عمل",
+    "REQUIREMENTS_COUNT": "{count} متطلبات",
+    "VIEW_POSITION": "عرض الوظيفة",
+    "DETAILS": {
+      "BACK_TO_CAREERS": "العودة إلى الوظائف",
+      "REQUIREMENTS_COUNT": "{count} متطلبات",
+      "ABOUT_POSITION": "عن الوظيفة",
+      "REQUIREMENTS": "المتطلبات",
+      "SIDEBAR_TITLE": "مهتم بهذه الوظيفة؟",
+      "SIDEBAR_DESC": "إذا كنت تعتقد أنك المترشح المناسب لهذه الوظيفة، فنحن نحب أن نسمع منك.",
+      "APPLY_NOW": "التقدم لهذه الوظيفة",
+      "VIEW_ALL": "عرض جميع الوظائف"
+    }
   },
   "Navbar": {
     "BRAND_NAME": "أورا",

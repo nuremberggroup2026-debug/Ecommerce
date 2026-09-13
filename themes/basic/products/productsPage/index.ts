@@ -8,7 +8,7 @@ export const productsPageTheme = {
   itemsCount: "text-gray-400 font-medium",
   sortWrapper: "flex items-center gap-2",
   sortLabel: "text-gray-400",
-  contentSection: "mx-auto max-w-7xl px-6 py-12 lg:px-10 grid grid-cols-1 lg:grid-cols-4 gap-10",
+  contentSection: "mx-auto max-w-7xl px-6 pb-10 lg:px-10 grid grid-cols-1 lg:grid-cols-4 gap-10",
   aside: "hidden lg:block space-y-8 sticky top-28 h-fit",
   searchBox: "bg-white p-6 rounded-3xl border border-neutral-100 shadow-sm",
   searchTitle: "font-semibold text-xs uppercase tracking-wider text-gray-400 mb-4",

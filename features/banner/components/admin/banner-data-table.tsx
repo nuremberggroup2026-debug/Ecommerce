@@ -29,7 +29,6 @@ export function BannerDataTable({
       addHref="/dashboard/banners/add"
       addLabel="Add Banner"
       onDeleteSelected={deleteManyBanners}
-      deleteSuccessMessage="Banners deleted successfully"
     />
   );
 }

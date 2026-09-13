@@ -92,6 +92,10 @@ export interface deleteResponseType {
   message: string;
   success: boolean;
 }
+
+export interface deleteManyResponseType extends deleteResponseType {
+  deletedCount: number;
+}
 export interface AddResponseType {
   message: string;
   success: boolean;

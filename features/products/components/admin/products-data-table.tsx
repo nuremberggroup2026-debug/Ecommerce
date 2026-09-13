@@ -27,7 +27,6 @@ export function ProductDataTable({ data }: ProductDataTableProps) {
       addHref="/dashboard/products/add"
       addLabel="Add Product"
       onDeleteSelected={deleteManyProducts}
-      deleteSuccessMessage="Products deleted successfully"
     />
   );
 }

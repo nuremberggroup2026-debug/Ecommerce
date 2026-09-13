@@ -30,7 +30,7 @@ export function AttributeDataTable({
       addHref="/dashboard/attributes/add"
       addLabel="Add Attribute"
       onDeleteSelected={deleteManyAttributes}
-      deleteSuccessMessage="Attributes deleted successfully"
+      
     />
   );
 }

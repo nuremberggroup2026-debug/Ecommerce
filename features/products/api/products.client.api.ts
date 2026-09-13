@@ -9,6 +9,7 @@ import type {
   AddResponseType,
   PutResponseType,
   ResponseType,
+  deleteManyResponseType,
 } from "@/types/index";
 
 export async function adminAddProduct(
@@ -44,9 +45,12 @@ export async function adminDeleteProduct(
 
 export async function deleteManyProducts(
   ids: string[],
-): Promise<deleteResponseType> {
-  return Clientapi.delete<deleteResponseType, string[]>(
+): Promise<deleteManyResponseType> {
+  const result = await Clientapi.delete<deleteManyResponseType, string[]>(
     API.ENDPOINTS.PRODUCTS.DELETE_MANY_PRODUCTS,
     ids,
   );
+  console.log("result in many : ", result);
+
+  return result;
 }

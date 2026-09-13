@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { AllOrdersByUser, OrderStatus } from "../../types";
 import { getStatusColor, formatDate } from "@/lib/helpers/clientSideHelpers";
 import { theme } from "@/themes";
+import { Package, ArrowRight, ShoppingBag } from "lucide-react";
 
 interface Props {
   orders: AllOrdersByUser[];
@@ -25,7 +26,7 @@ export default function OrdersComponent({ orders, locale }: Props) {
   };
 
   return (
-    <main className={theme.ordersComponent.main(isAr)}>
+    <main className={theme.ordersComponent.main(isAr)} dir={isAr ? "rtl" : "ltr"}>
       <div className={theme.ordersComponent.container}>
         {/* Header */}
         <header className={theme.ordersComponent.header}>
@@ -41,6 +42,10 @@ export default function OrdersComponent({ orders, locale }: Props) {
         {/* Empty State */}
         {orders.length === 0 ? (
           <div className={theme.ordersComponent.emptyContainer}>
+            <div className={theme.ordersComponent.emptyIconWrapper}>
+              <Package className="h-8 w-8" />
+            </div>
+
             <p className={theme.ordersComponent.emptyMessage}>
               {t("EMPTY_MESSAGE")}
             </p>
@@ -49,6 +54,7 @@ export default function OrdersComponent({ orders, locale }: Props) {
               href={`/${locale}/products`}
               className={theme.ordersComponent.emptyButton}
             >
+              <ShoppingBag className="h-4 w-4" />
               {t("START_SHOPPING")}
             </Link>
           </div>
@@ -77,7 +83,7 @@ export default function OrdersComponent({ orders, locale }: Props) {
                         </p>
 
                         <p className={theme.ordersComponent.fieldValue}>
-                          {order.orderNumber}
+                          #{order.orderNumber}
                         </p>
                       </div>
 
@@ -88,7 +94,7 @@ export default function OrdersComponent({ orders, locale }: Props) {
                         </p>
 
                         <p className={theme.ordersComponent.fieldValueRegular}>
-                          {formatDate(order.createdAt)}
+                          {formatDate(order.createdAt, locale)}
                         </p>
                       </div>
 
@@ -122,6 +128,7 @@ export default function OrdersComponent({ orders, locale }: Props) {
                           getStatusColor(order.status as OrderStatus),
                         )}
                       >
+                        <span className="h-1.5 w-1.5 rounded-full bg-current" />
                         {t(`STATUS.${order.status}`)}
                       </span>
 
@@ -205,6 +212,7 @@ export default function OrdersComponent({ orders, locale }: Props) {
                             className={theme.ordersComponent.actionButton}
                           >
                             {t("VIEW_ORDER_DETAILS")}
+                            <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" />
                           </Link>
                         </div>
                       </div>

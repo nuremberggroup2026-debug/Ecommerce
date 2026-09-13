@@ -13,6 +13,7 @@ export const DELETE = withAuth(["super_admin"], async (request: Request) => {
       {
         success: result.success,
         message: result.message,
+        deletedCount: result.deletedCount,
       },
       { status },
     );
@@ -21,6 +22,7 @@ export const DELETE = withAuth(["super_admin"], async (request: Request) => {
       {
         success: false,
         message: "INTERNAL_SERVER_ERROR",
+        deletedCount: 0
       },
       { status: 500 },
     );

@@ -6,6 +6,7 @@ import { Locale } from "@/types";
 import { careerBySlug } from "@/features/careers/api/careers.server.api";
 import { theme } from "@/themes";
 import { generateDynamicMetadata } from "@/lib/constants/metadata";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{
@@ -30,6 +31,8 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function CareerDetailsPage({ params }: Props) {
   const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: "CareersPage.DETAILS" });
+  const isAr = locale === "ar";
 
   let career;
 
@@ -44,7 +47,7 @@ export default async function CareerDetailsPage({ params }: Props) {
   }
 
   return (
-    <main className={theme.careerDetails.main}>
+    <main className={theme.careerDetails.main} dir={isAr ? "rtl" : "ltr"}>
       {/* Hero */}
       <section className={theme.careerDetails.heroSection}>
         <div className={theme.careerDetails.heroImageWrapper}>
@@ -68,7 +71,7 @@ export default async function CareerDetailsPage({ params }: Props) {
             className={theme.careerDetails.backLink}
           >
             <svg
-              className={theme.careerDetails.backIcon}
+              className={`${theme.careerDetails.backIcon} rtl:rotate-180`}
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -78,7 +81,7 @@ export default async function CareerDetailsPage({ params }: Props) {
                 clipRule="evenodd"
               />
             </svg>
-            Back to careers
+            {t("BACK_TO_CAREERS")}
           </Link>
 
           {career.role && (
@@ -95,7 +98,7 @@ export default async function CareerDetailsPage({ params }: Props) {
             )}
 
             <span className={theme.careerDetails.badge}>
-              {career.requirements.length} Requirements
+              {t("REQUIREMENTS_COUNT", { count: career.requirements.length })}
             </span>
           </div>
         </div>
@@ -109,7 +112,7 @@ export default async function CareerDetailsPage({ params }: Props) {
             {/* Description */}
             <div>
               <h2 className={theme.careerDetails.sectionTitle}>
-                About the position
+                {t("ABOUT_POSITION")}
               </h2>
 
               <p className={theme.careerDetails.description}>
@@ -121,7 +124,7 @@ export default async function CareerDetailsPage({ params }: Props) {
             {career.requirements.length > 0 && (
               <div className={theme.careerDetails.requirementsSection}>
                 <h2 className={theme.careerDetails.sectionTitle}>
-                  Requirements
+                  {t("REQUIREMENTS")}
                 </h2>
 
                 <ul className={theme.careerDetails.requirementsList}>
@@ -148,26 +151,25 @@ export default async function CareerDetailsPage({ params }: Props) {
           <aside className={theme.careerDetails.sidebar}>
             <div className={theme.careerDetails.sidebarCard}>
               <h3 className={theme.careerDetails.sidebarTitle}>
-                Interested in this position?
+                {t("SIDEBAR_TITLE")}
               </h3>
 
               <p className={theme.careerDetails.sidebarDescription}>
-                If you think you are a good fit for this position, we would love
-                to hear from you.
+                {t("SIDEBAR_DESC")}
               </p>
 
               <Link
                 href={`/${locale}/careers/${career.slug}/apply`}
                 className={theme.careerDetails.applyButton}
               >
-                Apply for this position
+                {t("APPLY_NOW")}
               </Link>
 
               <Link
                 href={`/${locale}/careers`}
                 className={theme.careerDetails.viewAllButton}
               >
-                View all positions
+                {t("VIEW_ALL")}
               </Link>
             </div>
           </aside>

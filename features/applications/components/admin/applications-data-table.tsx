@@ -28,7 +28,6 @@ export function ApplicationDataTable({
       title="Applications"
       description="Manage career applications"
       onDeleteSelected={deleteManyApplications}
-      deleteSuccessMessage="Applications deleted successfully"
     />
   );
 }

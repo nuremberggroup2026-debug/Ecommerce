@@ -71,10 +71,10 @@ function PaginationPrevious({
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
-      className={cn("pl-2!", className)}
+      className={cn("gap-1.5 px-3", className)}
       {...props}
     >
-      <ChevronLeftIcon data-icon="inline-start" />
+      <ChevronLeftIcon className="h-4 w-4 rtl:rotate-180" data-icon="inline-start" />
       <span className="hidden sm:block">{text}</span>
     </PaginationLink>
   )
@@ -89,11 +89,11 @@ function PaginationNext({
     <PaginationLink
       aria-label="Go to next page"
       size="default"
-      className={cn("pr-2!", className)}
+      className={cn("gap-1.5 px-3", className)}
       {...props}
     >
       <span className="hidden sm:block">{text}</span>
-      <ChevronRightIcon data-icon="inline-end" />
+      <ChevronRightIcon className="h-4 w-4 rtl:rotate-180" data-icon="inline-end" />
     </PaginationLink>
   )
 }

@@ -51,8 +51,9 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   addHref?: string;
   addLabel?: string;
 
-  onDeleteSelected?: (ids: string[]) => Promise<unknown>;
-  deleteSuccessMessage?: string;
+  onDeleteSelected?: (
+    ids: string[],
+  ) => Promise<{ message: string; success: boolean; deletedCount: number }>;
 }
 
 export function DataTable<TData extends { id: string }, TValue>({
@@ -63,7 +64,6 @@ export function DataTable<TData extends { id: string }, TValue>({
   addHref,
   addLabel = "Add",
   onDeleteSelected,
-  deleteSuccessMessage = "Deleted successfully",
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
 
@@ -116,13 +116,20 @@ export function DataTable<TData extends { id: string }, TValue>({
     try {
       setIsDeleting(true);
 
-      await onDeleteSelected(selectedIds);
+      const result = await onDeleteSelected(selectedIds);
 
       table.resetRowSelection();
 
       setDeleteDialogOpen(false);
+      console.log("result in table: ", result);
 
-      toast.success(deleteSuccessMessage);
+      toast.success(
+        result.message === "ITEMS_DELETED"
+          ? `${result.deletedCount} ${
+              result.deletedCount === 1 ? "Item has" : "Items have"
+            } been deleted.`
+          : "Something wrong happened",
+      );
 
       router.refresh();
     } catch (error) {
@@ -182,7 +189,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className="h-12 px-6 text-xs font-semibold uppercase text-gray-600"
+                    className="h-12 px-6 text-xs font-semibold  text-gray-600"
                   >
                     {header.isPlaceholder
                       ? null
