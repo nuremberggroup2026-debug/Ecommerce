@@ -4,7 +4,7 @@ import {
   createAttributeValue,
   getAllAttributeValues,
 } from "@/server/attributes/attributeValue.services";
-import { AttributeValuesCreateInput } from "@/types";
+import { AttributeValuesCreateInput } from "@/server/attributes/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth(["super_admin"], async (request: Request) => {

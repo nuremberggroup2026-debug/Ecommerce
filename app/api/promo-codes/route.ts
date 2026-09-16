@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/auth/auth-wrapper";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { createPromoCode, getPromoCodes } from "@/server/promoCodes/services";
-import { PromoCodeCreateInput } from "@/types";
+import { PromoCodeCreateInput } from "@/server/promoCodes/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth(["super_admin"], async (request: Request) => {

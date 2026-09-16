@@ -2,7 +2,7 @@
 
 import { DataTableServer } from "@/app/(admin)/dashboard/components/data-table-server";
 import { columns } from "./columns";
-import { AllPromoCodes } from "../../types";
+import { AllPromoCodes } from "@/features/promocodes/types";
 import {
   deleteManyPromoCodes,
   adminDeletePromoCode,

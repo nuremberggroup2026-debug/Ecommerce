@@ -1,4 +1,4 @@
-import { OrderStatus } from "@/types";
+import { OrderStatus } from "@/server/orders/types";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 type Router = {
   push: (href: string) => void;
@@ -26,10 +26,7 @@ export const getStatusColor = (status: OrderStatus) => {
   }
 };
 
-export const formatDate = (
-  date: Date | string,
-  locale: "en" | "ar" = "en",
-) => {
+export const formatDate = (date: Date | string, locale: "en" | "ar" = "en") => {
   const parsedDate = date instanceof Date ? date : new Date(date);
 
   return parsedDate.toLocaleDateString(locale === "ar" ? "ar-EG" : "en-US", {

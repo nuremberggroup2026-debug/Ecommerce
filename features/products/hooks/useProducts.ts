@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  keepPreviousData,
-  useQuery,
-} from "@tanstack/react-query";
-
-import {
-  getProducts,
-  type ProductsQuery,
-} from "@/features/products/api/products.client.api";
-
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { getProducts } from "@/features/products/api/products.client.api";
+import type { ProductsQuery } from "@/features/products/types";
 export function productsQueryKey(params: ProductsQuery) {
   return [
     "products",
@@ -28,8 +21,8 @@ export function productsQueryKey(params: ProductsQuery) {
 export function useProductsQuery(params: ProductsQuery) {
   return useQuery({
     queryKey: productsQueryKey(params),
-    refetchOnMount:false,
-     refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
 
     queryFn: () => getProducts(params),
 

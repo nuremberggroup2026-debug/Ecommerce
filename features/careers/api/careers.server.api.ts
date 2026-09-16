@@ -1,14 +1,12 @@
 import { api } from "@/services/server/api";
 
 import { API } from "@/lib/constants/api";
+import type { Locale, ResponseType } from "@/types/index";
 import type {
-  Locale,
-  TransalatedCareer,
-  ResponseType,
-  PutResponseType,
+  AdminCareers,
   ApplicationGetPayloadWithCareer,
-} from "@/types/index";
-import type { AdminCareers } from "@/features/careers/types/index";
+  TransalatedCareer,
+} from "@/features/careers/types/index";
 
 export async function fetchCareers(
   locale: Locale,

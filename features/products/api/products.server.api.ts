@@ -1,57 +1,13 @@
 import { api } from "@/services/server/api";
 import { API } from "@/lib/constants/api";
 import type { Locale, ResponseType } from "@/types/index";
-import type { Product, ProductById, } from "@/features/products/types";
 import type {
   FilteredProductsData,
   ProductsDataWithOutPag,
+  ProductByLocale,
+  Product,
+  ProductById,
 } from "@/features/products/types";
-export type ProductByLocale = {
-  productData: {
-    id: string;
-    productName: string;
-    productDescription: string;
-    productCardImage: string;
-    productImages: string[];
-    slug: string;
-
-    categoryName: string;
-    categoryDescription: string;
-    productVariants: {
-      variantId: string;
-      attributes: {
-        attributeId: string;
-        attributeName: string;
-        attributeValueId: string;
-        attributeValue: string;
-      }[];
-      stock: number;
-      price: number;
-      sku: string;
-      discountPercentage: number | null;
-      finalPrice: number;
-      productId: string;
-      isDefault: boolean | null;
-      variantImage: string | null;
-    }[];
-  };
-  cartItems: {
-    quantity: number;
-    variantId: string;
-    product: Product;
-  }[];
-  isInWishlist: boolean;
-};
-/* delete it
-export async function fetchProducts(
-  locale: Locale,
-): Promise<ResponseType<Product[]>> {
-  const data = await api.get<ResponseType<Product[]>>(
-    `${API.ENDPOINTS.PRODUCTS.ALL_PRODUCTS_BY_LOCALE}/${locale}`,
-  );
-
-  return data;
-}*/
 
 /* ==================================     Admin Api      ================================== */
 

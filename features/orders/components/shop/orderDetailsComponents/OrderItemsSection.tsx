@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import type { OrderByID } from "../../../types/index";
+import type { OrderByID } from "@/features/orders/types";
 import DefaultImage from "@/app/defaultImage.jpg";
 import { theme } from "@/themes";
 import { ShoppingBag } from "lucide-react";

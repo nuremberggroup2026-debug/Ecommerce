@@ -9,7 +9,8 @@ import CategoryFilterWrapper from "@/features/filters/CategoryFilter";
 import SecondPaginationComponent from "@/features/pagination/SecondPaginationComponent";
 import SortFilter from "@/features/filters/SortFilter";
 import PriceFilter from "@/features/filters/PriceFilter";
-import { Locale, SortType } from "@/types";
+import { Locale } from "@/types";
+import { SortTypeFront } from "@/features/products/types";
 import { theme } from "@/themes";
 import { Button } from "@/components/ui/button";
 import {
@@ -142,7 +143,7 @@ export default function ProductsPageClient({ locale }: { locale: Locale }) {
   const page = searchParams.get("page") ?? "1";
   const categories = searchParams.get("categories") ?? undefined;
   const search = searchParams.get("search") ?? undefined;
-  const sort = searchParams.get("sort") as SortType | undefined;
+  const sort = searchParams.get("sort") as SortTypeFront | undefined;
   const minPrice = searchParams.get("minPrice") ?? undefined;
   const maxPrice = searchParams.get("maxPrice") ?? undefined;
 

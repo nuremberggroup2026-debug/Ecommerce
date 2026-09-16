@@ -43,11 +43,6 @@ export type CategoiresNameAndIDs = {
   categoryName: string;
 };
 
-export type Locale = "ar" | "en";
-export interface ResponseType<T> {
-  message: string;
-  success: boolean;
-  data: T;
-}
+
 
 

@@ -1,3 +1,5 @@
+import { Locale } from "@/types";
+import { SortType } from "@/server/products/types";
 export type Product = {
   id: string;
   slug: string;
@@ -11,7 +13,6 @@ export type Product = {
   createdAt: Date;
   isFeatured: boolean;
   startingPrice: number;
-
   productVariants: {
     id: string;
     sku: string;
@@ -47,6 +48,18 @@ export type CreateAdminProduct = {
     variantImage: string;
     attributeValueIds: string[];
   }[];
+};
+
+export type SortTypeFront = SortType;
+
+export type ProductsQuery = {
+  categories?: string;
+  search?: string;
+  page: string;
+  locale: Locale;
+  sort?: string;
+  minPrice?: string;
+  maxPrice?: string;
 };
 
 export type ProductVariants = {
@@ -94,12 +107,6 @@ export type AttributesWithValues = {
   }[];
 };
 
-export interface ResponseType<T> {
-  messgae: string;
-  success: boolean;
-  data: T;
-}
-
 export type GetProductType = {
   id: string;
   productName: string;
@@ -115,43 +122,6 @@ export type GetProductType = {
     id: string;
   }[];
 };
-/*
-export type ProductByLocale = {
-  productData: {
-    id: string;
-    productName: string;
-    productDescription: string;
-    productCardImage: string;
-    productImages: string[];
-    slug: string;
-
-    categoryName: string;
-    categoryDescription: string;
-    productVariants: {
-      variantId: string;
-      attributes: {
-        attributeId: string;
-        attributeName: string;
-        attributeValueId: string;
-        attributeValue: string;
-      }[];
-      stock: number;
-      price: number;
-      sku: string;
-      discountPercentage: number | null;
-      finalPrice: number;
-      productId: string;
-      isDefault: boolean | null;
-      variantImage: string | null;
-    }[];
-  };
-  cartItems: {
-    quantity: number;
-    variantId: string;
-    product: Product;
-  }[];
-  isInWishlist: boolean;
-};*/
 
 export type ProductByLocale = {
   productData: {
@@ -185,7 +155,6 @@ export type ProductByLocale = {
   cartItems: {
     quantity: number;
     variantId: string;
-   
   }[];
   isInWishlist: boolean;
 };
@@ -201,14 +170,6 @@ export type FilteredProductsData = {
   productsIdsInWishlist: string[];
   productsIdsInCart: string[];
 };
-
-export interface ResponseType<T> {
-  messgae: string;
-  success: boolean;
-  data: T;
-}
-
-export type Locale = "ar" | "en";
 
 export type ProductsDataWithOutPag = {
   products: GetProductType[];

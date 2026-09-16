@@ -1,11 +1,3 @@
-export interface ResponseType<T> {
-  message: string;
-  success: boolean;
-  data: T;
-}
-
-export type Locale = "ar" | "en";
-
 export type AllOrdersByUser = {
   id: string;
   createdAt: Date;

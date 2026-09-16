@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import type { OrderByID } from "../../../types/index";
+import type { OrderByID } from "@/features/orders/types";
 import { theme } from "@/themes";
 import { Receipt, ArrowLeft } from "lucide-react";
 

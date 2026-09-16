@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { SquarePen } from "lucide-react";
-import type { AllPromoCodes } from "../../types/index";
+import type { AllPromoCodes } from "@/features/promocodes/types/index";
 import { DeleteConfirmation } from "@/components/test/DeleteConfirmation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";

@@ -1,14 +1,4 @@
-
-export type TransalatedCareers = {
-  id: string;
-  image: string;
-  createdAt: Date;
-  position: string;
-  description: string;
-  requirements: string[];
-  experience: string;
-  role: string;
-};
+import { Prisma } from "@/generated/prisma/client";
 
 export type AdminCareers = {
   id: string;
@@ -53,3 +43,25 @@ export interface CreateAdminCareer {
   roleAr: string;
   image: string;
 }
+
+export type ApplicationGetPayloadWithCareer = Prisma.applicationsGetPayload<{
+  include: {
+    careers: {
+      select: {
+        position_en: true;
+        image: true;
+      };
+    };
+  };
+}>;
+
+export type TransalatedCareer = {
+  id: string;
+  position: string;
+  description: string;
+  image: string;
+  requirements: string[];
+  role: string | null;
+  experience: string | null;
+  slug: string;
+};

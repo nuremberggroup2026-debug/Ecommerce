@@ -1,20 +1,6 @@
 import { createOrderFrontendSchema } from "@/server/orders/validators";
 import z from "zod";
 
-export interface ResponseType<T> {
-  message: string;
-  success: boolean;
-  data: T;
-}
-
-export type PostResponseType = {
-  message: string;
-  success: boolean;
-  status: number;
-};
-
-export type Locale = "ar" | "en";
-
 export type OrderFormDataType = z.infer<
   ReturnType<typeof createOrderFrontendSchema>
 >;

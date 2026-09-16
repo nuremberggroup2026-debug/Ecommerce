@@ -1,25 +1,15 @@
 import { Clientapi } from "@/services/client/api";
 import { API } from "@/lib/constants/api";
-import type { Locale } from "@/types";
-import type {
-  CartData,
-  NewCartItem,
-  PostResponseType,
-  ResponseType,
-} from "../types/index";
+import type { Locale, PostResponseType, ResponseType } from "@/types";
+import type { CartData, NewCartItem } from "../types/index";
 
-export async function getCart(
-  locale: Locale,
-): Promise<ResponseType<CartData>> {
+export async function getCart(locale: Locale): Promise<ResponseType<CartData>> {
   const data = await Clientapi.get<ResponseType<CartData>>(
     `${API.ENDPOINTS.CART.GET_CART_WITH_ITEMS}/${locale}`,
   );
 
   return data;
 }
-
-
-
 
 export async function addItemToCart(
   variantId: string,

@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-
 import { Locale } from "@/types";
 import { careerBySlug } from "@/features/careers/api/careers.server.api";
 import { theme } from "@/themes";

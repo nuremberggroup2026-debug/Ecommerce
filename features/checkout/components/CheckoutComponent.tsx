@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Locale, CartData } from "../types";
+import type { CartData } from "../types";
+import type { Locale } from "@/types";
 import CustomerDetails from "./CustomerDetails";
 import OrderSummary from "./OrderSummary";
 import { useTranslations } from "next-intl";
@@ -23,15 +24,9 @@ function CheckoutComponent({ locale, cartData }: Prop) {
       <section className={theme.checkout.leftSection}>
         <div className={theme.checkout.card}>
           <div className={theme.checkout.header}>
-            <p className={theme.checkout.step}>
-              {t("STEP_01")}
-            </p>
-            <h2 className={theme.checkout.title}>
-              {t("DELIVERY_DETAILS")}
-            </h2>
-            <p className={theme.checkout.description}>
-              {t("DELIVERY_DESC")}
-            </p>
+            <p className={theme.checkout.step}>{t("STEP_01")}</p>
+            <h2 className={theme.checkout.title}>{t("DELIVERY_DETAILS")}</h2>
+            <p className={theme.checkout.description}>{t("DELIVERY_DESC")}</p>
           </div>
 
           <CustomerDetails locale={locale} promoCode={promoCode} />

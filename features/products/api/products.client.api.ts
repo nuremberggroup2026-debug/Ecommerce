@@ -62,17 +62,8 @@ import type {
   Product,
   ProductByLocale,
   ProductsDataWithOutPag,
+  ProductsQuery,
 } from "@/features/products/types";
-
-export type ProductsQuery = {
-  categories?: string;
-  search?: string;
-  page: string;
-  locale: Locale;
-  sort?: string;
-  minPrice?: string;
-  maxPrice?: string;
-};
 
 // =====================================================
 // Products

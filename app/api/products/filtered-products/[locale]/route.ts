@@ -1,7 +1,8 @@
 import { auth } from "@/lib/auth/auth";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
 import { getFilterProducts } from "@/server/products/services";
-import { Locale, ProductFilters, SortType } from "@/types";
+import { Locale } from "@/types";
+import { ProductFilters, SortType } from "@/server/products/types";
 import { NextResponse } from "next/server";
 
 export const GET = async (

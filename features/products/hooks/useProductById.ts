@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-
 import { getProductById } from "@/features/products/api/products.client.api";
 import type { Locale } from "@/types";
 

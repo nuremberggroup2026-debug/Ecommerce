@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { formatDate, getStatusColor } from "@/lib/helpers/clientSideHelpers";
-import type { OrderStatus, OrderByID } from "../../types";
+import type { OrderStatus, OrderByID } from "@/features/orders/types";
 import OrderItemsSection from "../shop/orderDetailsComponents/OrderItemsSection";
 import DeliveryInfoSection from "../shop/orderDetailsComponents/DeliveryInfoSection";
 import OrderSummarySection from "../shop/orderDetailsComponents/OrderSummarySection";
@@ -29,7 +29,10 @@ export default function OrderDetailsComponent({ order }: Props) {
     : 0;
 
   return (
-    <main className={theme.orderDetailsComponent.main} dir={isAr ? "rtl" : "ltr"}>
+    <main
+      className={theme.orderDetailsComponent.main}
+      dir={isAr ? "rtl" : "ltr"}
+    >
       <div className={theme.orderDetailsComponent.container}>
         {/* Improved Header Section */}
         <header className={theme.orderDetailsComponent.header}>
@@ -59,7 +62,9 @@ export default function OrderDetailsComponent({ order }: Props) {
 
               <p className={theme.orderDetailsComponent.dateText}>
                 {t("TITLE")}{" "}
-                <span className={theme.orderDetailsComponent.dotSeparator}>•</span>{" "}
+                <span className={theme.orderDetailsComponent.dotSeparator}>
+                  •
+                </span>{" "}
                 {formatDate(order.createdAt, locale as "en" | "ar")}
               </p>
             </div>

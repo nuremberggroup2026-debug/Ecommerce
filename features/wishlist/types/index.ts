@@ -1,8 +1,3 @@
-export interface ResponseType<T> {
-  messgae: string;
-  success: boolean;
-  data: T;
-}
 
 export type WishlistItemsType = {
   itemId: string;
@@ -14,4 +9,3 @@ export type WishlistItemsType = {
   finalPrice: number;
 };
 
-export type Locale = "ar" | "en";

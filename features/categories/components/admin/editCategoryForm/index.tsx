@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-
 import { useUploadThing } from "@/utils/uploadthing";
 import { toastResponse } from "@/lib/admintoast";
 import {
@@ -13,7 +12,6 @@ import {
   type UpdateCategorySchema,
 } from "@/server/categories/validators";
 import { adminUpdateCategory } from "@/features/categories/api/categories.client.api";
-
 import CategoryTextFields from "./CategoryTextFields";
 import CategoryImageField from "./CategoryImageField";
 import CategoryFeaturedField from "./CategoryFeaturedField";

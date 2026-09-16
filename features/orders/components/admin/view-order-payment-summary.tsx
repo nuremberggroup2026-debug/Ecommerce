@@ -1,5 +1,4 @@
 import { CreditCard, Ticket } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import type { OrderByIdAdmin } from "@/features/orders/types";
 
 export function ViewOrderPaymentSummary({ order }: { order: OrderByIdAdmin }) {

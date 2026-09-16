@@ -1,9 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-
 import type { UpdateCategorySchema } from "@/server/categories/validators";
-
 import { inputClass } from "./utils";
 
 export default function CategoryTextFields() {

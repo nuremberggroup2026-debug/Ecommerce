@@ -5,18 +5,16 @@ import type {
   AddResponseType,
   deleteResponseType,
   deleteManyResponseType,
+  ResponseType,
+  Locale,
 } from "@/types/index";
 
 import type {
   PUTAdminCategory,
   CreateAdminCategory,
+  TransalatedCategories,
 } from "@/features/categories/types";
 
-import type {
-  TransalatedCategories,
-  ResponseType,
-  Locale,
-} from "@/types/index";
 export type Category = {
   slug: string;
   name: string;

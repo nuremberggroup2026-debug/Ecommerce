@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-
 import type { CareerSchema } from "@/server/careers/validators";
-
 import { inputClass } from "./utils";
 
 type Props = {
@@ -14,7 +12,12 @@ type Props = {
   dir?: "rtl";
 };
 
-export default function RequirementsField({ fieldName, label, placeholder, dir }: Props) {
+export default function RequirementsField({
+  fieldName,
+  label,
+  placeholder,
+  dir,
+}: Props) {
   const [inputValue, setInputValue] = useState("");
 
   const {
@@ -44,7 +47,7 @@ export default function RequirementsField({ fieldName, label, placeholder, dir }
     setValue(
       fieldName,
       requirements.filter((_, i) => i !== index),
-      { shouldValidate: true, shouldDirty: true }
+      { shouldValidate: true, shouldDirty: true },
     );
   };
 

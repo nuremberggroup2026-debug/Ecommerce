@@ -1,4 +1,7 @@
-import { CreatePromoCodeSchema,UpdatePromoCodeSchema } from "@/server/promoCodes/validators";
+import {
+  CreatePromoCodeSchema,
+  UpdatePromoCodeSchema,
+} from "@/server/promoCodes/validators";
 
 export type CreatePromoCodeType = CreatePromoCodeSchema;
 export type UpdatePromoCodeType = UpdatePromoCodeSchema;
@@ -23,9 +26,3 @@ export type AdminPromoCodesData = {
     totalPages: number;
   };
 };
-
-export interface ResponseType<T> {
-  message: string;
-  success: boolean;
-  data: T;
-}

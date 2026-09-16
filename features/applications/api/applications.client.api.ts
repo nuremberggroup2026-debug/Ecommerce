@@ -1,16 +1,16 @@
 import { Clientapi } from "@/services/client/api";
 import { API } from "@/lib/constants/api";
-
 import type {
+  CareerApplication,
+  ApplicationCreateInput,
+} from "@/features/applications/types";
+import {
+  deleteManyResponseType,
   deleteResponseType,
   ResponseType,
   ShownResponseType,
   PostResponseType,
-  ApplicationCreateInput,
-} from "../types/index";
-
-import type { CareerApplication } from "@/features/applications/types";
-import { deleteManyResponseType } from "@/types";
+} from "@/types";
 
 /**
  * Delete one application

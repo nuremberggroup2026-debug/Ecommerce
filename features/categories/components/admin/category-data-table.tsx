@@ -1,14 +1,10 @@
 "use client";
-
 import { DataTable } from "@/app/(admin)/dashboard/components/data-table";
-
 import { columns } from "./columns";
-
 import {
   adminDeleteCategory,
   deleteManyCategories,
 } from "@/features/categories/api/categories.client.api";
-
 import type { AdminCategories } from "@/features/categories/types";
 
 interface CategoryDataTableProps {

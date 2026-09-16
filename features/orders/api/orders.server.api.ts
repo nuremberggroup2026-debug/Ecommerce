@@ -1,17 +1,13 @@
 import { api } from "@/services/server/api";
-
 import { API } from "@/lib/constants/api";
-
 import type {
-  ResponseType,
   AllOrdersByUser,
-  Locale,
-  Order,
   OrderByID,
   OrderByIdAdmin,
   AdminOrdersData,
   OrdersFilteration,
 } from "../types/index";
+import type { ResponseType, Locale } from "@/types";
 
 export async function adminOrders(
   params: OrdersFilteration,

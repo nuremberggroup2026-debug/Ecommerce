@@ -1,4 +1,4 @@
-import { UserRoles } from "@/types";
+import { UserRoles } from "@/server/auth/types";
 import { auth } from "./auth";
 import { HTTP_STATUS_MAP } from "../constants/response";
 import { NextResponse } from "next/server";

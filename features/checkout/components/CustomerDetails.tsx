@@ -1,6 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { Locale, OrderFormDataType } from "../types/index";
+import { OrderFormDataType } from "../types/index";
+import type { Locale } from "@/types";
 import { createOrderFrontendSchema } from "@/server/orders/validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toastResponse } from "@/lib/toast";
@@ -36,13 +37,13 @@ function CustomerDetails({ locale, promoCode }: Props) {
 
   return (
     <section className={theme.customerDetails.section}>
-      <form onSubmit={handleSubmit(onSubmit)} className={theme.customerDetails.form}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={theme.customerDetails.form}
+      >
         {/* Email */}
         <div>
-          <label
-            htmlFor="email"
-            className={theme.customerDetails.label}
-          >
+          <label htmlFor="email" className={theme.customerDetails.label}>
             {t("CHECKOUT.CUSTOMER_DETAILS.EMAIL")}
           </label>
           <input
@@ -55,16 +56,15 @@ function CustomerDetails({ locale, promoCode }: Props) {
             placeholder={t("CHECKOUT.CUSTOMER_DETAILS.EMAIL_PLACEHOLDER")}
           />
           {errors.email && (
-            <p className={theme.customerDetails.errorText}>{errors.email.message}</p>
+            <p className={theme.customerDetails.errorText}>
+              {errors.email.message}
+            </p>
           )}
         </div>
 
         {/* Phone */}
         <div>
-          <label
-            htmlFor="phoneNumber"
-            className={theme.customerDetails.label}
-          >
+          <label htmlFor="phoneNumber" className={theme.customerDetails.label}>
             {t("CHECKOUT.CUSTOMER_DETAILS.PHONE")}
           </label>
           <input
@@ -85,10 +85,7 @@ function CustomerDetails({ locale, promoCode }: Props) {
 
         {/* City */}
         <div>
-          <label
-            htmlFor="city"
-            className={theme.customerDetails.label}
-          >
+          <label htmlFor="city" className={theme.customerDetails.label}>
             {t("CHECKOUT.CUSTOMER_DETAILS.CITY")}
           </label>
           <input
@@ -101,7 +98,10 @@ function CustomerDetails({ locale, promoCode }: Props) {
             placeholder={t("CHECKOUT.CUSTOMER_DETAILS.CITY_PLACEHOLDER")}
           />
           {errors.city && (
-            <p className={theme.customerDetails.errorText}> {errors.city.message} </p>
+            <p className={theme.customerDetails.errorText}>
+              {" "}
+              {errors.city.message}{" "}
+            </p>
           )}
         </div>
 
@@ -167,7 +167,8 @@ function CustomerDetails({ locale, promoCode }: Props) {
           >
             {t("CHECKOUT.CUSTOMER_DETAILS.ADDITIONAL_NOTE")}
             <span className={theme.customerDetails.optionalLabel}>
-              {" "} ({t("COMMON.OPTIONAL")})
+              {" "}
+              ({t("COMMON.OPTIONAL")})
             </span>
           </label>
           <textarea

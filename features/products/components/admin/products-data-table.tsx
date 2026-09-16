@@ -1,14 +1,11 @@
 "use client";
 
 import { DataTable } from "@/app/(admin)/dashboard/components/data-table";
-
 import { columns } from "./columns";
-
 import {
   adminDeleteProduct,
   deleteManyProducts,
 } from "@/features/products/api/products.client.api";
-
 import type { Product } from "@/features/products/types";
 
 interface ProductDataTableProps {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Locale, TransalatedCategories } from "@/types";
+import type { Locale  } from "@/types";
+import type {TransalatedCategories} from "@/features/categories/types"
 import { useTranslations } from "next-intl";
 import { theme } from "@/themes";
 

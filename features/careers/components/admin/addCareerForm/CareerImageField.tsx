@@ -1,7 +1,6 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-
 import ImageUploader from "@/components/test/ImageUploader";
 import type { CareerSchema } from "@/server/careers/validators";
 
@@ -22,7 +21,9 @@ export default function CareerImageField({ onFileSelect }: Props) {
         <ImageUploader onFileSelect={onFileSelect} />
       </div>
 
-      {errors.image && <p className="text-sm text-red-600">{errors.image.message}</p>}
+      {errors.image && (
+        <p className="text-sm text-red-600">{errors.image.message}</p>
+      )}
     </div>
   );
 }

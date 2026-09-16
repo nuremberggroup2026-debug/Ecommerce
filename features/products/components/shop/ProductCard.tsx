@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { Locale } from "@/features/products/types/index";
+import { GetProductType } from "@/features/products/types/index";
 import { theme } from "@/themes";
-import type { GetProductType } from "@/types/index";
+import type { Locale } from "@/types/index";
 import { toastResponse } from "@/lib/toast";
 import { handleApiError } from "@/lib/helpers/clientSideHelpers";
 import {

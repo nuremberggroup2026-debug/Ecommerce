@@ -5,12 +5,10 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-
 import { useUploadThing } from "@/utils/uploadthing";
 import { toastResponse } from "@/lib/admintoast";
 import { careerSchema, type CareerSchema } from "@/server/careers/validators";
 import { adminAddCareer } from "@/features/careers/api/careers.client.api";
-
 import CareerTextFields from "./CareerTextFields";
 import RequirementsField from "./RequirementsField";
 import CareerImageField from "./CareerImageField";

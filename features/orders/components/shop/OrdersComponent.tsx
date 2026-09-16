@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { AllOrdersByUser, OrderStatus } from "../../types";
+import { AllOrdersByUser, OrderStatus } from "@/features/orders/types";
 import { getStatusColor, formatDate } from "@/lib/helpers/clientSideHelpers";
 import { theme } from "@/themes";
 import { Package, ArrowRight, ShoppingBag } from "lucide-react";
@@ -26,13 +26,14 @@ export default function OrdersComponent({ orders, locale }: Props) {
   };
 
   return (
-    <main className={theme.ordersComponent.main(isAr)} dir={isAr ? "rtl" : "ltr"}>
+    <main
+      className={theme.ordersComponent.main(isAr)}
+      dir={isAr ? "rtl" : "ltr"}
+    >
       <div className={theme.ordersComponent.container}>
         {/* Header */}
         <header className={theme.ordersComponent.header}>
-          <h1 className={theme.ordersComponent.title}>
-            {t("TITLE")}
-          </h1>
+          <h1 className={theme.ordersComponent.title}>{t("TITLE")}</h1>
 
           <p className={theme.ordersComponent.description}>
             {t("DESCRIPTION")}
@@ -150,18 +151,24 @@ export default function OrdersComponent({ orders, locale }: Props) {
                   </button>
 
                   {/* Expanded Details */}
-                  <div className={theme.ordersComponent.expandedGrid(isExpanded)}>
+                  <div
+                    className={theme.ordersComponent.expandedGrid(isExpanded)}
+                  >
                     <div className={theme.ordersComponent.expandedInner}>
                       <div className={theme.ordersComponent.expandedContent}>
                         {/* Order Pricing */}
                         <div className={theme.ordersComponent.pricingSpace}>
                           {/* Subtotal */}
                           <div className={theme.ordersComponent.pricingRow}>
-                            <span className={theme.ordersComponent.pricingLabel}>
+                            <span
+                              className={theme.ordersComponent.pricingLabel}
+                            >
                               {t("SUBTOTAL")}
                             </span>
 
-                            <span className={theme.ordersComponent.pricingValue}>
+                            <span
+                              className={theme.ordersComponent.pricingValue}
+                            >
                               ${Number(order.subtotal).toFixed(2)}
                             </span>
                           </div>
@@ -169,11 +176,15 @@ export default function OrdersComponent({ orders, locale }: Props) {
                           {/* Discount */}
                           {Number(order.discountAmount) > 0 && (
                             <div className={theme.ordersComponent.pricingRow}>
-                              <span className={theme.ordersComponent.pricingLabel}>
+                              <span
+                                className={theme.ordersComponent.pricingLabel}
+                              >
                                 {t("DISCOUNT")}
                               </span>
 
-                              <span className={theme.ordersComponent.discountValue}>
+                              <span
+                                className={theme.ordersComponent.discountValue}
+                              >
                                 -$
                                 {Number(order.discountAmount).toFixed(2)}
                               </span>
@@ -181,12 +192,22 @@ export default function OrdersComponent({ orders, locale }: Props) {
                           )}
 
                           {/* Total */}
-                          <div className={theme.ordersComponent.totalPricingRow}>
-                            <span className={theme.ordersComponent.totalPricingLabel}>
+                          <div
+                            className={theme.ordersComponent.totalPricingRow}
+                          >
+                            <span
+                              className={
+                                theme.ordersComponent.totalPricingLabel
+                              }
+                            >
                               {t("TOTAL")}
                             </span>
 
-                            <span className={theme.ordersComponent.totalPricingValue}>
+                            <span
+                              className={
+                                theme.ordersComponent.totalPricingValue
+                              }
+                            >
                               ${Number(order.totalAmount).toFixed(2)}
                             </span>
                           </div>
@@ -195,11 +216,15 @@ export default function OrdersComponent({ orders, locale }: Props) {
                         {/* Items Count */}
                         <div className={theme.ordersComponent.itemsBox}>
                           <div className={theme.ordersComponent.itemsBoxRow}>
-                            <span className={theme.ordersComponent.itemsBoxLabel}>
+                            <span
+                              className={theme.ordersComponent.itemsBoxLabel}
+                            >
                               {t("ITEMS_IN_ORDER")}
                             </span>
 
-                            <span className={theme.ordersComponent.itemsBoxValue}>
+                            <span
+                              className={theme.ordersComponent.itemsBoxValue}
+                            >
                               {order._count.orderItems}
                             </span>
                           </div>

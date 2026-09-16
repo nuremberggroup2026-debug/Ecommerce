@@ -1,8 +1,8 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import type { CartData, Locale } from "../types";
+import type { CartData } from "../types";
+import type { Locale } from "@/types";
 import { useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteItem, updateItemQuantity } from "../api/cart.client.api";
@@ -42,7 +42,6 @@ export default function CartComponent({ locale }: Prop) {
   const updateQuantity = (itemId: string, quantity: number) => {
     const previousCart = queryClient.getQueryData<CartData>(queryKey);
 
-    // تحديث فوري بالـ cache
     queryClient.setQueryData<CartData>(queryKey, (old) => {
       if (!old) return old;
       return {
@@ -54,7 +53,7 @@ export default function CartComponent({ locale }: Prop) {
                 quantity,
                 subtotal: quantity * Number(item.itemPrice),
               }
-            : item
+            : item,
         ),
       };
     });
@@ -68,7 +67,6 @@ export default function CartComponent({ locale }: Prop) {
         await updateItemQuantity(pendingUpdates.current[itemId], itemId);
         delete pendingUpdates.current[itemId];
       } catch {
-        // rollback عند الفشل
         queryClient.setQueryData(queryKey, previousCart);
         toast.error(t("ResponseMessages.UPDATE_CART_ITEM_FAILED"));
       }
@@ -78,7 +76,6 @@ export default function CartComponent({ locale }: Prop) {
   const handleDeleteItem = async (itemId: string) => {
     const previousCart = queryClient.getQueryData<CartData>(queryKey);
 
-    // حذف فوري بالـ cache
     queryClient.setQueryData<CartData>(queryKey, (old) => {
       if (!old) return old;
       return {
@@ -94,7 +91,6 @@ export default function CartComponent({ locale }: Prop) {
 
       toast.success(t(`ResponseMessages.${result.message}`));
     } catch {
-      // rollback عند الفشل
       queryClient.setQueryData(queryKey, previousCart);
       toast.error(t("ResponseMessages.DELETE_CART_ITEM_FAILED"));
     }

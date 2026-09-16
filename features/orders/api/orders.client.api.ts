@@ -1,12 +1,7 @@
 import { Clientapi } from "@/services/client/api";
 import { API } from "@/lib/constants/api";
-
 import type { deleteResponseType, PutResponseType } from "@/types/index";
-
-
-
-
-import type {  OrderStatus } from "@/features/orders/types";
+import type { OrderStatus } from "@/features/orders/types";
 
 export async function adminUpdateOrderStatus(
   id: string,

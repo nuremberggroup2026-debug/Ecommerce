@@ -2,16 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { SquarePen } from "lucide-react";
-
 import type { AdminCategories } from "@/features/categories/types";
-
 import { DeleteConfirmation } from "@/components/test/DeleteConfirmation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-
 import { DataTableColumnHeader } from "@/app/(admin)/dashboard/components/data-table-column-header";
 
 interface CategoryColumnsProps {
@@ -30,9 +26,7 @@ export const columns = ({
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={(value) =>
-          table.toggleAllPageRowsSelected(!!value)
-        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
@@ -40,9 +34,7 @@ export const columns = ({
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value) =>
-          row.toggleSelected(!!value)
-        }
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),
@@ -56,7 +48,6 @@ export const columns = ({
     meta: "Image",
 
     header: "Image",
-    
 
     cell: ({ row }) => {
       const image = row.original.image;
@@ -78,26 +69,19 @@ export const columns = ({
 
   {
     accessorKey: "categoryNameEn",
-      meta: "Name (EN)",
+    meta: "Name (EN)",
 
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Name (EN)"
-      />
+      <DataTableColumnHeader column={column} title="Name (EN)" />
     ),
   },
 
   {
     accessorKey: "categoryNameAr",
-          meta: "Name (AR)",
-
+    meta: "Name (AR)",
 
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Name (AR)"
-      />
+      <DataTableColumnHeader column={column} title="Name (AR)" />
     ),
   },
 
@@ -142,10 +126,7 @@ export const columns = ({
     accessorKey: "isFeatured",
 
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Featured"
-      />
+      <DataTableColumnHeader column={column} title="Featured" />
     ),
 
     cell: ({ row }) => (
@@ -163,19 +144,14 @@ export const columns = ({
 
   {
     accessorKey: "createdAt",
-        meta: "Created At",
+    meta: "Created At",
 
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Created At"
-      />
+      <DataTableColumnHeader column={column} title="Created At" />
     ),
 
     cell: ({ row }) =>
-      new Date(
-        row.original.createdAt
-      ).toLocaleDateString("en-GB"),
+      new Date(row.original.createdAt).toLocaleDateString("en-GB"),
   },
 
   {
@@ -194,21 +170,14 @@ export const columns = ({
             size="icon"
             className="h-9 w-9 rounded-md hover:bg-muted"
           >
-            <Link
-              href={`/dashboard/categories/edit/${category.id}`}
-            >
+            <Link href={`/dashboard/categories/edit/${category.id}`}>
               <SquarePen className="h-4 w-4" />
 
-              <span className="sr-only">
-                Edit category
-              </span>
+              <span className="sr-only">Edit category</span>
             </Link>
           </Button>
 
-          <DeleteConfirmation
-            id={category.id}
-            onConfirm={onDelete}
-          />
+          <DeleteConfirmation id={category.id} onConfirm={onDelete} />
         </div>
       );
     },

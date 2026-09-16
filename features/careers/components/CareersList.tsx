@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Locale, TransalatedCareer } from "@/types";
+import { Locale } from "@/types";
+import { TransalatedCareer } from "../types";
 import { theme } from "@/themes";
 import { useTranslations } from "next-intl";
 
@@ -9,7 +10,10 @@ interface CareersListProps {
   locale?: Locale;
 }
 
-export default function CareersList({ careers, locale = "en" }: CareersListProps) {
+export default function CareersList({
+  careers,
+  locale = "en",
+}: CareersListProps) {
   const t = useTranslations("CareersPage");
   const isAr = locale === "ar";
 
@@ -17,9 +21,7 @@ export default function CareersList({ careers, locale = "en" }: CareersListProps
     return (
       <section className={theme.careers.section} dir={isAr ? "rtl" : "ltr"}>
         <div className={theme.careers.emptyContainer}>
-          <h2 className={theme.careers.emptyTitle}>
-            {t("EMPTY_TITLE")}
-          </h2>
+          <h2 className={theme.careers.emptyTitle}>{t("EMPTY_TITLE")}</h2>
 
           <p className={theme.careers.emptyDescription}>
             {t("EMPTY_DESCRIPTION")}
@@ -29,32 +31,20 @@ export default function CareersList({ careers, locale = "en" }: CareersListProps
     );
   }
 
-  
-  
-
   return (
     <section className={theme.careers.section} dir={isAr ? "rtl" : "ltr"}>
       <div className={theme.careers.container}>
         <div className={theme.careers.headerWrapper}>
-          <span className={theme.careers.badge}>
-            {t("BADGE")}
-          </span>
+          <span className={theme.careers.badge}>{t("BADGE")}</span>
 
-          <h2 className={theme.careers.title}>
-            {t("TITLE")}
-          </h2>
+          <h2 className={theme.careers.title}>{t("TITLE")}</h2>
 
-          <p className={theme.careers.description}>
-            {t("DESCRIPTION")}
-          </p>
+          <p className={theme.careers.description}>{t("DESCRIPTION")}</p>
         </div>
 
         <div className={theme.careers.grid}>
           {careers.map((career) => (
-            <article
-              key={career.id}
-              className={theme.careers.card}
-            >
+            <article key={career.id} className={theme.careers.card}>
               <div className={theme.careers.imageWrapper}>
                 {career.image ? (
                   <Image
@@ -83,14 +73,10 @@ export default function CareersList({ careers, locale = "en" }: CareersListProps
 
               <div className={theme.careers.cardBody}>
                 {career.role && (
-                  <span className={theme.careers.role}>
-                    {career.role}
-                  </span>
+                  <span className={theme.careers.role}>{career.role}</span>
                 )}
 
-                <h3 className={theme.careers.cardTitle}>
-                  {career.position}
-                </h3>
+                <h3 className={theme.careers.cardTitle}>{career.position}</h3>
 
                 <p className={theme.careers.cardDescription}>
                   {career.description}
@@ -110,7 +96,11 @@ export default function CareersList({ careers, locale = "en" }: CareersListProps
                       />
                     </svg>
 
-                    <span>{t("REQUIREMENTS_COUNT", { count: career.requirements.length })}</span>
+                    <span>
+                      {t("REQUIREMENTS_COUNT", {
+                        count: career.requirements.length,
+                      })}
+                    </span>
                   </div>
                 )}
 

@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import type { Locale } from "@/types";
-
 import { fetchALLCategories } from "../api/categories.client.api";
 
 export function useCategoriesQuery(locale: Locale) {

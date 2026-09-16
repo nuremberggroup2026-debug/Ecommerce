@@ -1,6 +1,6 @@
 "use client";
 
-import { TransalatedCategories } from "@/types";
+import { TransalatedCategories } from "@/features/categories/types";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { theme } from "@/themes";

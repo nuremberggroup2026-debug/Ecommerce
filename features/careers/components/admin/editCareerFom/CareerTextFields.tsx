@@ -1,9 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-
 import type { UpdateCareerSchema } from "@/server/careers/validators";
-
 import { inputClass } from "./utils";
 
 export default function CareerTextFields() {

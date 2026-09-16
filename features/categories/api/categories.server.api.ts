@@ -4,15 +4,9 @@ import { API } from "@/lib/constants/api";
 import type {
   AdminCategories,
   CategoiresNameAndIDs,
-  ResponseType,
-  Locale,
   TransalatedCategories,
 } from "@/features/categories/types";
-export type Category = {
-  slug: string;
-  name: string;
-  url: string;
-};
+import type { ResponseType, Locale } from "@/types";
 
 export async function fetchFeaturedCategories(
   locale: Locale,

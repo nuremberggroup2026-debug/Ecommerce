@@ -2,7 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import type { Locale, WishlistItemsType } from "../types/index";
+import type { WishlistItemsType } from "../types/index";
+import { Locale } from "@/types";
 import defaultImage from "@/app/defaultImage.jpg";
 import { toastResponse } from "@/lib/toast";
 import { removeItemFromWishlist } from "../api/wishlist.client.api";
@@ -25,8 +26,7 @@ export default function WishlistComponent({ locale, wishlistItems }: Prop) {
     if (result.success) setItems(items.filter((item) => item.productId !== id));
   };
 
-  console.log("wishh",wishlistItems);
-  
+  console.log("wishh", wishlistItems);
 
   return (
     <main
@@ -116,7 +116,10 @@ export default function WishlistComponent({ locale, wishlistItems }: Prop) {
                         {item.categoryName}
                       </p>
                       {/* Product Name */}
-                      <Link href={`/products/${item.productId}`} className="block">
+                      <Link
+                        href={`/products/${item.productId}`}
+                        className="block"
+                      >
                         <h3 className="line-clamp-1 text-sm font-semibold text-neutral-900 dark:text-neutral-100 transition-colors hover:text-neutral-600 dark:hover:text-neutral-300 wrap-break-word [word-break:break-word]">
                           {item.productName}
                         </h3>
@@ -130,7 +133,9 @@ export default function WishlistComponent({ locale, wishlistItems }: Prop) {
                     {/* Price & Action Button at the bottom */}
                     <div className="space-y-3 pt-2 mt-auto border-t border-neutral-100 dark:border-neutral-800/80">
                       <div className="flex items-baseline justify-between">
-                        <span className="text-xs text-neutral-400 font-medium">Price</span>
+                        <span className="text-xs text-neutral-400 font-medium">
+                          Price
+                        </span>
                         <span className="text-base font-bold text-neutral-900 dark:text-neutral-100">
                           ${Number(item.finalPrice).toFixed(2)}
                         </span>

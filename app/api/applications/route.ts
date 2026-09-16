@@ -3,7 +3,7 @@ import {
   addNewApplication,
   getAllApplications,
 } from "@/server/applications/services";
-import { type ApplicationCreateInput } from "@/types";
+import { type ApplicationCreateInput } from "@/server/applications/types";
 import { NextResponse } from "next/server";
 
 export const POST = async (request: Request) => {

@@ -1,10 +1,7 @@
 import { api } from "@/services/server/api";
 import { API } from "@/lib/constants/api";
-import type {
-  AllPromoCodes,
-  AdminPromoCodesData,
-  ResponseType,
-} from "../types/index";
+import type { AllPromoCodes, AdminPromoCodesData } from "../types/index";
+import { ResponseType } from "@/types";
 
 export async function adminPromoCodes(
   page: number,

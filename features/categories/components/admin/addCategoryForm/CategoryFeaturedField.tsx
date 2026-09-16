@@ -1,7 +1,5 @@
 "use client";
-
-import { useFormContext } from "react-hook-form";
-
+import { useFormContext } from "react-hook-form"
 import type { CategorySchema } from "@/server/categories/validators";
 
 export default function CategoryFeaturedField() {

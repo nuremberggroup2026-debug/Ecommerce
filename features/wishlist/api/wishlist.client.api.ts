@@ -1,5 +1,5 @@
 import { API } from "@/lib/constants/api";
-import { PostResponseType } from "@/features/cart/types";
+import { PostResponseType } from "@/types";
 import { Clientapi } from "@/services/client/api";
 
 export async function addItemToWishlist(
@@ -11,8 +11,6 @@ export async function addItemToWishlist(
       productId,
     },
   );
-
-  console.log("data: ", data);
 
   return data;
 }

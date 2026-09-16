@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { OrderByID } from "../../../types/index";
+import type { OrderByID } from "@/features/orders/types";
 import { theme } from "@/themes";
 import { Truck, Mail, Phone, MapPin, FileText } from "lucide-react";
 
@@ -31,7 +31,9 @@ export default function DeliveryInfoSection({
                 <Mail className="h-4 w-4" />
               </div>
               <div>
-                <p className={theme.deliveryInfoSection.fieldLabel}>{t("DELIVERY.EMAIL")}</p>
+                <p className={theme.deliveryInfoSection.fieldLabel}>
+                  {t("DELIVERY.EMAIL")}
+                </p>
                 <p className={theme.deliveryInfoSection.emailValue}>
                   {order.email}
                 </p>
@@ -43,7 +45,9 @@ export default function DeliveryInfoSection({
                 <Phone className="h-4 w-4" />
               </div>
               <div>
-                <p className={theme.deliveryInfoSection.fieldLabel}>{t("DELIVERY.PHONE")}</p>
+                <p className={theme.deliveryInfoSection.fieldLabel}>
+                  {t("DELIVERY.PHONE")}
+                </p>
                 <p className={theme.deliveryInfoSection.fieldValue}>
                   {order.phoneNumber}
                 </p>
@@ -57,7 +61,9 @@ export default function DeliveryInfoSection({
                 <MapPin className="h-4 w-4" />
               </div>
               <div>
-                <p className={theme.deliveryInfoSection.fieldLabel}>{t("DELIVERY.CITY")}</p>
+                <p className={theme.deliveryInfoSection.fieldLabel}>
+                  {t("DELIVERY.CITY")}
+                </p>
                 <p className={theme.deliveryInfoSection.fieldValue}>
                   {order.city}
                 </p>

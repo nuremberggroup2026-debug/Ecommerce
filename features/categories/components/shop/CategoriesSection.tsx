@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Locale, TransalatedCategories } from "@/types";
+import { Locale } from "@/types";
+import type { TransalatedCategories } from "@/features/categories/types";
 import { theme } from "@/themes";
 
 export default function CategoriesSection({
@@ -16,8 +17,6 @@ export default function CategoriesSection({
   return (
     <section className={theme.categories.section}>
       <div className={theme.categories.container}>
-       
-
         <div className={theme.categories.grid}>
           {count === 1 && (
             <div className="md:col-span-4 md:row-span-2">
@@ -122,9 +121,7 @@ function CategoryCard({
 
       <div className={theme.categories.cardContentWrapper}>
         <div className={theme.categories.cardContentInner}>
-          <h3 className={theme.categories.cardTitle}>
-            {cat.name}
-          </h3>
+          <h3 className={theme.categories.cardTitle}>{cat.name}</h3>
           <span className={theme.categories.cardAction}>
             {isAr ? "استكشف الفئة" : "Explore Category"}
           </span>
