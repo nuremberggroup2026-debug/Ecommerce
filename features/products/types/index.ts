@@ -100,4 +100,118 @@ export interface ResponseType<T> {
   data: T;
 }
 
+export type GetProductType = {
+  id: string;
+  productName: string;
+  productDescription: string;
+  productCardImage: string;
+  slug: string;
+  categoryName: string;
+  variants: {
+    price: number;
+    discountPercentage: number | null;
+    finalPrice: number;
+    stock: number;
+    id: string;
+  }[];
+};
+/*
+export type ProductByLocale = {
+  productData: {
+    id: string;
+    productName: string;
+    productDescription: string;
+    productCardImage: string;
+    productImages: string[];
+    slug: string;
 
+    categoryName: string;
+    categoryDescription: string;
+    productVariants: {
+      variantId: string;
+      attributes: {
+        attributeId: string;
+        attributeName: string;
+        attributeValueId: string;
+        attributeValue: string;
+      }[];
+      stock: number;
+      price: number;
+      sku: string;
+      discountPercentage: number | null;
+      finalPrice: number;
+      productId: string;
+      isDefault: boolean | null;
+      variantImage: string | null;
+    }[];
+  };
+  cartItems: {
+    quantity: number;
+    variantId: string;
+    product: Product;
+  }[];
+  isInWishlist: boolean;
+};*/
+
+export type ProductByLocale = {
+  productData: {
+    id: string;
+    productName: string;
+    productDescription: string;
+    productCardImage: string;
+    productImages: string[];
+    slug: string;
+
+    categoryName: string;
+    categoryDescription: string;
+    productVariants: {
+      variantId: string;
+      attributes: {
+        attributeId: string;
+        attributeName: string;
+        attributeValueId: string;
+        attributeValue: string;
+      }[];
+      stock: number;
+      price: number;
+      sku: string;
+      discountPercentage: number | null;
+      finalPrice: number;
+      productId: string;
+      isDefault: boolean | null;
+      variantImage: string | null;
+    }[];
+  };
+  cartItems: {
+    quantity: number;
+    variantId: string;
+   
+  }[];
+  isInWishlist: boolean;
+};
+
+export type FilteredProductsData = {
+  products: GetProductType[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+    itemsPerPage: number;
+  };
+  productsIdsInWishlist: string[];
+  productsIdsInCart: string[];
+};
+
+export interface ResponseType<T> {
+  messgae: string;
+  success: boolean;
+  data: T;
+}
+
+export type Locale = "ar" | "en";
+
+export type ProductsDataWithOutPag = {
+  products: GetProductType[];
+  productsIdsInWishlist: string[];
+  productsIdsInCart: string[];
+};

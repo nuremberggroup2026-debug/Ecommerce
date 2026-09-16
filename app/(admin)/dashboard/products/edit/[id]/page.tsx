@@ -1,5 +1,5 @@
-import { adminAttributeWithValues } from "@/features/catalog/attributes/api/attributes.server.api";
-import { adminCategoriesNameAndIDs } from "@/features/catalog/categories/api/categories.server.api";
+import { adminAttributeWithValues } from "@/features/attributes/api/attributes.server.api";
+import { adminCategoriesNameAndIDs } from "@/features/categories/api/categories.server.api";
 import EditProductForm from "@/features/products/components/admin/editProduct/EditProductForm";
 import { adminProductById } from "@/features/products/api/products.server.api";
 
@@ -17,7 +17,7 @@ export default async function EditProductPage({ params }: PageProps) {
 
 
   return (
-    <div className="mx-7 mb-14 max-w-6xl">
+    <div className=" mb-14">
       <EditProductForm
         productId={id}
         product={product.data}

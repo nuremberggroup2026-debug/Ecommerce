@@ -156,14 +156,14 @@ export default function EditProductForm({
   return (
     <div>
       <FormProvider {...methods}>
-        <div className="rounded-2xl border my-3 bg-white p-6">
+        <div className="rounded-2xl border my-3 bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-semibold">Edit Product</h1>
           <p className="mt-1 text-sm text-gray-500">
             Update pricing, stock, images and variants for this product.
           </p>
         </div>
 
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} >
           <ProductInformationSection
             categoriesNamesAndIDs={categoriesNamesAndIDs}
             onProductCardImageSelect={setCardImageFile}

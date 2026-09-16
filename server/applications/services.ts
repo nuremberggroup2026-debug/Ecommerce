@@ -324,7 +324,6 @@ export const deleteManyApplications = async (ids: string[]) => {
 
   return {
     success: true,
-    message: "ITEMS_DELETED",
     code: RESPONSE_CODES.OK,
     deletedCount: result.count,
   };

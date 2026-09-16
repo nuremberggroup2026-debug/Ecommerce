@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { SquarePen } from "lucide-react";
 
-import type { AdminAttribute } from "@/features/catalog/attributes/types";
+import type { AdminAttribute } from "@/features/attributes/types";
 
 import { DeleteConfirmation } from "@/components/test/DeleteConfirmation";
 import { Checkbox } from "@/components/ui/checkbox";

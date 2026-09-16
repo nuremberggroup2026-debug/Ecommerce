@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -7,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-import { adminAddAttribute } from "@/features/catalog/attributes/api/attributes.client.api";
+import { adminAddAttribute } from "@/features/attributes/api/attributes.client.api";
 import { toastResponse } from "@/lib/admintoast";
 
 import {
@@ -23,7 +22,8 @@ export default function AddAttributeForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors,isSubmitting },
+    reset
   } = useForm<AttributeSchema>({
     resolver: zodResolver(attributeSchema),
     mode: "onSubmit",
@@ -40,7 +40,7 @@ export default function AddAttributeForm() {
 
       await toastResponse(
         adminAddAttribute(data),
-        "Attribute created successfully"
+        "Attribute created successfully",
       );
 
       router.push("/dashboard/attributes");
@@ -54,21 +54,16 @@ export default function AddAttributeForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto max-w-3xl"
-    >
-      <div className="mb-8">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Add Attribute
-        </h1>
-
-        <p className="mt-1 text-sm text-muted-foreground">
-          Create a new attribute
+    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-7xl">
+      <div className="rounded-2xl border my-3  bg-white p-6">
+        <h1 className="text-2xl font-semibold">Add Attribute</h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Create an attribute to define product options such as size, color, or
+          material.
         </p>
       </div>
 
-      <div className="rounded-xl border bg-white p-6 shadow-sm">
+      <div className="rounded-2xl border my-3  bg-white p-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* English Name */}
           <div className="space-y-2">
@@ -111,15 +106,23 @@ export default function AddAttributeForm() {
         </div>
 
         {/* Submit */}
-        <div className="mt-8 flex justify-end border-t pt-6">
-          <button
-            type="submit"
-            disabled={loading}
-            className="rounded-lg bg-black px-8 py-3 text-sm font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {loading ? "Creating..." : "Create Attribute"}
-          </button>
-        </div>
+      </div>
+      <div className="mt-8 flex justify-end border-t pt-6 gap-3">
+        <button
+          type="button"
+          onClick={() => reset()}
+          disabled={isSubmitting}
+          className="rounded-lg border border-gray-200 bg-white px-8 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          disabled={loading}
+          className="rounded-lg bg-black px-8 py-3 text-sm font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {loading ? "Creating..." : "Create Attribute"}
+        </button>
       </div>
     </form>
   );

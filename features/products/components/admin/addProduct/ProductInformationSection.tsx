@@ -82,7 +82,7 @@ export default function ProductInformationSection({
   };
 
   return (
-    <section className="rounded-2xl border bg-white p-6">
+    <section className="rounded-2xl border my-3  bg-white p-6">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-900">

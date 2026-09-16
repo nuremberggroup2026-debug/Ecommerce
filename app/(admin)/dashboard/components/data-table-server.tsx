@@ -53,7 +53,9 @@ interface DataTableServerProps<TData extends { id: string }, TValue> {
   addHref?: string;
   addLabel?: string;
 
-  onDeleteSelected?: (ids: string[]) => Promise<unknown>;
+  onDeleteSelected?: (
+    ids: string[],
+  ) => Promise<{ message: string; success: boolean; deletedCount: number }>;
   deleteSuccessMessage?: string;
 }
 
@@ -158,13 +160,19 @@ export function DataTableServer<TData extends { id: string }, TValue>({
     try {
       setIsDeleting(true);
 
-      await onDeleteSelected(selectedIds);
+      const result = await onDeleteSelected(selectedIds);
 
       table.resetRowSelection();
 
       setDeleteDialogOpen(false);
 
-      toast.success(deleteSuccessMessage);
+      toast.success(
+        result.message === "ITEMS_DELETED"
+          ? `${result.deletedCount} ${
+              result.deletedCount === 1 ? "Item has" : "Items have"
+            } been deleted.`
+          : "Something wrong happened",
+      );
 
       router.refresh();
     } catch (error) {

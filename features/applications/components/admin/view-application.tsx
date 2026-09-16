@@ -26,17 +26,21 @@ type Props = {
 };
 
 export default function ViewApplication({ application, applicationid }: Props) {
-  const router=useRouter()
+  const router = useRouter();
   const [isShown, setIsShown] = useState(application.isShown);
   const [loading, setLoading] = useState(false);
 
-  const fullName = `${application.firstName} ${application.lastName ?? ""}`.trim();
+  const fullName =
+    `${application.firstName} ${application.lastName ?? ""}`.trim();
 
-  const appliedDate = new Date(application.appliedAt).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  const appliedDate = new Date(application.appliedAt).toLocaleDateString(
+    "en-GB",
+    {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    },
+  );
 
   const career = application.careers;
 
@@ -56,10 +60,9 @@ export default function ViewApplication({ application, applicationid }: Props) {
       setIsShown(newValue);
 
       toast.success(
-        newValue ? "Application marked as viewed" : "Application marked as new"
-      
+        newValue ? "Application marked as viewed" : "Application marked as new",
       );
-      router.refresh()
+      router.refresh();
     } catch (error) {
       console.error(error);
       toast.error("Failed to update application status");
@@ -70,8 +73,8 @@ export default function ViewApplication({ application, applicationid }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col gap-4 rounded-2xl border my-3  bg-white p-6  pb-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start md:items-center gap-4">
           <Link
             href="/dashboard/applications"
             className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50"
@@ -80,10 +83,10 @@ export default function ViewApplication({ application, applicationid }: Props) {
           </Link>
 
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className=" md:text-2xl font-bold tracking-tight text-gray-900">
               Application Details
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-xs md:text-sm text-gray-500">
               View applicant information and the position they applied for.
             </p>
           </div>
@@ -93,8 +96,10 @@ export default function ViewApplication({ application, applicationid }: Props) {
           type="button"
           onClick={handleToggleViewed}
           disabled={loading}
-          aria-label={isShown ? "Mark application as new" : "Mark application as viewed"}
-          className={`group relative flex h-11 items-center gap-2 overflow-hidden rounded-xl border px-4 text-sm font-semibold shadow-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60 ${
+          aria-label={
+            isShown ? "Mark application as new" : "Mark application as viewed"
+          }
+          className={`group relative flex h-11 w-fit  items-center gap-2 overflow-hidden rounded-xl border px-4 text-sm font-semibold shadow-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60 ${
             isShown
               ? "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50"
               : "border-black bg-black text-white hover:bg-gray-800"
@@ -116,14 +121,20 @@ export default function ViewApplication({ application, applicationid }: Props) {
             )}
           </span>
 
-          <span className="min-w-[100px] text-left">
-            {loading ? "Updating..." : isShown ? "Mark as New" : "Mark as Viewed"}
+          <span className="min-w-25 text-left">
+            {loading
+              ? "Updating..."
+              : isShown
+                ? "Mark as New"
+                : "Mark as Viewed"}
           </span>
 
           {!loading && (
             <span
               className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
-                isShown ? "w-0 bg-gray-400 group-hover:w-full" : "w-0 bg-white group-hover:w-full"
+                isShown
+                  ? "w-0 bg-gray-400 group-hover:w-full"
+                  : "w-0 bg-white group-hover:w-full"
               }`}
             />
           )}
@@ -217,9 +228,7 @@ export default function ViewApplication({ application, applicationid }: Props) {
 
           <div className="rounded-2xl border border-gray-200 bg-white shadow-sm">
             <div className="border-b border-gray-100 px-6 py-5">
-              <h2 className="font-semibold text-gray-900">
-                Curriculum Vitae
-              </h2>
+              <h2 className="font-semibold text-gray-900">Curriculum Vitae</h2>
               <p className="mt-1 text-sm text-gray-500">
                 Applicant uploaded CV
               </p>

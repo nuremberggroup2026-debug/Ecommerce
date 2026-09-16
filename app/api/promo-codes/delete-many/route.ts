@@ -1,0 +1,33 @@
+import { withAuth } from "@/lib/auth/auth-wrapper";
+import { HTTP_STATUS_MAP } from "@/lib/constants/response";
+import { deleteManyPromoCodes } from "@/server/promoCodes/services";
+import { NextResponse } from "next/server";
+
+export const DELETE = withAuth(["super_admin"], async (request: Request) => {
+  try {
+    const body = (await request.json()) as string[];
+
+    const result = await deleteManyPromoCodes(body);
+    const status = HTTP_STATUS_MAP[result.code] || 500;
+
+    return NextResponse.json(
+      {
+        success: result.success,
+        message: result.message,
+        deletedCount: result.deletedCount,
+      },
+      { status },
+    );
+  } catch (error) {
+    console.log("error: ", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "INTERNAL_SERVER_ERROR",
+        deletedCount: 0,
+      },
+      { status: 500 },
+    );
+  }
+});

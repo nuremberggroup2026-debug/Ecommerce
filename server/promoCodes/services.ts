@@ -29,7 +29,7 @@ export const createPromoCode = async (promoCodeData: PromoCodeCreateInput) => {
 
   await prisma.promo_codes.create({ data: { ...validation.data, code } });
 
-  revalidateTag("promoCodes", "max");
+  revalidateTag("promoCodes", { expire: 0 });
 
   return {
     success: true,
@@ -88,7 +88,7 @@ export const updatePromoCode = async (
     },
   });
 
-  revalidateTag("promoCodes", "max");
+  revalidateTag("promoCodes", { expire: 0 });
 
   return {
     success: true,
@@ -144,7 +144,7 @@ export const deactivatePromoCode = async (id: string) => {
     },
   });
 
-  revalidateTag("promoCodes", "max");
+  revalidateTag("promoCodes", { expire: 0 });
 
   return {
     success: true,
@@ -195,7 +195,7 @@ export const deletePromoCode = async (id: string) => {
     },
   });
 
-  revalidateTag("promoCodes", "max");
+  revalidateTag("promoCodes", { expire: 0 });
 
   return {
     success: true,
@@ -204,10 +204,39 @@ export const deletePromoCode = async (id: string) => {
   };
 };
 
+export const deleteManyPromoCodes = async (ids: string[]) => {
+  if (!ids.length) {
+    return {
+      success: false,
+      message: "PROMO_CODES_IDS_REQUIRED",
+      code: RESPONSE_CODES.BAD_REQUEST,
+      deletedCount: 0,
+    };
+  }
+  const result = await prisma.promo_codes.deleteMany({
+    where: {
+      id: {
+        in: ids,
+      },
+    },
+  });
+
+  revalidateTag("promoCodes", { expire: 0 });
+  return {
+    success: true,
+    message: "ITEMS_DELETED",
+    code: RESPONSE_CODES.OK,
+    deletedCount: result.count,
+  };
+};
+
 /* -------------------- Caching Helps --------------------  */
 
-const getCachedPromoCodes = (page: number = 1, limit: number = 10) => {
-  const skip = (page - 1) * limit;
+const getCachedPromoCodes = (page: number = 1, take: number = 5) => {
+  console.log("page: ", page);
+  console.log("limit: ", take);
+
+  const skip = (page - 1) * take;
 
   return unstable_cache(
     async () => {
@@ -222,7 +251,7 @@ const getCachedPromoCodes = (page: number = 1, limit: number = 10) => {
           },
 
           skip,
-          take: limit,
+          take,
         }),
 
         prisma.promo_codes.count({
@@ -236,14 +265,14 @@ const getCachedPromoCodes = (page: number = 1, limit: number = 10) => {
         promoCodes,
         pagination: {
           currentPage: page,
-          itemsPerPage: limit,
+          itemsPerPage: take,
           totalItems: totalPromoCodes,
-          totalPages: Math.ceil(totalPromoCodes / limit),
+          totalPages: Math.ceil(totalPromoCodes / take),
         },
       };
     },
 
-    [`all-promo-code-by-page-${page}`],
+    [`all-promo-code-by-page-${page}-take=${take}`],
 
     {
       tags: ["promoCodes"],
@@ -274,8 +303,8 @@ const getCachedPromoCodeById = (id: string) => {
 
 /* -------------------- Caching Helps --------------------  */
 
-export const getPromoCodes = async (page: number = 1) => {
-  const result = await getCachedPromoCodes(page);
+export const getPromoCodes = async (page: number, take: number) => {
+  const result = await getCachedPromoCodes(page, take);
 
   return {
     success: true,

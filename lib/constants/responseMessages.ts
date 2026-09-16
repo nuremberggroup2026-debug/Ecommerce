@@ -121,7 +121,9 @@ export const responseMessages: Record<string, string> = {
   CATEGORY_ID_REQUIRED: "Category ID is required",
   ATTRIBUTE_ID_REQUIRED: "Attribute ID is required",
   PROMO_CODE_ID_REQUIRED: "Promo code ID is required",
-  "BANNER_UPDATED_SUCCESSFULLY":"Banner updated successfully",
-    "BANNER_CREATED_SUCCESSFULLY":"Banner created successfully"
-
+  BANNER_UPDATED_SUCCESSFULLY: "Banner updated successfully",
+  BANNER_CREATED_SUCCESSFULLY: "Banner created successfully",
+  CAREER_UPDATED_SUCCESSFULLY: "Career updated successfully",
+  POSITION_ALREADY_EXISTS: "Position already exists",
+  CAREER_ADDED_SUCCESSFULLY: "Career added successfully",
 };

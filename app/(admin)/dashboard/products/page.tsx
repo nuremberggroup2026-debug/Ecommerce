@@ -5,7 +5,7 @@ export default async function DemoPage() {
   const products = await adminProducts();
 
   return (
-    <div className="container  mx-auto py-10">
+    <div >
       <ProductDataTable data={products.data} />
     </div>
   );

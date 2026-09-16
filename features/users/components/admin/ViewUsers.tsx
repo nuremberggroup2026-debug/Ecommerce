@@ -79,85 +79,102 @@ export default function ViewUser({ user }: ViewUserProps) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-5xl space-y-6 pb-10">
-      <div className="flex items-center gap-4">
+    <div className="mx-auto w-full max-w-7xl space-y-5 pb-8 sm:space-y-6 sm:pb-10">
+      {/* Header */}
+      <div className="flex items-start gap-3 sm:items-center sm:gap-4">
         <Button
           variant="outline"
           size="icon"
+          className="mt-0.5 shrink-0 sm:mt-0"
           onClick={() => router.push("/dashboard/users")}
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
 
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">User Details</h1>
+        <div className="min-w-0">
+          <h1 className="text-xl font-bold tracking-tight sm:text-2xl">
+            User Details
+          </h1>
 
-          <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-            <CalendarDays className="h-4 w-4" />
+          <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground sm:text-sm">
+            <CalendarDays className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
             <span>Joined {formattedDate}</span>
           </div>
         </div>
       </div>
 
-      <Card className="overflow-hidden shadow-sm">
-        <div className="h-32 bg-linear-to-r from-primary/10 via-primary/5 to-muted" />
+      {/* User Header */}
+      <Card className="overflow-hidden shadow-sm p-0">
+        <div className="h-24 bg-linear-to-r from-gray-500 via-gray-500 to-gray-400 sm:h-32" />
 
-        <CardContent className="relative px-6 pb-6">
-          <div className="-mt-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div className="flex items-end gap-4">
-              <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full border-4 border-background bg-muted shadow-md">
+        <CardContent className="px-4 pb-5 sm:px-6 sm:pb-6">
+          <div className="-mt-12 flex flex-col gap-4 sm:-mt-14 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex min-w-0 flex-col items-start gap-3 sm:flex-row sm:items-end sm:gap-4">
+              {/* Avatar */}
+              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 border-background bg-muted shadow-md sm:h-28 sm:w-28">
                 {user.image ? (
                   <Image
                     src={user.image}
                     alt={user.name || "User"}
                     fill
-                    sizes="112px"
+                    sizes="(max-width: 640px) 96px, 112px"
                     className="object-cover"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center text-2xl font-semibold text-muted-foreground">
+                  <div className="flex h-full w-full items-center justify-center text-xl font-semibold text-muted-foreground sm:text-2xl">
                     {initials}
                   </div>
                 )}
               </div>
 
-              <div className="pb-1">
-                <h2 className="text-xl font-bold">
+              {/* User info */}
+              <div className="min-w-0 pb-0.5 sm:pb-1">
+                <h2 className="truncate text-lg font-bold sm:text-xl">
                   {user.name || "Unnamed User"}
                 </h2>
 
-                <p className="text-sm text-muted-foreground">{user.email}</p>
+                <p className="mt-0.5 truncate text-sm text-muted-foreground">
+                  {user.email}
+                </p>
               </div>
             </div>
 
-            <Badge variant="outline" className={USER_ROLE_STYLES[role]}>
+            {/* Role */}
+            <Badge
+              variant="outline"
+              className={`w-fit ${USER_ROLE_STYLES[role]}`}
+            >
               {USER_ROLE_LABELS[role]}
             </Badge>
           </div>
         </CardContent>
       </Card>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      {/* Information Cards */}
+      <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+        {/* Personal Information */}
         <Card className="shadow-sm">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle className="text-base">Personal Information</CardTitle>
           </CardHeader>
 
-          <CardContent className="space-y-5">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
+          <CardContent className="space-y-5 px-4 sm:px-6">
+            <div className="flex min-w-0 items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                 <UserIcon className="h-5 w-5 text-muted-foreground" />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p className="text-xs text-muted-foreground">Name</p>
 
-                <p className="font-medium">{user.name || "Not provided"}</p>
+                <p className="truncate font-medium">
+                  {user.name || "Not provided"}
+                </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
+            <div className="flex min-w-0 items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                 <Mail className="h-5 w-5 text-muted-foreground" />
               </div>
 
@@ -170,18 +187,19 @@ export default function ViewUser({ user }: ViewUserProps) {
           </CardContent>
         </Card>
 
+        {/* Account Information */}
         <Card className="shadow-sm">
-          <CardHeader>
+          <CardHeader className="px-4 sm:px-6">
             <CardTitle className="text-base">Account Information</CardTitle>
           </CardHeader>
 
-          <CardContent className="space-y-5">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
+          <CardContent className="space-y-5 px-4 sm:px-6">
+            <div className="flex min-w-0 items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                 <Shield className="h-5 w-5 text-muted-foreground" />
               </div>
 
-              <div className="flex-1 space-y-2">
+              <div className="min-w-0 flex-1 space-y-2">
                 <p className="text-xs text-muted-foreground">Role</p>
 
                 <Select
@@ -205,11 +223,11 @@ export default function ViewUser({ user }: ViewUserProps) {
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                 <CalendarDays className="h-5 w-5 text-muted-foreground" />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p className="text-xs text-muted-foreground">Member Since</p>
 
                 <p className="font-medium">{formattedDate}</p>
@@ -219,9 +237,11 @@ export default function ViewUser({ user }: ViewUserProps) {
         </Card>
       </div>
 
+      {/* Footer */}
       <div className="flex justify-end">
         <Button
           variant="outline"
+          className="w-full sm:w-auto"
           onClick={() => router.push("/dashboard/users")}
         >
           Back to Users

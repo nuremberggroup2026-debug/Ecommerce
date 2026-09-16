@@ -30,8 +30,9 @@ export const POST = withAuth(["super_admin"], async (request: Request) => {
 
 export const GET = withAuth(["super_admin"], async (request: Request) => {
   try {
-    const pageParameter = new URL(request.url).searchParams.get("page");
-    const page = pageParameter ? Number(pageParameter) : 1;
+    const pageParameter = new URL(request.url).searchParams;
+    const page = Number(pageParameter.get("page"));
+    const take = Number(pageParameter.get("take"));
 
     if (!Number.isInteger(page) || page < 1) {
       return NextResponse.json(
@@ -44,7 +45,7 @@ export const GET = withAuth(["super_admin"], async (request: Request) => {
       );
     }
 
-    const result = await getPromoCodes(page);
+    const result = await getPromoCodes(page, take);
     const status = HTTP_STATUS_MAP[result.code] || 500;
 
     return NextResponse.json(

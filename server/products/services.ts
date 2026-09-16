@@ -528,7 +528,7 @@ export const updateProductWithVariant = async (
 };
 
 export const deleteProduct = async (id: string) => {
-  console.log(" i am in action: ", id);
+ 
 
   if (!id)
     return {

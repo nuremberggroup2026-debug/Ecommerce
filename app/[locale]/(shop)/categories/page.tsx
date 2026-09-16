@@ -1,5 +1,5 @@
-import { fetchALLCategories } from "@/features/catalog/categories/api/categories.server.api";
-import CategoriesListComponent from "@/features/catalog/categoriesList/components/CategoriesListComponent";
+import { fetchALLCategories } from "@/features/categories/api/categories.server.api";
+import CategoriesListComponent from "@/features/categories/components/shop/CategoriesListComponent";
 import { Locale } from "@/types";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
 

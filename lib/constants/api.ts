@@ -115,5 +115,14 @@ export const API = {
       RESET_PASSWORD: "auth/reset-password",
       CHANGE_PASSWORD: "auth/change-password",
     },
+    PROMO_CODES: {
+      ALL_PROMO_CODES: "promo-codes",
+      PROMO_CODE_BY_ID: "promo-codes",
+      ADD_PROMO_CODE: "promo-codes",
+      DELETE_MANY_PROMO_CODES: "promo-codes/delete-many",
+    },
+    DASHBOARD:{
+      DASHBOARD_NUMBERS:"/dashboard-numbers"
+    }
   },
 };

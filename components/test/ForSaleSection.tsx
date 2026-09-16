@@ -1,5 +1,5 @@
-import ProductCard from "@/features/catalog/products/components/ProductCard";
-import { ProductsDataWithOutPag } from "@/features/catalog/products/types";
+import ProductCard from "@/features/products/components/shop/ProductCard";
+import { ProductsDataWithOutPag } from "@/features/products/types";
 import { Locale } from "@/types";
 import { theme } from "@/themes";
 

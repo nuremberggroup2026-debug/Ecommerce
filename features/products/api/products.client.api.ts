@@ -10,7 +10,10 @@ import type {
   PutResponseType,
   ResponseType,
   deleteManyResponseType,
+  Locale,
 } from "@/types/index";
+
+/* ==================================     Admin Api      ================================== */
 
 export async function adminAddProduct(
   data: CreateProductFormType,
@@ -41,8 +44,6 @@ export async function adminDeleteProduct(
   return result;
 }
 
-/////////////////////////////////////////
-
 export async function deleteManyProducts(
   ids: string[],
 ): Promise<deleteManyResponseType> {
@@ -50,7 +51,114 @@ export async function deleteManyProducts(
     API.ENDPOINTS.PRODUCTS.DELETE_MANY_PRODUCTS,
     ids,
   );
-  console.log("result in many : ", result);
 
   return result;
+}
+
+/* ==================================     Shop Api      ================================== */
+
+import type {
+  FilteredProductsData,
+  Product,
+  ProductByLocale,
+  ProductsDataWithOutPag,
+} from "@/features/products/types";
+
+export type ProductsQuery = {
+  categories?: string;
+  search?: string;
+  page: string;
+  locale: Locale;
+  sort?: string;
+  minPrice?: string;
+  maxPrice?: string;
+};
+
+// =====================================================
+// Products
+// =====================================================
+
+export async function getProducts({
+  locale,
+  categories,
+  search,
+  page,
+  sort,
+  minPrice,
+  maxPrice,
+}: ProductsQuery): Promise<ResponseType<FilteredProductsData>> {
+  const params = new URLSearchParams({
+    page: page.toString(),
+  });
+
+  if (sort) {
+    params.set("sort", sort);
+  }
+
+  if (maxPrice) {
+    params.set("maxPrice", maxPrice);
+  }
+
+  if (minPrice) {
+    params.set("minPrice", minPrice);
+  }
+
+  if (search) {
+    params.set("search", search);
+  }
+
+  if (categories && categories !== "all") {
+    categories.split(",").forEach((category) => {
+      params.append("categories", category);
+    });
+  }
+
+  const url =
+    `${API.ENDPOINTS.PRODUCTS.FILTERED_PRODUCTS_BY_LOCALE}/${locale}` +
+    `?${params.toString()}`;
+
+  return Clientapi.get<ResponseType<FilteredProductsData>>(url);
+}
+
+// =====================================================
+// Product By ID
+// =====================================================
+
+export async function getProductById(
+  locale: Locale,
+  slug: string,
+): Promise<ProductByLocale> {
+  const result = await Clientapi.get<ResponseType<ProductByLocale>>(
+    `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_SLUG_AND_LOCALE}/${locale}?slug=${slug}`,
+  );
+
+  return result.data;
+}
+
+// =====================================================
+// Featured Products
+// =====================================================
+
+export async function fetchFeaturedProducts(
+  locale: Locale,
+): Promise<ProductsDataWithOutPag> {
+  const result = await Clientapi.get<ResponseType<ProductsDataWithOutPag>>(
+    `${API.ENDPOINTS.PRODUCTS.FEATURED_PRODUCTS_BY_LOCALE}/${locale}`,
+  );
+
+  return result.data;
+}
+
+// =====================================================
+// Discount Products
+// =====================================================
+
+export async function fetchOnDiscountProducts(
+  locale: Locale,
+): Promise<ProductsDataWithOutPag> {
+  const result = await Clientapi.get<ResponseType<ProductsDataWithOutPag>>(
+    `${API.ENDPOINTS.PRODUCTS.ON_DISCOUNT_PRODUCTS_BY_LOCALE}/${locale}`,
+  );
+
+  return result.data;
 }

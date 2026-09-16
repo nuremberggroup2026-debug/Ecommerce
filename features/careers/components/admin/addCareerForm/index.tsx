@@ -66,7 +66,7 @@ export default function AddCareerForm() {
           ...data,
           image: imageUrl,
         }),
-        "Career created successfully"
+        "Career created successfully",
       );
 
       router.push("/dashboard/careers");
@@ -82,12 +82,15 @@ export default function AddCareerForm() {
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div>
+        <div className="rounded-2xl border my-3  bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-semibold">Add Career</h1>
-          <p className="mt-1 text-sm text-gray-500">Create a new career opportunity</p>
+          <p className="mt-1 text-sm text-gray-500">
+            Create a career opportunity with a title, description, requirements,
+            and application details.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 rounded-2xl border my-3  bg-white p-6 shadow-sm">
           <CareerTextFields />
 
           <RequirementsField
@@ -117,7 +120,10 @@ export default function AddCareerForm() {
           />
         </div>
 
-        <FormActions loading={loading || isUploading} onCancel={() => router.back()} />
+        <FormActions
+          loading={loading || isUploading}
+          onCancel={() => router.back()}
+        />
       </form>
     </FormProvider>
   );

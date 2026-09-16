@@ -127,7 +127,7 @@ export default function CreateProductForm({
           </p>
         </div>
 
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} >
           <ProductInformationSection
             categoriesNamesAndIDs={categoriesNamesAndIDs}
             onProductCardImageSelect={setCardImageFile}

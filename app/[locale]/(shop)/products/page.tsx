@@ -1,7 +1,7 @@
 import { Locale } from "@/types";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
-import ProductsPageClient from "../../../../features/catalog/products/components/ProductsPageClient";
-
+import ProductsPageClient from "@/features/products/components/shop/ProductsPageClient";
+// keep working on products feature
 export const generateMetadata = async ({
   params,
 }: {

@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   }
 
   return (
-    <div className="p-6">
+    <div className="pb-6">
       <ViewUser user={user} />
     </div>
   );

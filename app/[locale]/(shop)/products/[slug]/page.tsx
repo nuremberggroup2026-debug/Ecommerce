@@ -1,6 +1,6 @@
 import NotFound from "@/app/not-found";
 import { getProductBySlug } from "@/features/products/api/products.server.api";
-import ProductSection from "@/features/catalog/products/components/ProductSectioncomponents/ProductSection";
+import ProductSection from "@/features/products/components/shop/ProductSectioncomponents/ProductSection";
 import { generateDynamicMetadata } from "@/lib/constants/metadata";
 import { Locale } from "@/types";
 

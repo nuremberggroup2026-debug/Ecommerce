@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,27 +10,25 @@ export default async function Page() {
   const careers = response.data as unknown as CareerCard[];
 
   return (
-    <div className="container  mx-auto px-4 py-10">
+    <div className="container  mx-auto  pb-7">
       {/* Header */}
-      <div className="mb-10 flex items-end justify-between">
+      <div className=" gap-4 rounded-xl border bg-white py-2 px-4 shadow-sm mb-6 flex items-start justify-between border-b border-gray-300">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-black">
             Careers
           </h1>
 
-          <p className="mt-2 text-sm text-gray-500">
+          <p className=" text-sm text-gray-500">
             View careers and manage their applications.
           </p>
         </div>
 
-        <div className="rounded-xl border border-gray-200 bg-white px-5 py-3 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white px-5 py-2 shadow-sm mb-1.5">
           <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
             Total Careers
           </p>
 
-          <p className="mt-1 text-2xl font-bold text-black">
-            {careers.length}
-          </p>
+          <p className="mt-1 text-2xl font-bold text-black">{careers.length}</p>
         </div>
       </div>
 
@@ -42,9 +39,7 @@ export default async function Page() {
             💼
           </div>
 
-          <h2 className="font-semibold text-black">
-            No careers found
-          </h2>
+          <h2 className="font-semibold text-black">No careers found</h2>
 
           <p className="mt-1 text-sm text-gray-500">
             There are no careers available at the moment.
@@ -53,8 +48,7 @@ export default async function Page() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {careers.map((career) => {
-            const applicationsCount =
-              career.applications?.length ?? 0;
+            const applicationsCount = career.applications?.length ?? 0;
 
             return (
               <Link
@@ -87,9 +81,7 @@ export default async function Page() {
                       {applicationsCount}
                     </span>
 
-                    {applicationsCount === 1
-                      ? "Application"
-                      : "Applications"}
+                    {applicationsCount === 1 ? "Application" : "Applications"}
                   </div>
 
                   {/* Position */}

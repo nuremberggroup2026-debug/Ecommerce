@@ -1,16 +1,16 @@
 import HeroSection from "@/components/test/HeroSection";
-import CategoriesSection from "@/features/catalog/categories/components/CategoriesSection";
+import CategoriesSection from "@/features/categories/components/shop/CategoriesSection";
 import PromoBanner from "@/components/test/PromoBanner";
 import ForSaleSection from "@/components/test/ForSaleSection";
-import { fetchFeaturedCategories } from "@/features/catalog/categories/api/categories.server.api";
-import FeaturedProductsComponent from "@/features/catalog/products/components/FeaturedProductsComponent";
+import { fetchFeaturedCategories } from "@/features/categories/api/categories.server.api";
+import FeaturedProductsComponent from "@/features/products/components/shop/FeaturedProductsComponent";
 import { StoreFeaturesSection } from "@/components/test/StoreFeaturesSection";
 import { fetchBanners } from "@/features/banner/api/banners.server.api";
 import { Locale } from "@/types";
 import {
   fetchFeaturedProducts,
   fetchOnDiscountProducts,
-} from "@/features/catalog/products/api/products.server.api";
+} from "@/features/products/api/products.server.api";
 import { generateStaticMetadata } from "@/lib/constants/metadata";
 import { getTranslations } from "next-intl/server";
 import { SectionSeparator } from "@/components/common/SectionSeparator";

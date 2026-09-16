@@ -6,7 +6,7 @@ export default async function DemoPage() {
   const careers = await adminCareers();
 
   return (
-    <div className="container  mx-auto py-10">
+    <div>
       <CareerDataTable data={careers.data} />
     </div>
   );

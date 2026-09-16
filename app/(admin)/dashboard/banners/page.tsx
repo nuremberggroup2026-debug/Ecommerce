@@ -5,7 +5,7 @@ export default async function BannersPage() {
   const banners = await adminBanners();
 
   return (
-    <div className="container  mx-auto py-10">
+    <div >
       <BannerDataTable data={banners.data} />
     </div>
   );

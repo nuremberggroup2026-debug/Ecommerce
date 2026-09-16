@@ -9,7 +9,10 @@ import { toast } from "sonner";
 import { useUploadThing } from "@/utils/uploadthing";
 import { toastResponse } from "@/lib/admintoast";
 
-import { updateCareerSchema, type UpdateCareerSchema } from "@/server/careers/validators";
+import {
+  updateCareerSchema,
+  type UpdateCareerSchema,
+} from "@/server/careers/validators";
 import { adminUpdateCareer } from "@/features/careers/api/careers.client.api";
 
 import CareerTextFields from "./CareerTextFields";
@@ -86,7 +89,7 @@ export default function EditCareerForm({ career }: Props) {
 
       await toastResponse(
         adminUpdateCareer(career.id, updatedData),
-        "Career updated successfully"
+        "Career updated successfully",
       );
 
       reset(updatedData);
@@ -104,14 +107,15 @@ export default function EditCareerForm({ career }: Props) {
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div>
+        <div className="rounded-2xl border my-3  bg-white p-6 shadow-sm">
           <h1 className="text-2xl font-semibold">Edit Career</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Update career opportunity information
+          <p className="mt-1 text-sm text-gray-500">
+            Update the details, requirements, or application information of an
+            existing career opportunity.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 rounded-2xl border my-3  bg-white p-6 shadow-sm">
           <CareerTextFields />
 
           <CareerImageField
@@ -129,7 +133,10 @@ export default function EditCareerForm({ career }: Props) {
           />
         </div>
 
-        <FormActions loading={loading || isUploading} onCancel={() => router.back()} />
+        <FormActions
+          loading={loading || isUploading}
+          onCancel={() => router.back()}
+        />
       </form>
     </FormProvider>
   );

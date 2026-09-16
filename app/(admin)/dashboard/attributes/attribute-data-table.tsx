@@ -8,9 +8,9 @@ import { columns } from "./columns";
 import {
   adminDeleteAttribute,
   deleteManyAttributes,
-} from "@/features/catalog/attributes/api/attributes.client.api";
+} from "@/features/attributes/api/attributes.client.api";
 
-import type { AdminAttribute } from "@/features/catalog/attributes/types";
+import type { AdminAttribute } from "@/features/attributes/types";
 
 interface AttributeDataTableProps {
   data: AdminAttribute[];

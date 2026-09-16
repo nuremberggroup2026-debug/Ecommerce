@@ -15,7 +15,7 @@ export default async function Page({
 
   if (!application) {
     return (
-      <div className="flex min-h-[400px] items-center justify-center p-6">
+      <div className="flex min-h-100 items-center justify-center pb-6">
         <div className="text-center">
           <h1 className="text-lg font-semibold text-gray-900">
             Application not found
@@ -30,7 +30,7 @@ export default async function Page({
   }
 
   return (
-    <div className="w-full p-6">
+    <div className="w-full px-1 pb-6">
       <ViewApplication
         application={application}
         applicationid={applicationid}

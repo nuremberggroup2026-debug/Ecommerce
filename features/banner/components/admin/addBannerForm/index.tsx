@@ -32,7 +32,13 @@ export default function AddBannerForm() {
     },
   });
 
-  const { handleSubmit, setValue, clearErrors } = form;
+  const {
+    handleSubmit,
+    setValue,
+    clearErrors,
+    reset,
+    formState: { isSubmitting },
+  } = form;
 
   const { startUpload, isUploading } = useUploadThing("banners");
 
@@ -58,7 +64,7 @@ export default function AddBannerForm() {
           ...data,
           image: imageUrl,
         }),
-        "ADDING_BANNER"
+        "ADDING_BANNER",
       );
 
       router.push("/dashboard/banners");
@@ -73,15 +79,18 @@ export default function AddBannerForm() {
 
   return (
     <FormProvider {...form}>
+      <div className="rounded-2xl border my-3  bg-white p-6 shadow-sm">
+        <h1 className="text-2xl font-semibold">Add Banner</h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Create a promotional banner to highlight products, and important store
+          content.
+        </p>
+      </div>
+      
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-5xl rounded-xl border bg-white p-8 shadow-sm"
+        className="w-full max-w-7xl rounded-xl border bg-white p-4 shadow-sm"
       >
-        <div className="mb-8 border-b pb-5">
-          <h2 className="text-2xl font-semibold text-gray-900">Add Banner</h2>
-          <p className="mt-1 text-sm text-gray-500">Create a new banner</p>
-        </div>
-
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <BannerNameFields />
 
@@ -99,7 +108,15 @@ export default function AddBannerForm() {
           />
         </div>
 
-        <div className="mt-8 flex justify-end border-t pt-6">
+        <div className="mt-8 flex justify-end border-t pt-6 gap-3">
+          <button
+            type="button"
+            onClick={() => reset()}
+            disabled={isSubmitting}
+            className="rounded-lg border border-gray-200 bg-white px-8 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Cancel
+          </button>
           <button
             type="submit"
             disabled={loading || isUploading}

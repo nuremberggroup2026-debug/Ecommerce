@@ -1,5 +1,5 @@
-import { adminCategoryById } from "@/features/catalog/categories/api/categories.server.api";
-import EditCategoryForm from "@/features/catalog/categories/components/admin/editCategoryForm/index";
+import { adminCategoryById } from "@/features/categories/api/categories.server.api";
+import EditCategoryForm from "@/features/categories/components/admin/editCategoryForm/index";
 
 export default async function Page({
   params,
@@ -15,7 +15,7 @@ export default async function Page({
   }
 
   return (
-    <div className="p-6">
+    <div >
       <EditCategoryForm
         category={{
           id: category.id,

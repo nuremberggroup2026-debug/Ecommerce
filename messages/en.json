@@ -239,7 +239,8 @@
     "USER_ID_REQUIRED": "User ID is required.",
     "INVALID_PROMO_CODE": "The promo code is invalid.",
     "PROMO_CODE_ALREADY_USED": "You have already used this promo code.",
-    "PROMO_CODE_APPLIED": "Promo code applied successfully."
+    "PROMO_CODE_APPLIED": "Promo code applied successfully.",
+    "CAREER_UPDATED_SUCCESSFULLY":"Career Updated Successfully"
   },
   "Product": {
     "products": "Products",

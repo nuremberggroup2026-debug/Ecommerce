@@ -1,4 +1,4 @@
-import { adminAttributeById } from "@/features/catalog/attributes/api/attributes.server.api";
+import { adminAttributeById } from "@/features/attributes/api/attributes.server.api";
 import EditAttributeForm from "../edit-attribute-form";
 
 export default async function Page({
@@ -23,7 +23,7 @@ export default async function Page({
   }
 
   return (
-    <div className="container mx-auto max-w-5xl py-10">
+    <div className="container mx-auto max-w-7xl  pb-10">
       <EditAttributeForm
         attribute={{
           id: attribute.id,

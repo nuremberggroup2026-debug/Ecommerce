@@ -24,6 +24,7 @@ import {
   BriefcaseBusiness,
   Images,
   ClipboardList,
+  TicketPercent,
 } from "lucide-react";
 
 const items = [
@@ -56,6 +57,11 @@ const items = [
     title: "Attributes",
     url: "/dashboard/attributes",
     icon: Timeline,
+  },
+  {
+    title: "Promo Codes",
+    url: "/dashboard/promo-codes",
+    icon: TicketPercent,
   },
 
   {
@@ -99,15 +105,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel
-            className="
-              transition-all
-              duration-300
-              group-data-[collapsible=icon]:opacity-0
-            "
-          >
-            Menu
-          </SidebarGroupLabel>
+         
 
           <SidebarGroupContent>
             <SidebarMenu>

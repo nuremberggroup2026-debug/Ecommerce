@@ -121,7 +121,6 @@ export function DataTable<TData extends { id: string }, TValue>({
       table.resetRowSelection();
 
       setDeleteDialogOpen(false);
-      console.log("result in table: ", result);
 
       toast.success(
         result.message === "ITEMS_DELETED"

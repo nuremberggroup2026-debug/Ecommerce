@@ -17,9 +17,15 @@ export const createPromoCodeSchema = z.object({
     .int("Maximum usage must be an integer")
     .positive("Maximum usage must be greater than 0"),
 
-  expiresAt: z.coerce.date().optional(),
+  expiresAt: z.date().nullable().optional(),
 
   isActive: z.boolean().optional(),
 });
 
 export const updatePromoCodeSchema = createPromoCodeSchema.partial();
+
+export type CreatePromoCodeInput = z.input<typeof createPromoCodeSchema>;
+export type CreatePromoCodeSchema = z.output<typeof createPromoCodeSchema>;
+
+export type UpdatePromoCodeInput = z.input<typeof updatePromoCodeSchema>;
+export type UpdatePromoCodeSchema = z.output<typeof updatePromoCodeSchema>;

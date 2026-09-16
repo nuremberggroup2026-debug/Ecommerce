@@ -56,7 +56,7 @@ export default function VariantInformationSection({
   };
 
   return (
-    <section className="rounded-2xl border mt-10  border-gray-200 bg-white p-6">
+    <section className="rounded-2xl border my-3  bg-white p-6">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-900">
