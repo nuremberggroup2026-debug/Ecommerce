@@ -36,7 +36,7 @@ export default function LoginForm() {
 
       if (!result?.error) {
         toast.success(t("SUCCESS_LOGIN"));
-        router.push("/dashboard");
+        router.push("/");
       } else {
         if (result.code === "EMAIL_NOT_VERIFIED") {
           toast.error(t("EMAIL_NOT_VERIFIED"));
