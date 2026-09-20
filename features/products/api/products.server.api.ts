@@ -7,6 +7,8 @@ import type {
   ProductByLocale,
   Product,
   ProductById,
+  AdminProductsFiltrationObjectFrontend,
+  AdminProductsData,
 } from "@/features/products/types";
 
 /* ==================================     Admin Api      ================================== */
@@ -19,8 +21,20 @@ export async function adminProductById(
   );
 }
 
-export async function adminProducts(): Promise<ResponseType<Product[]>> {
-  return api.get<ResponseType<Product[]>>(API.ENDPOINTS.PRODUCTS.ALL_PRODUCTS);
+export async function adminProducts(
+  filtrationObject: AdminProductsFiltrationObjectFrontend,
+): Promise<ResponseType<AdminProductsData>> {
+  const { page, take, category } = filtrationObject;
+  const params = new URLSearchParams({
+    page: page ? page.toString() : "1",
+    take: take ? take.toString() : "5",
+  });
+  if (category) {
+    params.set("category", category);
+  }
+  return api.get<ResponseType<AdminProductsData>>(
+    `${API.ENDPOINTS.PRODUCTS.ALL_PRODUCTS}?${params}`,
+  );
 }
 
 /* ==================================     Shop Api      ================================== */

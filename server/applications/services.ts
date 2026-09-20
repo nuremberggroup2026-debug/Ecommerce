@@ -167,10 +167,23 @@ const getCachedApplications = () =>
   )();
 
 // cached Applications by career ID used with getApplicationsByCareerId
-const getCachedApplicationsByCareerId = (careerId: string) =>
-  unstable_cache(
+const getCachedApplicationsByCareerId = (
+  careerId: string,
+  page: number,
+  take: number,
+) => {
+  const skip = take * (page - 1);
+
+  return unstable_cache(
     async () => {
-      return prisma.applications.findMany({
+      const applicationsCount = await prisma.applications.count({
+        where: {
+          careerId,
+        },
+      });
+      const applications = await prisma.applications.findMany({
+        skip,
+        take,
         where: {
           careerId,
         },
@@ -182,13 +195,23 @@ const getCachedApplicationsByCareerId = (careerId: string) =>
           },
         },
       });
+      return {
+        applications,
+        pagination: {
+          currentPage: page ?? 1,
+          totalPages: Math.ceil(applicationsCount / take),
+          totalItems: applicationsCount,
+          itemsPerPage: take,
+        },
+      };
     },
-    [`applications-career-${careerId}`],
+    [`applications-career-${careerId}-${page}-${take}`],
     {
       tags: ["applications"],
       revalidate: 3600,
     },
   )();
+};
 
 // cached Applications by ID used with getApplicationsByApplicationId
 const getCachedApplicationById = (applicationId: string) =>
@@ -343,7 +366,11 @@ export const getAllApplications = async () => {
   };
 };
 
-export const getApplicationsByCareerId = async (careerId: string) => {
+export const getApplicationsByCareerId = async (
+  careerId: string,
+  page: number,
+  take: number,
+) => {
   if (!careerId)
     return {
       success: false,
@@ -351,7 +378,11 @@ export const getApplicationsByCareerId = async (careerId: string) => {
       code: RESPONSE_CODES.BAD_REQUEST,
     };
 
-  const applications = await getCachedApplicationsByCareerId(careerId);
+  const applications = await getCachedApplicationsByCareerId(
+    careerId,
+    page,
+    take,
+  );
 
   return {
     success: true,

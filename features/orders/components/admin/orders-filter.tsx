@@ -1,9 +1,8 @@
 "use client";
-
 import { useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { Input } from "@/components/ui/input";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -21,9 +20,11 @@ export function OrdersFilter() {
   const [orderNumber, setOrderNumber] = useState(
     searchParams.get("orderNumber") || "",
   );
+
   const [customerEmail, setCustomerEmail] = useState(
     searchParams.get("customerEmail") || "",
   );
+
   const [status, setStatus] = useState(searchParams.get("status") || "ALL");
 
   const statusLabels: Record<OrderStatus, string> = {
@@ -69,6 +70,7 @@ export function OrdersFilter() {
     setStatus("ALL");
 
     const params = new URLSearchParams(searchParams.toString());
+
     params.delete("orderNumber");
     params.delete("customerEmail");
     params.delete("status");
@@ -80,49 +82,62 @@ export function OrdersFilter() {
   return (
     <form
       onSubmit={handleApply}
-      className="flex flex-col md:flex-row gap-4 mb-6 items-end bg-white p-4 rounded-xl border shadow-sm"
+      className="mb-6 grid w-full grid-cols-1 gap-4 rounded-xl border bg-white p-4 shadow-sm sm:grid-cols-2 md:grid-cols-3 lg:flex lg:items-end"
     >
-      <div className="flex flex-col gap-2 w-full md:w-auto">
+      {/* Order Number */}
+      <div className="flex w-full flex-col gap-2 lg:w-50">
         <label
           htmlFor="orderNumber"
           className="text-sm font-medium text-gray-700"
         >
           Order Number
         </label>
+
         <Input
           id="orderNumber"
           placeholder="e.g. ORD-123"
           value={orderNumber}
           onChange={(e) => setOrderNumber(e.target.value)}
-          className="w-full md:w-50"
+          className="w-full"
         />
       </div>
 
-      <div className="flex flex-col gap-2 w-full md:w-auto">
+      {/* Customer Email */}
+      <div className="flex w-full flex-col gap-2 lg:w-62.5">
         <label
           htmlFor="customerEmail"
           className="text-sm font-medium text-gray-700"
         >
           Customer Email
         </label>
+
         <Input
           id="customerEmail"
           type="email"
           placeholder="email@example.com"
           value={customerEmail}
           onChange={(e) => setCustomerEmail(e.target.value)}
-          className="w-full md:w-62.5"
+          className="w-full"
         />
       </div>
 
-      <div className="flex flex-col gap-2 w-full md:w-auto">
-        <label className="text-sm font-medium text-gray-700">Status</label>
+      {/* Status */}
+      <div className="flex w-full flex-col gap-2 lg:w-45">
+        <label
+          htmlFor="order-status"
+          className="text-sm font-medium text-gray-700"
+        >
+          Status
+        </label>
+
         <Select value={status} onValueChange={setStatus}>
-          <SelectTrigger className="w-full md:w-45">
+          <SelectTrigger id="order-status" className="w-full">
             <SelectValue placeholder="All Statuses" />
           </SelectTrigger>
+
           <SelectContent>
             <SelectItem value="ALL">All Statuses</SelectItem>
+
             {Object.values(OrderStatus).map((status) => (
               <SelectItem key={status} value={status}>
                 {statusLabels[status]}
@@ -132,18 +147,20 @@ export function OrdersFilter() {
         </Select>
       </div>
 
-      <div className="flex gap-2 w-full md:w-auto md:ml-auto">
+      {/* Actions */}
+      <div className="flex  gap-2  ">
         <Button
           type="button"
           variant="outline"
           onClick={handleClear}
-          className="flex-1 md:flex-none"
+          className="flex-1 lg:flex-none"
         >
           Clear
         </Button>
+
         <Button
           type="submit"
-          className="flex-1 md:flex-none bg-black hover:bg-black "
+          className="flex-1 bg-black hover:bg-gray-800 lg:flex-none"
         >
           Apply Filters
         </Button>

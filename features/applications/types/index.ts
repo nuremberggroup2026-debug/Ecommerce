@@ -98,3 +98,14 @@ export type TransalatedCareer = {
   experience: string | null;
   slug: string;
 };
+
+
+export type AdminApplicationData = {
+  applications: CareerApplication[];
+  pagination: {
+    currentPage: number;
+    itemsPerPage: number;
+    totalItems: number;
+    totalPages: number;
+  };
+};

@@ -13,6 +13,13 @@ import type {
   Locale,
 } from "@/types/index";
 
+import type {
+  FilteredProductsData,
+  ProductByLocale,
+  ProductsDataWithOutPag,
+  ProductsQuery,
+} from "@/features/products/types";
+
 /* ==================================     Admin Api      ================================== */
 
 export async function adminAddProduct(
@@ -56,14 +63,6 @@ export async function deleteManyProducts(
 }
 
 /* ==================================     Shop Api      ================================== */
-
-import type {
-  FilteredProductsData,
-  Product,
-  ProductByLocale,
-  ProductsDataWithOutPag,
-  ProductsQuery,
-} from "@/features/products/types";
 
 // =====================================================
 // Products

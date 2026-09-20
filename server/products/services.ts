@@ -1,4 +1,5 @@
 import {
+  AdminProductsFiltrationObject,
   ProductFilters,
   ProductWithVaraintsCreateInput,
   ProductWithVaraintsUpdateInput,
@@ -528,8 +529,6 @@ export const updateProductWithVariant = async (
 };
 
 export const deleteProduct = async (id: string) => {
- 
-
   if (!id)
     return {
       success: false,
@@ -589,19 +588,44 @@ export const deleteManyProducts = async (ids: string[]) => {
 
 /* -------------------- Caching Helps --------------------  */
 
-const getCachedProducts = () =>
-  unstable_cache(
+const getCachedProducts = (filtrationObj: AdminProductsFiltrationObject) => {
+  const cacheKey = ["admin-filtered-products", JSON.stringify(filtrationObj)];
+  console.log("cacheKey: ", cacheKey);
+
+  return unstable_cache(
     async () => {
-      return prisma.products.findMany({
-        include: { categories: { select: { categoryNameEn: true } } },
+      const { page, take, category } = filtrationObj;
+      const where: Prisma.productsWhereInput = {};
+      if (category) where.categoryId = category;
+
+      const skip = take * (page - 1);
+      const totalProducts = await prisma.products.count({
+        where,
       });
+      const products = await prisma.products.findMany({
+        skip,
+        take,
+        include: { categories: { select: { categoryNameEn: true } } },
+        where,
+      });
+
+      return {
+        products,
+        pagination: {
+          currentPage: filtrationObj.page ?? 1,
+          totalPages: Math.ceil(totalProducts / take),
+          totalItems: totalProducts,
+          itemsPerPage: take,
+        },
+      };
     },
-    ["all-products"],
+    cacheKey,
     {
       tags: ["products"],
       revalidate: 3600,
     },
   )();
+};
 
 const getCachedProductsByLocale = (locale: Locale) =>
   unstable_cache(
@@ -811,8 +835,6 @@ const getCachedfilteredProducts = (
           in: productsFilters.categories,
         };
       }
-
-      console.log(" productsFilters:");
 
       const priceFilter: Prisma.DecimalFilter = {};
       if (productsFilters.minPrice !== undefined) {
@@ -1089,14 +1111,16 @@ const getCachedDisCountProductsByLocale = (locale: Locale) =>
 
 /* -------------------- Caching Helps --------------------  */
 
-export const getAllProducts = async () => {
-  const products = await getCachedProducts();
+export const getAllProducts = async (
+  filtrationObj: AdminProductsFiltrationObject,
+) => {
+  const result = await getCachedProducts(filtrationObj);
 
   return {
     success: true,
     message: "PRODUCTS_RETRIEVED_SUCCESSFULLY",
     code: RESPONSE_CODES.OK,
-    data: products,
+    data: result,
   };
 };
 

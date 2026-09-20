@@ -83,6 +83,7 @@ export const API = {
     ORDERS: {
       ALL_ORDERS: "/orders/admin",
       ORDER_BY_ID: "/orders/admin",
+      GET_ORDERS_REPORT_DATA: "orders/admin/generate-orders-report",
       UPDATE_ORDER_STATUS: "/orders/update-order-status",
       DELETE_MANY_ORDERS: "orders/delete-many-orders",
       ORDER_DETAILS_BY_ID_AND_LOCALE:
@@ -121,8 +122,8 @@ export const API = {
       ADD_PROMO_CODE: "promo-codes",
       DELETE_MANY_PROMO_CODES: "promo-codes/delete-many",
     },
-    DASHBOARD:{
-      DASHBOARD_NUMBERS:"/dashboard-numbers"
-    }
+    DASHBOARD: {
+      DASHBOARD_NUMBERS: "/dashboard-numbers",
+    },
   },
 };

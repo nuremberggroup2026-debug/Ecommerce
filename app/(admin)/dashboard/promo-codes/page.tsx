@@ -13,7 +13,7 @@ export default async function page({
   const data = await adminPromoCodes(page, take);
 
   return (
-    <div className="container max-w-[90%] lg:max-w-7xl mx-auto pb-10">
+    <div className="w-full min-w-0 pb-10">
       <PromoCodesDataTableServer
       
         data={data.data.promoCodes}

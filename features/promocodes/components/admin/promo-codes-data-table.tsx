@@ -24,7 +24,7 @@ export function PromoCodesDataTableServer({
         onDelete: adminDeletePromoCode,
       })}
       data={data}
-      pageCount={pageCount}
+      pageCount={pageCount?pageCount:1}
       title="Promo Codes"
       description="Manage your Promo Codes"
       addHref="/dashboard/promo-codes/add"

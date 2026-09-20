@@ -18,11 +18,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         }}
       />
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset className="min-w-0 overflow-hidden">
         <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger />
         </header>
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 overflow-x-hidden p-4 sm:p-6">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

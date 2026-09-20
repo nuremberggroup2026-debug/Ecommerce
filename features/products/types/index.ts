@@ -1,5 +1,8 @@
 import { Locale } from "@/types";
-import { SortType } from "@/server/products/types";
+import {
+  SortType,
+  AdminProductsFiltrationObject,
+} from "@/server/products/types";
 export type Product = {
   id: string;
   slug: string;
@@ -175,4 +178,17 @@ export type ProductsDataWithOutPag = {
   products: GetProductType[];
   productsIdsInWishlist: string[];
   productsIdsInCart: string[];
+};
+
+export type AdminProductsFiltrationObjectFrontend =
+  AdminProductsFiltrationObject;
+
+export type AdminProductsData = {
+  products: Product[];
+  pagination: {
+    currentPage: number;
+    itemsPerPage: number;
+    totalItems: number;
+    totalPages: number;
+  };
 };

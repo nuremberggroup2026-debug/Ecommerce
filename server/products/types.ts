@@ -58,3 +58,9 @@ export type SortType =
   | "price_asc"
   | "price_desc"
   | undefined;
+
+export type AdminProductsFiltrationObject = {
+  page:number,
+  take:number,
+  category?:string | null
+}

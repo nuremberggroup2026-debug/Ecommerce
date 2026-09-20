@@ -4,13 +4,15 @@ import Link from "next/link";
 import { fetchCareersWithApplications } from "@/features/careers/api/careers.server.api";
 import type { CareerCard } from "@/features/applications/types";
 
+
 export default async function Page() {
+  
   const response = await fetchCareersWithApplications();
 
   const careers = response.data as unknown as CareerCard[];
 
   return (
-    <div className="container  mx-auto  pb-7">
+    <div className="w-full min-w-0 pb-10">
       {/* Header */}
       <div className=" gap-4 rounded-xl border bg-white py-2 px-4 shadow-sm mb-6 flex items-start justify-between border-b border-gray-300">
         <div>

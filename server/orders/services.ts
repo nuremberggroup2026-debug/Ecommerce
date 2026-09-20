@@ -3,6 +3,7 @@ import {
   PlaceOrderCreateInputs,
   OrderStatus,
   OrdersFilteration,
+  OrdersReportDataFilter,
 } from "./types";
 import { createOrderBackendSchema } from "./validators";
 import { RESPONSE_CODES } from "@/lib/constants/response";
@@ -10,6 +11,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { generateOrderNumber } from "@/lib/helpers";
 import { Prisma } from "@/generated/prisma/client";
+import { fr } from "zod/v4/locales";
 
 export const placeAnOrder = async (
   orderData: PlaceOrderCreateInputs,
@@ -363,7 +365,7 @@ const getCachedOrderByIdUserAndLocale = (
 
 const getCachedAdminOrders = (filterationObject: OrdersFilteration) => {
   const page = filterationObject.page ?? 1;
-  const take = filterationObject.take ?? 15;
+  const take = filterationObject.take ?? 5;
   const customerEmail = filterationObject.customerEmail ?? "";
   const status = filterationObject.status ?? "";
   const orderNumber = filterationObject.orderNumber ?? "";
@@ -687,3 +689,196 @@ export const adminGetOrdersByStatus = async (
     data: result,
   };
 };
+
+export const getOrdersReportData = async (
+  filterationObj: OrdersReportDataFilter,
+) => {
+  const { from, to, status } = filterationObj;
+
+  if (from > to) {
+    return {
+      success: false,
+      message: "INVALID_REPORT_DATE_RANGE",
+      code: RESPONSE_CODES.BAD_REQUEST,
+      data: null,
+    };
+  }
+
+  const MAX_REPORT_DAYS = 370;
+  const MS_PER_DAY = 1000 * 60 * 60 * 24;
+  const diffInDays = (to.getTime() - from.getTime()) / MS_PER_DAY;
+  if (diffInDays > MAX_REPORT_DAYS)
+    return {
+      success: false,
+      message: "REPORT_RANGE_CANNOT_EXCEED_ONE_YEAR",
+      code: RESPONSE_CODES.BAD_REQUEST,
+      data: null,
+    };
+
+  try {
+    return prisma.$transaction(async (tx) => {
+      /*     ==================================    First Section: Report Summary Data     ==================================     */
+      const allOrdersCount = await tx.orders.count({
+        where: {
+          createdAt: {
+            gte: from,
+            lt: to,
+          },
+        },
+      });
+      const allSoldItems = await tx.order_items.aggregate({
+        where: {
+          orders: {
+            status: "DELIVERED",
+            createdAt: {
+              gte: from,
+              lt: to,
+            },
+          },
+        },
+        _sum: {
+          quantity: true,
+        },
+      });
+
+      const ordersByStatus = await tx.orders.groupBy({
+        by: ["status"],
+        where: {
+          createdAt: {
+            gte: from,
+            lt: to,
+          },
+        },
+        _count: {
+          id: true,
+        },
+        _sum: {
+          totalAmount: true,
+        },
+      });
+
+      // Total Pending Orders Count
+      const totalPendingOrdersCount =
+        ordersByStatus.find((o) => o.status === "PENDING")?._count.id ?? 0;
+
+      // Total Cancelled Orders Count
+      const totalCancelledOrdersCount =
+        ordersByStatus.find((o) => o.status === "CANCELLED")?._count.id ?? 0;
+
+      // Total Delivered Orders Count, and Total Amount
+      const totalDeliveredOrders = ordersByStatus.find(
+        (o) => o.status === "DELIVERED",
+      );
+      const totalDeliveredOrdersCount = totalDeliveredOrders?._count.id ?? 0;
+      const totalDeliveredOrdersAmount =
+        totalDeliveredOrders?._sum.totalAmount?.toFixed(2) ?? "0.00";
+
+      const ordersSummary = {
+        allOrdersCount,
+        allSoldItems: allSoldItems._sum.quantity ?? 0,
+        totalPendingOrdersCount,
+        totalCancelledOrdersCount,
+        totalDeliveredOrdersCount,
+        totalDeliveredOrdersAmount,
+      };
+
+      /*     ==================================     Second Section: Report Details Data     ==================================     */
+
+      const orderDetailsData = await tx.orders.findMany({
+        where: {
+          createdAt: {
+            gte: from,
+            lt: to,
+          },
+          ...(status && {
+            status,
+          }),
+        },
+
+        select: {
+          orderNumber: true,
+          paymentMethod: true,
+          totalAmount: true,
+          subtotal: true,
+          status: true,
+          createdAt: true,
+          updatedAt: true,
+          email: true,
+          orderItems: {
+            select: {
+              productNameEn: true,
+              quantity: true,
+            },
+          },
+        },
+      });
+
+      const orderDetails = orderDetailsData.map((o) => ({
+        orderNumber: o.orderNumber,
+        paymentMethod: o.paymentMethod,
+        totalAmount: o.totalAmount,
+        subtotal: o.subtotal,
+        status: o.status,
+        createdAt: o.createdAt,
+        updatedAt: o.updatedAt,
+        email: o.email,
+        orderItemsNumbers: o.orderItems.reduce(
+          (total, item) => total + item.quantity,
+          0,
+        ),
+        products: o.orderItems.map((ot) => ({
+          name: ot.productNameEn,
+          quantity: ot.quantity,
+        })),
+      }));
+
+      /*     ==================================     Third Section: Top Five Sold Products     ==================================     */
+
+      const topProducts = await tx.order_items.groupBy({
+        by: ["productNameEn"],
+        _sum: {
+          quantity: true,
+        },
+        orderBy: {
+          _sum: {
+            quantity: "desc",
+          },
+        },
+        take: 5,
+        where: {
+          orders: {
+            createdAt: {
+              gte: from,
+              lt: to,
+            },
+            status: "DELIVERED",
+          },
+        },
+      });
+
+      const topSoldProducts = topProducts.map((tp) => ({
+        name: tp.productNameEn,
+        quantitySold: Number(tp._sum.quantity),
+      }));
+
+      return {
+        success: true,
+        message: "ALL_REPORT_DATA",
+        code: RESPONSE_CODES.OK,
+        data: {
+          ordersSummary,
+          orderDetails,
+          topSoldProducts,
+        },
+      };
+    });
+  } catch (error) {
+    return {
+      success: false,
+      message: "INTERNAL_SERVER_ERROR",
+      code: RESPONSE_CODES.INTERNAL_ERROR,
+      data: null,
+    };
+  }
+};
+

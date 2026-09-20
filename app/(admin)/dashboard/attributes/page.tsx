@@ -6,7 +6,7 @@ export default async function AttributesPage() {
   const attributes = await adminAttributes();
 
   return (
-    <div >
+    <div className="w-full min-w-0 pb-10" >
       <AttributeDataTable data={attributes.data} />
     </div>
   );

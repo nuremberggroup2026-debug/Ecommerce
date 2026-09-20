@@ -76,7 +76,7 @@ export default function ViewApplication({ application, applicationid }: Props) {
       <div className="flex flex-col gap-4 rounded-2xl border my-3  bg-white p-6  pb-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-start md:items-center gap-4">
           <Link
-            href="/dashboard/applications"
+            href={`/dashboard/applications/${application.careerId}`}
             className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 transition hover:bg-gray-50"
           >
             <ArrowLeft className="h-4 w-4" />

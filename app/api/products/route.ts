@@ -4,7 +4,10 @@ import {
   createProductWithVariant,
   getAllProducts,
 } from "@/server/products/services";
-import { ProductWithVaraintsCreateInput } from "@/server/products/types";
+import {
+  AdminProductsFiltrationObject,
+  ProductWithVaraintsCreateInput,
+} from "@/server/products/types";
 import { NextResponse } from "next/server";
 
 export const POST = withAuth(["super_admin"], async (request: Request) => {
@@ -34,9 +37,28 @@ export const POST = withAuth(["super_admin"], async (request: Request) => {
   }
 });
 
-export const GET = async () => {
+export const GET = withAuth(["super_admin"], async (request: Request) => {
   try {
-    const result = await getAllProducts();
+    const { searchParams } = new URL(request.url);
+    const page = Number(searchParams.get("page") ?? 1);
+    const take = Number(searchParams.get("take") ?? 5);
+    const category = searchParams.get("category");
+    const filterObjects: AdminProductsFiltrationObject = {
+      page,
+      take,
+      category,
+    };
+    const result = await getAllProducts(filterObjects);
+
+    if (!result)
+      return NextResponse.json(
+        {
+          success: false,
+          data: null,
+          message: "not Found",
+        },
+        { status: 400 },
+      );
     const status = HTTP_STATUS_MAP[result.code] || 500;
 
     return NextResponse.json(
@@ -57,4 +79,4 @@ export const GET = async () => {
       { status: 500 },
     );
   }
-};
+});

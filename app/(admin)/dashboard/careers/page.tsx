@@ -6,7 +6,7 @@ export default async function DemoPage() {
   const careers = await adminCareers();
 
   return (
-    <div>
+    <div className="w-full min-w-0 pb-10">
       <CareerDataTable data={careers.data} />
     </div>
   );

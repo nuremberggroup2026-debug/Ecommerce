@@ -1,5 +1,6 @@
 import { OrderStatus } from "@/server/orders/types";
 import { HTTP_STATUS_MAP } from "@/lib/constants/response";
+import { ReportPreset } from "@/features/orders/types";
 type Router = {
   push: (href: string) => void;
   replace: (href: string) => void;
@@ -70,5 +71,89 @@ export const handleApiError = (status: number, router: Router) => {
 
     default:
       return;
+  }
+};
+
+ export const getDateInputValue = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+export const getPresetDates = (preset: ReportPreset) => {
+  const now = new Date();
+
+  switch (preset) {
+    case "today":
+      return {
+        from: getDateInputValue(now),
+        to: getDateInputValue(now),
+      };
+
+    case "last7Days": {
+      const from = new Date(now);
+      from.setDate(from.getDate() - 6);
+
+      return {
+        from: getDateInputValue(from),
+        to: getDateInputValue(now),
+      };
+    }
+
+    case "thisMonth": {
+      const from = new Date(now.getFullYear(), now.getMonth(), 1);
+
+      return {
+        from: getDateInputValue(from),
+        to: getDateInputValue(now),
+      };
+    }
+
+    case "lastMonth": {
+      const from = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      const to = new Date(now.getFullYear(), now.getMonth(), 0);
+
+      return {
+        from: getDateInputValue(from),
+        to: getDateInputValue(to),
+      };
+    }
+
+    case "thisYear": {
+      const from = new Date(now.getFullYear(), 0, 1);
+
+      return {
+        from: getDateInputValue(from),
+        to: getDateInputValue(now),
+      };
+    }
+
+    case "lastYear": {
+      const from = new Date(now.getFullYear() - 1, 0, 1);
+      const to = new Date(now.getFullYear() - 1, 11, 31);
+
+      return {
+        from: getDateInputValue(from),
+        to: getDateInputValue(to),
+      };
+    }
+
+    case "specificYear": {
+      const from = new Date(now.getFullYear(), 0, 1);
+      const to = new Date(now.getFullYear(), 11, 31);
+
+      return {
+        from: getDateInputValue(from),
+        to: getDateInputValue(to),
+      };
+    }
+
+    case "custom":
+      return {
+        from: "",
+        to: "",
+      };
   }
 };

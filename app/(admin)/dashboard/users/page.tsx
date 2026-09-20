@@ -5,7 +5,7 @@ export default async function UsersPage() {
   const users = (await adminUsers()).data;
 
   return (
-    <div className="container  mx-auto pb-10">
+    <div className="w-full min-w-0 pb-10">
       <UserDataTable data={users} />
     </div>
   );

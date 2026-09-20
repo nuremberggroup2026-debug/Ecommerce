@@ -5,7 +5,7 @@ export default async function BannersPage() {
   const banners = await adminBanners();
 
   return (
-    <div >
+    <div className="w-full min-w-0 pb-10" >
       <BannerDataTable data={banners.data} />
     </div>
   );

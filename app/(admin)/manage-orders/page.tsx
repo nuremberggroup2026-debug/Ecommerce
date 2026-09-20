@@ -4,6 +4,7 @@ import { getAdminOrders } from "@/features/orders/services/orders.service";
 import { OrderDataTableServer } from "@/features/orders/components/admin/orders-data-table-server";
 import { OrdersFilter } from "@/features/orders/components/admin/orders-filter";
 import { OrderStatus, OrdersFilteration } from "@/features/orders/types";
+import GenerateOrdersReport from "@/features/orders/components/admin/generate-orders-report";
 
 export default async function OrdersPage({
   searchParams,
@@ -26,18 +27,25 @@ export default async function OrdersPage({
   });
 
   return (
-    <div className="container max-w-[90%] lg:max-w-7xl mx-auto py-10">
-      <div className="mb-6 flex justify-between items-center">
-        <h1 className="text-2xl font-bold"></h1>
+    <div className="container mx-auto max-w-[90%] py-6 sm:py-8 lg:max-w-7xl lg:py-10">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold">Manage Orders</h1>
+
         <Link
           href="/"
-          className="inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
+          className="inline-flex w-fit items-center justify-center rounded-md border px-4 py-2 text-sm font-medium hover:bg-accent"
         >
           Go to Home
         </Link>
       </div>
 
-      <OrdersFilter />
+      <div className="mb-6 flex  w-full flex-col gap-4 lg:flex-col lg:items-end lg:justify-between">
+        <OrdersFilter />
+
+        <div className="w-full flex items-end justify-end lg:w-auto">
+          <GenerateOrdersReport />
+        </div>
+      </div>
 
       <OrderDataTableServer
         data={orders}

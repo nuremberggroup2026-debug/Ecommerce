@@ -187,7 +187,7 @@ export function DataTableServer<TData extends { id: string }, TValue>({
   return (
     <div className="space-y-4 ">
       {/* Header */}
-      <div className="flex items-center justify-between gap-4 rounded-xl border bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border bg-white p-4 shadow-sm">
         <div>
           <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
 
@@ -224,7 +224,7 @@ export function DataTableServer<TData extends { id: string }, TValue>({
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-xl border bg-white shadow-sm">
+      <div className="overflow-hidden overflow-x-auto rounded-xl border bg-white shadow-sm">
         <Table>
           <TableHeader className="bg-gray-50">
             {table.getHeaderGroups().map((headerGroup) => (

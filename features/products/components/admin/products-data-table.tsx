@@ -1,24 +1,24 @@
 "use client";
-
-import { DataTable } from "@/app/(admin)/dashboard/components/data-table";
 import { columns } from "./columns";
 import {
   adminDeleteProduct,
   deleteManyProducts,
 } from "@/features/products/api/products.client.api";
-import type { Product } from "@/features/products/types";
+import type { AdminProductsData } from "@/features/products/types";
+import { DataTableServer } from "@/app/(admin)/dashboard/components/data-table-server";
 
 interface ProductDataTableProps {
-  data: Product[];
+  data: AdminProductsData;
 }
 
 export function ProductDataTable({ data }: ProductDataTableProps) {
   return (
-    <DataTable
+    <DataTableServer
       columns={columns({
         onDelete: adminDeleteProduct,
       })}
-      data={data}
+      pageCount={data.pagination.totalPages?data.pagination.totalPages:1}
+      data={data.products}
       title="Products"
       description="Manage your products"
       addHref="/dashboard/products/add"

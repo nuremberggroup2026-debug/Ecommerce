@@ -1,3 +1,4 @@
+
 export type AllOrdersByUser = {
   id: string;
   createdAt: Date;
@@ -140,3 +141,51 @@ export type OrdersFilteration = {
   status?: OrderStatus;
   orderNumber?: string | null;
 };
+
+export type OrderReportFiltrationObject = {
+  from: string | Date;
+  to: string | Date;
+  status?: OrderStatus | `${OrderStatus}` | "ALL";
+};
+
+export type OrdersReportDataType = {
+  ordersSummary: {
+    allOrdersCount: number;
+    allSoldItems: number;
+    totalPendingOrdersCount: number;
+    totalCancelledOrdersCount: number;
+    totalDeliveredOrdersCount: number;
+    totalDeliveredOrdersAmount: string;
+  };
+  orderDetails: {
+    orderNumber: string;
+    paymentMethod: PaymentMethod;
+    totalAmount: number;
+    subtotal: number;
+    status: OrderStatus;
+    createdAt: Date | string;
+    updatedAt: Date | string;
+    email: string;
+    orderItemsNumbers: number;
+    products: {
+      name: string;
+      quantity: number;
+    }[];
+  }[];
+
+  topSoldProducts: {
+    name: string;
+    quantitySold: number;
+  }[];
+};
+
+
+export type ReportPreset =
+  | "today"
+  | "last7Days"
+  | "thisMonth"
+  | "lastMonth"
+  | "thisYear"
+  | "lastYear"
+  | "specificYear"
+  | "custom";

@@ -23,3 +23,9 @@ export type OrdersFilteration = {
   status?: OrderStatus;
   orderNumber?: string | null;
 };
+
+export type OrdersReportDataFilter  = {
+  status?: OrderStatus;
+  from: Date;
+  to: Date;
+};

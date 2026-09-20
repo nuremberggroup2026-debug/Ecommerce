@@ -5,7 +5,7 @@ export default async function DemoPage() {
   const categories = await adminCategories();
 
   return (
-    <div >
+    <div className="w-full min-w-0 pb-10">
       <CategoryDataTable  data={categories.data} />
     </div>
   );
