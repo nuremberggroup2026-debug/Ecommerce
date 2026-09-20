@@ -11,7 +11,6 @@ import { prisma } from "@/lib/prisma";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { generateOrderNumber } from "@/lib/helpers";
 import { Prisma } from "@/generated/prisma/client";
-import { fr } from "zod/v4/locales";
 
 export const placeAnOrder = async (
   orderData: PlaceOrderCreateInputs,

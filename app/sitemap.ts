@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { getAllProducts } from "@/server/products/services";
+import { getAllProductsSitemap } from "@/server/products/services";
 import { getAllCareers } from "@/server/careers/services";
 import { SITE_URL } from "@/lib/constants/metadataConstants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [productsResult, careersResult] = await Promise.all([
-    getAllProducts(),
+    getAllProductsSitemap(),
     getAllCareers(),
   ]);
 

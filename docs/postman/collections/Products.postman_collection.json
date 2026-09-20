@@ -17,7 +17,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"productNameEn\": \" Cotton T Shirt 9\",\r\n  \"productNameAr\": \"تيشيرت قطن فاخر\",\r\n  \"productDescriptionEn\": \"Updated premium cotton t shirt with improved fabric quality\",\r\n  \"productDescriptionAr\": \"تيشيرت قطن محدث بجودة قماش محسنة\",\r\n  \"productCardImage\": \"https://example.com/images/tshirt-card-new.jpg\",\r\n  \"productImages\": [\r\n    \"https://example.com/images/tshirt-1.jpg\",\r\n    \"https://example.com/images/tshirt-2.jpg\",\r\n    \"https://example.com/images/tshirt-3.jpg\"\r\n  ],\r\n  \"isFeatured\": true,\r\n  \"categoryId\": \"4eea6ac9-aee7-4ad4-9f50-6fbe2ce793ed\",\r\n  \"variants\": [\r\n    {\r\n      \"id\": \"2358c6df-0e93-4e08-a40b-85c8a277476b\",\r\n      \"sku\": \"TSHIRT-RED-18\",\r\n      \"variantImage\": \"https://example.com/images/red-shirt-updated.jpg\",\r\n      \"price\": 59.99,\r\n      \"discountPercentage\": 15,\r\n      \"stock\": 30,\r\n      \"isDefault\": false,\r\n      \"attributeValueIds\": [\r\n        \"31be0f7d-7d7d-485b-8747-645556f3ebdc\",\r\n        \"177505f8-8646-4a38-afeb-f87ece3accde\"\r\n      ]\r\n    },\r\n    {\r\n      \"id\": \"7af68ff1-3055-4313-be3c-a7404fa4f48e\",\r\n      \"sku\": \"TSHIRT-BLUE-12\",\r\n      \"variantImage\": \"https://example.com/images/blue-shirt-updated.jpg\",\r\n      \"price\": 54.99,\r\n      \"discountPercentage\": 5,\r\n      \"stock\": 18,\r\n      \"isDefault\": false,\r\n      \"attributeValueIds\": [\r\n        \"791da35d-ed70-4481-83f3-5d66cf6f0a76\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+          "raw": "{\r\n  \"productNameEn\": \" Cotton T Shirt 2555 26/8\",\r\n  \"productNameAr\": \"تيشيرت قطن فاخر\",\r\n  \"productDescriptionEn\": \"Updated premium cotton t shirt with improved fabric quality\",\r\n  \"productDescriptionAr\": \"تيشيرت قطن محدث بجودة قماش محسنة\",\r\n  \"productCardImage\": \"https://example.com/images/tshirt-card-new.jpg\",\r\n  \"productImages\": [\r\n    \"https://example.com/images/tshirt-1.jpg\",\r\n    \"https://example.com/images/tshirt-2.jpg\",\r\n    \"https://example.com/images/tshirt-3.jpg\"\r\n  ],\r\n  \"isFeatured\": true,\r\n  \"categoryId\": \"ca54855d-bb1e-4d96-a7fa-b2a2f6922dca\",\r\n  \"variants\": [\r\n    {\r\n      \r\n      \"sku\": \"TSHIRT-RED-18222\",\r\n      \"variantImage\": \"https://example.com/images/red-shirt-updated.jpg\",\r\n      \"price\": 59.99,\r\n      \"discountPercentage\": 15,\r\n      \"stock\": 30,\r\n      \"isDefault\": true,\r\n      \"attributeValueIds\": []\r\n    }\r\n  ]\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -40,7 +40,7 @@
       "response": []
     },
     {
-      "name": "All Products",
+      "name": "All Products For Admin Dashbaord",
       "request": {
         "auth": {
           "type": "noauth"
@@ -48,7 +48,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/products",
+          "raw": "http://localhost:3000/api/products?page=1&take=15&category=51d7aa40-475a-4b00-a6c7-bfe517dd10ac",
           "protocol": "http",
           "host": [
             "localhost"
@@ -57,6 +57,20 @@
           "path": [
             "api",
             "products"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "take",
+              "value": "15"
+            },
+            {
+              "key": "category",
+              "value": "51d7aa40-475a-4b00-a6c7-bfe517dd10ac"
+            }
           ]
         }
       },

@@ -588,6 +588,23 @@ export const deleteManyProducts = async (ids: string[]) => {
 
 /* -------------------- Caching Helps --------------------  */
 
+const getCachedProductsSitemap = () => {
+  return unstable_cache(
+    async () => {
+      const products = await prisma.products.findMany({
+        include: { categories: { select: { categoryNameEn: true } } },
+      });
+
+      return products;
+    },
+    ["sitemap-all-products"],
+    {
+      tags: ["products"],
+      revalidate: 3600,
+    },
+  )();
+};
+
 const getCachedProducts = (filtrationObj: AdminProductsFiltrationObject) => {
   const cacheKey = ["admin-filtered-products", JSON.stringify(filtrationObj)];
   console.log("cacheKey: ", cacheKey);
@@ -1110,6 +1127,17 @@ const getCachedDisCountProductsByLocale = (locale: Locale) =>
   )();
 
 /* -------------------- Caching Helps --------------------  */
+
+export const getAllProductsSitemap = async () => {
+  const result = await getCachedProductsSitemap();
+
+  return {
+    success: true,
+    message: "PRODUCTS_RETRIEVED_SUCCESSFULLY",
+    code: RESPONSE_CODES.OK,
+    data: result,
+  };
+};
 
 export const getAllProducts = async (
   filtrationObj: AdminProductsFiltrationObject,

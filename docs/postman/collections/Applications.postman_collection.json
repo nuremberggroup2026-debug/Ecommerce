@@ -78,7 +78,7 @@
           "raw": "{\r\n    \"firstName\": \"Ahmad\",\r\n    \"lastName\": \"Khalil\",\r\n    \"email\": \"ahmad.khalil@example.com\",\r\n    \"phoneNumber\": \"0791234567\",\r\n    \"major\": \"Computer Science\",\r\n    \"cv\": \"https://utfs.io/f/example-cv-ahmad.pdf\",\r\n    \"careerId\": \"e6e88bd7-b734-47b5-b76a-e1a1153922e4\"\r\n}"
         },
         "url": {
-          "raw": "http://localhost:3000/api/applications/5964d174-b25c-4e0b-8dfb-03769d061e45",
+          "raw": "http://localhost:3000/api/applications/c595f9d5-cf20-46e4-90ca-21acebe4b537",
           "protocol": "http",
           "host": [
             "localhost"
@@ -87,7 +87,7 @@
           "path": [
             "api",
             "applications",
-            "5964d174-b25c-4e0b-8dfb-03769d061e45"
+            "c595f9d5-cf20-46e4-90ca-21acebe4b537"
           ]
         }
       },
@@ -102,7 +102,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/applications/applications-with-career-by-id/5964d174-b25c-4e0b-8dfb-03769d061e45",
+          "raw": "http://localhost:3000/api/applications/applications-with-career-by-id/c595f9d5-cf20-46e4-90ca-21acebe4b537",
           "protocol": "http",
           "host": [
             "localhost"
@@ -112,7 +112,7 @@
             "api",
             "applications",
             "applications-with-career-by-id",
-            "5964d174-b25c-4e0b-8dfb-03769d061e45"
+            "c595f9d5-cf20-46e4-90ca-21acebe4b537"
           ]
         }
       },

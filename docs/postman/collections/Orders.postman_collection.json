@@ -45,7 +45,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/orders/admin",
+          "raw": "http://localhost:3000/api/orders/admin?page=2&take=5&orderStatus=pending",
           "protocol": "http",
           "host": [
             "localhost"
@@ -55,6 +55,20 @@
             "api",
             "orders",
             "admin"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            },
+            {
+              "key": "take",
+              "value": "5"
+            },
+            {
+              "key": "orderStatus",
+              "value": "pending"
+            }
           ]
         }
       },
@@ -66,7 +80,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/orders/admin/817d8376-85e2-40ae-a4d5-0725b5995ddb",
+          "raw": "http://localhost:3000/api/orders/admin/07d6e1cd-f6d3-4f87-b2db-ac5d77e9be0f",
           "protocol": "http",
           "host": [
             "localhost"
@@ -76,7 +90,7 @@
             "api",
             "orders",
             "admin",
-            "817d8376-85e2-40ae-a4d5-0725b5995ddb"
+            "07d6e1cd-f6d3-4f87-b2db-ac5d77e9be0f"
           ]
         }
       },

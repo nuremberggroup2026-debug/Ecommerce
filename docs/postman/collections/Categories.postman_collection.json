@@ -184,6 +184,34 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "All Categories Name And ID",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": " {\r\n    \"attributeNameEn\": \"Material\",\r\n    \"attributeNameAr\": \"الخامة\"\r\n  }"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/categories/categories_name_and_id",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "categories",
+            "categories_name_and_id"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }
