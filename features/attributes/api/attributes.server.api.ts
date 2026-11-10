@@ -12,7 +12,7 @@ export async function adminAttributes(): Promise<
   ResponseType<AdminAttribute[]>
 > {
   const data = await api.get<ResponseType<AdminAttribute[]>>(
-    `${API.ENDPOINTS.ATTRIBUTES.ALL_ATTRIBUTES}`,
+    `${API.ENDPOINTS.ATTRIBUTES.ALL_ATTRIBUTES}`,{cache:"no-store"}
   );
 
   return data;
@@ -25,7 +25,7 @@ export async function adminAttributeById(
   console.log("session in apiser: ", session);
 
   const data = await api.get<ResponseType<AdminAttribute>>(
-    `${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_BY_ID}/${id}`,
+    `${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_BY_ID}/${id}`, {cache:"no-store"}
   );
 
   return data;
@@ -35,7 +35,7 @@ export async function adminAttributeWithValues(): Promise<
   ResponseType<AttributesWithValues[]>
 > {
   const data = await api.get<ResponseType<AttributesWithValues[]>>(
-    `${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_WITH_VALUES}`,
+    `${API.ENDPOINTS.ATTRIBUTES.ATTRIBUTE_WITH_VALUES}`, {cache:"no-store"}
   );
 
   return data;

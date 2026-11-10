@@ -33,6 +33,7 @@ export async function adminCategories(): Promise<
 > {
   const data = await api.get<ResponseType<AdminCategories[]>>(
     `${API.ENDPOINTS.CATEGORIES.ALL_CATEGORIES}`,
+    { cache: "no-store" },
   );
 
   return data;
@@ -42,6 +43,7 @@ export async function adminCategoryById(
 ): Promise<ResponseType<AdminCategories>> {
   const data = await api.get<ResponseType<AdminCategories>>(
     `${API.ENDPOINTS.CATEGORIES.CATEGORY_BY_ID}/${id}`,
+    { cache: "no-store" },
   );
 
   return data;
@@ -52,6 +54,7 @@ export async function adminCategoriesNameAndIDs(): Promise<
 > {
   const data = await api.get<ResponseType<CategoiresNameAndIDs[]>>(
     `${API.ENDPOINTS.CATEGORIES.CATEGORIES_NAME_AND_IDS}`,
+    { cache: "no-store" },
   );
 
   return data;

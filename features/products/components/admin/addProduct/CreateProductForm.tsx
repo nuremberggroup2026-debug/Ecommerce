@@ -107,6 +107,7 @@ export default function CreateProductForm({
 
       await toastResponse(adminAddProduct(payload), "Adding Product");
       router.replace("/dashboard/products");
+      router.refresh();
     } catch (error) {
       console.error(error);
       toast.error(
@@ -127,7 +128,7 @@ export default function CreateProductForm({
           </p>
         </div>
 
-        <form onSubmit={methods.handleSubmit(onSubmit)} >
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
           <ProductInformationSection
             categoriesNamesAndIDs={categoriesNamesAndIDs}
             onProductCardImageSelect={setCardImageFile}

@@ -23,14 +23,14 @@ export async function adminOrders(
   const queryString = searchParams.toString();
   const url = `${API.ENDPOINTS.ORDERS.ALL_ORDERS}${queryString ? `?${queryString}` : ""}`;
 
-  return api.get<ResponseType<AdminOrdersData>>(url);
+  return api.get<ResponseType<AdminOrdersData>>(url,{cache:"no-store"});
 }
 
 export async function adminOrderById(
   id: string,
 ): Promise<ResponseType<OrderByIdAdmin>> {
   return api.get<ResponseType<OrderByIdAdmin>>(
-    `${API.ENDPOINTS.ORDERS.ORDER_BY_ID}/${id}`,
+    `${API.ENDPOINTS.ORDERS.ORDER_BY_ID}/${id}`, {cache:"no-store"}
   );
 }
 

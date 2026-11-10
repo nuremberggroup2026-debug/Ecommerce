@@ -10,7 +10,7 @@ export async function adminApplicationById(
   id: string,
 ): Promise<ResponseType<CareerApplication>> {
   return api.get<ResponseType<CareerApplication>>(
-    `${API.ENDPOINTS.APPLICATIONS.APPLICATION_WITH_CAREER_BY_ID}/${id}`,
+    `${API.ENDPOINTS.APPLICATIONS.APPLICATION_WITH_CAREER_BY_ID}/${id}`, {cache:"no-store"}
   );
 }
 export async function adminApplicationsByCareerId(
@@ -19,6 +19,6 @@ export async function adminApplicationsByCareerId(
   take: number,
 ): Promise<ResponseType<AdminApplicationData>> {
   return api.get<ResponseType<AdminApplicationData>>(
-    `${API.ENDPOINTS.APPLICATIONS.APPLICATIONS_BY_CAREER_ID}/${id}?page=${page}&take=${take}`,
+    `${API.ENDPOINTS.APPLICATIONS.APPLICATIONS_BY_CAREER_ID}/${id}?page=${page}&take=${take}`, {cache:"no-store"}
   );
 }

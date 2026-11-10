@@ -7,7 +7,7 @@ import Footer from "@/widgets/Footer";
 import { Navbar } from "@/widgets/navbar";
 import { generateSiteMetadata } from "@/lib/constants/metadata";
 import { Locale } from "@/types";
-
+import { AuraChatWidget } from "@/features/chat/components/AuraChatWidget";
 export async function generateMetadata({
   params,
 }: {
@@ -16,8 +16,6 @@ export async function generateMetadata({
   const { locale } = await params;
   return generateSiteMetadata(locale);
 }
-
-
 
 export default async function LocaleLayout({
   children,
@@ -47,6 +45,7 @@ export default async function LocaleLayout({
       <NextIntlClientProvider messages={messages}>
         <Navbar />
         {children}
+        <AuraChatWidget />
         <Toaster
           dir={dir}
           toastOptions={{

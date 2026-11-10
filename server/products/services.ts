@@ -14,6 +14,10 @@ import { prisma } from "@/lib/prisma";
 import { generateSlug, hasDuplicateAttributes } from "@/lib/helpers/index";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { Prisma } from "@/generated/prisma/client";
+import {
+  syncProductToPinecone,
+  deleteProductsFromPinecone,
+} from "@/lib/ai/pinecone-sync";
 
 export const createProductWithVariant = async (
   newProductWithVariants: ProductWithVaraintsCreateInput,
@@ -153,7 +157,7 @@ export const createProductWithVariant = async (
       ...preparedVariants.map((v) => v.finalPrice),
     );
 
-    await prisma.$transaction(async (tx) => {
+    const createProduct = await prisma.$transaction(async (tx) => {
       const slug = generateSlug(validation.data.productNameEn);
 
       const newProduct = await tx.products.create({
@@ -190,10 +194,19 @@ export const createProductWithVariant = async (
           });
         }
       }
+
+      return newProduct;
     });
 
-    revalidateTag("products", { expire: 0 });
-    revalidateTag("productVariants", { expire: 0 });
+    await syncProductToPinecone(createProduct.id).catch((err) => {
+      console.error("Async Pinecone sync error on create:", err);
+    });
+    try {
+      revalidateTag("products", { expire: 0 });
+      revalidateTag("productVariants", { expire: 0 });
+    } catch (cacheError) {
+      console.error("⚠️ Cache revalidation failed (non-fatal):", cacheError);
+    }
 
     return {
       success: true,
@@ -242,9 +255,6 @@ export const updateProductWithVariant = async (
     }
 
     const validation = updateProductSchema.safeParse(updatedProductData);
-    console.log("foooorm: ", updatedProductData);
-
-    console.log("validation pr:", validation.error);
 
     if (!validation.success) {
       return {
@@ -402,10 +412,6 @@ export const updateProductWithVariant = async (
               finalPrice = Number(
                 (price - (price * discountPercentage) / 100).toFixed(2),
               );
-
-              console.log(
-                `number: ${variant.discountPercentage}: ${finalPrice}, ${arrayOfFinalPrice}`,
-              );
               await tx.product_variants.update({
                 where: {
                   id: variantId,
@@ -461,13 +467,6 @@ export const updateProductWithVariant = async (
           }
         }
 
-        console.log("arrayOfFinalPrice: ", arrayOfFinalPrice);
-
-        console.log(
-          "new Prisma.Decimal(Math.min(...arrayOfFinalPrice)): ",
-          new Prisma.Decimal(Math.min(...arrayOfFinalPrice)),
-        );
-
         await tx.products.update({
           where: {
             id,
@@ -498,8 +497,15 @@ export const updateProductWithVariant = async (
       }
     });
 
-    revalidateTag("products", { expire: 0 });
-    revalidateTag("productVariants", { expire: 0 });
+    syncProductToPinecone(id).catch((err) =>
+      console.error("Async Pinecone sync error on update:", err),
+    );
+    try {
+      revalidateTag("products", { expire: 0 });
+      revalidateTag("productVariants", { expire: 0 });
+    } catch (cacheError) {
+      console.error("⚠️ Cache revalidation failed (non-fatal):", cacheError);
+    }
 
     return {
       success: true,
@@ -551,7 +557,14 @@ export const deleteProduct = async (id: string) => {
     where: { id },
   });
 
-  revalidateTag("products", { expire: 0 });
+  deleteProductsFromPinecone([id]).catch((err) =>
+    console.error("Async Pinecone deletion error:", err),
+  );
+  try {
+    revalidateTag("products", { expire: 0 });
+  } catch (cacheError) {
+    console.error("⚠️ Cache revalidation failed (non-fatal):", cacheError);
+  }
 
   return {
     success: true,
@@ -577,7 +590,15 @@ export const deleteManyProducts = async (ids: string[]) => {
     },
   });
 
-  revalidateTag("products", { expire: 0 });
+  deleteProductsFromPinecone(ids).catch((err) =>
+    console.error("Async Pinecone batch deletion error:", err),
+  );
+
+  try {
+    revalidateTag("products", { expire: 0 });
+  } catch (cacheError) {
+    console.error("⚠️ Cache revalidation failed (non-fatal):", cacheError);
+  }
   return {
     success: true,
     message: "ITEMS_DELETED",

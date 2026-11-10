@@ -123,7 +123,11 @@ export const API = {
       DELETE_MANY_PROMO_CODES: "promo-codes/delete-many",
     },
     DASHBOARD: {
-      DASHBOARD_NUMBERS: "/dashboard-numbers",
+      DASHBOARD_NUMBERS: "dashboard-numbers",
+    },
+    CHAT: {
+      SEND_MESSAGE: "chat",
+      CHAT_HISTORY: "chat/history",
     },
   },
 };

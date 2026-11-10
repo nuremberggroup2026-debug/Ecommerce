@@ -18,6 +18,7 @@ export async function adminProductById(
 ): Promise<ResponseType<ProductById>> {
   return api.get<ResponseType<ProductById>>(
     `${API.ENDPOINTS.PRODUCTS.PRODUCT_BY_ID}/${id}`,
+    { cache: "no-store" },
   );
 }
 
@@ -34,6 +35,7 @@ export async function adminProducts(
   }
   return api.get<ResponseType<AdminProductsData>>(
     `${API.ENDPOINTS.PRODUCTS.ALL_PRODUCTS}?${params}`,
+    { cache: "no-store" },
   );
 }
 

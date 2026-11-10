@@ -21,7 +21,7 @@ export async function fetchBanners(
 
 export async function adminBanners(): Promise<ResponseType<AdminBanner[]>> {
   const data = await api.get<ResponseType<AdminBanner[]>>(
-    `${API.ENDPOINTS.BANNERS.ALL_BANNERS}`,
+    `${API.ENDPOINTS.BANNERS.ALL_BANNERS}`, {cache:"no-store"}
   );
 
   return data;
@@ -34,7 +34,7 @@ export async function adminBannerById(
   console.log("session in apiser: ", session);
 
   const data = await api.get<ResponseType<AdminBanner>>(
-    `${API.ENDPOINTS.BANNERS.BANNER_BY_ID}/${id}`,
+    `${API.ENDPOINTS.BANNERS.BANNER_BY_ID}/${id}`, {cache:"no-store"}
   );
 
   return data;

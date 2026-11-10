@@ -138,7 +138,11 @@ export default function EditProductForm({
         "Updating Product",
       );
 
-      if (result.success) return router.replace("/dashboard/products");
+      if (result.success) {
+        router.refresh();
+        router.replace("/dashboard/products");
+        return;
+      }
     } catch (error) {
       console.error(error);
       toast.error(
@@ -163,7 +167,7 @@ export default function EditProductForm({
           </p>
         </div>
 
-        <form onSubmit={methods.handleSubmit(onSubmit)} >
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
           <ProductInformationSection
             categoriesNamesAndIDs={categoriesNamesAndIDs}
             onProductCardImageSelect={setCardImageFile}

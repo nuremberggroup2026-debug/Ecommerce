@@ -36,6 +36,7 @@ export async function adminCareerById(
 ): Promise<ResponseType<AdminCareers>> {
   return api.get<ResponseType<AdminCareers>>(
     `${API.ENDPOINTS.CAREERS.CAREER_BY_ID}/${id}`,
+    { cache: "no-store" },
   );
 }
 
@@ -52,5 +53,6 @@ export async function fetchCareersWithApplications(): Promise<
 export async function adminCareers(): Promise<ResponseType<AdminCareers[]>> {
   return api.get<ResponseType<AdminCareers[]>>(
     API.ENDPOINTS.CAREERS.ALL_CAREERS,
+    { cache: "no-store" },
   );
 }

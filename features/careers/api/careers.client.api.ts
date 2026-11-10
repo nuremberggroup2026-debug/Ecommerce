@@ -19,6 +19,7 @@ export async function adminAddCareer(
   return Clientapi.post<AddResponseType, CreateAdminCareer>(
     API.ENDPOINTS.CAREERS.ADD_CAREER,
     data,
+    
   );
 }
 
